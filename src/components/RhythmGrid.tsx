@@ -279,12 +279,12 @@ const RhythmGrid = () => {
         {/* Grid */}
         <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
           <div className="relative">
-            {/* Moving slider - wider and properly positioned */}
+            {/* Moving slider - properly positioned to align with beat nodes */}
             <div 
               className="absolute top-0 bottom-0 bg-white/30 shadow-lg shadow-white/50 z-10 rounded-md"
               style={{
-                left: `calc(6rem + ${currentBeat} * (100% / 8) + ${currentBeat} * 1rem)`,
-                width: 'calc(12.5% - 1rem)',
+                left: `calc(6rem + ${currentBeat} * calc((100% - 6rem) / 8))`,
+                width: 'calc((100% - 6rem) / 8 - 1rem)',
                 opacity: isPlaying ? 1 : 0,
                 transition: isPlaying ? `left ${(60 / speedLevels[speedLevel].bpm) * 500}ms linear` : 'opacity 0.3s ease-in-out'
               }}
