@@ -51,6 +51,7 @@ const RhythmGrid = () => {
   ]);
 
   const playSound = useCallback((soundType: string, isHalfBeat = false) => {
+    console.log(`Playing ${soundType} sound, isHalfBeat: ${isHalfBeat}`);
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     const masterGain = audioContext.createGain();
     masterGain.connect(audioContext.destination);
@@ -241,11 +242,12 @@ const RhythmGrid = () => {
           const nextHalfBeat = (prevHalfBeat + 1) % 2;
           
           if (nextHalfBeat === 0) {
-            // Main beat
+            // Moving to main beat
             setCurrentBeat(prevBeat => {
               const nextBeat = (prevBeat + 1) % 8;
+              console.log(`Main beat ${nextBeat}`);
               
-              // Play sounds for main beats
+              // Play sounds for main beats immediately when beat changes
               tracks.forEach(track => {
                 if (track.pattern[nextBeat]) {
                   playSound(track.sound, false);
@@ -255,7 +257,8 @@ const RhythmGrid = () => {
               return nextBeat;
             });
           } else {
-            // Half beat
+            // Moving to half beat - use current beat for half beat sounds
+            console.log(`Half beat for beat ${currentBeat}`);
             tracks.forEach(track => {
               if (track.halfPattern[currentBeat]) {
                 playSound(track.sound, true);
