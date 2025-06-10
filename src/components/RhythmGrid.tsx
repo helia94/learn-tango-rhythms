@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw } from 'lucide-react';
@@ -242,7 +241,7 @@ const RhythmGrid = () => {
           <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Rhythm Lab
           </h1>
-          <p className="text-gray-400">Create rhythmic patterns by clicking the grid</p>
+          <p className="text-gray-400">Create rhythmic patterns by clicking the nodes</p>
         </div>
 
         {/* Controls */}
@@ -269,26 +268,29 @@ const RhythmGrid = () => {
 
         {/* Grid */}
         <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
-          <div className="space-y-4">
+          <div className="space-y-6">
             {tracks.map(track => <div key={track.id} className="flex items-center gap-4">
                 <div className="w-24 text-right text-sm font-medium text-gray-300">
                   {track.name}
                 </div>
-                <div className="grid grid-cols-8 gap-2 flex-1">
+                <div className="grid grid-cols-8 gap-4 flex-1">
                   {track.pattern.map((isActive, beatIndex) => <button key={beatIndex} onClick={() => toggleBeat(track.id, beatIndex)} className={`
-                        aspect-square rounded transition-all duration-150 transform
-                        ${isActive ? `${track.color} scale-95 shadow-lg` : 'bg-gray-700 hover:bg-gray-600'}
-                        ${currentBeat === beatIndex ? 'ring-2 ring-white ring-opacity-50' : ''}
-                        hover:scale-105 active:scale-90
+                        w-8 h-8 rounded-full transition-all duration-200 transform border-2
+                        ${isActive 
+                          ? `${track.color} border-white scale-110 shadow-lg shadow-white/30` 
+                          : 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-gray-500'
+                        }
+                        ${currentBeat === beatIndex ? 'ring-4 ring-white ring-opacity-50 animate-pulse' : ''}
+                        hover:scale-105 active:scale-95
                       `} />)}
                 </div>
               </div>)}
           </div>
           
           {/* Beat numbers */}
-          <div className="flex items-center gap-4 mt-4">
+          <div className="flex items-center gap-4 mt-6">
             <div className="w-24"></div>
-            <div className="grid grid-cols-8 gap-2 flex-1">
+            <div className="grid grid-cols-8 gap-4 flex-1">
               {[1, 2, 3, 4, 1, 2, 3, 4].map((number, index) => (
                 <div key={index} className="text-center text-sm text-gray-400 font-medium">
                   {number}
@@ -300,7 +302,7 @@ const RhythmGrid = () => {
 
         {/* Instructions */}
         <div className="mt-8 text-center text-gray-400 text-sm max-w-2xl mx-auto">
-          <p>Click on the grid to create rhythm patterns. Each row represents a different instrument. 
+          <p>Click on the nodes to create rhythm patterns. Each row represents a different instrument. 
           The second set of 4 beats automatically mirrors the first 4, unless you manually change them.
           Press play to hear your creation and adjust the speed to your liking!</p>
         </div>
