@@ -87,11 +87,6 @@ export default {
 				'retro': '1.5rem',
 				'bubble': '2rem'
 			},
-			fontFamily: {
-				'retro': ['Comic Sans MS', 'cursive', 'sans-serif'],
-				'game': ['Courier New', 'monospace'],
-				'fun': ['Impact', 'Arial Black', 'sans-serif']
-			},
 			keyframes: {
 				'accordion-down': {
 					from: {
