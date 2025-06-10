@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw } from 'lucide-react';
+
 interface Track {
   id: string;
   name: string;
@@ -8,34 +9,36 @@ interface Track {
   sound: string;
   pattern: boolean[];
 }
+
 const RhythmGrid = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentBeat, setCurrentBeat] = useState(0);
   const [speedLevel, setSpeedLevel] = useState(1); // 0 = Slow, 1 = Medium, 2 = Fast
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const speedLevels = [{
-    name: 'Slow',
-    bpm: 40
-  }, {
-    name: 'Medium',
-    bpm: 60
-  }, {
-    name: 'Fast',
-    bpm: 80
-  }];
-  const [tracks, setTracks] = useState<Track[]>([{
-    id: 'piano',
-    name: 'Piano',
-    color: 'bg-blue-500',
-    sound: 'piano',
-    pattern: new Array(8).fill(false)
-  }, {
-    id: 'doublebass',
-    name: 'Double Bass',
-    color: 'bg-amber-600',
-    sound: 'doublebass',
-    pattern: new Array(8).fill(false)
-  }]);
+
+  const speedLevels = [
+    { name: 'Slow', bpm: 40 },
+    { name: 'Medium', bpm: 60 },
+    { name: 'Fast', bpm: 80 }
+  ];
+
+  const [tracks, setTracks] = useState<Track[]>([
+    {
+      id: 'piano',
+      name: 'Piano',
+      color: 'bg-blue-500',
+      sound: 'piano',
+      pattern: new Array(8).fill(false)
+    },
+    {
+      id: 'doublebass',
+      name: 'Double Bass',
+      color: 'bg-amber-600',
+      sound: 'doublebass',
+      pattern: new Array(8).fill(false)
+    }
+  ]);
+
   const playSound = useCallback((soundType: string) => {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     const masterGain = audioContext.createGain();
@@ -148,37 +151,52 @@ const RhythmGrid = () => {
     // Set master volume
     masterGain.gain.setValueAtTime(0.8, audioContext.currentTime);
   }, []);
+
   const toggleBeat = (trackId: string, beatIndex: number) => {
-    setTracks(prevTracks => prevTracks.map(track => track.id === trackId ? {
-      ...track,
-      pattern: track.pattern.map((beat, index) => index === beatIndex ? !beat : beat)
-    } : track));
+    setTracks(prevTracks =>
+      prevTracks.map(track =>
+        track.id === trackId
+          ? {
+              ...track,
+              pattern: track.pattern.map((beat, index) =>
+                index === beatIndex ? !beat : beat
+              )
+            }
+          : track
+      )
+    );
   };
+
   const clearAll = () => {
-    setTracks(prevTracks => prevTracks.map(track => ({
-      ...track,
-      pattern: new Array(8).fill(false)
-    })));
+    setTracks(prevTracks =>
+      prevTracks.map(track => ({
+        ...track,
+        pattern: new Array(8).fill(false)
+      }))
+    );
     setCurrentBeat(0);
   };
+
   const togglePlayback = () => {
     setIsPlaying(!isPlaying);
   };
+
   useEffect(() => {
     if (isPlaying) {
       const currentBpm = speedLevels[speedLevel].bpm;
-      const beatDuration = 60 / currentBpm * 500; // 8th notes instead of 16th
+      const beatDuration = (60 / currentBpm) * 500; // 8th notes instead of 16th
 
       intervalRef.current = setInterval(() => {
         setCurrentBeat(prevBeat => {
           const nextBeat = (prevBeat + 1) % 8;
-
-          // Play sounds for active beats
+          
+          // Play sounds for the current beat (nextBeat) instead of prevBeat
           tracks.forEach(track => {
-            if (track.pattern[prevBeat]) {
+            if (track.pattern[nextBeat]) {
               playSound(track.sound);
             }
           });
+
           return nextBeat;
         });
       }, beatDuration);
@@ -188,12 +206,14 @@ const RhythmGrid = () => {
         intervalRef.current = null;
       }
     }
+
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
   }, [isPlaying, speedLevel, tracks, playSound, speedLevels]);
+
   return <div className="min-h-screen bg-gray-900 text-white p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -256,4 +276,5 @@ const RhythmGrid = () => {
       </div>
     </div>;
 };
+
 export default RhythmGrid;
