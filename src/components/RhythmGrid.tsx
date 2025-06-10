@@ -17,6 +17,7 @@ const RhythmGrid = () => {
   const [currentBeat, setCurrentBeat] = useState(0);
   const [speedLevel, setSpeedLevel] = useState(1); // 0 = Slow, 1 = Medium, 2 = Fast
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const audioTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const speedLevels = [
     { name: 'Slow', bpm: 40 },
@@ -206,26 +207,32 @@ const RhythmGrid = () => {
     if (isPlaying) {
       const currentBpm = speedLevels[speedLevel].bpm;
       const beatDuration = (60 / currentBpm) * 500; // 8th notes instead of 16th
+      const audioLeadTime = 50; // Play audio 50ms before visual beat change
 
       intervalRef.current = setInterval(() => {
-        setCurrentBeat(prevBeat => {
-          const nextBeat = (prevBeat + 1) % 8;
-          
-          // Play sounds for the nextBeat immediately when we set it
-          // This ensures the slider position and sound are perfectly synchronized
+        // Schedule audio to play slightly before the visual beat change
+        audioTimeoutRef.current = setTimeout(() => {
           tracks.forEach(track => {
+            const nextBeat = (currentBeat + 1) % 8;
             if (track.pattern[nextBeat]) {
               playSound(track.sound);
             }
           });
+        }, beatDuration - audioLeadTime);
 
-          return nextBeat;
-        });
+        // Update visual beat after audio lead time
+        setTimeout(() => {
+          setCurrentBeat(prevBeat => (prevBeat + 1) % 8);
+        }, beatDuration);
       }, beatDuration);
     } else {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
+      }
+      if (audioTimeoutRef.current) {
+        clearTimeout(audioTimeoutRef.current);
+        audioTimeoutRef.current = null;
       }
     }
 
@@ -233,8 +240,11 @@ const RhythmGrid = () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
+      if (audioTimeoutRef.current) {
+        clearTimeout(audioTimeoutRef.current);
+      }
     };
-  }, [isPlaying, speedLevel, tracks, playSound, speedLevels]);
+  }, [isPlaying, speedLevel, tracks, currentBeat, playSound, speedLevels]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
@@ -280,7 +290,7 @@ const RhythmGrid = () => {
         {/* Grid */}
         <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
           <div className="relative">
-            {/* Moving slider - synchronized with sound playback */}
+            {/* Moving slider - with audio lead compensation */}
             <div 
               className="absolute top-0 bottom-0 bg-white/30 shadow-lg shadow-white/50 z-10 rounded-md"
               style={{
