@@ -18,9 +18,9 @@ const RhythmGrid = () => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const speedLevels = [
-    { name: 'Slow', bpm: 80 },
-    { name: 'Medium', bpm: 120 },
-    { name: 'Fast', bpm: 160 }
+    { name: 'Slow', bpm: 40 },
+    { name: 'Medium', bpm: 60 },
+    { name: 'Fast', bpm: 80 }
   ];
 
   const [tracks, setTracks] = useState<Track[]>([
