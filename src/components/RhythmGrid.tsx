@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw } from 'lucide-react';
@@ -17,7 +16,6 @@ const RhythmGrid = () => {
   const [currentBeat, setCurrentBeat] = useState(0);
   const [speedLevel, setSpeedLevel] = useState(1); // 0 = Slow, 1 = Medium, 2 = Fast
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const audioTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const speedLevels = [
     { name: 'Slow', bpm: 40 },
@@ -207,32 +205,25 @@ const RhythmGrid = () => {
     if (isPlaying) {
       const currentBpm = speedLevels[speedLevel].bpm;
       const beatDuration = (60 / currentBpm) * 500; // 8th notes instead of 16th
-      const audioLeadTime = 50; // Play audio 50ms before visual beat change
 
       intervalRef.current = setInterval(() => {
-        // Schedule audio to play slightly before the visual beat change
-        audioTimeoutRef.current = setTimeout(() => {
+        setCurrentBeat(prevBeat => {
+          const nextBeat = (prevBeat + 1) % 8;
+          
+          // Play sounds for the current beat (nextBeat) instead of prevBeat
           tracks.forEach(track => {
-            const nextBeat = (currentBeat + 1) % 8;
             if (track.pattern[nextBeat]) {
               playSound(track.sound);
             }
           });
-        }, beatDuration - audioLeadTime);
 
-        // Update visual beat after audio lead time
-        setTimeout(() => {
-          setCurrentBeat(prevBeat => (prevBeat + 1) % 8);
-        }, beatDuration);
+          return nextBeat;
+        });
       }, beatDuration);
     } else {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
-      }
-      if (audioTimeoutRef.current) {
-        clearTimeout(audioTimeoutRef.current);
-        audioTimeoutRef.current = null;
       }
     }
 
@@ -240,14 +231,10 @@ const RhythmGrid = () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
-      if (audioTimeoutRef.current) {
-        clearTimeout(audioTimeoutRef.current);
-      }
     };
-  }, [isPlaying, speedLevel, tracks, currentBeat, playSound, speedLevels]);
+  }, [isPlaying, speedLevel, tracks, playSound, speedLevels]);
 
-  return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+  return <div className="min-h-screen bg-gray-900 text-white p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center">
@@ -272,60 +259,32 @@ const RhythmGrid = () => {
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-400 min-w-[60px]">Speed:</span>
             <div className="flex gap-2">
-              {speedLevels.map((speed, index) => (
-                <Button 
-                  key={index} 
-                  onClick={() => setSpeedLevel(index)} 
-                  variant={speedLevel === index ? "default" : "outline"} 
-                  size="sm" 
-                  className={`transition-all duration-200 ${speedLevel === index ? "bg-primary text-primary-foreground" : "border-gray-600 text-gray-300 hover:bg-gray-800"}`}
-                >
+              {speedLevels.map((speed, index) => <Button key={index} onClick={() => setSpeedLevel(index)} variant={speedLevel === index ? "default" : "outline"} size="sm" className={`transition-all duration-200 ${speedLevel === index ? "bg-primary text-primary-foreground" : "border-gray-600 text-gray-300 hover:bg-gray-800"}`}>
                   {speed.name}
-                </Button>
-              ))}
+                </Button>)}
             </div>
           </div>
         </div>
 
         {/* Grid */}
         <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
-          <div className="relative">
-            {/* Moving slider - with audio lead compensation */}
-            <div 
-              className="absolute top-0 bottom-0 bg-white/30 shadow-lg shadow-white/50 z-10 rounded-md"
-              style={{
-                left: `calc(6rem + ${currentBeat} * calc((100% - 6rem) / 8))`,
-                width: 'calc((100% - 6rem) / 8 - 1rem)',
-                opacity: isPlaying ? 1 : 0,
-                transition: isPlaying ? `left ${(60 / speedLevels[speedLevel].bpm) * 500}ms linear` : 'opacity 0.3s ease-in-out'
-              }}
-            />
-            
-            <div className="space-y-6">
-              {tracks.map(track => (
-                <div key={track.id} className="flex items-center gap-4">
-                  <div className="w-24 text-right text-sm font-medium text-gray-300">
-                    {track.name}
-                  </div>
-                  <div className="grid grid-cols-8 gap-4 flex-1">
-                    {track.pattern.map((isActive, beatIndex) => (
-                      <button 
-                        key={beatIndex} 
-                        onClick={() => toggleBeat(track.id, beatIndex)} 
-                        className={`
-                          w-8 h-8 rounded-full transition-all duration-200 transform border-2
-                          ${isActive 
-                            ? `${track.color} border-white scale-110 shadow-lg shadow-white/30` 
-                            : 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-gray-500'
-                          }
-                          hover:scale-105 active:scale-95
-                        `} 
-                      />
-                    ))}
-                  </div>
+          <div className="space-y-6">
+            {tracks.map(track => <div key={track.id} className="flex items-center gap-4">
+                <div className="w-24 text-right text-sm font-medium text-gray-300">
+                  {track.name}
                 </div>
-              ))}
-            </div>
+                <div className="grid grid-cols-8 gap-4 flex-1">
+                  {track.pattern.map((isActive, beatIndex) => <button key={beatIndex} onClick={() => toggleBeat(track.id, beatIndex)} className={`
+                        w-8 h-8 rounded-full transition-all duration-200 transform border-2
+                        ${isActive 
+                          ? `${track.color} border-white scale-110 shadow-lg shadow-white/30` 
+                          : 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-gray-500'
+                        }
+                        ${currentBeat === beatIndex ? 'ring-4 ring-white ring-opacity-50' : ''}
+                        hover:scale-105 active:scale-95
+                      `} />)}
+                </div>
+              </div>)}
           </div>
           
           {/* Beat numbers */}
@@ -348,8 +307,7 @@ const RhythmGrid = () => {
           Press play to hear your creation and adjust the speed to your liking!</p>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
 
 export default RhythmGrid;
