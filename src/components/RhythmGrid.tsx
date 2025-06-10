@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw } from 'lucide-react';
@@ -8,13 +9,16 @@ interface Track {
   color: string;
   sound: string;
   pattern: boolean[];
-  manuallyModified: boolean[]; // Track which beats in second half were manually modified
+  halfPattern: boolean[]; // Half beats pattern
+  manuallyModified: boolean[];
+  halfManuallyModified: boolean[]; // Track which half beats were manually modified
 }
 
 const RhythmGrid = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentBeat, setCurrentBeat] = useState(0);
-  const [speedLevel, setSpeedLevel] = useState(1); // 0 = Slow, 1 = Medium, 2 = Fast
+  const [currentHalfBeat, setCurrentHalfBeat] = useState(0); // 0 = main beat, 1 = half beat
+  const [speedLevel, setSpeedLevel] = useState(1);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const speedLevels = [
@@ -30,7 +34,9 @@ const RhythmGrid = () => {
       color: 'bg-blue-500',
       sound: 'piano',
       pattern: new Array(8).fill(false),
-      manuallyModified: new Array(8).fill(false)
+      halfPattern: new Array(8).fill(false),
+      manuallyModified: new Array(8).fill(false),
+      halfManuallyModified: new Array(8).fill(false)
     },
     {
       id: 'doublebass',
@@ -38,18 +44,24 @@ const RhythmGrid = () => {
       color: 'bg-amber-600',
       sound: 'doublebass',
       pattern: new Array(8).fill(false),
-      manuallyModified: new Array(8).fill(false)
+      halfPattern: new Array(8).fill(false),
+      manuallyModified: new Array(8).fill(false),
+      halfManuallyModified: new Array(8).fill(false)
     }
   ]);
 
-  const playSound = useCallback((soundType: string) => {
+  const playSound = useCallback((soundType: string, isHalfBeat = false) => {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     const masterGain = audioContext.createGain();
     masterGain.connect(audioContext.destination);
+    
     if (soundType === 'piano') {
       // Tango piano: sharp, staccato attack with quick decay
-      const frequencies = [261.63, 329.63, 392.00, 523.25]; // C major chord with octave
-      const duration = 0.15; // Very short and staccato
+      const frequencies = isHalfBeat 
+        ? [293.66, 369.99, 440.00, 587.33] // D major chord (slightly higher)
+        : [261.63, 329.63, 392.00, 523.25]; // C major chord
+      const duration = isHalfBeat ? 0.1 : 0.15; // Shorter for half beats
+      const volumeMultiplier = isHalfBeat ? 0.7 : 1; // Quieter for half beats
 
       frequencies.forEach((frequency, index) => {
         const oscillator = audioContext.createOscillator();
@@ -59,10 +71,8 @@ const RhythmGrid = () => {
         filter.connect(gainNode);
         gainNode.connect(masterGain);
 
-        // Mix of square and triangle waves for more percussive piano sound
         oscillator.type = 'triangle';
 
-        // Add a second oscillator for harmonics
         const oscillator2 = audioContext.createOscillator();
         const gainNode2 = audioContext.createGain();
         oscillator2.connect(gainNode2);
@@ -70,13 +80,11 @@ const RhythmGrid = () => {
         oscillator2.frequency.setValueAtTime(frequency * 2, audioContext.currentTime);
         oscillator2.type = 'square';
 
-        // High-pass filter for brightness
         filter.type = 'highpass';
         filter.frequency.setValueAtTime(200, audioContext.currentTime);
         oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
 
-        // Sharp attack, quick decay for staccato effect
-        const noteVolume = 0.25 - index * 0.03;
+        const noteVolume = (0.25 - index * 0.03) * volumeMultiplier;
         gainNode.gain.setValueAtTime(0, audioContext.currentTime);
         gainNode.gain.linearRampToValueAtTime(noteVolume, audioContext.currentTime + 0.01);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
@@ -90,12 +98,9 @@ const RhythmGrid = () => {
       });
     } else if (soundType === 'doublebass') {
       // Tango bass: deep, punchy with strong attack
-      const fundamentalFreq = 65.41; // Low C
-      const duration = 0.6;
-
-      // Create multiple oscillators for rich bass sound
-      const oscillators = [];
-      const gains = [];
+      const fundamentalFreq = isHalfBeat ? 73.42 : 65.41; // Slightly higher for half beats
+      const duration = isHalfBeat ? 0.4 : 0.6; // Shorter for half beats
+      const volumeMultiplier = isHalfBeat ? 0.8 : 1; // Slightly quieter for half beats
 
       // Fundamental frequency
       const osc1 = audioContext.createOscillator();
@@ -107,7 +112,6 @@ const RhythmGrid = () => {
       osc1.frequency.setValueAtTime(fundamentalFreq, audioContext.currentTime);
       osc1.type = 'sawtooth';
 
-      // Low-pass filter for warmth
       filter1.type = 'lowpass';
       filter1.frequency.setValueAtTime(400, audioContext.currentTime);
       filter1.Q.setValueAtTime(2, audioContext.currentTime);
@@ -132,16 +136,15 @@ const RhythmGrid = () => {
       filter3.type = 'bandpass';
       filter3.frequency.setValueAtTime(200, audioContext.currentTime);
 
-      // Strong attack for plucked bass effect
       gain1.gain.setValueAtTime(0, audioContext.currentTime);
-      gain1.gain.linearRampToValueAtTime(0.4, audioContext.currentTime + 0.02);
-      gain1.gain.exponentialRampToValueAtTime(0.15, audioContext.currentTime + 0.1);
+      gain1.gain.linearRampToValueAtTime(0.4 * volumeMultiplier, audioContext.currentTime + 0.02);
+      gain1.gain.exponentialRampToValueAtTime(0.15 * volumeMultiplier, audioContext.currentTime + 0.1);
       gain1.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
       gain2.gain.setValueAtTime(0, audioContext.currentTime);
-      gain2.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.02);
+      gain2.gain.linearRampToValueAtTime(0.3 * volumeMultiplier, audioContext.currentTime + 0.02);
       gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
       gain3.gain.setValueAtTime(0, audioContext.currentTime);
-      gain3.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + 0.005);
+      gain3.gain.linearRampToValueAtTime(0.2 * volumeMultiplier, audioContext.currentTime + 0.005);
       gain3.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
       osc1.start(audioContext.currentTime);
       osc1.stop(audioContext.currentTime + duration);
@@ -151,37 +154,61 @@ const RhythmGrid = () => {
       osc3.stop(audioContext.currentTime + 0.1);
     }
 
-    // Set master volume
     masterGain.gain.setValueAtTime(0.8, audioContext.currentTime);
   }, []);
 
-  const toggleBeat = (trackId: string, beatIndex: number) => {
+  const toggleBeat = (trackId: string, beatIndex: number, isHalfBeat = false) => {
     setTracks(prevTracks =>
       prevTracks.map(track => {
         if (track.id !== trackId) return track;
 
-        const newPattern = [...track.pattern];
-        const newManuallyModified = [...track.manuallyModified];
-        
-        newPattern[beatIndex] = !newPattern[beatIndex];
+        if (isHalfBeat) {
+          const newHalfPattern = [...track.halfPattern];
+          const newHalfManuallyModified = [...track.halfManuallyModified];
+          
+          newHalfPattern[beatIndex] = !newHalfPattern[beatIndex];
 
-        // If modifying beats 4-7 (second half), mark as manually modified
-        if (beatIndex >= 4) {
-          newManuallyModified[beatIndex] = true;
-        }
-        // If modifying beats 0-3 (first half), mirror to second half unless manually modified
-        else {
-          const mirrorIndex = beatIndex + 4;
-          if (!newManuallyModified[mirrorIndex]) {
-            newPattern[mirrorIndex] = newPattern[beatIndex];
+          // If modifying beats 4-7 (second half), mark as manually modified
+          if (beatIndex >= 4) {
+            newHalfManuallyModified[beatIndex] = true;
           }
-        }
+          // If modifying beats 0-3 (first half), mirror to second half unless manually modified
+          else {
+            const mirrorIndex = beatIndex + 4;
+            if (!newHalfManuallyModified[mirrorIndex]) {
+              newHalfPattern[mirrorIndex] = newHalfPattern[beatIndex];
+            }
+          }
 
-        return {
-          ...track,
-          pattern: newPattern,
-          manuallyModified: newManuallyModified
-        };
+          return {
+            ...track,
+            halfPattern: newHalfPattern,
+            halfManuallyModified: newHalfManuallyModified
+          };
+        } else {
+          const newPattern = [...track.pattern];
+          const newManuallyModified = [...track.manuallyModified];
+          
+          newPattern[beatIndex] = !newPattern[beatIndex];
+
+          // If modifying beats 4-7 (second half), mark as manually modified
+          if (beatIndex >= 4) {
+            newManuallyModified[beatIndex] = true;
+          }
+          // If modifying beats 0-3 (first half), mirror to second half unless manually modified
+          else {
+            const mirrorIndex = beatIndex + 4;
+            if (!newManuallyModified[mirrorIndex]) {
+              newPattern[mirrorIndex] = newPattern[beatIndex];
+            }
+          }
+
+          return {
+            ...track,
+            pattern: newPattern,
+            manuallyModified: newManuallyModified
+          };
+        }
       })
     );
   };
@@ -191,10 +218,13 @@ const RhythmGrid = () => {
       prevTracks.map(track => ({
         ...track,
         pattern: new Array(8).fill(false),
-        manuallyModified: new Array(8).fill(false)
+        halfPattern: new Array(8).fill(false),
+        manuallyModified: new Array(8).fill(false),
+        halfManuallyModified: new Array(8).fill(false)
       }))
     );
     setCurrentBeat(0);
+    setCurrentHalfBeat(0);
   };
 
   const togglePlayback = () => {
@@ -204,20 +234,36 @@ const RhythmGrid = () => {
   useEffect(() => {
     if (isPlaying) {
       const currentBpm = speedLevels[speedLevel].bpm;
-      const beatDuration = (60 / currentBpm) * 500; // 8th notes instead of 16th
+      const beatDuration = (60 / currentBpm) * 250; // Half the duration for half beats
 
       intervalRef.current = setInterval(() => {
-        setCurrentBeat(prevBeat => {
-          const nextBeat = (prevBeat + 1) % 8;
+        setCurrentHalfBeat(prevHalfBeat => {
+          const nextHalfBeat = (prevHalfBeat + 1) % 2;
           
-          // Play sounds for the current beat (nextBeat) instead of prevBeat
-          tracks.forEach(track => {
-            if (track.pattern[nextBeat]) {
-              playSound(track.sound);
-            }
-          });
+          if (nextHalfBeat === 0) {
+            // Main beat
+            setCurrentBeat(prevBeat => {
+              const nextBeat = (prevBeat + 1) % 8;
+              
+              // Play sounds for main beats
+              tracks.forEach(track => {
+                if (track.pattern[nextBeat]) {
+                  playSound(track.sound, false);
+                }
+              });
 
-          return nextBeat;
+              return nextBeat;
+            });
+          } else {
+            // Half beat
+            tracks.forEach(track => {
+              if (track.halfPattern[currentBeat]) {
+                playSound(track.sound, true);
+              }
+            });
+          }
+
+          return nextHalfBeat;
         });
       }, beatDuration);
     } else {
@@ -232,7 +278,7 @@ const RhythmGrid = () => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isPlaying, speedLevel, tracks, playSound, speedLevels]);
+  }, [isPlaying, speedLevel, tracks, playSound, speedLevels, currentBeat]);
 
   return <div className="min-h-screen bg-gray-900 text-white p-6">
       <div className="max-w-6xl mx-auto">
@@ -241,7 +287,7 @@ const RhythmGrid = () => {
           <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Rhythm Lab
           </h1>
-          <p className="text-gray-400">Create rhythmic patterns by clicking the nodes</p>
+          <p className="text-gray-400">Create rhythmic patterns by clicking the nodes. Large circles are main beats, small circles are half beats.</p>
         </div>
 
         {/* Controls */}
@@ -267,22 +313,46 @@ const RhythmGrid = () => {
         </div>
 
         {/* Grid */}
-        <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
+        <div className="bg-gray-800 rounded-lg p-6 max-w-3xl mx-auto">
           <div className="space-y-6">
             {tracks.map(track => <div key={track.id} className="flex items-center gap-4">
                 <div className="w-24 text-right text-sm font-medium text-gray-300">
                   {track.name}
                 </div>
-                <div className="grid grid-cols-8 gap-4 flex-1">
-                  {track.pattern.map((isActive, beatIndex) => <button key={beatIndex} onClick={() => toggleBeat(track.id, beatIndex)} className={`
-                        w-8 h-8 rounded-full transition-all duration-200 transform border-2
-                        ${isActive 
-                          ? `${track.color} border-white scale-110 shadow-lg shadow-white/30` 
-                          : 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-gray-500'
-                        }
-                        ${currentBeat === beatIndex ? 'ring-4 ring-white ring-opacity-50' : ''}
-                        hover:scale-105 active:scale-95
-                      `} />)}
+                <div className="flex gap-2 flex-1">
+                  {track.pattern.map((isActive, beatIndex) => (
+                    <div key={beatIndex} className="flex items-center gap-1">
+                      {/* Main beat */}
+                      <button
+                        onClick={() => toggleBeat(track.id, beatIndex, false)}
+                        className={`
+                          w-8 h-8 rounded-full transition-all duration-200 transform border-2
+                          ${isActive 
+                            ? `${track.color} border-white scale-110 shadow-lg shadow-white/30` 
+                            : 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-gray-500'
+                          }
+                          ${currentBeat === beatIndex && currentHalfBeat === 0 ? 'ring-4 ring-white ring-opacity-50' : ''}
+                          hover:scale-105 active:scale-95
+                        `}
+                      />
+                      
+                      {/* Half beat (except after the last beat) */}
+                      {beatIndex < 7 && (
+                        <button
+                          onClick={() => toggleBeat(track.id, beatIndex, true)}
+                          className={`
+                            w-4 h-4 rounded-full transition-all duration-200 transform border
+                            ${track.halfPattern[beatIndex] 
+                              ? `${track.color} border-white scale-110 shadow-md shadow-white/20` 
+                              : 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-gray-500'
+                            }
+                            ${currentBeat === beatIndex && currentHalfBeat === 1 ? 'ring-2 ring-white ring-opacity-50' : ''}
+                            hover:scale-105 active:scale-95
+                          `}
+                        />
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>)}
           </div>
@@ -290,10 +360,17 @@ const RhythmGrid = () => {
           {/* Beat numbers */}
           <div className="flex items-center gap-4 mt-6">
             <div className="w-24"></div>
-            <div className="grid grid-cols-8 gap-4 flex-1">
+            <div className="flex gap-2 flex-1">
               {[1, 2, 3, 4, 1, 2, 3, 4].map((number, index) => (
-                <div key={index} className="text-center text-sm text-gray-400 font-medium">
-                  {number}
+                <div key={index} className="flex items-center gap-1">
+                  <div className="text-center text-sm text-gray-400 font-medium w-8">
+                    {number}
+                  </div>
+                  {index < 7 && (
+                    <div className="text-center text-xs text-gray-500 font-light w-4">
+                      +
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -302,7 +379,7 @@ const RhythmGrid = () => {
 
         {/* Instructions */}
         <div className="mt-8 text-center text-gray-400 text-sm max-w-2xl mx-auto">
-          <p>Click on the nodes to create rhythm patterns. Each row represents a different instrument. 
+          <p>Click on the large circles for main beats and small circles for half beats. Each row represents a different instrument. 
           The second set of 4 beats automatically mirrors the first 4, unless you manually change them.
           Press play to hear your creation and adjust the speed to your liking!</p>
         </div>
