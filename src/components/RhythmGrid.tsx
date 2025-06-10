@@ -246,9 +246,6 @@ const RhythmGrid = () => {
           </div>
         </div>
 
-        {/* Beat indicators */}
-        
-
         {/* Grid */}
         <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
           <div className="space-y-4">
@@ -265,6 +262,18 @@ const RhythmGrid = () => {
                       `} />)}
                 </div>
               </div>)}
+          </div>
+          
+          {/* Beat numbers */}
+          <div className="flex items-center gap-4 mt-4">
+            <div className="w-24"></div>
+            <div className="grid grid-cols-8 gap-2 flex-1">
+              {[1, 2, 3, 4, 1, 2, 3, 4].map((number, index) => (
+                <div key={index} className="text-center text-sm text-gray-400 font-medium">
+                  {number}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
