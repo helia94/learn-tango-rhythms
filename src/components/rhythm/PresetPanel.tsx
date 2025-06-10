@@ -1,0 +1,76 @@
+
+import React from 'react';
+import { Zap } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { PresetRhythm } from '@/types/rhythm';
+
+interface PresetPanelProps {
+  presetRhythms: PresetRhythm[];
+  onApplyPreset: (trackId: string, preset: PresetRhythm) => void;
+}
+
+const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
+  // Group presets by category
+  const groupedPresets = presetRhythms.reduce((acc, preset) => {
+    if (!acc[preset.category]) {
+      acc[preset.category] = [];
+    }
+    acc[preset.category].push(preset);
+    return acc;
+  }, {} as Record<string, PresetRhythm[]>);
+
+  return (
+    <div className="game-panel p-8 max-w-5xl mx-auto">
+      <div className="flex items-center gap-4 mb-6">
+        <Zap className="w-8 h-8 text-berlin-orange" />
+        <h3 className="font-pixel text-lg text-foreground">STRONG BEAT PRESETS</h3>
+      </div>
+      
+      {/* Desktop: Grid Layout */}
+      <div className="hidden md:block space-y-6">
+        {Object.entries(groupedPresets).map(([category, presets]) => (
+          <div key={category}>
+            <div className="berlin-track-label bg-berlin-cyan text-white mb-4 inline-block">
+              {category}
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {presets.map((preset) => (
+                <button
+                  key={preset.name}
+                  onClick={() => onApplyPreset('bass', preset)}
+                  className="preset-button"
+                >
+                  {preset.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Mobile: Carousel */}
+      <div className="md:hidden">
+        <Carousel className="w-full">
+          <CarouselContent className="-ml-2">
+            {Object.entries(groupedPresets).map(([category, presets]) => 
+              presets.map((preset) => (
+                <CarouselItem key={preset.name} className="pl-2 basis-auto">
+                  <button
+                    onClick={() => onApplyPreset('bass', preset)}
+                    className="preset-button whitespace-nowrap"
+                  >
+                    {preset.name}
+                  </button>
+                </CarouselItem>
+              ))
+            )}
+          </CarouselContent>
+          <CarouselPrevious className="pixel-button" />
+          <CarouselNext className="pixel-button" />
+        </Carousel>
+      </div>
+    </div>
+  );
+};
+
+export default PresetPanel;
