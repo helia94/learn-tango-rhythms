@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw } from 'lucide-react';
@@ -278,12 +279,14 @@ const RhythmGrid = () => {
         {/* Grid */}
         <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
           <div className="relative">
-            {/* Moving slider */}
+            {/* Moving slider - wider and properly positioned */}
             <div 
-              className="absolute top-0 bottom-0 w-1 bg-white shadow-lg shadow-white/50 z-10 rounded-full transition-all duration-75 ease-linear"
+              className="absolute top-0 bottom-0 bg-white/30 shadow-lg shadow-white/50 z-10 rounded-md"
               style={{
-                left: `calc(${(currentBeat / 8) * 100}% + 6rem + ${currentBeat}rem - 2px)`,
-                opacity: isPlaying ? 1 : 0
+                left: `calc(6rem + ${currentBeat} * (100% / 8) + ${currentBeat} * 1rem)`,
+                width: 'calc(12.5% - 1rem)',
+                opacity: isPlaying ? 1 : 0,
+                transition: isPlaying ? `left ${(60 / speedLevels[speedLevel].bpm) * 500}ms linear` : 'opacity 0.3s ease-in-out'
               }}
             />
             
