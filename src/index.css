@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -380,6 +381,8 @@
   .bg-berlin-lime { background-color: hsl(var(--berlin-lime)); }
   .bg-berlin-orange { background-color: hsl(var(--berlin-orange)); }
   .bg-berlin-purple { background-color: hsl(var(--berlin-purple)); }
+  .bg-berlin-red { background-color: hsl(var(--berlin-red)); }
+  .bg-berlin-blue { background-color: hsl(var(--berlin-blue)); }
   
   .pixel-shadow {
     box-shadow: 4px 4px 0 #000,
