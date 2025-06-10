@@ -3,17 +3,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Retro Berlin Design System - Inspired by Tabea Blumenschein */
+/* Retro Berlin Pixelated Design System */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap');
 
 @layer base {
   :root {
-    --background: 42 100% 95%;
+    --background: 45 100% 96%;
     --foreground: 280 15% 15%;
 
-    --card: 320 80% 92%;
+    --card: 45 80% 92%;
     --card-foreground: 280 15% 15%;
 
-    --popover: 320 80% 92%;
+    --popover: 45 80% 92%;
     --popover-foreground: 280 15% 15%;
 
     --primary: 320 100% 60%;
@@ -35,22 +37,24 @@
     --input: 280 50% 90%;
     --ring: 320 100% 60%;
 
-    --radius: 1.5rem;
+    --radius: 0px;
 
-    /* Retro color palette */
-    --neon-pink: 320 100% 60%;
-    --electric-blue: 200 100% 60%;
-    --lime-green: 80 100% 60%;
-    --sunshine-yellow: 60 100% 70%;
-    --purple-haze: 280 100% 70%;
-    --orange-burst: 25 100% 65%;
-    --mint-fresh: 150 100% 70%;
+    /* Retro Berlin Pixelated Colors */
+    --berlin-pink: 320 100% 65%;
+    --berlin-cyan: 180 100% 55%;
+    --berlin-lime: 75 100% 50%;
+    --berlin-orange: 25 100% 60%;
+    --berlin-purple: 270 80% 60%;
+    --berlin-yellow: 60 100% 65%;
+    --berlin-red: 0 85% 60%;
+    --berlin-green: 120 80% 45%;
+    --berlin-blue: 210 100% 55%;
+    --berlin-magenta: 300 90% 65%;
     
-    /* Berlin club vibes */
-    --techno-pink: 330 90% 65%;
-    --underground-purple: 270 80% 55%;
-    --strobe-cyan: 180 100% 60%;
-    --disco-gold: 45 100% 60%;
+    /* Dark variants */
+    --berlin-dark-pink: 320 80% 35%;
+    --berlin-dark-cyan: 180 80% 25%;
+    --berlin-dark-purple: 270 60% 30%;
   }
 
   .dark {
@@ -83,156 +87,291 @@
 
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(135deg, 
-      hsl(var(--background)) 0%,
-      hsl(42 100% 90%) 25%,
-      hsl(320 80% 95%) 50%,
-      hsl(200 80% 95%) 75%,
-      hsl(60 100% 90%) 100%);
+    background: linear-gradient(45deg, 
+      #f0f8ff 0%,
+      #fff5ee 25%,
+      #f0ffff 50%,
+      #fffacd 75%,
+      #f5f5dc 100%);
     background-attachment: fixed;
+    font-family: 'Orbitron', monospace;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
   }
 
-  /* Retro game-like animations */
-  @keyframes neon-glow {
+  /* Pixelated animations */
+  @keyframes pixel-glow {
     0%, 100% { 
-      box-shadow: 0 0 5px hsl(var(--neon-pink)), 
-                  0 0 10px hsl(var(--neon-pink)), 
-                  0 0 15px hsl(var(--neon-pink));
+      box-shadow: 
+        0 0 0 2px hsl(var(--berlin-pink)),
+        0 0 0 4px hsl(var(--berlin-cyan)),
+        0 0 20px hsl(var(--berlin-pink));
     }
     50% { 
-      box-shadow: 0 0 10px hsl(var(--electric-blue)), 
-                  0 0 20px hsl(var(--electric-blue)), 
-                  0 0 30px hsl(var(--electric-blue));
+      box-shadow: 
+        0 0 0 2px hsl(var(--berlin-cyan)),
+        0 0 0 4px hsl(var(--berlin-pink)),
+        0 0 30px hsl(var(--berlin-cyan));
     }
   }
 
-  @keyframes disco-rotate {
-    0% { transform: rotate(0deg) scale(1); }
-    25% { transform: rotate(90deg) scale(1.1); }
-    50% { transform: rotate(180deg) scale(1); }
-    75% { transform: rotate(270deg) scale(1.1); }
-    100% { transform: rotate(360deg) scale(1); }
+  @keyframes pixel-bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.05); }
   }
 
-  @keyframes pulse-rainbow {
-    0% { background-color: hsl(var(--neon-pink)); }
-    16% { background-color: hsl(var(--electric-blue)); }
-    32% { background-color: hsl(var(--lime-green)); }
-    48% { background-color: hsl(var(--sunshine-yellow)); }
-    64% { background-color: hsl(var(--purple-haze)); }
-    80% { background-color: hsl(var(--orange-burst)); }
-    100% { background-color: hsl(var(--neon-pink)); }
+  @keyframes berlin-pulse {
+    0% { background-color: hsl(var(--berlin-pink)); }
+    20% { background-color: hsl(var(--berlin-cyan)); }
+    40% { background-color: hsl(var(--berlin-lime)); }
+    60% { background-color: hsl(var(--berlin-orange)); }
+    80% { background-color: hsl(var(--berlin-purple)); }
+    100% { background-color: hsl(var(--berlin-pink)); }
   }
 
-  /* Retro button styles */
-  .retro-button {
-    background: linear-gradient(45deg, 
-      hsl(var(--neon-pink)), 
-      hsl(var(--electric-blue)));
-    border: 3px solid hsl(var(--sunshine-yellow));
-    box-shadow: 0 4px 0 hsl(var(--purple-haze)),
-                0 8px 20px rgba(0,0,0,0.3);
-    transform: translateY(0);
+  @keyframes pixel-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+  }
+
+  /* Pixelated Button Styles */
+  .pixel-button {
+    border: 4px solid #000;
+    background: linear-gradient(135deg, 
+      hsl(var(--berlin-pink)), 
+      hsl(var(--berlin-cyan)));
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 
+      4px 4px 0 #000,
+      8px 8px 0 rgba(0,0,0,0.3);
     transition: all 0.1s ease;
+    image-rendering: pixelated;
   }
 
-  .retro-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 hsl(var(--purple-haze)),
-                0 12px 25px rgba(0,0,0,0.4);
-    animation: neon-glow 1s infinite alternate;
+  .pixel-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 
+      6px 6px 0 #000,
+      12px 12px 0 rgba(0,0,0,0.3);
+    animation: pixel-glow 0.5s ease-in-out;
   }
 
-  .retro-button:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 hsl(var(--purple-haze)),
-                0 4px 10px rgba(0,0,0,0.2);
+  .pixel-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 
+      2px 2px 0 #000,
+      4px 4px 0 rgba(0,0,0,0.2);
   }
 
-  /* Grid cell retro styling */
-  .grid-cell {
-    border: 2px solid hsl(var(--border));
-    transition: all 0.2s ease;
+  /* Pixel Grid Styles */
+  .pixel-grid-cell {
+    border: 3px solid #000;
+    background: #fff;
+    transition: all 0.1s ease;
+    image-rendering: pixelated;
+    position: relative;
+  }
+
+  .pixel-grid-cell::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
     background: linear-gradient(135deg, 
       rgba(255,255,255,0.8) 0%,
-      rgba(255,255,255,0.4) 100%);
+      rgba(255,255,255,0.2) 100%);
+    pointer-events: none;
   }
 
-  .grid-cell:hover {
-    transform: scale(1.05);
-    border-color: hsl(var(--neon-pink));
-    box-shadow: 0 0 15px hsl(var(--neon-pink));
+  .pixel-grid-cell:hover {
+    transform: scale(1.1);
+    animation: pixel-shake 0.2s ease-in-out;
   }
 
-  .grid-cell.active {
-    animation: pulse-rainbow 2s infinite;
-    border: 3px solid hsl(var(--sunshine-yellow));
-    box-shadow: 0 0 20px hsl(var(--electric-blue));
+  .pixel-grid-cell.active {
+    animation: berlin-pulse 1s infinite;
+    border-color: hsl(var(--berlin-yellow));
+    box-shadow: 
+      0 0 0 2px hsl(var(--berlin-yellow)),
+      0 0 20px hsl(var(--berlin-pink));
     transform: scale(1.1);
   }
 
-  /* Playful text styles */
-  .retro-title {
+  .pixel-grid-cell.current {
+    border-color: hsl(var(--berlin-lime)) !important;
+    box-shadow: 
+      0 0 0 3px hsl(var(--berlin-lime)),
+      0 0 0 6px #000,
+      0 0 30px hsl(var(--berlin-lime));
+    animation: pixel-bounce 0.5s ease-in-out infinite;
+  }
+
+  /* Retro Title Style */
+  .berlin-title {
+    font-family: 'Press Start 2P', monospace;
     background: linear-gradient(45deg, 
-      hsl(var(--neon-pink)),
-      hsl(var(--electric-blue)),
-      hsl(var(--lime-green)),
-      hsl(var(--sunshine-yellow)));
+      hsl(var(--berlin-pink)),
+      hsl(var(--berlin-cyan)),
+      hsl(var(--berlin-lime)),
+      hsl(var(--berlin-orange)));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    animation: disco-rotate 4s infinite linear;
+    text-shadow: 
+      3px 3px 0 #000,
+      6px 6px 0 rgba(0,0,0,0.3);
+    letter-spacing: 2px;
   }
 
-  /* Fun instrument labels */
-  .instrument-label {
+  /* Track Labels */
+  .berlin-track-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
     background: linear-gradient(45deg, 
-      hsl(var(--lime-green)), 
-      hsl(var(--mint-fresh)));
-    border: 2px solid hsl(var(--sunshine-yellow));
-    border-radius: 20px;
-    padding: 8px 16px;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    transform: rotate(-2deg);
+      hsl(var(--berlin-lime)), 
+      hsl(var(--berlin-yellow)));
+    border: 3px solid #000;
+    padding: 8px 12px;
+    box-shadow: 
+      3px 3px 0 #000,
+      6px 6px 0 rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: rotate(-1deg);
     transition: transform 0.2s ease;
   }
 
-  .instrument-label:hover {
-    transform: rotate(2deg) scale(1.05);
-    animation: neon-glow 0.5s ease-in-out;
+  .berlin-track-label:nth-child(2n) {
+    transform: rotate(1deg);
+    background: linear-gradient(45deg, 
+      hsl(var(--berlin-pink)), 
+      hsl(var(--berlin-purple)));
+  }
+
+  .berlin-track-label:nth-child(3n) {
+    background: linear-gradient(45deg, 
+      hsl(var(--berlin-cyan)), 
+      hsl(var(--berlin-blue)));
+  }
+
+  /* Preset Buttons */
+  .preset-button {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    border: 3px solid #000;
+    background: hsl(var(--berlin-orange));
+    padding: 8px 12px;
+    box-shadow: 
+      3px 3px 0 #000,
+      6px 6px 0 rgba(0,0,0,0.2);
+    transition: all 0.1s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .preset-button:hover {
+    background: hsl(var(--berlin-yellow));
+    transform: translate(-1px, -1px);
+    box-shadow: 
+      4px 4px 0 #000,
+      8px 8px 0 rgba(0,0,0,0.3);
+  }
+
+  .preset-button:active {
+    transform: translate(1px, 1px);
+    box-shadow: 
+      2px 2px 0 #000,
+      4px 4px 0 rgba(0,0,0,0.1);
+  }
+
+  /* Control Buttons */
+  .control-button {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    border: 4px solid #000;
+    padding: 12px 20px;
+    box-shadow: 
+      4px 4px 0 #000,
+      8px 8px 0 rgba(0,0,0,0.3);
+    transition: all 0.1s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .control-button.play {
+    background: linear-gradient(135deg, 
+      hsl(var(--berlin-lime)), 
+      hsl(var(--berlin-green)));
+  }
+
+  .control-button.pause {
+    background: linear-gradient(135deg, 
+      hsl(var(--berlin-red)), 
+      hsl(var(--berlin-orange)));
+  }
+
+  .control-button.clear {
+    background: linear-gradient(135deg, 
+      hsl(var(--berlin-purple)), 
+      hsl(var(--berlin-magenta)));
+  }
+
+  /* Game Panel */
+  .game-panel {
+    background: linear-gradient(135deg, 
+      rgba(255,255,255,0.9) 0%,
+      rgba(255,255,255,0.7) 100%);
+    border: 6px solid #000;
+    box-shadow: 
+      6px 6px 0 #000,
+      12px 12px 0 rgba(0,0,0,0.3);
+    position: relative;
+  }
+
+  .game-panel::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    border: 2px solid rgba(0,0,0,0.1);
+    pointer-events: none;
   }
 }
 
-/* Custom retro utilities */
+/* Pixel utilities */
 @layer utilities {
-  .neon-pink { color: hsl(var(--neon-pink)); }
-  .electric-blue { color: hsl(var(--electric-blue)); }
-  .lime-green { color: hsl(var(--lime-green)); }
-  .sunshine-yellow { color: hsl(var(--sunshine-yellow)); }
-  .purple-haze { color: hsl(var(--purple-haze)); }
-  .orange-burst { color: hsl(var(--orange-burst)); }
+  .berlin-pink { color: hsl(var(--berlin-pink)); }
+  .berlin-cyan { color: hsl(var(--berlin-cyan)); }
+  .berlin-lime { color: hsl(var(--berlin-lime)); }
+  .berlin-orange { color: hsl(var(--berlin-orange)); }
+  .berlin-purple { color: hsl(var(--berlin-purple)); }
   
-  .bg-neon-pink { background-color: hsl(var(--neon-pink)); }
-  .bg-electric-blue { background-color: hsl(var(--electric-blue)); }
-  .bg-lime-green { background-color: hsl(var(--lime-green)); }
-  .bg-sunshine-yellow { background-color: hsl(var(--sunshine-yellow)); }
-  .bg-purple-haze { background-color: hsl(var(--purple-haze)); }
-  .bg-orange-burst { background-color: hsl(var(--orange-burst)); }
+  .bg-berlin-pink { background-color: hsl(var(--berlin-pink)); }
+  .bg-berlin-cyan { background-color: hsl(var(--berlin-cyan)); }
+  .bg-berlin-lime { background-color: hsl(var(--berlin-lime)); }
+  .bg-berlin-orange { background-color: hsl(var(--berlin-orange)); }
+  .bg-berlin-purple { background-color: hsl(var(--berlin-purple)); }
   
-  .retro-shadow {
-    box-shadow: 4px 4px 0 hsl(var(--purple-haze)),
-                8px 8px 20px rgba(0,0,0,0.3);
+  .pixel-shadow {
+    box-shadow: 4px 4px 0 #000,
+                8px 8px 0 rgba(0,0,0,0.3);
   }
   
-  .game-border {
-    border: 3px solid;
-    border-image: linear-gradient(45deg, 
-      hsl(var(--neon-pink)),
-      hsl(var(--electric-blue)),
-      hsl(var(--lime-green)),
-      hsl(var(--sunshine-yellow))) 1;
+  .pixel-border {
+    border: 3px solid #000;
+    image-rendering: pixelated;
+  }
+
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
   }
 }

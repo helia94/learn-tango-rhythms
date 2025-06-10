@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { Play, Pause, RotateCcw } from 'lucide-react';
+import { Play, Pause, RotateCcw, Volume2, Zap } from 'lucide-react';
 
 interface Track {
   id: string;
@@ -10,9 +10,9 @@ interface Track {
   color: string;
   sound: string;
   pattern: boolean[];
-  halfPattern: boolean[]; // Half beats pattern
+  halfPattern: boolean[];
   manuallyModified: boolean[];
-  halfManuallyModified: boolean[]; // Track which half beats were manually modified
+  halfManuallyModified: boolean[];
 }
 
 interface PresetRhythm {
@@ -25,38 +25,33 @@ interface PresetRhythm {
 const RhythmGrid = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentBeat, setCurrentBeat] = useState(0);
-  const [currentHalfBeat, setCurrentHalfBeat] = useState(0); // 0 = main beat, 1 = half beat
+  const [currentHalfBeat, setCurrentHalfBeat] = useState(0);
   const [speedLevel, setSpeedLevel] = useState(1);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const speedLevels = [
-    { name: 'Slow', bpm: 40 },
-    { name: 'Medium', bpm: 60 },
-    { name: 'Fast', bpm: 80 }
+    { name: 'SLOW', bpm: 40 },
+    { name: 'MID', bpm: 60 },
+    { name: 'FAST', bpm: 80 }
   ];
 
   const presetRhythms: PresetRhythm[] = [
-    // Base Rhythms
-    { name: 'Mercato 1', category: 'Base Rhythms', mainBeats: [1], halfBeats: [] },
-    { name: 'Mercato 2', category: 'Base Rhythms', mainBeats: [1, 3], halfBeats: [] },
-    { name: 'Mercato 2 Opposite', category: 'Base Rhythms', mainBeats: [2, 4], halfBeats: [] },
-    { name: 'Mercato 4', category: 'Base Rhythms', mainBeats: [1, 2, 3, 4], halfBeats: [] },
-    
-    // Syncopation
-    { name: 'Normal', category: 'Syncopation', mainBeats: [1, 3], halfBeats: [1] },
-    { name: 'Air', category: 'Syncopation', mainBeats: [1, 3], halfBeats: [4] },
-    { name: 'Double', category: 'Syncopation', mainBeats: [1, 3], halfBeats: [1, 2] },
-    
-    // Other Rhythms
-    { name: '4-1', category: 'Other Rhythms', mainBeats: [1, 4], halfBeats: [] },
-    { name: '3-3-2', category: 'Other Rhythms', mainBeats: [1, 4], halfBeats: [2] },
+    { name: 'MERCATO 1', category: 'BASE', mainBeats: [1], halfBeats: [] },
+    { name: 'MERCATO 2', category: 'BASE', mainBeats: [1, 3], halfBeats: [] },
+    { name: 'MERCATO 2X', category: 'BASE', mainBeats: [2, 4], halfBeats: [] },
+    { name: 'MERCATO 4', category: 'BASE', mainBeats: [1, 2, 3, 4], halfBeats: [] },
+    { name: 'NORMAL', category: 'SYNC', mainBeats: [1, 3], halfBeats: [1] },
+    { name: 'AIR', category: 'SYNC', mainBeats: [1, 3], halfBeats: [4] },
+    { name: 'DOUBLE', category: 'SYNC', mainBeats: [1, 3], halfBeats: [1, 2] },
+    { name: '4-1', category: 'OTHER', mainBeats: [1, 4], halfBeats: [] },
+    { name: '3-3-2', category: 'OTHER', mainBeats: [1, 4], halfBeats: [2] },
   ];
 
   const [tracks, setTracks] = useState<Track[]>([
     {
       id: 'bass',
-      name: 'Strong Beat',
-      color: 'bg-red-600',
+      name: 'STRONG',
+      color: 'bg-berlin-red',
       sound: 'bass',
       pattern: new Array(8).fill(false),
       halfPattern: new Array(8).fill(false),
@@ -65,8 +60,8 @@ const RhythmGrid = () => {
     },
     {
       id: 'softbass',
-      name: 'Weak Beat',
-      color: 'bg-blue-400',
+      name: 'WEAK',
+      color: 'bg-berlin-blue',
       sound: 'softbass',
       pattern: new Array(8).fill(false),
       halfPattern: new Array(8).fill(false),
@@ -75,8 +70,8 @@ const RhythmGrid = () => {
     },
     {
       id: 'dragbeat',
-      name: 'Drag Beat',
-      color: 'bg-purple-600',
+      name: 'DRAG',
+      color: 'bg-berlin-purple',
       sound: 'dragbeat',
       pattern: new Array(8).fill(false),
       halfPattern: new Array(8).fill(false),
@@ -418,94 +413,107 @@ const RhythmGrid = () => {
     return acc;
   }, {} as Record<string, PresetRhythm[]>);
 
-  return <div className="min-h-screen bg-gray-900 text-white p-6">
-      <div className="max-w-6xl mx-auto">
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Rhythm Lab
+        <div className="mb-12 text-center">
+          <h1 className="berlin-title text-6xl md:text-8xl mb-6">
+            RHYTHM LAB
           </h1>
-          <p className="text-gray-400">Create rhythmic patterns by clicking the nodes or selecting presets. Large circles are main beats, small circles are half beats.</p>
+          <div className="game-panel p-6 max-w-4xl mx-auto">
+            <p className="font-pixel text-xs md:text-sm text-foreground leading-relaxed">
+              CREATE BERLIN BEATS • CLICK SQUARES FOR MAIN BEATS • CLICK DOTS FOR HALF BEATS
+            </p>
+          </div>
         </div>
 
-        {/* Controls */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
-          <Button onClick={togglePlayback} size="lg" className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-105">
-            {isPlaying ? <Pause className="w-6 h-6 mr-2" /> : <Play className="w-6 h-6 mr-2" />}
-            {isPlaying ? 'Pause' : 'Play'}
-          </Button>
+        {/* Main Controls */}
+        <div className="flex flex-col lg:flex-row items-start justify-center gap-8 mb-12">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <button 
+              onClick={togglePlayback} 
+              className={`control-button ${isPlaying ? 'pause' : 'play'} flex items-center gap-3`}
+            >
+              {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+              {isPlaying ? 'PAUSE' : 'PLAY'}
+            </button>
+            
+            <button 
+              onClick={clearAll} 
+              className="control-button clear flex items-center gap-3"
+            >
+              <RotateCcw className="w-5 h-5" />
+              CLEAR
+            </button>
+          </div>
           
-          <Button onClick={clearAll} variant="outline" size="lg" className="border-gray-600 text-gray-300 hover:bg-gray-800 transition-all duration-200">
-            <RotateCcw className="w-5 h-5 mr-2" />
-            Clear All
-          </Button>
-          
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-400 min-w-[60px]">Speed:</span>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="berlin-track-label">SPEED</div>
             <div className="flex gap-2">
-              {speedLevels.map((speed, index) => <Button key={index} onClick={() => setSpeedLevel(index)} variant={speedLevel === index ? "default" : "outline"} size="sm" className={`transition-all duration-200 ${speedLevel === index ? "bg-primary text-primary-foreground" : "border-gray-600 text-gray-300 hover:bg-gray-800"}`}>
+              {speedLevels.map((speed, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSpeedLevel(index)}
+                  className={`preset-button ${speedLevel === index ? 'bg-berlin-lime' : ''}`}
+                >
                   {speed.name}
-                </Button>)}
+                </button>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Grid */}
-        <div className="bg-gray-800 rounded-lg p-6 max-w-3xl mx-auto mb-6">
-          <div className="space-y-6">
-            {tracks.map(track => <div key={track.id} className="flex items-center gap-4">
-                <div className="w-24 text-right text-sm font-medium text-gray-300">
+        {/* Main Grid */}
+        <div className="game-panel p-8 mb-12 max-w-6xl mx-auto">
+          <div className="space-y-8">
+            {tracks.map((track, trackIndex) => (
+              <div key={track.id} className="flex items-center gap-6">
+                <div className={`berlin-track-label ${track.color} text-white min-w-[120px] text-center`}>
                   {track.name}
                 </div>
-                <div className="flex gap-2 flex-1">
+                <div className="flex gap-3 flex-1 justify-center">
                   {track.pattern.map((isActive, beatIndex) => (
-                    <div key={beatIndex} className="flex items-center gap-1">
-                      {/* Main beat */}
+                    <div key={beatIndex} className="flex items-center gap-2">
+                      {/* Main beat - larger square */}
                       <button
                         onClick={() => toggleBeat(track.id, beatIndex, false)}
                         className={`
-                          w-8 h-8 rounded-full transition-all duration-200 transform border-2
-                          ${isActive 
-                            ? `${track.color} border-white scale-110 shadow-lg shadow-white/30` 
-                            : 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-gray-500'
-                          }
-                          ${currentBeat === beatIndex && currentHalfBeat === 0 ? 'ring-4 ring-white ring-opacity-50' : ''}
-                          hover:scale-105 active:scale-95
+                          pixel-grid-cell w-12 h-12 md:w-16 md:h-16
+                          ${isActive ? `${track.color} active` : 'bg-white'}
+                          ${currentBeat === beatIndex && currentHalfBeat === 0 ? 'current' : ''}
                         `}
                       />
                       
-                      {/* Half beat (except after the last beat) */}
+                      {/* Half beat - smaller circle (except after last beat) */}
                       {beatIndex < 7 && (
                         <button
                           onClick={() => toggleBeat(track.id, beatIndex, true)}
                           className={`
-                            w-4 h-4 rounded-full transition-all duration-200 transform border
-                            ${track.halfPattern[beatIndex] 
-                              ? `${track.color} border-white scale-110 shadow-md shadow-white/20` 
-                              : 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-gray-500'
-                            }
-                            ${currentBeat === beatIndex && currentHalfBeat === 1 ? 'ring-2 ring-white ring-opacity-50' : ''}
-                            hover:scale-105 active:scale-95
+                            pixel-grid-cell w-6 h-6 md:w-8 md:h-8 rounded-full
+                            ${track.halfPattern[beatIndex] ? `${track.color} active` : 'bg-white'}
+                            ${currentBeat === beatIndex && currentHalfBeat === 1 ? 'current' : ''}
                           `}
                         />
                       )}
                     </div>
                   ))}
                 </div>
-              </div>)}
+              </div>
+            ))}
           </div>
           
-          {/* Beat numbers */}
-          <div className="flex items-center gap-4 mt-6">
-            <div className="w-24"></div>
-            <div className="flex gap-2 flex-1">
+          {/* Beat Numbers */}
+          <div className="flex items-center gap-6 mt-8 justify-center">
+            <div className="min-w-[120px]"></div>
+            <div className="flex gap-3">
               {[1, 2, 3, 4, 1, 2, 3, 4].map((number, index) => (
-                <div key={index} className="flex items-center gap-1">
-                  <div className="text-center text-sm text-gray-400 font-medium w-8">
+                <div key={index} className="flex items-center gap-2">
+                  <div className="text-center font-pixel text-xs w-12 md:w-16 text-foreground">
                     {number}
                   </div>
                   {index < 7 && (
-                    <div className="text-center text-xs text-gray-500 font-light w-4">
+                    <div className="text-center font-pixel text-xs w-6 md:w-8 text-muted-foreground">
                       +
                     </div>
                   )}
@@ -515,65 +523,71 @@ const RhythmGrid = () => {
           </div>
         </div>
 
-        {/* Preset Buttons - Only for Strong Beat (Bass) */}
-        <div className="bg-gray-800 rounded-lg p-6 mb-6 max-w-4xl mx-auto">
-          <h3 className="text-lg font-semibold mb-4 text-gray-200">Strong Beat Rhythm Presets</h3>
+        {/* Preset Buttons */}
+        <div className="game-panel p-8 max-w-5xl mx-auto">
+          <div className="flex items-center gap-4 mb-6">
+            <Zap className="w-8 h-8 text-berlin-orange" />
+            <h3 className="font-pixel text-lg text-foreground">STRONG BEAT PRESETS</h3>
+          </div>
           
-          {/* Desktop: Show all buttons in rows */}
-          <div className="hidden md:block space-y-3">
+          {/* Desktop: Grid Layout */}
+          <div className="hidden md:block space-y-6">
             {Object.entries(groupedPresets).map(([category, presets]) => (
               <div key={category}>
-                <div className="text-xs text-gray-400 mb-2 font-medium">{category}</div>
-                <div className="flex flex-wrap gap-2">
+                <div className="berlin-track-label bg-berlin-cyan text-white mb-4 inline-block">
+                  {category}
+                </div>
+                <div className="flex flex-wrap gap-3">
                   {presets.map((preset) => (
-                    <Button
+                    <button
                       key={preset.name}
                       onClick={() => applyPreset('bass', preset)}
-                      variant="outline"
-                      size="sm"
-                      className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-gray-500 transition-all duration-200"
+                      className="preset-button"
                     >
                       {preset.name}
-                    </Button>
+                    </button>
                   ))}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Mobile: Show buttons in carousel */}
+          {/* Mobile: Carousel */}
           <div className="md:hidden">
             <Carousel className="w-full">
               <CarouselContent className="-ml-2">
                 {Object.entries(groupedPresets).map(([category, presets]) => 
                   presets.map((preset) => (
                     <CarouselItem key={preset.name} className="pl-2 basis-auto">
-                      <Button
+                      <button
                         onClick={() => applyPreset('bass', preset)}
-                        variant="outline"
-                        size="sm"
-                        className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-gray-500 transition-all duration-200 whitespace-nowrap"
+                        className="preset-button whitespace-nowrap"
                       >
                         {preset.name}
-                      </Button>
+                      </button>
                     </CarouselItem>
                   ))
                 )}
               </CarouselContent>
-              <CarouselPrevious className="border-gray-600 text-gray-300 hover:bg-gray-700" />
-              <CarouselNext className="border-gray-600 text-gray-300 hover:bg-gray-700" />
+              <CarouselPrevious className="pixel-button" />
+              <CarouselNext className="pixel-button" />
             </Carousel>
           </div>
         </div>
 
         {/* Instructions */}
-        <div className="mt-8 text-center text-gray-400 text-sm max-w-2xl mx-auto">
-          <p>Choose from preset rhythms or create your own by clicking on the circles. Large circles are main beats, small circles are half beats. 
-          The second set of 4 beats automatically mirrors the first 4, unless you manually change them.
-          Press play to hear your creation and adjust the speed to your liking!</p>
+        <div className="mt-12 text-center max-w-4xl mx-auto">
+          <div className="game-panel p-6">
+            <p className="font-pixel text-xs leading-relaxed text-foreground">
+              BERLIN RHYTHM MACHINE • SQUARES = MAIN BEATS • DOTS = HALF BEATS<br/>
+              SECOND SET MIRRORS FIRST • MANUAL EDITS BREAK MIRROR<br/>
+              PRESS PLAY AND FEEL THE BEAT!
+            </p>
+          </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
 
 export default RhythmGrid;
