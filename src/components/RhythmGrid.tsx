@@ -41,28 +41,41 @@ const RhythmGrid = () => {
   ]);
 
   const playSound = useCallback((soundType: string) => {
-    // Create a simple oscillator-based sound for demonstration
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
+    const masterGain = audioContext.createGain();
+    masterGain.connect(audioContext.destination);
     
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    // Different frequencies for different sounds
-    const frequencies: { [key: string]: number } = {
-      piano: 440, // A4 note
-      doublebass: 110 // A2 note (much lower)
+    // Define chord frequencies for different instruments
+    const chords: { [key: string]: number[] } = {
+      piano: [261.63, 329.63, 392.00], // C major chord (C4, E4, G4)
+      doublebass: [65.41, 82.41, 98.00] // C major chord one octave lower (C2, E2, G2)
     };
     
-    oscillator.frequency.setValueAtTime(frequencies[soundType] || 440, audioContext.currentTime);
-    oscillator.type = soundType === 'piano' ? 'triangle' : 'sine';
+    const frequencies = chords[soundType] || chords.piano;
+    const duration = soundType === 'doublebass' ? 0.8 : 0.4;
     
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + (soundType === 'doublebass' ? 0.8 : 0.3));
+    // Create oscillators for each note in the chord
+    frequencies.forEach((frequency, index) => {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(masterGain);
+      
+      oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+      oscillator.type = soundType === 'piano' ? 'triangle' : 'sine';
+      
+      // Slightly vary the volume for each note to make it sound more natural
+      const noteVolume = soundType === 'piano' ? 0.15 - (index * 0.02) : 0.2 - (index * 0.03);
+      gainNode.gain.setValueAtTime(noteVolume, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + duration);
+    });
     
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + (soundType === 'doublebass' ? 0.8 : 0.3));
+    // Set master volume
+    masterGain.gain.setValueAtTime(0.7, audioContext.currentTime);
   }, []);
 
   const toggleBeat = (trackId: string, beatIndex: number) => {
