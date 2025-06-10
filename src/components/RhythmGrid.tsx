@@ -280,7 +280,7 @@ const RhythmGrid = () => {
                           ? `${track.color} border-white scale-110 shadow-lg shadow-white/30` 
                           : 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-gray-500'
                         }
-                        ${currentBeat === beatIndex ? 'ring-4 ring-white ring-opacity-50 animate-pulse' : ''}
+                        ${currentBeat === beatIndex ? 'ring-4 ring-white ring-opacity-50' : ''}
                         hover:scale-105 active:scale-95
                       `} />)}
                 </div>
