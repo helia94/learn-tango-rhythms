@@ -211,7 +211,8 @@ const RhythmGrid = () => {
         setCurrentBeat(prevBeat => {
           const nextBeat = (prevBeat + 1) % 8;
           
-          // Play sounds for the current beat (nextBeat) instead of prevBeat
+          // Play sounds for the nextBeat immediately when we set it
+          // This ensures the slider position and sound are perfectly synchronized
           tracks.forEach(track => {
             if (track.pattern[nextBeat]) {
               playSound(track.sound);
@@ -279,7 +280,7 @@ const RhythmGrid = () => {
         {/* Grid */}
         <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
           <div className="relative">
-            {/* Moving slider - properly positioned to align with beat nodes */}
+            {/* Moving slider - synchronized with sound playback */}
             <div 
               className="absolute top-0 bottom-0 bg-white/30 shadow-lg shadow-white/50 z-10 rounded-md"
               style={{
