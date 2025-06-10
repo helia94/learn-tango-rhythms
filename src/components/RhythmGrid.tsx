@@ -54,20 +54,30 @@ const RhythmGrid = () => {
 
   const [tracks, setTracks] = useState<Track[]>([
     {
-      id: 'piano',
-      name: 'Piano',
-      color: 'bg-blue-500',
-      sound: 'piano',
+      id: 'bass',
+      name: 'Strong Beat',
+      color: 'bg-red-600',
+      sound: 'bass',
       pattern: new Array(8).fill(false),
       halfPattern: new Array(8).fill(false),
       manuallyModified: new Array(8).fill(false),
       halfManuallyModified: new Array(8).fill(false)
     },
     {
-      id: 'doublebass',
-      name: 'Double Bass',
-      color: 'bg-amber-600',
-      sound: 'doublebass',
+      id: 'softbass',
+      name: 'Weak Beat',
+      color: 'bg-blue-400',
+      sound: 'softbass',
+      pattern: new Array(8).fill(false),
+      halfPattern: new Array(8).fill(false),
+      manuallyModified: new Array(8).fill(false),
+      halfManuallyModified: new Array(8).fill(false)
+    },
+    {
+      id: 'dragbeat',
+      name: 'Drag Beat',
+      color: 'bg-purple-600',
+      sound: 'dragbeat',
       pattern: new Array(8).fill(false),
       halfPattern: new Array(8).fill(false),
       manuallyModified: new Array(8).fill(false),
@@ -81,54 +91,13 @@ const RhythmGrid = () => {
     const masterGain = audioContext.createGain();
     masterGain.connect(audioContext.destination);
     
-    if (soundType === 'piano') {
-      // Tango piano: sharp, staccato attack with quick decay
-      const frequencies = isHalfBeat 
-        ? [293.66, 369.99, 440.00, 587.33] // D major chord (slightly higher)
-        : [261.63, 329.63, 392.00, 523.25]; // C major chord
-      const duration = isHalfBeat ? 0.1 : 0.15; // Shorter for half beats
-      const volumeMultiplier = isHalfBeat ? 0.7 : 1; // Quieter for half beats
+    if (soundType === 'bass') {
+      // Strong Bass: Deep, powerful with strong attack
+      const fundamentalFreq = isHalfBeat ? 87.31 : 73.42; // E2 and D2
+      const duration = isHalfBeat ? 0.3 : 0.5;
+      const volumeMultiplier = isHalfBeat ? 0.8 : 1;
 
-      frequencies.forEach((frequency, index) => {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        const filter = audioContext.createBiquadFilter();
-        oscillator.connect(filter);
-        filter.connect(gainNode);
-        gainNode.connect(masterGain);
-
-        oscillator.type = 'triangle';
-
-        const oscillator2 = audioContext.createOscillator();
-        const gainNode2 = audioContext.createGain();
-        oscillator2.connect(gainNode2);
-        gainNode2.connect(masterGain);
-        oscillator2.frequency.setValueAtTime(frequency * 2, audioContext.currentTime);
-        oscillator2.type = 'square';
-
-        filter.type = 'highpass';
-        filter.frequency.setValueAtTime(200, audioContext.currentTime);
-        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-
-        const noteVolume = (0.25 - index * 0.03) * volumeMultiplier;
-        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        gainNode.gain.linearRampToValueAtTime(noteVolume, audioContext.currentTime + 0.01);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-        gainNode2.gain.setValueAtTime(0, audioContext.currentTime);
-        gainNode2.gain.linearRampToValueAtTime(noteVolume * 0.3, audioContext.currentTime + 0.005);
-        gainNode2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration * 0.5);
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + duration);
-        oscillator2.start(audioContext.currentTime);
-        oscillator2.stop(audioContext.currentTime + duration * 0.5);
-      });
-    } else if (soundType === 'doublebass') {
-      // Tango bass: deep, punchy with strong attack
-      const fundamentalFreq = isHalfBeat ? 73.42 : 65.41; // Slightly higher for half beats
-      const duration = isHalfBeat ? 0.4 : 0.6; // Shorter for half beats
-      const volumeMultiplier = isHalfBeat ? 0.8 : 1; // Slightly quieter for half beats
-
-      // Fundamental frequency
+      // Main bass oscillator
       const osc1 = audioContext.createOscillator();
       const gain1 = audioContext.createGain();
       const filter1 = audioContext.createBiquadFilter();
@@ -139,10 +108,10 @@ const RhythmGrid = () => {
       osc1.type = 'sawtooth';
 
       filter1.type = 'lowpass';
-      filter1.frequency.setValueAtTime(400, audioContext.currentTime);
-      filter1.Q.setValueAtTime(2, audioContext.currentTime);
+      filter1.frequency.setValueAtTime(300, audioContext.currentTime);
+      filter1.Q.setValueAtTime(3, audioContext.currentTime);
 
-      // Sub-bass oscillator
+      // Sub-bass for power
       const osc2 = audioContext.createOscillator();
       const gain2 = audioContext.createGain();
       osc2.connect(gain2);
@@ -150,7 +119,7 @@ const RhythmGrid = () => {
       osc2.frequency.setValueAtTime(fundamentalFreq * 0.5, audioContext.currentTime);
       osc2.type = 'sine';
 
-      // Harmonic for pluck sound
+      // Attack harmonic
       const osc3 = audioContext.createOscillator();
       const gain3 = audioContext.createGain();
       const filter3 = audioContext.createBiquadFilter();
@@ -158,26 +127,118 @@ const RhythmGrid = () => {
       filter3.connect(gain3);
       gain3.connect(masterGain);
       osc3.frequency.setValueAtTime(fundamentalFreq * 2, audioContext.currentTime);
-      osc3.type = 'triangle';
+      osc3.type = 'square';
       filter3.type = 'bandpass';
-      filter3.frequency.setValueAtTime(200, audioContext.currentTime);
+      filter3.frequency.setValueAtTime(250, audioContext.currentTime);
 
       gain1.gain.setValueAtTime(0, audioContext.currentTime);
-      gain1.gain.linearRampToValueAtTime(0.4 * volumeMultiplier, audioContext.currentTime + 0.02);
-      gain1.gain.exponentialRampToValueAtTime(0.15 * volumeMultiplier, audioContext.currentTime + 0.1);
+      gain1.gain.linearRampToValueAtTime(0.6 * volumeMultiplier, audioContext.currentTime + 0.01);
+      gain1.gain.exponentialRampToValueAtTime(0.2 * volumeMultiplier, audioContext.currentTime + 0.1);
       gain1.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      
       gain2.gain.setValueAtTime(0, audioContext.currentTime);
-      gain2.gain.linearRampToValueAtTime(0.3 * volumeMultiplier, audioContext.currentTime + 0.02);
+      gain2.gain.linearRampToValueAtTime(0.4 * volumeMultiplier, audioContext.currentTime + 0.02);
       gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      
       gain3.gain.setValueAtTime(0, audioContext.currentTime);
-      gain3.gain.linearRampToValueAtTime(0.2 * volumeMultiplier, audioContext.currentTime + 0.005);
+      gain3.gain.linearRampToValueAtTime(0.3 * volumeMultiplier, audioContext.currentTime + 0.005);
       gain3.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
       osc1.start(audioContext.currentTime);
       osc1.stop(audioContext.currentTime + duration);
       osc2.start(audioContext.currentTime);
       osc2.stop(audioContext.currentTime + duration);
       osc3.start(audioContext.currentTime);
       osc3.stop(audioContext.currentTime + 0.1);
+    } else if (soundType === 'softbass') {
+      // Soft Bass: Gentle, mellow tone
+      const fundamentalFreq = isHalfBeat ? 98.00 : 82.41; // G2 and E2
+      const duration = isHalfBeat ? 0.25 : 0.4;
+      const volumeMultiplier = isHalfBeat ? 0.6 : 0.7; // Overall softer
+
+      const osc1 = audioContext.createOscillator();
+      const gain1 = audioContext.createGain();
+      const filter1 = audioContext.createBiquadFilter();
+      osc1.connect(filter1);
+      filter1.connect(gain1);
+      gain1.connect(masterGain);
+      osc1.frequency.setValueAtTime(fundamentalFreq, audioContext.currentTime);
+      osc1.type = 'sine'; // Softer waveform
+
+      filter1.type = 'lowpass';
+      filter1.frequency.setValueAtTime(200, audioContext.currentTime); // More filtering for softness
+      filter1.Q.setValueAtTime(1, audioContext.currentTime);
+
+      // Gentle attack and decay
+      gain1.gain.setValueAtTime(0, audioContext.currentTime);
+      gain1.gain.linearRampToValueAtTime(0.3 * volumeMultiplier, audioContext.currentTime + 0.05); // Slower attack
+      gain1.gain.exponentialRampToValueAtTime(0.1 * volumeMultiplier, audioContext.currentTime + 0.2);
+      gain1.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+
+      osc1.start(audioContext.currentTime);
+      osc1.stop(audioContext.currentTime + duration);
+    } else if (soundType === 'dragbeat') {
+      // Drag Beat: Very strong with arrastre accent - starts earlier
+      const fundamentalFreq = isHalfBeat ? 65.41 : 55.00; // C2 and A1 - very low
+      const duration = isHalfBeat ? 0.6 : 0.8; // Longer duration
+      const volumeMultiplier = isHalfBeat ? 0.9 : 1.2; // Very strong
+      const arrestreDelay = -0.05; // Starts 50ms earlier
+
+      // Main drag oscillator
+      const osc1 = audioContext.createOscillator();
+      const gain1 = audioContext.createGain();
+      const filter1 = audioContext.createBiquadFilter();
+      osc1.connect(filter1);
+      filter1.connect(gain1);
+      gain1.connect(masterGain);
+      osc1.frequency.setValueAtTime(fundamentalFreq, audioContext.currentTime);
+      osc1.type = 'sawtooth';
+
+      filter1.type = 'lowpass';
+      filter1.frequency.setValueAtTime(150, audioContext.currentTime); // Very deep
+      filter1.Q.setValueAtTime(4, audioContext.currentTime);
+
+      // Sub-bass for extra power
+      const osc2 = audioContext.createOscillator();
+      const gain2 = audioContext.createGain();
+      osc2.connect(gain2);
+      gain2.connect(masterGain);
+      osc2.frequency.setValueAtTime(fundamentalFreq * 0.5, audioContext.currentTime);
+      osc2.type = 'sine';
+
+      // Attack noise for the "drag" effect
+      const osc3 = audioContext.createOscillator();
+      const gain3 = audioContext.createGain();
+      const filter3 = audioContext.createBiquadFilter();
+      osc3.connect(filter3);
+      filter3.connect(gain3);
+      gain3.connect(masterGain);
+      osc3.frequency.setValueAtTime(fundamentalFreq * 4, audioContext.currentTime);
+      osc3.type = 'sawtooth';
+      filter3.type = 'bandpass';
+      filter3.frequency.setValueAtTime(100, audioContext.currentTime);
+
+      const startTime = Math.max(0, audioContext.currentTime + arrestreDelay);
+
+      gain1.gain.setValueAtTime(0, startTime);
+      gain1.gain.linearRampToValueAtTime(0.8 * volumeMultiplier, startTime + 0.02);
+      gain1.gain.exponentialRampToValueAtTime(0.3 * volumeMultiplier, startTime + 0.15);
+      gain1.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+      
+      gain2.gain.setValueAtTime(0, startTime);
+      gain2.gain.linearRampToValueAtTime(0.6 * volumeMultiplier, startTime + 0.03);
+      gain2.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+      
+      gain3.gain.setValueAtTime(0, startTime);
+      gain3.gain.linearRampToValueAtTime(0.4 * volumeMultiplier, startTime + 0.01);
+      gain3.gain.exponentialRampToValueAtTime(0.01, startTime + 0.2);
+
+      osc1.start(startTime);
+      osc1.stop(startTime + duration);
+      osc2.start(startTime);
+      osc2.stop(startTime + duration);
+      osc3.start(startTime);
+      osc3.stop(startTime + 0.2);
     }
 
     masterGain.gain.setValueAtTime(0.8, audioContext.currentTime);
@@ -454,9 +515,9 @@ const RhythmGrid = () => {
           </div>
         </div>
 
-        {/* Preset Buttons - Only for Piano */}
+        {/* Preset Buttons - Only for Strong Beat (Bass) */}
         <div className="bg-gray-800 rounded-lg p-6 mb-6 max-w-4xl mx-auto">
-          <h3 className="text-lg font-semibold mb-4 text-gray-200">Piano Rhythm Presets</h3>
+          <h3 className="text-lg font-semibold mb-4 text-gray-200">Strong Beat Rhythm Presets</h3>
           
           {/* Desktop: Show all buttons in rows */}
           <div className="hidden md:block space-y-3">
@@ -467,7 +528,7 @@ const RhythmGrid = () => {
                   {presets.map((preset) => (
                     <Button
                       key={preset.name}
-                      onClick={() => applyPreset('piano', preset)}
+                      onClick={() => applyPreset('bass', preset)}
                       variant="outline"
                       size="sm"
                       className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-gray-500 transition-all duration-200"
@@ -488,7 +549,7 @@ const RhythmGrid = () => {
                   presets.map((preset) => (
                     <CarouselItem key={preset.name} className="pl-2 basis-auto">
                       <Button
-                        onClick={() => applyPreset('piano', preset)}
+                        onClick={() => applyPreset('bass', preset)}
                         variant="outline"
                         size="sm"
                         className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-gray-500 transition-all duration-200 whitespace-nowrap"
