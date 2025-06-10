@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 
 interface Track {
@@ -15,8 +14,14 @@ interface Track {
 const RhythmGrid = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentBeat, setCurrentBeat] = useState(0);
-  const [tempo, setTempo] = useState([120]);
+  const [speedLevel, setSpeedLevel] = useState(1); // 0 = Slow, 1 = Medium, 2 = Fast
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const speedLevels = [
+    { name: 'Slow', bpm: 80 },
+    { name: 'Medium', bpm: 120 },
+    { name: 'Fast', bpm: 160 }
+  ];
 
   const [tracks, setTracks] = useState<Track[]>([
     {
@@ -83,7 +88,8 @@ const RhythmGrid = () => {
 
   useEffect(() => {
     if (isPlaying) {
-      const beatDuration = (60 / tempo[0]) * 500; // 8th notes instead of 16th
+      const currentBpm = speedLevels[speedLevel].bpm;
+      const beatDuration = (60 / currentBpm) * 500; // 8th notes instead of 16th
       
       intervalRef.current = setInterval(() => {
         setCurrentBeat(prevBeat => {
@@ -111,7 +117,7 @@ const RhythmGrid = () => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isPlaying, tempo, tracks, playSound]);
+  }, [isPlaying, speedLevel, tracks, playSound, speedLevels]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
@@ -146,18 +152,24 @@ const RhythmGrid = () => {
           </Button>
           
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-400 min-w-[60px]">Tempo:</span>
-            <div className="w-32">
-              <Slider
-                value={tempo}
-                onValueChange={setTempo}
-                max={180}
-                min={60}
-                step={1}
-                className="cursor-pointer"
-              />
+            <span className="text-sm text-gray-400 min-w-[60px]">Speed:</span>
+            <div className="flex gap-2">
+              {speedLevels.map((speed, index) => (
+                <Button
+                  key={index}
+                  onClick={() => setSpeedLevel(index)}
+                  variant={speedLevel === index ? "default" : "outline"}
+                  size="sm"
+                  className={`transition-all duration-200 ${
+                    speedLevel === index 
+                      ? "bg-primary text-primary-foreground" 
+                      : "border-gray-600 text-gray-300 hover:bg-gray-800"
+                  }`}
+                >
+                  {speed.name}
+                </Button>
+              ))}
             </div>
-            <span className="text-sm text-gray-300 min-w-[40px]">{tempo[0]} BPM</span>
           </div>
         </div>
 
@@ -218,7 +230,7 @@ const RhythmGrid = () => {
         {/* Instructions */}
         <div className="mt-8 text-center text-gray-400 text-sm max-w-2xl mx-auto">
           <p>Click on the grid to create rhythm patterns. Each row represents a different instrument. 
-          Press play to hear your creation and adjust the tempo to your liking!</p>
+          Press play to hear your creation and adjust the speed to your liking!</p>
         </div>
       </div>
     </div>
