@@ -45,37 +45,128 @@ const RhythmGrid = () => {
     const masterGain = audioContext.createGain();
     masterGain.connect(audioContext.destination);
     
-    // Define chord frequencies for different instruments
-    const chords: { [key: string]: number[] } = {
-      piano: [261.63, 329.63, 392.00], // C major chord (C4, E4, G4)
-      doublebass: [65.41, 82.41, 98.00] // C major chord one octave lower (C2, E2, G2)
-    };
-    
-    const frequencies = chords[soundType] || chords.piano;
-    const duration = soundType === 'doublebass' ? 0.8 : 0.4;
-    
-    // Create oscillators for each note in the chord
-    frequencies.forEach((frequency, index) => {
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
+    if (soundType === 'piano') {
+      // Tango piano: sharp, staccato attack with quick decay
+      const frequencies = [261.63, 329.63, 392.00, 523.25]; // C major chord with octave
+      const duration = 0.15; // Very short and staccato
       
-      oscillator.connect(gainNode);
-      gainNode.connect(masterGain);
+      frequencies.forEach((frequency, index) => {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        const filter = audioContext.createBiquadFilter();
+        
+        oscillator.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(masterGain);
+        
+        // Mix of square and triangle waves for more percussive piano sound
+        oscillator.type = 'triangle';
+        
+        // Add a second oscillator for harmonics
+        const oscillator2 = audioContext.createOscillator();
+        const gainNode2 = audioContext.createGain();
+        oscillator2.connect(gainNode2);
+        gainNode2.connect(masterGain);
+        
+        oscillator2.frequency.setValueAtTime(frequency * 2, audioContext.currentTime);
+        oscillator2.type = 'square';
+        
+        // High-pass filter for brightness
+        filter.type = 'highpass';
+        filter.frequency.setValueAtTime(200, audioContext.currentTime);
+        
+        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+        
+        // Sharp attack, quick decay for staccato effect
+        const noteVolume = 0.25 - (index * 0.03);
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        gainNode.gain.linearRampToValueAtTime(noteVolume, audioContext.currentTime + 0.01);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+        
+        gainNode2.gain.setValueAtTime(0, audioContext.currentTime);
+        gainNode2.gain.linearRampToValueAtTime(noteVolume * 0.3, audioContext.currentTime + 0.005);
+        gainNode2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration * 0.5);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + duration);
+        oscillator2.start(audioContext.currentTime);
+        oscillator2.stop(audioContext.currentTime + duration * 0.5);
+      });
       
-      oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-      oscillator.type = soundType === 'piano' ? 'triangle' : 'sine';
+    } else if (soundType === 'doublebass') {
+      // Tango bass: deep, punchy with strong attack
+      const fundamentalFreq = 65.41; // Low C
+      const duration = 0.6;
       
-      // Slightly vary the volume for each note to make it sound more natural
-      const noteVolume = soundType === 'piano' ? 0.15 - (index * 0.02) : 0.2 - (index * 0.03);
-      gainNode.gain.setValueAtTime(noteVolume, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      // Create multiple oscillators for rich bass sound
+      const oscillators = [];
+      const gains = [];
       
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + duration);
-    });
+      // Fundamental frequency
+      const osc1 = audioContext.createOscillator();
+      const gain1 = audioContext.createGain();
+      const filter1 = audioContext.createBiquadFilter();
+      
+      osc1.connect(filter1);
+      filter1.connect(gain1);
+      gain1.connect(masterGain);
+      
+      osc1.frequency.setValueAtTime(fundamentalFreq, audioContext.currentTime);
+      osc1.type = 'sawtooth';
+      
+      // Low-pass filter for warmth
+      filter1.type = 'lowpass';
+      filter1.frequency.setValueAtTime(400, audioContext.currentTime);
+      filter1.Q.setValueAtTime(2, audioContext.currentTime);
+      
+      // Sub-bass oscillator
+      const osc2 = audioContext.createOscillator();
+      const gain2 = audioContext.createGain();
+      osc2.connect(gain2);
+      gain2.connect(masterGain);
+      
+      osc2.frequency.setValueAtTime(fundamentalFreq * 0.5, audioContext.currentTime);
+      osc2.type = 'sine';
+      
+      // Harmonic for pluck sound
+      const osc3 = audioContext.createOscillator();
+      const gain3 = audioContext.createGain();
+      const filter3 = audioContext.createBiquadFilter();
+      
+      osc3.connect(filter3);
+      filter3.connect(gain3);
+      gain3.connect(masterGain);
+      
+      osc3.frequency.setValueAtTime(fundamentalFreq * 2, audioContext.currentTime);
+      osc3.type = 'triangle';
+      
+      filter3.type = 'bandpass';
+      filter3.frequency.setValueAtTime(200, audioContext.currentTime);
+      
+      // Strong attack for plucked bass effect
+      gain1.gain.setValueAtTime(0, audioContext.currentTime);
+      gain1.gain.linearRampToValueAtTime(0.4, audioContext.currentTime + 0.02);
+      gain1.gain.exponentialRampToValueAtTime(0.15, audioContext.currentTime + 0.1);
+      gain1.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      
+      gain2.gain.setValueAtTime(0, audioContext.currentTime);
+      gain2.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.02);
+      gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      
+      gain3.gain.setValueAtTime(0, audioContext.currentTime);
+      gain3.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + 0.005);
+      gain3.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+      
+      osc1.start(audioContext.currentTime);
+      osc1.stop(audioContext.currentTime + duration);
+      osc2.start(audioContext.currentTime);
+      osc2.stop(audioContext.currentTime + duration);
+      osc3.start(audioContext.currentTime);
+      osc3.stop(audioContext.currentTime + 0.1);
+    }
     
     // Set master volume
-    masterGain.gain.setValueAtTime(0.7, audioContext.currentTime);
+    masterGain.gain.setValueAtTime(0.8, audioContext.currentTime);
   }, []);
 
   const toggleBeat = (trackId: string, beatIndex: number) => {
