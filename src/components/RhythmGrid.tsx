@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 
 interface Track {
@@ -14,6 +14,13 @@ interface Track {
   halfManuallyModified: boolean[]; // Track which half beats were manually modified
 }
 
+interface PresetRhythm {
+  name: string;
+  category: string;
+  mainBeats: number[];
+  halfBeats: number[];
+}
+
 const RhythmGrid = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentBeat, setCurrentBeat] = useState(0);
@@ -25,6 +32,23 @@ const RhythmGrid = () => {
     { name: 'Slow', bpm: 40 },
     { name: 'Medium', bpm: 60 },
     { name: 'Fast', bpm: 80 }
+  ];
+
+  const presetRhythms: PresetRhythm[] = [
+    // Base Rhythms
+    { name: 'Mercato 1', category: 'Base Rhythms', mainBeats: [1], halfBeats: [] },
+    { name: 'Mercato 2', category: 'Base Rhythms', mainBeats: [1, 3], halfBeats: [] },
+    { name: 'Mercato 2 Opposite', category: 'Base Rhythms', mainBeats: [2, 4], halfBeats: [] },
+    { name: 'Mercato 4', category: 'Base Rhythms', mainBeats: [1, 2, 3, 4], halfBeats: [] },
+    
+    // Syncopation
+    { name: 'Normal', category: 'Syncopation', mainBeats: [1, 3], halfBeats: [1] },
+    { name: 'Air', category: 'Syncopation', mainBeats: [1, 3], halfBeats: [4] },
+    { name: 'Double', category: 'Syncopation', mainBeats: [1, 3], halfBeats: [1, 2] },
+    
+    // Other Rhythms
+    { name: '4-1', category: 'Other Rhythms', mainBeats: [1, 4], halfBeats: [] },
+    { name: '3-3-2', category: 'Other Rhythms', mainBeats: [1, 4], halfBeats: [2] },
   ];
 
   const [tracks, setTracks] = useState<Track[]>([
@@ -158,6 +182,46 @@ const RhythmGrid = () => {
     masterGain.gain.setValueAtTime(0.8, audioContext.currentTime);
   }, []);
 
+  const applyPreset = (trackId: string, preset: PresetRhythm) => {
+    setTracks(prevTracks =>
+      prevTracks.map(track => {
+        if (track.id !== trackId) return track;
+
+        // Create new patterns
+        const newPattern = new Array(8).fill(false);
+        const newHalfPattern = new Array(8).fill(false);
+        const newManuallyModified = new Array(8).fill(false);
+        const newHalfManuallyModified = new Array(8).fill(false);
+
+        // Apply main beats (convert 1-4 to 0-3 indices)
+        preset.mainBeats.forEach(beat => {
+          const index = beat - 1; // Convert to 0-based index
+          if (index >= 0 && index < 4) {
+            newPattern[index] = true;
+            newPattern[index + 4] = true; // Mirror to beats 5-8
+          }
+        });
+
+        // Apply half beats (convert 1-4 to 0-3 indices)
+        preset.halfBeats.forEach(beat => {
+          const index = beat - 1; // Convert to 0-based index
+          if (index >= 0 && index < 4) {
+            newHalfPattern[index] = true;
+            newHalfPattern[index + 4] = true; // Mirror to beats 5-8
+          }
+        });
+
+        return {
+          ...track,
+          pattern: newPattern,
+          halfPattern: newHalfPattern,
+          manuallyModified: newManuallyModified,
+          halfManuallyModified: newHalfManuallyModified
+        };
+      })
+    );
+  };
+
   const toggleBeat = (trackId: string, beatIndex: number, isHalfBeat = false) => {
     setTracks(prevTracks =>
       prevTracks.map(track => {
@@ -283,6 +347,15 @@ const RhythmGrid = () => {
     };
   }, [isPlaying, speedLevel, tracks, playSound, speedLevels, currentBeat]);
 
+  // Group presets by category
+  const groupedPresets = presetRhythms.reduce((acc, preset) => {
+    if (!acc[preset.category]) {
+      acc[preset.category] = [];
+    }
+    acc[preset.category].push(preset);
+    return acc;
+  }, {} as Record<string, PresetRhythm[]>);
+
   return <div className="min-h-screen bg-gray-900 text-white p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -290,7 +363,7 @@ const RhythmGrid = () => {
           <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Rhythm Lab
           </h1>
-          <p className="text-gray-400">Create rhythmic patterns by clicking the nodes. Large circles are main beats, small circles are half beats.</p>
+          <p className="text-gray-400">Create rhythmic patterns by clicking the nodes or selecting presets. Large circles are main beats, small circles are half beats.</p>
         </div>
 
         {/* Controls */}
@@ -312,6 +385,46 @@ const RhythmGrid = () => {
                   {speed.name}
                 </Button>)}
             </div>
+          </div>
+        </div>
+
+        {/* Preset Selection */}
+        <div className="bg-gray-800 rounded-lg p-6 mb-6 max-w-3xl mx-auto">
+          <h3 className="text-lg font-semibold mb-4 text-gray-200">Rhythm Presets</h3>
+          <div className="space-y-4">
+            {tracks.map(track => (
+              <div key={track.id} className="flex items-center gap-4">
+                <div className="w-24 text-right text-sm font-medium text-gray-300">
+                  {track.name}
+                </div>
+                <div className="flex-1">
+                  <Select onValueChange={(value) => {
+                    const preset = presetRhythms.find(p => p.name === value);
+                    if (preset) {
+                      applyPreset(track.id, preset);
+                    }
+                  }}>
+                    <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-gray-200">
+                      <SelectValue placeholder="Select a rhythm preset..." />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      {Object.entries(groupedPresets).map(([category, presets]) => (
+                        <div key={category}>
+                          <div className="px-2 py-1.5 text-sm font-semibold text-gray-400 bg-gray-600">
+                            {category}
+                          </div>
+                          {presets.map((preset) => (
+                            <SelectItem key={preset.name} value={preset.name} className="text-gray-200 hover:bg-gray-600">
+                              {preset.name}
+                            </SelectItem>
+                          ))}
+                        </div>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -382,7 +495,7 @@ const RhythmGrid = () => {
 
         {/* Instructions */}
         <div className="mt-8 text-center text-gray-400 text-sm max-w-2xl mx-auto">
-          <p>Click on the large circles for main beats and small circles for half beats. Each row represents a different instrument. 
+          <p>Choose from preset rhythms or create your own by clicking on the circles. Large circles are main beats, small circles are half beats. 
           The second set of 4 beats automatically mirrors the first 4, unless you manually change them.
           Press play to hear your creation and adjust the speed to your liking!</p>
         </div>
