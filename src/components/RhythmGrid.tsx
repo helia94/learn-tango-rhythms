@@ -480,7 +480,7 @@ const RhythmGrid = () => {
                         onClick={() => toggleBeat(track.id, beatIndex, false)}
                         className={`
                           pixel-grid-cell w-12 h-12 md:w-16 md:h-16
-                          ${isActive ? `${track.color} active` : 'bg-white'}
+                          ${isActive ? track.color : 'bg-white'}
                           ${currentBeat === beatIndex && currentHalfBeat === 0 ? 'current' : ''}
                         `}
                       />
@@ -491,7 +491,7 @@ const RhythmGrid = () => {
                           onClick={() => toggleBeat(track.id, beatIndex, true)}
                           className={`
                             pixel-grid-cell w-6 h-6 md:w-8 md:h-8 rounded-full
-                            ${track.halfPattern[beatIndex] ? `${track.color} active` : 'bg-white'}
+                            ${track.halfPattern[beatIndex] ? track.color : 'bg-white'}
                             ${currentBeat === beatIndex && currentHalfBeat === 1 ? 'current' : ''}
                           `}
                         />
