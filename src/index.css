@@ -120,15 +120,6 @@
     50% { transform: translateY(-8px) scale(1.05); }
   }
 
-  @keyframes berlin-pulse {
-    0% { background-color: hsl(var(--berlin-pink)); }
-    20% { background-color: hsl(var(--berlin-cyan)); }
-    40% { background-color: hsl(var(--berlin-lime)); }
-    60% { background-color: hsl(var(--berlin-orange)); }
-    80% { background-color: hsl(var(--berlin-purple)); }
-    100% { background-color: hsl(var(--berlin-pink)); }
-  }
-
   @keyframes pixel-shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-2px); }
@@ -195,12 +186,30 @@
   }
 
   .pixel-grid-cell.active {
-    animation: berlin-pulse 1s infinite;
     border-color: hsl(var(--berlin-yellow));
     box-shadow: 
       0 0 0 2px hsl(var(--berlin-yellow)),
       0 0 20px hsl(var(--berlin-pink));
     transform: scale(1.1);
+  }
+
+  /* Track-specific active states */
+  .pixel-grid-cell.active.bg-berlin-red {
+    background: linear-gradient(135deg, 
+      hsl(var(--berlin-red)) 0%,
+      hsl(0 85% 50%) 100%);
+  }
+
+  .pixel-grid-cell.active.bg-berlin-blue {
+    background: linear-gradient(135deg, 
+      hsl(var(--berlin-blue)) 0%,
+      hsl(210 100% 45%) 100%);
+  }
+
+  .pixel-grid-cell.active.bg-berlin-purple {
+    background: linear-gradient(135deg, 
+      hsl(var(--berlin-purple)) 0%,
+      hsl(270 80% 50%) 100%);
   }
 
   .pixel-grid-cell.current {
