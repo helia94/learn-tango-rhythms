@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 
 interface Track {
@@ -388,40 +389,60 @@ const RhythmGrid = () => {
           </div>
         </div>
 
-        {/* Preset Selection */}
-        <div className="bg-gray-800 rounded-lg p-6 mb-6 max-w-3xl mx-auto">
+        {/* Preset Buttons */}
+        <div className="bg-gray-800 rounded-lg p-6 mb-6 max-w-4xl mx-auto">
           <h3 className="text-lg font-semibold mb-4 text-gray-200">Rhythm Presets</h3>
           <div className="space-y-4">
             {tracks.map(track => (
-              <div key={track.id} className="flex items-center gap-4">
-                <div className="w-24 text-right text-sm font-medium text-gray-300">
+              <div key={track.id} className="flex flex-col gap-4">
+                <div className="text-center text-sm font-medium text-gray-300">
                   {track.name}
                 </div>
-                <div className="flex-1">
-                  <Select onValueChange={(value) => {
-                    const preset = presetRhythms.find(p => p.name === value);
-                    if (preset) {
-                      applyPreset(track.id, preset);
-                    }
-                  }}>
-                    <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-gray-200">
-                      <SelectValue placeholder="Select a rhythm preset..." />
-                    </SelectTrigger>
-                    <SelectContent className="bg-gray-700 border-gray-600">
-                      {Object.entries(groupedPresets).map(([category, presets]) => (
-                        <div key={category}>
-                          <div className="px-2 py-1.5 text-sm font-semibold text-gray-400 bg-gray-600">
-                            {category}
-                          </div>
-                          {presets.map((preset) => (
-                            <SelectItem key={preset.name} value={preset.name} className="text-gray-200 hover:bg-gray-600">
+                
+                {/* Desktop: Show all buttons in rows */}
+                <div className="hidden md:block space-y-3">
+                  {Object.entries(groupedPresets).map(([category, presets]) => (
+                    <div key={category}>
+                      <div className="text-xs text-gray-400 mb-2 font-medium">{category}</div>
+                      <div className="flex flex-wrap gap-2">
+                        {presets.map((preset) => (
+                          <Button
+                            key={preset.name}
+                            onClick={() => applyPreset(track.id, preset)}
+                            variant="outline"
+                            size="sm"
+                            className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-gray-500 transition-all duration-200"
+                          >
+                            {preset.name}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Mobile: Show buttons in carousel */}
+                <div className="md:hidden">
+                  <Carousel className="w-full">
+                    <CarouselContent className="-ml-2">
+                      {Object.entries(groupedPresets).map(([category, presets]) => 
+                        presets.map((preset) => (
+                          <CarouselItem key={preset.name} className="pl-2 basis-auto">
+                            <Button
+                              onClick={() => applyPreset(track.id, preset)}
+                              variant="outline"
+                              size="sm"
+                              className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-gray-500 transition-all duration-200 whitespace-nowrap"
+                            >
                               {preset.name}
-                            </SelectItem>
-                          ))}
-                        </div>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                            </Button>
+                          </CarouselItem>
+                        ))
+                      )}
+                    </CarouselContent>
+                    <CarouselPrevious className="border-gray-600 text-gray-300 hover:bg-gray-700" />
+                    <CarouselNext className="border-gray-600 text-gray-300 hover:bg-gray-700" />
+                  </Carousel>
                 </div>
               </div>
             ))}
