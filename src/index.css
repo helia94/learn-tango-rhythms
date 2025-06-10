@@ -1,94 +1,78 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Retro Berlin Design System - Inspired by Tabea Blumenschein */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 42 100% 95%;
+    --foreground: 280 15% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 320 80% 92%;
+    --card-foreground: 280 15% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 320 80% 92%;
+    --popover-foreground: 280 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 320 100% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 200 100% 80%;
+    --secondary-foreground: 280 15% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 60 100% 85%;
+    --muted-foreground: 280 40% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 150 100% 70%;
+    --accent-foreground: 280 15% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 100% 70%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 280 50% 80%;
+    --input: 280 50% 90%;
+    --ring: 320 100% 60%;
 
-    --radius: 0.5rem;
+    --radius: 1.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Retro color palette */
+    --neon-pink: 320 100% 60%;
+    --electric-blue: 200 100% 60%;
+    --lime-green: 80 100% 60%;
+    --sunshine-yellow: 60 100% 70%;
+    --purple-haze: 280 100% 70%;
+    --orange-burst: 25 100% 65%;
+    --mint-fresh: 150 100% 70%;
+    
+    /* Berlin club vibes */
+    --techno-pink: 330 90% 65%;
+    --underground-purple: 270 80% 55%;
+    --strobe-cyan: 180 100% 60%;
+    --disco-gold: 45 100% 60%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 280 20% 10%;
+    --foreground: 60 100% 95%;
+    --card: 280 25% 15%;
+    --card-foreground: 60 100% 95%;
+    --popover: 280 25% 15%;
+    --popover-foreground: 60 100% 95%;
+    --primary: 320 100% 70%;
+    --primary-foreground: 280 20% 10%;
+    --secondary: 200 100% 25%;
+    --secondary-foreground: 60 100% 95%;
+    --muted: 280 20% 20%;
+    --muted-foreground: 60 50% 70%;
+    --accent: 150 100% 40%;
+    --accent-foreground: 60 100% 95%;
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 280 30% 25%;
+    --input: 280 30% 20%;
+    --ring: 320 100% 70%;
   }
 }
 
@@ -99,5 +83,157 @@
 
   body {
     @apply bg-background text-foreground;
+    background: linear-gradient(135deg, 
+      hsl(var(--background)) 0%,
+      hsl(42 100% 90%) 25%,
+      hsl(320 80% 95%) 50%,
+      hsl(200 80% 95%) 75%,
+      hsl(60 100% 90%) 100%);
+    background-attachment: fixed;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+  }
+
+  /* Retro game-like animations */
+  @keyframes neon-glow {
+    0%, 100% { 
+      box-shadow: 0 0 5px hsl(var(--neon-pink)), 
+                  0 0 10px hsl(var(--neon-pink)), 
+                  0 0 15px hsl(var(--neon-pink));
+    }
+    50% { 
+      box-shadow: 0 0 10px hsl(var(--electric-blue)), 
+                  0 0 20px hsl(var(--electric-blue)), 
+                  0 0 30px hsl(var(--electric-blue));
+    }
+  }
+
+  @keyframes disco-rotate {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(1.1); }
+    50% { transform: rotate(180deg) scale(1); }
+    75% { transform: rotate(270deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  @keyframes pulse-rainbow {
+    0% { background-color: hsl(var(--neon-pink)); }
+    16% { background-color: hsl(var(--electric-blue)); }
+    32% { background-color: hsl(var(--lime-green)); }
+    48% { background-color: hsl(var(--sunshine-yellow)); }
+    64% { background-color: hsl(var(--purple-haze)); }
+    80% { background-color: hsl(var(--orange-burst)); }
+    100% { background-color: hsl(var(--neon-pink)); }
+  }
+
+  /* Retro button styles */
+  .retro-button {
+    background: linear-gradient(45deg, 
+      hsl(var(--neon-pink)), 
+      hsl(var(--electric-blue)));
+    border: 3px solid hsl(var(--sunshine-yellow));
+    box-shadow: 0 4px 0 hsl(var(--purple-haze)),
+                0 8px 20px rgba(0,0,0,0.3);
+    transform: translateY(0);
+    transition: all 0.1s ease;
+  }
+
+  .retro-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 hsl(var(--purple-haze)),
+                0 12px 25px rgba(0,0,0,0.4);
+    animation: neon-glow 1s infinite alternate;
+  }
+
+  .retro-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 hsl(var(--purple-haze)),
+                0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  /* Grid cell retro styling */
+  .grid-cell {
+    border: 2px solid hsl(var(--border));
+    transition: all 0.2s ease;
+    background: linear-gradient(135deg, 
+      rgba(255,255,255,0.8) 0%,
+      rgba(255,255,255,0.4) 100%);
+  }
+
+  .grid-cell:hover {
+    transform: scale(1.05);
+    border-color: hsl(var(--neon-pink));
+    box-shadow: 0 0 15px hsl(var(--neon-pink));
+  }
+
+  .grid-cell.active {
+    animation: pulse-rainbow 2s infinite;
+    border: 3px solid hsl(var(--sunshine-yellow));
+    box-shadow: 0 0 20px hsl(var(--electric-blue));
+    transform: scale(1.1);
+  }
+
+  /* Playful text styles */
+  .retro-title {
+    background: linear-gradient(45deg, 
+      hsl(var(--neon-pink)),
+      hsl(var(--electric-blue)),
+      hsl(var(--lime-green)),
+      hsl(var(--sunshine-yellow)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    animation: disco-rotate 4s infinite linear;
+  }
+
+  /* Fun instrument labels */
+  .instrument-label {
+    background: linear-gradient(45deg, 
+      hsl(var(--lime-green)), 
+      hsl(var(--mint-fresh)));
+    border: 2px solid hsl(var(--sunshine-yellow));
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    transform: rotate(-2deg);
+    transition: transform 0.2s ease;
+  }
+
+  .instrument-label:hover {
+    transform: rotate(2deg) scale(1.05);
+    animation: neon-glow 0.5s ease-in-out;
+  }
+}
+
+/* Custom retro utilities */
+@layer utilities {
+  .neon-pink { color: hsl(var(--neon-pink)); }
+  .electric-blue { color: hsl(var(--electric-blue)); }
+  .lime-green { color: hsl(var(--lime-green)); }
+  .sunshine-yellow { color: hsl(var(--sunshine-yellow)); }
+  .purple-haze { color: hsl(var(--purple-haze)); }
+  .orange-burst { color: hsl(var(--orange-burst)); }
+  
+  .bg-neon-pink { background-color: hsl(var(--neon-pink)); }
+  .bg-electric-blue { background-color: hsl(var(--electric-blue)); }
+  .bg-lime-green { background-color: hsl(var(--lime-green)); }
+  .bg-sunshine-yellow { background-color: hsl(var(--sunshine-yellow)); }
+  .bg-purple-haze { background-color: hsl(var(--purple-haze)); }
+  .bg-orange-burst { background-color: hsl(var(--orange-burst)); }
+  
+  .retro-shadow {
+    box-shadow: 4px 4px 0 hsl(var(--purple-haze)),
+                8px 8px 20px rgba(0,0,0,0.3);
+  }
+  
+  .game-border {
+    border: 3px solid;
+    border-image: linear-gradient(45deg, 
+      hsl(var(--neon-pink)),
+      hsl(var(--electric-blue)),
+      hsl(var(--lime-green)),
+      hsl(var(--sunshine-yellow))) 1;
   }
 }
