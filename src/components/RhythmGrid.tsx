@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw } from 'lucide-react';
@@ -8,6 +9,7 @@ interface Track {
   color: string;
   sound: string;
   pattern: boolean[];
+  manuallyModified: boolean[]; // Track which beats in second half were manually modified
 }
 
 const RhythmGrid = () => {
@@ -28,14 +30,16 @@ const RhythmGrid = () => {
       name: 'Piano',
       color: 'bg-blue-500',
       sound: 'piano',
-      pattern: new Array(8).fill(false)
+      pattern: new Array(8).fill(false),
+      manuallyModified: new Array(8).fill(false)
     },
     {
       id: 'doublebass',
       name: 'Double Bass',
       color: 'bg-amber-600',
       sound: 'doublebass',
-      pattern: new Array(8).fill(false)
+      pattern: new Array(8).fill(false),
+      manuallyModified: new Array(8).fill(false)
     }
   ]);
 
@@ -154,16 +158,32 @@ const RhythmGrid = () => {
 
   const toggleBeat = (trackId: string, beatIndex: number) => {
     setTracks(prevTracks =>
-      prevTracks.map(track =>
-        track.id === trackId
-          ? {
-              ...track,
-              pattern: track.pattern.map((beat, index) =>
-                index === beatIndex ? !beat : beat
-              )
-            }
-          : track
-      )
+      prevTracks.map(track => {
+        if (track.id !== trackId) return track;
+
+        const newPattern = [...track.pattern];
+        const newManuallyModified = [...track.manuallyModified];
+        
+        newPattern[beatIndex] = !newPattern[beatIndex];
+
+        // If modifying beats 4-7 (second half), mark as manually modified
+        if (beatIndex >= 4) {
+          newManuallyModified[beatIndex] = true;
+        }
+        // If modifying beats 0-3 (first half), mirror to second half unless manually modified
+        else {
+          const mirrorIndex = beatIndex + 4;
+          if (!newManuallyModified[mirrorIndex]) {
+            newPattern[mirrorIndex] = newPattern[beatIndex];
+          }
+        }
+
+        return {
+          ...track,
+          pattern: newPattern,
+          manuallyModified: newManuallyModified
+        };
+      })
     );
   };
 
@@ -171,7 +191,8 @@ const RhythmGrid = () => {
     setTracks(prevTracks =>
       prevTracks.map(track => ({
         ...track,
-        pattern: new Array(8).fill(false)
+        pattern: new Array(8).fill(false),
+        manuallyModified: new Array(8).fill(false)
       }))
     );
     setCurrentBeat(0);
@@ -280,6 +301,7 @@ const RhythmGrid = () => {
         {/* Instructions */}
         <div className="mt-8 text-center text-gray-400 text-sm max-w-2xl mx-auto">
           <p>Click on the grid to create rhythm patterns. Each row represents a different instrument. 
+          The second set of 4 beats automatically mirrors the first 4, unless you manually change them.
           Press play to hear your creation and adjust the speed to your liking!</p>
         </div>
       </div>
