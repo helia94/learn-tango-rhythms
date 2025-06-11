@@ -10,7 +10,7 @@ export const speedLevels: SpeedLevel[] = [
 export const presetRhythms: PresetRhythm[] = [
   { name: 'MERCATO 1', category: 'BASE', mainBeats: [1], halfBeats: [] },
   { name: 'MERCATO 2', category: 'BASE', mainBeats: [1, 3], halfBeats: [] },
-  { name: 'MERCATO 2X', category: 'BASE', mainBeats: [2, 4], halfBeats: [] },
+  { name: 'MERCATO OPPOSITE', category: 'BASE', mainBeats: [2, 4], halfBeats: [] },
   { name: 'MERCATO 4', category: 'BASE', mainBeats: [1, 2, 3, 4], halfBeats: [] },
   { name: 'NORMAL', category: 'SYNCOPATION', mainBeats: [1, 3], halfBeats: [1] },
   { name: 'AIR', category: 'SYNCOPATION', mainBeats: [1, 3], halfBeats: [4] },
