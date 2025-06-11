@@ -298,9 +298,7 @@ const Quiz = () => {
         <div className="game-panel p-6 mb-6">
           <div className="flex gap-4">
             <Button onClick={() => handleQuizTypeChange('preset-recognition')} variant={quizType === 'preset-recognition' ? 'default' : 'outline'} className="font-pixel">Listen and Guess</Button>
-            <Button onClick={() => handleQuizTypeChange('beat-selection')} variant={quizType === 'beat-selection' ? 'default' : 'outline'} className="font-pixel">
-              Beat Selection
-            </Button>
+            <Button onClick={() => handleQuizTypeChange('beat-selection')} variant={quizType === 'beat-selection' ? 'default' : 'outline'} className="font-pixel">Read and Play</Button>
           </div>
         </div>
 
