@@ -578,5 +578,3 @@ const Quiz = () => {
 };
 
 export default Quiz;
-
-</edits_to_apply>
