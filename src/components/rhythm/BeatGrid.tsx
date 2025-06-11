@@ -17,11 +17,12 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
   };
 
   return (
-    <div className="game-panel p-8 mb-12 max-w-6xl mx-auto">
-      <div className="space-y-8">
+    <div className="game-panel p-4 md:p-8 mb-12 max-w-6xl mx-auto">
+      <div className="space-y-4 md:space-y-8">
         {tracks.map((track) => (
-          <div key={track.id} className="flex items-center gap-6">
-            <div className="flex items-center gap-3 min-w-[180px]">
+          <div key={track.id} className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
+            {/* Track Label and Checkbox */}
+            <div className="flex items-center justify-between md:justify-start gap-3 md:min-w-[180px]">
               <div className={`berlin-track-label ${track.color} text-white min-w-[120px] text-center text-sm`}>
                 {track.name}
               </div>
@@ -33,25 +34,27 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
                 />
               )}
             </div>
-            <div className="flex gap-3 flex-1 justify-center">
+            
+            {/* Beat Pattern */}
+            <div className="flex gap-1 md:gap-3 flex-1 justify-center overflow-x-auto">
               {track.pattern.map((isActive, beatIndex) => (
-                <div key={beatIndex} className="flex items-center gap-2">
-                  {/* Main beat - larger square */}
+                <div key={beatIndex} className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+                  {/* Main beat - responsive sizing */}
                   <button
                     onClick={() => onToggleBeat(track.id, beatIndex, false)}
                     className={`
-                      pixel-grid-cell w-12 h-12 md:w-16 md:h-16
+                      pixel-grid-cell w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16
                       ${isActive ? `${track.color} active` : 'bg-white'}
                       ${currentBeat === beatIndex && currentHalfBeat === 0 ? 'current' : ''}
                     `}
                   />
                   
-                  {/* Half beat - smaller circle (except after last beat) */}
+                  {/* Half beat - responsive sizing (except after last beat) */}
                   {beatIndex < 7 && (
                     <button
                       onClick={() => onToggleBeat(track.id, beatIndex, true)}
                       className={`
-                        pixel-grid-cell w-6 h-6 md:w-8 md:h-8 rounded-full
+                        pixel-grid-cell w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full
                         ${track.halfPattern[beatIndex] ? `${track.color} active` : 'bg-white'}
                         ${currentBeat === beatIndex && currentHalfBeat === 1 ? 'current' : ''}
                       `}
@@ -64,17 +67,17 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
         ))}
       </div>
       
-      {/* Beat Numbers */}
-      <div className="flex items-center gap-6 mt-8 justify-center">
-        <div className="min-w-[180px]"></div>
-        <div className="flex gap-3">
+      {/* Beat Numbers - responsive layout */}
+      <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 mt-6 md:mt-8 justify-center">
+        <div className="md:min-w-[180px]"></div>
+        <div className="flex gap-1 md:gap-3 justify-center overflow-x-auto">
           {[1, 2, 3, 4, 1, 2, 3, 4].map((number, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <div className="text-center font-pixel text-sm w-12 md:w-16 text-foreground">
+            <div key={index} className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+              <div className="text-center font-pixel text-sm w-8 md:w-12 lg:w-16 text-foreground">
                 {number}
               </div>
               {index < 7 && (
-                <div className="text-center font-pixel text-sm w-6 md:w-8 text-muted-foreground">
+                <div className="text-center font-pixel text-sm w-4 md:w-6 lg:w-8 text-muted-foreground">
                   +
                 </div>
               )}
