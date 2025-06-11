@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
@@ -10,7 +9,6 @@ import { PresetRhythm } from '@/types/rhythm';
 import { playSound } from '@/utils/audioUtils';
 import { useQuizPlayback } from '@/hooks/useQuizPlayback';
 import LeaderboardSubmission from '@/components/LeaderboardSubmission';
-
 interface QuizState {
   currentPreset: PresetRhythm | null;
   options: PresetRhythm[];
@@ -29,12 +27,10 @@ interface QuizState {
   totalCorrectAnswers: number;
   showLeaderboardSubmission: boolean;
 }
-
 const Quiz = () => {
   const navigate = useNavigate();
   const [quizType, setQuizType] = useState<'preset-recognition' | 'beat-selection'>('preset-recognition');
   const [playbackInterval, setPlaybackInterval] = useState<NodeJS.Timeout | null>(null);
-  
   const [state, setState] = useState<QuizState>({
     currentPreset: null,
     options: [],
@@ -56,16 +52,15 @@ const Quiz = () => {
   });
 
   // Use the quiz playback hook for beat selection
-  const { 
-    isPlaying: isQuizPlaying, 
-    currentBeat: quizCurrentBeat, 
-    startPlayback, 
-    stopPlayback 
+  const {
+    isPlaying: isQuizPlaying,
+    currentBeat: quizCurrentBeat,
+    startPlayback,
+    stopPlayback
   } = useQuizPlayback({
     selectedMainBeats: state.selectedMainBeats,
     selectedHalfBeats: state.selectedHalfBeats
   });
-
   const generateQuestion = () => {
     // Find presets that need more correct answers (less than 3 correct answers)
     const incompletePresets = presetRhythms.filter(preset => state.correctCounts[preset.name] < 3);
@@ -121,7 +116,6 @@ const Quiz = () => {
     }
     stopPlayback();
   };
-
   const playPreset = () => {
     if (!state.currentPreset) return;
     if (state.isPlaying) {
@@ -170,7 +164,6 @@ const Quiz = () => {
 
     setPlaybackInterval(interval);
   };
-
   const handleAnswer = (selectedPreset: PresetRhythm) => {
     if (state.showFeedback || !state.currentPreset) return;
 
@@ -210,7 +203,6 @@ const Quiz = () => {
       }
     }, 2000);
   };
-
   const handleBeatSelection = (beatIndex: number, isHalfBeat: boolean) => {
     if (state.showFeedback || state.hasSubmitted) return;
     if (isHalfBeat) {
@@ -225,7 +217,6 @@ const Quiz = () => {
       }));
     }
   };
-
   const handleBeatSelectionSubmit = () => {
     if (!state.currentPreset || state.hasSubmitted) return;
 
@@ -268,7 +259,6 @@ const Quiz = () => {
       }
     }, timeoutDuration);
   };
-
   const resetGame = () => {
     // Stop any existing playback
     if (playbackInterval) {
@@ -276,7 +266,6 @@ const Quiz = () => {
       setPlaybackInterval(null);
     }
     stopPlayback();
-    
     setState({
       currentPreset: null,
       options: [],
@@ -297,12 +286,10 @@ const Quiz = () => {
       showLeaderboardSubmission: false
     });
   };
-
   const handleQuizTypeChange = (newQuizType: 'preset-recognition' | 'beat-selection') => {
     setQuizType(newQuizType);
     resetGame();
   };
-
   useEffect(() => {
     if (!state.currentPreset && !state.gameComplete) {
       generateQuestion();
@@ -319,7 +306,6 @@ const Quiz = () => {
       return () => clearTimeout(timer);
     }
   }, [state.currentPreset, state.showFeedback, quizType, isQuizPlaying, startPlayback]);
-
   useEffect(() => {
     return () => {
       if (playbackInterval) {
@@ -328,7 +314,6 @@ const Quiz = () => {
       stopPlayback();
     };
   }, [playbackInterval, stopPlayback]);
-
   const allPresetsCompleted = Object.values(state.correctCounts).every(count => count >= 3);
 
   // Calculate overall progress percentage
@@ -340,8 +325,7 @@ const Quiz = () => {
   const maxPossibleScore = 60;
   const finalScore = state.totalCorrectAnswers * 2; // 2 points per correct answer (30 max answers * 2 = 60 max score)
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
+  return <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
@@ -360,9 +344,9 @@ const Quiz = () => {
             </div>
             <div className="flex items-center gap-2">
               <span className="font-pixel text-sm">Lives:</span>
-              {Array.from({ length: 3 }).map((_, i) => (
-                <Heart key={i} className={`w-6 h-6 ${i < state.lives ? 'text-red-500 fill-red-500' : 'text-gray-300'}`} />
-              ))}
+              {Array.from({
+              length: 3
+            }).map((_, i) => <Heart key={i} className={`w-6 h-6 ${i < state.lives ? 'text-red-500 fill-red-500' : 'text-gray-300'}`} />)}
             </div>
           </div>
         </div>
@@ -370,90 +354,58 @@ const Quiz = () => {
         {/* Quiz Type Toggle */}
         <div className="game-panel p-6 mb-6">
           <div className="flex flex-col sm:flex-row gap-4 w-full">
-            <Button 
-              onClick={() => handleQuizTypeChange('preset-recognition')} 
-              variant={quizType === 'preset-recognition' ? 'default' : 'outline'} 
-              className="font-pixel flex-1 min-w-0"
-            >
+            <Button onClick={() => handleQuizTypeChange('preset-recognition')} variant={quizType === 'preset-recognition' ? 'default' : 'outline'} className="font-pixel flex-1 min-w-0">
               <span className="truncate">Listen and Guess</span>
             </Button>
-            <Button 
-              onClick={() => handleQuizTypeChange('beat-selection')} 
-              variant={quizType === 'beat-selection' ? 'default' : 'outline'} 
-              className="font-pixel flex-1 min-w-0"
-            >
+            <Button onClick={() => handleQuizTypeChange('beat-selection')} variant={quizType === 'beat-selection' ? 'default' : 'outline'} className="font-pixel flex-1 min-w-0">
               <span className="truncate">Read and Play</span>
             </Button>
           </div>
         </div>
 
         {/* Quiz Content - Preset Recognition */}
-        {quizType === 'preset-recognition' && state.currentPreset && (
-          <div className="game-panel p-8">
+        {quizType === 'preset-recognition' && state.currentPreset && <div className="game-panel p-8">
             <div className="text-center mb-8">
-              <h2 className="font-pixel text-xl mb-4">Listen to the rhythm and identify the preset</h2>
+              <h2 className="font-pixel text-xl mb-4">Listen and Identify the Rhythm</h2>
               
               {/* Play Button */}
               <Button onClick={playPreset} className="font-pixel text-lg px-8 py-4 mb-6" disabled={state.showFeedback}>
-                {state.isPlaying ? (
-                  <>
+                {state.isPlaying ? <>
                     <Pause className="w-6 h-6 mr-2" />
                     Stop
-                  </>
-                ) : (
-                  <>
+                  </> : <>
                     <Play className="w-6 h-6 mr-2" />
                     Play Rhythm
-                  </>
-                )}
+                  </>}
               </Button>
 
               {/* Beat Indicator */}
-              {state.isPlaying && (
-                <div className="flex justify-center gap-2 mb-6">
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <div 
-                      key={i} 
-                      className={`w-4 h-4 rounded-full border-2 ${
-                        i === state.currentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'
-                      }`} 
-                    />
-                  ))}
-                </div>
-              )}
+              {state.isPlaying && <div className="flex justify-center gap-2 mb-6">
+                  {Array.from({
+              length: 4
+            }).map((_, i) => <div key={i} className={`w-4 h-4 rounded-full border-2 ${i === state.currentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'}`} />)}
+                </div>}
             </div>
 
             {/* Options */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {state.options.map(preset => (
-                <Button 
-                  key={preset.name} 
-                  onClick={() => handleAnswer(preset)} 
-                  disabled={state.showFeedback} 
-                  variant="outline" 
-                  className="font-pixel p-4 h-auto"
-                >
+              {state.options.map(preset => <Button key={preset.name} onClick={() => handleAnswer(preset)} disabled={state.showFeedback} variant="outline" className="font-pixel p-4 h-auto">
                   <div className="text-center">
                     <div className="font-bold">{preset.name}</div>
                     <div className="text-xs text-muted-foreground">{preset.category}</div>
                   </div>
-                </Button>
-              ))}
+                </Button>)}
             </div>
 
             {/* Feedback */}
-            {state.showFeedback && (
-              <div className={`text-center mt-6 p-4 rounded-lg ${
-                state.lastAnswerCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-              }`}>
+            {state.showFeedback && <div className={`text-center mt-6 p-4 rounded-lg ${state.lastAnswerCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                 <div className="font-pixel text-lg">
                   {state.lastAnswerCorrect ? '✓ Correct!' : '✗ Wrong!'}
                 </div>
                 <div className="text-sm mt-1">
                   The correct answer was: {state.currentPreset.name}
                 </div>
-              </div>
-            )}
+              </div>}
 
             {/* Progress Bar */}
             <div className="mt-8 p-4 bg-muted rounded-lg">
@@ -463,126 +415,85 @@ const Quiz = () => {
               </div>
               <Progress value={progressPercentage} className="w-full" />
             </div>
-          </div>
-        )}
+          </div>}
 
         {/* Quiz Content - Beat Selection */}
-        {quizType === 'beat-selection' && state.currentPreset && (
-          <div className="game-panel p-8">
+        {quizType === 'beat-selection' && state.currentPreset && <div className="game-panel p-8">
             <div className="text-center mb-8">
               <h2 className="font-pixel text-xl mb-4">Select the beats for:</h2>
               <h3 className="font-pixel text-2xl text-berlin-orange mb-2">{state.currentPreset.name}</h3>
               <p className="text-muted-foreground mb-6">{state.currentPreset.category}</p>
               
               {/* Audio status indicator - no manual control needed */}
-              {isQuizPlaying && !state.showFeedback && (
-                <div className="flex items-center justify-center gap-2 mb-6">
+              {isQuizPlaying && !state.showFeedback && <div className="flex items-center justify-center gap-2 mb-6">
                   <div className="w-2 h-2 bg-berlin-orange rounded-full animate-pulse"></div>
                   <span className="font-pixel text-sm text-muted-foreground">Audio playing...</span>
-                </div>
-              )}
+                </div>}
 
               {/* Beat Indicator for continuous playback */}
-              {isQuizPlaying && (
-                <div className="flex justify-center gap-2 mb-6">
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <div 
-                      key={i} 
-                      className={`w-4 h-4 rounded-full border-2 ${
-                        i === quizCurrentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'
-                      }`} 
-                    />
-                  ))}
-                </div>
-              )}
+              {isQuizPlaying && <div className="flex justify-center gap-2 mb-6">
+                  {Array.from({
+              length: 4
+            }).map((_, i) => <div key={i} className={`w-4 h-4 rounded-full border-2 ${i === quizCurrentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'}`} />)}
+                </div>}
             </div>
 
             {/* Beat Selection Grid - Similar to main page layout */}
             <div className="flex justify-center mb-8">
               <div className="flex gap-1 md:gap-3">
-                {Array.from({ length: 4 }).map((_, beatIndex) => (
-                  <div key={beatIndex} className="flex items-center gap-1 md:gap-2">
+                {Array.from({
+              length: 4
+            }).map((_, beatIndex) => <div key={beatIndex} className="flex items-center gap-1 md:gap-2">
                     {/* Main beat */}
-                    <button 
-                      onClick={() => handleBeatSelection(beatIndex, false)} 
-                      disabled={state.showFeedback} 
-                      className={`
+                    <button onClick={() => handleBeatSelection(beatIndex, false)} disabled={state.showFeedback} className={`
                         w-12 h-12 md:w-16 md:h-16 border-2 font-pixel text-lg transition-colors
-                        ${state.selectedMainBeats[beatIndex] 
-                          ? 'bg-berlin-red border-berlin-red text-white' 
-                          : 'bg-white border-gray-300 text-gray-700 hover:border-berlin-red'
-                        }
+                        ${state.selectedMainBeats[beatIndex] ? 'bg-berlin-red border-berlin-red text-white' : 'bg-white border-gray-300 text-gray-700 hover:border-berlin-red'}
                         ${state.showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}
-                      `}
-                    >
+                      `}>
                       {beatIndex + 1}
                     </button>
                     
                     {/* Half beat (except after last beat) */}
-                    {beatIndex < 3 && (
-                      <button 
-                        onClick={() => handleBeatSelection(beatIndex, true)} 
-                        disabled={state.showFeedback} 
-                        className={`
+                    {beatIndex < 3 && <button onClick={() => handleBeatSelection(beatIndex, true)} disabled={state.showFeedback} className={`
                           w-6 h-6 md:w-8 md:h-8 rounded-full border-2 font-pixel text-xs transition-colors
-                          ${state.selectedHalfBeats[beatIndex] 
-                            ? 'bg-berlin-orange border-berlin-orange text-white' 
-                            : 'bg-white border-gray-300 text-gray-700 hover:border-berlin-orange'
-                          }
+                          ${state.selectedHalfBeats[beatIndex] ? 'bg-berlin-orange border-berlin-orange text-white' : 'bg-white border-gray-300 text-gray-700 hover:border-berlin-orange'}
                           ${state.showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}
-                        `}
-                      >
+                        `}>
                         +
-                      </button>
-                    )}
-                  </div>
-                ))}
+                      </button>}
+                  </div>)}
               </div>
             </div>
 
             {/* Beat Numbers */}
             <div className="flex justify-center mb-8">
               <div className="flex gap-1 md:gap-3">
-                {[1, 2, 3, 4].map((number, index) => (
-                  <div key={index} className="flex items-center gap-1 md:gap-2">
+                {[1, 2, 3, 4].map((number, index) => <div key={index} className="flex items-center gap-1 md:gap-2">
                     <div className="text-center font-pixel text-sm w-12 md:w-16 text-foreground">
                       {number}
                     </div>
-                    {index < 3 && (
-                      <div className="text-center font-pixel text-sm w-6 md:w-8 text-muted-foreground">
+                    {index < 3 && <div className="text-center font-pixel text-sm w-6 md:w-8 text-muted-foreground">
                         +
-                      </div>
-                    )}
-                  </div>
-                ))}
+                      </div>}
+                  </div>)}
               </div>
             </div>
 
             {/* Submit Button */}
-            {!state.showFeedback && (
-              <div className="text-center mb-8">
-                <Button 
-                  onClick={handleBeatSelectionSubmit} 
-                  className="font-pixel text-lg px-8 py-4" 
-                  disabled={state.hasSubmitted}
-                >
+            {!state.showFeedback && <div className="text-center mb-8">
+                <Button onClick={handleBeatSelectionSubmit} className="font-pixel text-lg px-8 py-4" disabled={state.hasSubmitted}>
                   Submit Answer
                 </Button>
-              </div>
-            )}
+              </div>}
 
             {/* Feedback */}
-            {state.showFeedback && (
-              <div className={`p-6 rounded-lg mb-8 ${
-                state.lastAnswerCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-              }`}>
+            {state.showFeedback && <div className={`p-6 rounded-lg mb-8 ${state.lastAnswerCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                 <div className="font-pixel text-lg mb-6 text-center">
                   {state.lastAnswerCorrect ? '✓ Correct!' : '✗ Wrong!'}
                 </div>
                 
                 {/* Show correct answer visually when wrong */}
-                {!state.lastAnswerCorrect && (
-                  <div className="bg-white p-4 rounded-lg">
+                {!state.lastAnswerCorrect && <div className="bg-white p-4 rounded-lg">
                     <div className="font-pixel text-sm mb-4 text-center text-gray-800">
                       Correct Answer:
                     </div>
@@ -590,57 +501,43 @@ const Quiz = () => {
                     {/* Visual representation of correct answer */}
                     <div className="flex justify-center mb-4">
                       <div className="flex gap-1 md:gap-3">
-                        {Array.from({ length: 4 }).map((_, beatIndex) => (
-                          <div key={beatIndex} className="flex items-center gap-1 md:gap-2">
+                        {Array.from({
+                  length: 4
+                }).map((_, beatIndex) => <div key={beatIndex} className="flex items-center gap-1 md:gap-2">
                             {/* Main beat - show if it should be active */}
                             <div className={`
                                 w-12 h-12 md:w-16 md:h-16 border-2 font-pixel text-lg flex items-center justify-center
-                                ${state.currentPreset!.mainBeats.includes(beatIndex + 1) 
-                                  ? 'bg-berlin-red border-berlin-red text-white' 
-                                  : 'bg-gray-100 border-gray-300 text-gray-400'
-                                }
+                                ${state.currentPreset!.mainBeats.includes(beatIndex + 1) ? 'bg-berlin-red border-berlin-red text-white' : 'bg-gray-100 border-gray-300 text-gray-400'}
                               `}>
                               {beatIndex + 1}
                             </div>
                             
                             {/* Half beat - show if it should be active (except after last beat) */}
-                            {beatIndex < 3 && (
-                              <div className={`
+                            {beatIndex < 3 && <div className={`
                                   w-6 h-6 md:w-8 md:h-8 rounded-full border-2 font-pixel text-xs flex items-center justify-center
-                                  ${state.currentPreset!.halfBeats.includes(beatIndex + 1) 
-                                    ? 'bg-berlin-orange border-berlin-orange text-white' 
-                                    : 'bg-gray-100 border-gray-300 text-gray-400'
-                                  }
+                                  ${state.currentPreset!.halfBeats.includes(beatIndex + 1) ? 'bg-berlin-orange border-berlin-orange text-white' : 'bg-gray-100 border-gray-300 text-gray-400'}
                                 `}>
                                 +
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                              </div>}
+                          </div>)}
                       </div>
                     </div>
                     
                     {/* Beat numbers for the correct answer */}
                     <div className="flex justify-center">
                       <div className="flex gap-1 md:gap-3">
-                        {[1, 2, 3, 4].map((number, index) => (
-                          <div key={index} className="flex items-center gap-1 md:gap-2">
+                        {[1, 2, 3, 4].map((number, index) => <div key={index} className="flex items-center gap-1 md:gap-2">
                             <div className="text-center font-pixel text-sm w-12 md:w-16 text-gray-600">
                               {number}
                             </div>
-                            {index < 3 && (
-                              <div className="text-center font-pixel text-sm w-6 md:w-8 text-gray-400">
+                            {index < 3 && <div className="text-center font-pixel text-sm w-6 md:w-8 text-gray-400">
                                 +
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                              </div>}
+                          </div>)}
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            )}
+                  </div>}
+              </div>}
 
             {/* Progress Bar */}
             <div className="p-4 bg-muted rounded-lg">
@@ -650,8 +547,7 @@ const Quiz = () => {
               </div>
               <Progress value={progressPercentage} className="w-full" />
             </div>
-          </div>
-        )}
+          </div>}
 
         {/* Victory Modal */}
         <Dialog open={state.gameComplete && allPresetsCompleted}>
@@ -705,15 +601,11 @@ const Quiz = () => {
         </Dialog>
 
         {/* Leaderboard Submission Modal */}
-        <LeaderboardSubmission
-          isOpen={state.showLeaderboardSubmission}
-          onClose={() => setState(prev => ({ ...prev, showLeaderboardSubmission: false }))}
-          score={finalScore}
-          maxScore={maxPossibleScore}
-        />
+        <LeaderboardSubmission isOpen={state.showLeaderboardSubmission} onClose={() => setState(prev => ({
+        ...prev,
+        showLeaderboardSubmission: false
+      }))} score={finalScore} maxScore={maxPossibleScore} />
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Quiz;
