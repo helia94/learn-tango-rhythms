@@ -424,7 +424,7 @@ const Quiz = () => {
           <div className="game-panel p-8 relative overflow-hidden">
             {/* Animated background elements */}
             <div className="absolute top-4 right-4 opacity-20">
-              <Volume2 className="w-16 h-16 text-berlin-cyan animate-pulse" />
+              <Volume2 className="w-16 h-16 text-berlin-cyan" />
             </div>
             <div className="absolute bottom-4 left-4 opacity-20">
               <Target className="w-12 h-12 text-berlin-pink animate-bounce" />
@@ -433,9 +433,9 @@ const Quiz = () => {
             {/* Header Section with Visual Enhancement */}
             <div className="text-center mb-8 relative">
               <div className="flex items-center justify-center gap-4 mb-6">
-                <Gamepad2 className="w-8 h-8 text-berlin-orange animate-wiggle" />
+                <Gamepad2 className="w-8 h-8 text-berlin-orange" />
                 <h2 className="font-pixel text-xl berlin-title">Listen & Identify</h2>
-                <Gamepad2 className="w-8 h-8 text-berlin-orange animate-wiggle" />
+                <Gamepad2 className="w-8 h-8 text-berlin-orange" />
               </div>
               
               {/* Enhanced Play Button */}
@@ -454,7 +454,7 @@ const Quiz = () => {
                   )}
                 </Button>
                 {state.isPlaying && (
-                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-berlin-red rounded-full animate-pulse border-2 border-white"></div>
+                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-berlin-red rounded-full border-2 border-white"></div>
                 )}
               </div>
 
@@ -469,7 +469,7 @@ const Quiz = () => {
                           : 'bg-gray-200'
                       }`} />
                       {i === state.currentBeat && (
-                        <div className="absolute inset-0 rounded-full bg-berlin-orange animate-ping opacity-75"></div>
+                        <div className="absolute inset-0 rounded-full bg-berlin-orange opacity-75"></div>
                       )}
                     </div>
                   ))}
@@ -529,7 +529,7 @@ const Quiz = () => {
                   {state.lastAnswerCorrect ? (
                     <CheckCircle2 className="w-12 h-12 animate-bounce" />
                   ) : (
-                    <XCircle className="w-12 h-12 animate-shake" />
+                    <XCircle className="w-12 h-12" />
                   )}
                   <div className="font-pixel text-2xl">
                     {state.lastAnswerCorrect ? 'CORRECT!' : 'WRONG!'}
@@ -560,7 +560,7 @@ const Quiz = () => {
           <div className="game-panel p-8 relative overflow-hidden">
             {/* Animated background elements */}
             <div className="absolute top-4 right-4 opacity-20">
-              <Zap className="w-16 h-16 text-berlin-yellow animate-pulse" />
+              <Zap className="w-16 h-16 text-berlin-yellow" />
             </div>
             <div className="absolute bottom-4 left-4 opacity-20">
               <Target className="w-12 h-12 text-berlin-green animate-bounce" />
@@ -569,9 +569,9 @@ const Quiz = () => {
             {/* Header Section with Visual Enhancement */}
             <div className="text-center mb-8 relative">
               <div className="flex items-center justify-center gap-4 mb-4">
-                <Gamepad2 className="w-8 h-8 text-berlin-pink animate-wiggle" />
+                <Gamepad2 className="w-8 h-8 text-berlin-pink" />
                 <h2 className="font-pixel text-xl berlin-title">Beat Builder</h2>
-                <Gamepad2 className="w-8 h-8 text-berlin-pink animate-wiggle" />
+                <Gamepad2 className="w-8 h-8 text-berlin-pink" />
               </div>
               
               {/* Preset Info Card */}
@@ -583,8 +583,8 @@ const Quiz = () => {
               {/* Audio status indicator with enhanced styling */}
               {isQuizPlaying && !state.showFeedback && (
                 <div className="flex items-center justify-center gap-3 mb-6 p-4 bg-gradient-to-r from-berlin-red/20 to-berlin-orange/20 border-2 border-berlin-orange rounded-lg">
-                  <div className="w-3 h-3 bg-berlin-orange rounded-full animate-pulse"></div>
-                  <Volume2 className="w-5 h-5 text-berlin-orange animate-pulse" />
+                  <div className="w-3 h-3 bg-berlin-orange rounded-full"></div>
+                  <Volume2 className="w-5 h-5 text-berlin-orange" />
                   <span className="font-pixel text-sm text-berlin-orange">RHYTHM PLAYING...</span>
                 </div>
               )}
@@ -600,7 +600,7 @@ const Quiz = () => {
                           : 'bg-gray-200'
                       }`} />
                       {i === quizCurrentBeat && (
-                        <div className="absolute inset-0 rounded-full bg-berlin-orange animate-ping opacity-75"></div>
+                        <div className="absolute inset-0 rounded-full bg-berlin-orange opacity-75"></div>
                       )}
                     </div>
                   ))}
@@ -637,7 +637,7 @@ const Quiz = () => {
                           {beatIndex + 1}
                         </button>
                         {state.selectedMainBeats[beatIndex] && (
-                          <div className="absolute -top-1 -right-1 w-4 h-4 bg-berlin-yellow rounded-full border-2 border-black animate-pulse"></div>
+                          <div className="absolute -top-1 -right-1 w-4 h-4 bg-berlin-yellow rounded-full border-2 border-black"></div>
                         )}
                       </div>
                       
@@ -659,7 +659,7 @@ const Quiz = () => {
                             +
                           </button>
                           {state.selectedHalfBeats[beatIndex] && (
-                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-berlin-cyan rounded-full border-2 border-black animate-pulse"></div>
+                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-berlin-cyan rounded-full border-2 border-black"></div>
                           )}
                         </div>
                       )}
@@ -712,7 +712,7 @@ const Quiz = () => {
                   {state.lastAnswerCorrect ? (
                     <CheckCircle2 className="w-16 h-16 animate-bounce" />
                   ) : (
-                    <XCircle className="w-16 h-16 animate-shake" />
+                    <XCircle className="w-16 h-16" />
                   )}
                   <div className="font-pixel text-3xl">
                     {state.lastAnswerCorrect ? 'PERFECT!' : 'TRY AGAIN!'}
@@ -841,5 +841,3 @@ const Quiz = () => {
 };
 
 export default Quiz;
-
-}
