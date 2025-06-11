@@ -20,6 +20,14 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel, maxBeats }:
     setIsPlaying(!isPlaying);
   }, [isPlaying]);
 
+  const stopPlayback = useCallback(() => {
+    setIsPlaying(false);
+  }, []);
+
+  const startPlayback = useCallback(() => {
+    setIsPlaying(true);
+  }, []);
+
   useEffect(() => {
     if (isPlaying) {
       const currentBpm = speedLevels[speedLevel].bpm;
@@ -72,6 +80,8 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel, maxBeats }:
     isPlaying,
     currentBeat,
     currentHalfBeat,
-    togglePlayback
+    togglePlayback,
+    stopPlayback,
+    startPlayback
   };
 };

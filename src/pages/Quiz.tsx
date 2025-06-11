@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
@@ -8,6 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { presetRhythms } from '@/data/presets';
 import { PresetRhythm } from '@/types/rhythm';
 import { playSound } from '@/utils/audioUtils';
+import { useQuizPlayback } from '@/hooks/useQuizPlayback';
 
 interface QuizState {
   currentPreset: PresetRhythm | null;
@@ -23,15 +23,12 @@ interface QuizState {
   selectedMainBeats: boolean[];
   selectedHalfBeats: boolean[];
   hasSubmitted: boolean;
-  // Beat selection continuous playback
-  isContinuousPlaying: boolean;
 }
 
 const Quiz = () => {
   const navigate = useNavigate();
   const [quizType, setQuizType] = useState<'preset-recognition' | 'beat-selection'>('preset-recognition');
   const [playbackInterval, setPlaybackInterval] = useState<NodeJS.Timeout | null>(null);
-  const [continuousPlaybackInterval, setContinuousPlaybackInterval] = useState<NodeJS.Timeout | null>(null);
   
   const [state, setState] = useState<QuizState>({
     currentPreset: null,
@@ -48,8 +45,18 @@ const Quiz = () => {
     currentBeat: 0,
     selectedMainBeats: new Array(4).fill(false),
     selectedHalfBeats: new Array(4).fill(false),
-    hasSubmitted: false,
-    isContinuousPlaying: false
+    hasSubmitted: false
+  });
+
+  // Use the quiz playback hook for beat selection
+  const { 
+    isPlaying: isQuizPlaying, 
+    currentBeat: quizCurrentBeat, 
+    startPlayback, 
+    stopPlayback 
+  } = useQuizPlayback({
+    selectedMainBeats: state.selectedMainBeats,
+    selectedHalfBeats: state.selectedHalfBeats
   });
 
   const generateQuestion = () => {
@@ -95,8 +102,7 @@ const Quiz = () => {
         showFeedback: false,
         selectedMainBeats: new Array(4).fill(false),
         selectedHalfBeats: new Array(4).fill(false),
-        hasSubmitted: false,
-        isContinuousPlaying: false // Will be set to true by useEffect
+        hasSubmitted: false
       }));
     }
 
@@ -105,10 +111,7 @@ const Quiz = () => {
       clearInterval(playbackInterval);
       setPlaybackInterval(null);
     }
-    if (continuousPlaybackInterval) {
-      clearInterval(continuousPlaybackInterval);
-      setContinuousPlaybackInterval(null);
-    }
+    stopPlayback();
   };
 
   const playPreset = () => {
@@ -158,62 +161,6 @@ const Quiz = () => {
     }, 600); // 100 BPM
 
     setPlaybackInterval(interval);
-  };
-
-  const startContinuousPlayback = () => {
-    if (!state.currentPreset || state.showFeedback) return;
-
-    setState(prev => ({
-      ...prev,
-      isContinuousPlaying: true,
-      currentBeat: 0
-    }));
-
-    let beatIndex = 0;
-    const interval = setInterval(() => {
-      const preset = state.currentPreset!;
-
-      // Play main beat if active
-      if (preset.mainBeats.includes(beatIndex % 4 + 1)) {
-        playSound('bass', false);
-      }
-
-      // Play half beat if active (offset by half the interval)
-      setTimeout(() => {
-        if (preset.halfBeats.includes(beatIndex % 4 + 1)) {
-          playSound('bass', true);
-        }
-      }, 300);
-
-      setState(prev => ({
-        ...prev,
-        currentBeat: beatIndex % 4
-      }));
-
-      beatIndex++;
-    }, 600); // 100 BPM
-
-    setContinuousPlaybackInterval(interval);
-  };
-
-  const stopContinuousPlayback = () => {
-    if (continuousPlaybackInterval) {
-      clearInterval(continuousPlaybackInterval);
-      setContinuousPlaybackInterval(null);
-    }
-    setState(prev => ({
-      ...prev,
-      isContinuousPlaying: false,
-      currentBeat: 0
-    }));
-  };
-
-  const toggleContinuousPlayback = () => {
-    if (state.isContinuousPlaying) {
-      stopContinuousPlayback();
-    } else {
-      startContinuousPlayback();
-    }
   };
 
   const handleAnswer = (selectedPreset: PresetRhythm) => {
@@ -271,7 +218,7 @@ const Quiz = () => {
     if (!state.currentPreset || state.hasSubmitted) return;
 
     // Stop continuous playback when submitting
-    stopContinuousPlayback();
+    stopPlayback();
 
     // Convert selected beats to the same format as preset (1-4 instead of 0-3)
     const selectedMainBeatsNumbers = state.selectedMainBeats.map((selected, index) => selected ? index + 1 : null).filter(beat => beat !== null) as number[];
@@ -312,7 +259,7 @@ const Quiz = () => {
       clearInterval(playbackInterval);
       setPlaybackInterval(null);
     }
-    stopContinuousPlayback();
+    stopPlayback();
     
     setState({
       currentPreset: null,
@@ -329,8 +276,7 @@ const Quiz = () => {
       currentBeat: 0,
       selectedMainBeats: new Array(4).fill(false),
       selectedHalfBeats: new Array(4).fill(false),
-      hasSubmitted: false,
-      isContinuousPlaying: false
+      hasSubmitted: false
     });
   };
 
@@ -347,25 +293,23 @@ const Quiz = () => {
 
   // Auto-start continuous playback for beat selection quiz
   useEffect(() => {
-    if (quizType === 'beat-selection' && state.currentPreset && !state.showFeedback && !state.isContinuousPlaying) {
+    if (quizType === 'beat-selection' && state.currentPreset && !state.showFeedback && !isQuizPlaying) {
       // Small delay to ensure state is properly set
       const timer = setTimeout(() => {
-        startContinuousPlayback();
+        startPlayback();
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [state.currentPreset, state.showFeedback, quizType]);
+  }, [state.currentPreset, state.showFeedback, quizType, isQuizPlaying, startPlayback]);
 
   useEffect(() => {
     return () => {
       if (playbackInterval) {
         clearInterval(playbackInterval);
       }
-      if (continuousPlaybackInterval) {
-        clearInterval(continuousPlaybackInterval);
-      }
+      stopPlayback();
     };
-  }, [playbackInterval, continuousPlaybackInterval]);
+  }, [playbackInterval, stopPlayback]);
 
   const allPresetsCompleted = Object.values(state.correctCounts).every(count => count >= 3);
 
@@ -503,7 +447,7 @@ const Quiz = () => {
               <p className="text-muted-foreground mb-6">{state.currentPreset.category}</p>
               
               {/* Audio status indicator - no manual control needed */}
-              {state.isContinuousPlaying && !state.showFeedback && (
+              {isQuizPlaying && !state.showFeedback && (
                 <div className="flex items-center justify-center gap-2 mb-6">
                   <div className="w-2 h-2 bg-berlin-orange rounded-full animate-pulse"></div>
                   <span className="font-pixel text-sm text-muted-foreground">Audio playing...</span>
@@ -511,13 +455,13 @@ const Quiz = () => {
               )}
 
               {/* Beat Indicator for continuous playback */}
-              {state.isContinuousPlaying && (
+              {isQuizPlaying && (
                 <div className="flex justify-center gap-2 mb-6">
                   {Array.from({ length: 4 }).map((_, i) => (
                     <div 
                       key={i} 
                       className={`w-4 h-4 rounded-full border-2 ${
-                        i === state.currentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'
+                        i === quizCurrentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'
                       }`} 
                     />
                   ))}
