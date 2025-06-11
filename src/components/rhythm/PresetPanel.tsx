@@ -48,12 +48,19 @@ const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
         ))}
       </div>
 
-      {/* Mobile: Carousel */}
+      {/* Mobile: Carousel with category labels */}
       <div className="md:hidden">
         <Carousel className="w-full">
           <CarouselContent className="-ml-2">
-            {Object.entries(groupedPresets).map(([category, presets]) => 
-              presets.map((preset) => (
+            {Object.entries(groupedPresets).map(([category, presets]) => [
+              // Category label as a carousel item
+              <CarouselItem key={`${category}-label`} className="pl-2 basis-auto">
+                <div className="berlin-track-label bg-berlin-cyan text-white text-xs px-3 py-1">
+                  {category}
+                </div>
+              </CarouselItem>,
+              // Preset buttons for this category
+              ...presets.map((preset) => (
                 <CarouselItem key={preset.name} className="pl-2 basis-auto">
                   <button
                     onClick={() => onApplyPreset('bass', preset)}
@@ -63,7 +70,7 @@ const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
                   </button>
                 </CarouselItem>
               ))
-            )}
+            ]).flat()}
           </CarouselContent>
           <CarouselPrevious className="pixel-button" />
           <CarouselNext className="pixel-button" />
