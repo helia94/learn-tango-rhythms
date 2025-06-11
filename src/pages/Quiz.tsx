@@ -9,6 +9,7 @@ import { PresetRhythm } from '@/types/rhythm';
 import { playSound } from '@/utils/audioUtils';
 import { useQuizPlayback } from '@/hooks/useQuizPlayback';
 import LeaderboardSubmission from '@/components/LeaderboardSubmission';
+import { initializeAudioContext } from '@/utils/audioUtils';
 
 interface QuizState {
   currentPreset: PresetRhythm | null;
@@ -117,8 +118,17 @@ const Quiz = () => {
     }
     stopPlayback();
   };
-  const playPreset = () => {
+  const playPreset = async () => {
     if (!state.currentPreset) return;
+    
+    // Initialize audio context on first user interaction (required for iOS)
+    try {
+      await initializeAudioContext();
+      console.log('Audio context initialized for quiz');
+    } catch (error) {
+      console.error('Failed to initialize audio context:', error);
+    }
+    
     if (state.isPlaying) {
       // Stop playing
       if (playbackInterval) {

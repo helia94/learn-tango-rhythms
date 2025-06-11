@@ -1,26 +1,52 @@
 
-export const createAudioContext = () => {
-  return new (window.AudioContext || (window as any).webkitAudioContext)();
-};
+// Singleton AudioContext to handle iOS restrictions
+let audioContext: AudioContext | null = null;
+let isAudioContextInitialized = false;
 
-export const playSound = (soundType: string, isHalfBeat = false) => {
-  console.log(`Playing ${soundType} sound, isHalfBeat: ${isHalfBeat}`);
-  const audioContext = createAudioContext();
-  const masterGain = audioContext.createGain();
-  masterGain.connect(audioContext.destination);
-  
-  if (soundType === 'bass') {
-    playBassSound(audioContext, masterGain);
-  } else if (soundType === 'softbass') {
-    playSoftBassSound(audioContext, masterGain);
-  } else if (soundType === 'dragbeat') {
-    playDragBeatSound(audioContext, masterGain);
+export const initializeAudioContext = async () => {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
   }
-
-  masterGain.gain.setValueAtTime(0.8, audioContext.currentTime);
+  
+  // Resume the context if it's suspended (iOS requirement)
+  if (audioContext.state === 'suspended') {
+    await audioContext.resume();
+  }
+  
+  isAudioContextInitialized = true;
+  return audioContext;
 };
 
-const playBassSound = (audioContext: AudioContext, masterGain: GainNode) => {
+export const getAudioContext = async () => {
+  if (!audioContext || !isAudioContextInitialized) {
+    return await initializeAudioContext();
+  }
+  return audioContext;
+};
+
+export const playSound = async (soundType: string, isHalfBeat = false) => {
+  console.log(`Playing ${soundType} sound, isHalfBeat: ${isHalfBeat}`);
+  
+  try {
+    const ctx = await getAudioContext();
+    const masterGain = ctx.createGain();
+    masterGain.connect(ctx.destination);
+    
+    if (soundType === 'bass') {
+      await playBassSound(ctx, masterGain);
+    } else if (soundType === 'softbass') {
+      await playSoftBassSound(ctx, masterGain);
+    } else if (soundType === 'dragbeat') {
+      await playDragBeatSound(ctx, masterGain);
+    }
+
+    masterGain.gain.setValueAtTime(0.8, ctx.currentTime);
+  } catch (error) {
+    console.error('Audio playback error:', error);
+  }
+};
+
+const playBassSound = async (audioContext: AudioContext, masterGain: GainNode) => {
   const fundamentalFreq = 73.42;
   const duration = 0.5;
   const volumeMultiplier = 1;
@@ -80,7 +106,7 @@ const playBassSound = (audioContext: AudioContext, masterGain: GainNode) => {
   osc3.stop(audioContext.currentTime + 0.1);
 };
 
-const playSoftBassSound = (audioContext: AudioContext, masterGain: GainNode) => {
+const playSoftBassSound = async (audioContext: AudioContext, masterGain: GainNode) => {
   const fundamentalFreq = 82.41;
   const duration = 0.4;
   const volumeMultiplier = 1.2;
@@ -124,7 +150,7 @@ const playSoftBassSound = (audioContext: AudioContext, masterGain: GainNode) => 
   osc2.stop(audioContext.currentTime + duration);
 };
 
-const playDragBeatSound = (audioContext: AudioContext, masterGain: GainNode) => {
+const playDragBeatSound = async (audioContext: AudioContext, masterGain: GainNode) => {
   const fundamentalFreq = 55.00;
   const duration = 0.8;
   const volumeMultiplier = 1.2;
