@@ -369,20 +369,20 @@ const Quiz = () => {
 
         {/* Quiz Type Toggle */}
         <div className="game-panel p-6 mb-6">
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 w-full">
             <Button 
               onClick={() => handleQuizTypeChange('preset-recognition')} 
               variant={quizType === 'preset-recognition' ? 'default' : 'outline'} 
-              className="font-pixel"
+              className="font-pixel flex-1 min-w-0"
             >
-              Listen and Guess
+              <span className="truncate">Listen and Guess</span>
             </Button>
             <Button 
               onClick={() => handleQuizTypeChange('beat-selection')} 
               variant={quizType === 'beat-selection' ? 'default' : 'outline'} 
-              className="font-pixel"
+              className="font-pixel flex-1 min-w-0"
             >
-              Read and Play
+              <span className="truncate">Read and Play</span>
             </Button>
           </div>
         </div>
