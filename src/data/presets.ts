@@ -18,5 +18,3 @@ export const presetRhythms: PresetRhythm[] = [
   { name: '4-1', category: 'OTHER', mainBeats: [1, 4], halfBeats: [] },
   { name: '3-3-2', category: 'OTHER', mainBeats: [1, 4], halfBeats: [2] },
 ];
-
-export const presets = presetRhythms;
