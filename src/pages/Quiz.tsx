@@ -369,12 +369,12 @@ const Quiz = () => {
 
         {/* Quiz Type Toggle - Enhanced with retro game styling */}
         <div className="game-panel p-6 mb-6 relative overflow-hidden">
-          {/* Animated background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-berlin-cyan/20 via-berlin-pink/20 to-berlin-lime/20 animate-pulse"></div>
+          {/* Static background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-r from-berlin-cyan/20 via-berlin-pink/20 to-berlin-lime/20"></div>
           
-          {/* Scanline effect */}
+          {/* Static scanline effect */}
           <div className="absolute inset-0 opacity-30">
-            <div className="h-full w-full bg-gradient-to-b from-transparent via-white/10 to-transparent bg-[length:100%_4px] animate-pulse"></div>
+            <div className="h-full w-full bg-gradient-to-b from-transparent via-white/10 to-transparent bg-[length:100%_4px]"></div>
           </div>
           
           <div className="relative flex flex-col sm:flex-row gap-4 w-full">
@@ -384,7 +384,7 @@ const Quiz = () => {
                 font-pixel flex-1 min-w-0 px-6 py-4 text-sm sm:text-base
                 border-4 border-black transition-all duration-200 transform
                 ${quizType === 'preset-recognition' 
-                  ? 'bg-gradient-to-r from-berlin-lime to-berlin-cyan text-black shadow-[4px_4px_0px_0px_#000,8px_8px_0px_0px_rgba(0,0,0,0.3)] translate-x-[-2px] translate-y-[-2px] animate-pulse' 
+                  ? 'bg-gradient-to-r from-berlin-lime to-berlin-cyan text-black shadow-[4px_4px_0px_0px_#000,8px_8px_0px_0px_rgba(0,0,0,0.3)] translate-x-[-2px] translate-y-[-2px]' 
                   : 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 shadow-[2px_2px_0px_0px_#000] hover:shadow-[4px_4px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:bg-gradient-to-r hover:from-berlin-lime/30 hover:to-berlin-cyan/30'
                 }
                 active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000]
@@ -401,7 +401,7 @@ const Quiz = () => {
                 font-pixel flex-1 min-w-0 px-6 py-4 text-sm sm:text-base
                 border-4 border-black transition-all duration-200 transform
                 ${quizType === 'beat-selection' 
-                  ? 'bg-gradient-to-r from-berlin-pink to-berlin-orange text-black shadow-[4px_4px_0px_0px_#000,8px_8px_0px_0px_rgba(0,0,0,0.3)] translate-x-[-2px] translate-y-[-2px] animate-pulse' 
+                  ? 'bg-gradient-to-r from-berlin-pink to-berlin-orange text-black shadow-[4px_4px_0px_0px_#000,8px_8px_0px_0px_rgba(0,0,0,0.3)] translate-x-[-2px] translate-y-[-2px]' 
                   : 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 shadow-[2px_2px_0px_0px_#000] hover:shadow-[4px_4px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:bg-gradient-to-r hover:from-berlin-pink/30 hover:to-berlin-orange/30'
                 }
                 active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000]
