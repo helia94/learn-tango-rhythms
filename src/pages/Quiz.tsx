@@ -1,8 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Progress } from '@/components/ui/progress';
 import { presetRhythms } from '@/data/presets';
 import { PresetRhythm } from '@/types/rhythm';
 import { playSound } from '@/utils/audioUtils';
@@ -188,6 +190,11 @@ const Quiz = () => {
   }, [playbackInterval]);
 
   const allPresetsCompleted = Object.values(state.correctCounts).every(count => count >= 3);
+  
+  // Calculate overall progress percentage
+  const totalCorrectAnswers = Object.values(state.correctCounts).reduce((sum, count) => sum + count, 0);
+  const totalRequiredAnswers = presetRhythms.length * 3;
+  const progressPercentage = Math.round((totalCorrectAnswers / totalRequiredAnswers) * 100);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
@@ -310,19 +317,13 @@ const Quiz = () => {
               </div>
             )}
 
-            {/* Progress */}
+            {/* Progress Bar */}
             <div className="mt-8 p-4 bg-muted rounded-lg">
-              <h3 className="font-pixel mb-4">Progress (need 3 correct for each):</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
-                {presetRhythms.map(preset => (
-                  <div key={preset.name} className="flex justify-between">
-                    <span>{preset.name}:</span>
-                    <span className={state.correctCounts[preset.name] >= 3 ? 'text-green-600 font-bold' : ''}>
-                      {state.correctCounts[preset.name]}/3
-                    </span>
-                  </div>
-                ))}
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-pixel">Progress</h3>
+                <span className="font-pixel text-sm">{progressPercentage}%</span>
               </div>
+              <Progress value={progressPercentage} className="w-full" />
             </div>
           </div>
         )}
