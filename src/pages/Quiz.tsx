@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
@@ -51,7 +50,17 @@ const Quiz = () => {
     const currentPreset = incompletePresets[Math.floor(Math.random() * incompletePresets.length)];
     
     // Create options (current preset + 3 random others from all presets)
-    const otherPresets = presetRhythms.filter(p => p.name !== currentPreset.name);
+    let otherPresets = presetRhythms.filter(p => p.name !== currentPreset.name);
+    
+    // If current preset is MERCATO 2, exclude MERCATO OPPOSITE from options
+    if (currentPreset.name === 'MERCATO 2') {
+      otherPresets = otherPresets.filter(p => p.name !== 'MERCATO OPPOSITE');
+    }
+    // If current preset is MERCATO OPPOSITE, exclude MERCATO 2 from options
+    else if (currentPreset.name === 'MERCATO OPPOSITE') {
+      otherPresets = otherPresets.filter(p => p.name !== 'MERCATO 2');
+    }
+    
     const randomOthers = otherPresets.sort(() => 0.5 - Math.random()).slice(0, 3);
     const options = [currentPreset, ...randomOthers].sort(() => 0.5 - Math.random());
 
