@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
@@ -95,7 +96,7 @@ const Quiz = () => {
         selectedMainBeats: new Array(4).fill(false),
         selectedHalfBeats: new Array(4).fill(false),
         hasSubmitted: false,
-        isContinuousPlaying: true // Auto-start continuous playback for beat selection
+        isContinuousPlaying: false // Will be set to true by useEffect
       }));
     }
 
@@ -103,6 +104,10 @@ const Quiz = () => {
     if (playbackInterval) {
       clearInterval(playbackInterval);
       setPlaybackInterval(null);
+    }
+    if (continuousPlaybackInterval) {
+      clearInterval(continuousPlaybackInterval);
+      setContinuousPlaybackInterval(null);
     }
   };
 
@@ -340,6 +345,17 @@ const Quiz = () => {
     }
   }, [quizType]);
 
+  // Auto-start continuous playback for beat selection quiz
+  useEffect(() => {
+    if (quizType === 'beat-selection' && state.currentPreset && !state.showFeedback && !state.isContinuousPlaying) {
+      // Small delay to ensure state is properly set
+      const timer = setTimeout(() => {
+        startContinuousPlayback();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [state.currentPreset, state.showFeedback, quizType]);
+
   useEffect(() => {
     return () => {
       if (playbackInterval) {
@@ -486,25 +502,12 @@ const Quiz = () => {
               <h3 className="font-pixel text-2xl text-berlin-orange mb-2">{state.currentPreset.name}</h3>
               <p className="text-muted-foreground mb-6">{state.currentPreset.category}</p>
               
-              {/* Continuous playback control */}
-              {!state.showFeedback && (
-                <Button 
-                  onClick={toggleContinuousPlayback} 
-                  className="font-pixel mb-6" 
-                  variant="outline"
-                >
-                  {state.isContinuousPlaying ? (
-                    <>
-                      <Pause className="w-4 h-4 mr-2" />
-                      Stop Audio
-                    </>
-                  ) : (
-                    <>
-                      <Play className="w-4 h-4 mr-2" />
-                      Play Audio
-                    </>
-                  )}
-                </Button>
+              {/* Audio status indicator - no manual control needed */}
+              {state.isContinuousPlaying && !state.showFeedback && (
+                <div className="flex items-center justify-center gap-2 mb-6">
+                  <div className="w-2 h-2 bg-berlin-orange rounded-full animate-pulse"></div>
+                  <span className="font-pixel text-sm text-muted-foreground">Audio playing...</span>
+                </div>
               )}
 
               {/* Beat Indicator for continuous playback */}
