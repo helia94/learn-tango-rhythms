@@ -70,11 +70,11 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
         <div className="flex gap-3">
           {[1, 2, 3, 4, 1, 2, 3, 4].map((number, index) => (
             <div key={index} className="flex items-center gap-2">
-              <div className="text-center font-pixel text-xs w-12 md:w-16 text-foreground">
+              <div className="text-center font-pixel text-sm w-12 md:w-16 text-foreground">
                 {number}
               </div>
               {index < 7 && (
-                <div className="text-center font-pixel text-xs w-6 md:w-8 text-muted-foreground">
+                <div className="text-center font-pixel text-sm w-6 md:w-8 text-muted-foreground">
                   +
                 </div>
               )}
