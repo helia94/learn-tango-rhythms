@@ -369,7 +369,7 @@ const Quiz = () => {
               <h2 className="font-pixel text-xl mb-4">Listen and Identify the Rhythm</h2>
               
               {/* Play Button */}
-              <Button onClick={playPreset} className="font-pixel text-lg px-8 py-4 mb-6" disabled={state.showFeedback}>
+              <Button onClick={playPreset} disabled={state.showFeedback} className="font-pixel text-lg px-8 py-4 mb-6 bg-orange-600 hover:bg-orange-500">
                 {state.isPlaying ? <>
                     <Pause className="w-6 h-6 mr-2" />
                     Stop
