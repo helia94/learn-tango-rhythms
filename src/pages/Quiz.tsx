@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
@@ -83,7 +82,7 @@ const Quiz = () => {
       return;
     }
 
-    // Start playing
+    // Start playing - loop continuously
     setState(prev => ({ ...prev, isPlaying: true, currentBeat: 0 }));
     
     let beatIndex = 0;
@@ -105,12 +104,7 @@ const Quiz = () => {
       setState(prev => ({ ...prev, currentBeat: beatIndex % 4 }));
       beatIndex++;
 
-      // Stop after 8 beats (2 measures)
-      if (beatIndex >= 8) {
-        clearInterval(interval);
-        setState(prev => ({ ...prev, isPlaying: false, currentBeat: 0 }));
-        setPlaybackInterval(null);
-      }
+      // Continue looping - no stop condition, just keep going
     }, 600); // 100 BPM
 
     setPlaybackInterval(interval);
@@ -118,6 +112,13 @@ const Quiz = () => {
 
   const handleAnswer = (selectedPreset: PresetRhythm) => {
     if (state.showFeedback || !state.currentPreset) return;
+
+    // Stop the rhythm when an answer is selected
+    if (playbackInterval) {
+      clearInterval(playbackInterval);
+      setPlaybackInterval(null);
+    }
+    setState(prev => ({ ...prev, isPlaying: false, currentBeat: 0 }));
 
     const isCorrect = selectedPreset.name === state.currentPreset.name;
     
@@ -153,6 +154,12 @@ const Quiz = () => {
   };
 
   const resetGame = () => {
+    // Stop any existing playback
+    if (playbackInterval) {
+      clearInterval(playbackInterval);
+      setPlaybackInterval(null);
+    }
+    
     setState({
       currentPreset: null,
       options: [],
