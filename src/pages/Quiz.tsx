@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
@@ -230,7 +229,9 @@ const Quiz = () => {
       lives: isCorrect ? prev.lives : prev.lives - 1,
     }));
 
-    // Auto-continue after 3 seconds
+    // Use different timeouts based on whether answer is correct
+    const timeoutDuration = isCorrect ? 500 : 3000; // 0.5 seconds for correct, 3 seconds for wrong
+    
     setTimeout(() => {
       if (state.lives <= 1 && !isCorrect) {
         // Game over - reset
@@ -238,7 +239,7 @@ const Quiz = () => {
       } else {
         generateQuestion();
       }
-    }, 3000);
+    }, timeoutDuration);
   };
 
   const resetGame = () => {
