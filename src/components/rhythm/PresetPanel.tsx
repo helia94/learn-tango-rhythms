@@ -1,7 +1,9 @@
 
 import React from 'react';
 import { Zap } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Button } from '@/components/ui/button';
 import { PresetRhythm } from '@/types/rhythm';
 
 interface PresetPanelProps {
@@ -10,6 +12,8 @@ interface PresetPanelProps {
 }
 
 const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
+  const navigate = useNavigate();
+  
   // Group presets by category
   const groupedPresets = presetRhythms.reduce((acc, preset) => {
     if (!acc[preset.category]) {
@@ -75,6 +79,16 @@ const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
           <CarouselPrevious className="pixel-button" />
           <CarouselNext className="pixel-button" />
         </Carousel>
+      </div>
+
+      {/* Quiz Button */}
+      <div className="flex justify-center mt-8">
+        <Button 
+          onClick={() => navigate('/quiz')}
+          className="font-pixel text-lg px-8 py-4 bg-berlin-orange hover:bg-berlin-orange/80 text-white"
+        >
+          Take the quiz on the presets
+        </Button>
       </div>
     </div>
   );
