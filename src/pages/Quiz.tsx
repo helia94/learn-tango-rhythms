@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Heart, Play, Pause, Volume2, Zap, Target, CheckCircle2, XCircle, Award, Gamepad2 } from 'lucide-react';
+import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Progress } from '@/components/ui/progress';
@@ -421,264 +422,167 @@ const Quiz = () => {
 
         {/* Quiz Content - Preset Recognition */}
         {quizType === 'preset-recognition' && state.currentPreset && (
-          <div className="game-panel p-8 relative overflow-hidden">
-            {/* Animated background elements */}
-            <div className="absolute top-4 right-4 opacity-20">
-              <Volume2 className="w-16 h-16 text-berlin-cyan" />
-            </div>
-            <div className="absolute bottom-4 left-4 opacity-20">
-              <Target className="w-12 h-12 text-berlin-pink animate-bounce" />
-            </div>
-
-            {/* Header Section with Visual Enhancement */}
-            <div className="text-center mb-8 relative">
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <Gamepad2 className="w-8 h-8 text-berlin-orange" />
-                <h2 className="font-pixel text-xl berlin-title">Listen & Identify</h2>
-                <Gamepad2 className="w-8 h-8 text-berlin-orange" />
-              </div>
+          <div className="game-panel p-8">
+            <div className="text-center mb-8">
+              <h2 className="font-pixel text-xl mb-4">Listen to the rhythm and identify the preset</h2>
               
-              {/* Enhanced Play Button */}
-              <div className="relative inline-block mb-6">
-                <Button onClick={playPreset} className="pixel-button text-lg px-12 py-6 relative" disabled={state.showFeedback}>
-                  {state.isPlaying ? (
-                    <>
-                      <Pause className="w-8 h-8 mr-3" />
-                      <span className="font-pixel">STOP RHYTHM</span>
-                    </>
-                  ) : (
-                    <>
-                      <Play className="w-8 h-8 mr-3" />
-                      <span className="font-pixel">PLAY RHYTHM</span>
-                    </>
-                  )}
-                </Button>
-                {state.isPlaying && (
-                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-berlin-red rounded-full border-2 border-white"></div>
+              {/* Play Button */}
+              <Button onClick={playPreset} className="font-pixel text-lg px-8 py-4 mb-6" disabled={state.showFeedback}>
+                {state.isPlaying ? (
+                  <>
+                    <Pause className="w-6 h-6 mr-2" />
+                    Stop
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-6 h-6 mr-2" />
+                    Play Rhythm
+                  </>
                 )}
-              </div>
+              </Button>
 
-              {/* Enhanced Beat Indicator */}
+              {/* Beat Indicator */}
               {state.isPlaying && (
-                <div className="flex justify-center gap-3 mb-6">
+                <div className="flex justify-center gap-2 mb-6">
                   {Array.from({ length: 4 }).map((_, i) => (
-                    <div key={i} className="relative">
-                      <div className={`w-6 h-6 rounded-full border-3 border-black transition-all duration-150 ${
-                        i === state.currentBeat 
-                          ? 'bg-berlin-orange shadow-[0_0_20px_hsl(var(--berlin-orange))] scale-125' 
-                          : 'bg-gray-200'
-                      }`} />
-                      {i === state.currentBeat && (
-                        <div className="absolute inset-0 rounded-full bg-berlin-orange opacity-75"></div>
-                      )}
-                    </div>
+                    <div 
+                      key={i} 
+                      className={`w-4 h-4 rounded-full border-2 ${
+                        i === state.currentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'
+                      }`} 
+                    />
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Enhanced Options Grid */}
-            <div className="grid grid-cols-2 gap-6 mb-8">
-              {state.options.map((preset, index) => (
-                <div key={preset.name} className="relative">
-                  <Button 
-                    onClick={() => handleAnswer(preset)} 
-                    disabled={state.showFeedback} 
-                    className={`
-                      w-full h-auto p-6 text-left transition-all duration-200 transform
-                      font-pixel border-4 border-black
-                      ${state.showFeedback 
-                        ? preset.name === state.currentPreset.name
-                          ? 'bg-gradient-to-br from-green-400 to-green-600 text-white shadow-[0_0_30px_rgba(34,197,94,0.5)]'
-                          : 'bg-gradient-to-br from-gray-300 to-gray-400 text-gray-600'
-                        : 'bg-gradient-to-br from-white to-gray-100 hover:from-berlin-cyan/30 hover:to-berlin-pink/30 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,0,0,0.3)]'
-                      }
-                    `}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 rounded-lg border-2 border-black flex items-center justify-center text-2xl ${
-                        index === 0 ? 'bg-berlin-red' : index === 1 ? 'bg-berlin-blue' : index === 2 ? 'bg-berlin-lime' : 'bg-berlin-purple'
-                      }`}>
-                        {String.fromCharCode(65 + index)}
-                      </div>
-                      <div>
-                        <div className="font-bold text-lg">{preset.name}</div>
-                        <div className="text-sm opacity-70">{preset.category}</div>
-                      </div>
-                    </div>
-                  </Button>
-                  
-                  {/* Visual feedback indicators */}
-                  {state.showFeedback && preset.name === state.currentPreset.name && (
-                    <div className="absolute -top-2 -right-2">
-                      <CheckCircle2 className="w-8 h-8 text-green-500 bg-white rounded-full animate-bounce" />
-                    </div>
-                  )}
-                </div>
+            {/* Options */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {state.options.map(preset => (
+                <Button 
+                  key={preset.name} 
+                  onClick={() => handleAnswer(preset)} 
+                  disabled={state.showFeedback} 
+                  variant="outline" 
+                  className="font-pixel p-4 h-auto"
+                >
+                  <div className="text-center">
+                    <div className="font-bold">{preset.name}</div>
+                    <div className="text-xs text-muted-foreground">{preset.category}</div>
+                  </div>
+                </Button>
               ))}
             </div>
 
-            {/* Enhanced Feedback */}
+            {/* Feedback */}
             {state.showFeedback && (
-              <div className={`relative p-6 rounded-lg border-4 border-black mb-8 ${
-                state.lastAnswerCorrect 
-                  ? 'bg-gradient-to-r from-green-400 to-green-600 text-white' 
-                  : 'bg-gradient-to-r from-red-400 to-red-600 text-white'
+              <div className={`text-center mt-6 p-4 rounded-lg ${
+                state.lastAnswerCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
               }`}>
-                <div className="flex items-center justify-center gap-4 mb-4">
-                  {state.lastAnswerCorrect ? (
-                    <CheckCircle2 className="w-12 h-12 animate-bounce" />
-                  ) : (
-                    <XCircle className="w-12 h-12" />
-                  )}
-                  <div className="font-pixel text-2xl">
-                    {state.lastAnswerCorrect ? 'CORRECT!' : 'WRONG!'}
-                  </div>
+                <div className="font-pixel text-lg">
+                  {state.lastAnswerCorrect ? '✓ Correct!' : '✗ Wrong!'}
                 </div>
-                <div className="text-center font-pixel text-lg">
-                  {state.lastAnswerCorrect ? '🎉 Nice work!' : `Correct answer: ${state.currentPreset.name}`}
+                <div className="text-sm mt-1">
+                  The correct answer was: {state.currentPreset.name}
                 </div>
               </div>
             )}
 
-            {/* Enhanced Progress Bar */}
-            <div className="p-6 bg-gradient-to-r from-berlin-cyan/20 to-berlin-pink/20 rounded-lg border-4 border-black">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Award className="w-6 h-6 text-berlin-orange" />
-                  <h3 className="font-pixel text-lg">PROGRESS</h3>
-                </div>
-                <span className="font-pixel text-xl text-berlin-orange">{progressPercentage}%</span>
+            {/* Progress Bar */}
+            <div className="mt-8 p-4 bg-muted rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-pixel">Progress</h3>
+                <span className="font-pixel text-sm">{progressPercentage}%</span>
               </div>
-              <Progress value={progressPercentage} className="w-full h-4 border-2 border-black" />
+              <Progress value={progressPercentage} className="w-full" />
             </div>
           </div>
         )}
 
         {/* Quiz Content - Beat Selection */}
         {quizType === 'beat-selection' && state.currentPreset && (
-          <div className="game-panel p-8 relative overflow-hidden">
-            {/* Animated background elements */}
-            <div className="absolute top-4 right-4 opacity-20">
-              <Zap className="w-16 h-16 text-berlin-yellow" />
-            </div>
-            <div className="absolute bottom-4 left-4 opacity-20">
-              <Target className="w-12 h-12 text-berlin-green animate-bounce" />
-            </div>
-
-            {/* Header Section with Visual Enhancement */}
-            <div className="text-center mb-8 relative">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <Gamepad2 className="w-8 h-8 text-berlin-pink" />
-                <h2 className="font-pixel text-xl berlin-title">Beat Builder</h2>
-                <Gamepad2 className="w-8 h-8 text-berlin-pink" />
-              </div>
+          <div className="game-panel p-8">
+            <div className="text-center mb-8">
+              <h2 className="font-pixel text-xl mb-4">Select the beats for:</h2>
+              <h3 className="font-pixel text-2xl text-berlin-orange mb-2">{state.currentPreset.name}</h3>
+              <p className="text-muted-foreground mb-6">{state.currentPreset.category}</p>
               
-              {/* Preset Info Card */}
-              <div className="inline-block p-6 bg-gradient-to-r from-berlin-orange/30 to-berlin-yellow/30 border-4 border-black rounded-lg mb-6">
-                <h3 className="font-pixel text-2xl text-berlin-orange mb-2">{state.currentPreset.name}</h3>
-                <p className="text-muted-foreground font-pixel">{state.currentPreset.category}</p>
-              </div>
-              
-              {/* Audio status indicator with enhanced styling */}
+              {/* Audio status indicator - no manual control needed */}
               {isQuizPlaying && !state.showFeedback && (
-                <div className="flex items-center justify-center gap-3 mb-6 p-4 bg-gradient-to-r from-berlin-red/20 to-berlin-orange/20 border-2 border-berlin-orange rounded-lg">
-                  <div className="w-3 h-3 bg-berlin-orange rounded-full"></div>
-                  <Volume2 className="w-5 h-5 text-berlin-orange" />
-                  <span className="font-pixel text-sm text-berlin-orange">RHYTHM PLAYING...</span>
+                <div className="flex items-center justify-center gap-2 mb-6">
+                  <div className="w-2 h-2 bg-berlin-orange rounded-full animate-pulse"></div>
+                  <span className="font-pixel text-sm text-muted-foreground">Audio playing...</span>
                 </div>
               )}
 
-              {/* Enhanced Beat Indicator for continuous playback */}
+              {/* Beat Indicator for continuous playback */}
               {isQuizPlaying && (
-                <div className="flex justify-center gap-3 mb-8">
+                <div className="flex justify-center gap-2 mb-6">
                   {Array.from({ length: 4 }).map((_, i) => (
-                    <div key={i} className="relative">
-                      <div className={`w-6 h-6 rounded-full border-3 border-black transition-all duration-150 ${
-                        i === quizCurrentBeat 
-                          ? 'bg-berlin-orange shadow-[0_0_20px_hsl(var(--berlin-orange))] scale-125' 
-                          : 'bg-gray-200'
-                      }`} />
-                      {i === quizCurrentBeat && (
-                        <div className="absolute inset-0 rounded-full bg-berlin-orange opacity-75"></div>
-                      )}
-                    </div>
+                    <div 
+                      key={i} 
+                      className={`w-4 h-4 rounded-full border-2 ${
+                        i === quizCurrentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'
+                      }`} 
+                    />
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Enhanced Beat Selection Grid */}
-            <div className="relative mb-8">
-              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-                <div className="font-pixel text-sm text-berlin-orange bg-berlin-orange/20 px-4 py-2 rounded-lg border-2 border-berlin-orange">
-                  SELECT BEATS
-                </div>
-              </div>
-              
-              <div className="flex justify-center p-8 bg-gradient-to-br from-berlin-cyan/10 to-berlin-pink/10 border-4 border-black rounded-lg">
-                <div className="flex gap-4">
-                  {Array.from({ length: 4 }).map((_, beatIndex) => (
-                    <div key={beatIndex} className="flex items-center gap-3">
-                      {/* Enhanced Main beat button */}
-                      <div className="relative">
-                        <button 
-                          onClick={() => handleBeatSelection(beatIndex, false)} 
-                          disabled={state.showFeedback} 
-                          className={`
-                            w-16 h-16 border-4 border-black font-pixel text-xl transition-all duration-200 transform
-                            ${state.selectedMainBeats[beatIndex] 
-                              ? 'bg-gradient-to-br from-berlin-red to-red-600 text-white shadow-[0_0_20px_hsl(var(--berlin-red))] scale-110' 
-                              : 'bg-white text-gray-700 hover:bg-berlin-red/20 hover:border-berlin-red hover:scale-105'
-                            }
-                            ${state.showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}
-                          `}
-                        >
-                          {beatIndex + 1}
-                        </button>
-                        {state.selectedMainBeats[beatIndex] && (
-                          <div className="absolute -top-1 -right-1 w-4 h-4 bg-berlin-yellow rounded-full border-2 border-black"></div>
-                        )}
-                      </div>
-                      
-                      {/* Enhanced Half beat button (except after last beat) */}
-                      {beatIndex < 3 && (
-                        <div className="relative">
-                          <button 
-                            onClick={() => handleBeatSelection(beatIndex, true)} 
-                            disabled={state.showFeedback} 
-                            className={`
-                              w-10 h-10 rounded-full border-3 border-black font-pixel text-sm transition-all duration-200 transform
-                              ${state.selectedHalfBeats[beatIndex] 
-                                ? 'bg-gradient-to-br from-berlin-orange to-orange-600 text-white shadow-[0_0_15px_hsl(var(--berlin-orange))] scale-110' 
-                                : 'bg-white text-gray-700 hover:bg-berlin-orange/20 hover:border-berlin-orange hover:scale-105'
-                              }
-                              ${state.showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}
-                            `}
-                          >
-                            +
-                          </button>
-                          {state.selectedHalfBeats[beatIndex] && (
-                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-berlin-cyan rounded-full border-2 border-black"></div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+            {/* Beat Selection Grid - Similar to main page layout */}
+            <div className="flex justify-center mb-8">
+              <div className="flex gap-1 md:gap-3">
+                {Array.from({ length: 4 }).map((_, beatIndex) => (
+                  <div key={beatIndex} className="flex items-center gap-1 md:gap-2">
+                    {/* Main beat */}
+                    <button 
+                      onClick={() => handleBeatSelection(beatIndex, false)} 
+                      disabled={state.showFeedback} 
+                      className={`
+                        w-12 h-12 md:w-16 md:h-16 border-2 font-pixel text-lg transition-colors
+                        ${state.selectedMainBeats[beatIndex] 
+                          ? 'bg-berlin-red border-berlin-red text-white' 
+                          : 'bg-white border-gray-300 text-gray-700 hover:border-berlin-red'
+                        }
+                        ${state.showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}
+                      `}
+                    >
+                      {beatIndex + 1}
+                    </button>
+                    
+                    {/* Half beat (except after last beat) */}
+                    {beatIndex < 3 && (
+                      <button 
+                        onClick={() => handleBeatSelection(beatIndex, true)} 
+                        disabled={state.showFeedback} 
+                        className={`
+                          w-6 h-6 md:w-8 md:h-8 rounded-full border-2 font-pixel text-xs transition-colors
+                          ${state.selectedHalfBeats[beatIndex] 
+                            ? 'bg-berlin-orange border-berlin-orange text-white' 
+                            : 'bg-white border-gray-300 text-gray-700 hover:border-berlin-orange'
+                          }
+                          ${state.showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}
+                        `}
+                      >
+                        +
+                      </button>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Beat Numbers with Enhanced Styling */}
+            {/* Beat Numbers */}
             <div className="flex justify-center mb-8">
-              <div className="flex gap-4">
+              <div className="flex gap-1 md:gap-3">
                 {[1, 2, 3, 4].map((number, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className="text-center font-pixel text-lg w-16 text-berlin-orange bg-berlin-orange/20 py-2 border-2 border-berlin-orange rounded">
+                  <div key={index} className="flex items-center gap-1 md:gap-2">
+                    <div className="text-center font-pixel text-sm w-12 md:w-16 text-foreground">
                       {number}
                     </div>
                     {index < 3 && (
-                      <div className="text-center font-pixel text-sm w-10 text-berlin-cyan bg-berlin-cyan/20 py-2 border-2 border-berlin-cyan rounded-full">
+                      <div className="text-center font-pixel text-sm w-6 md:w-8 text-muted-foreground">
                         +
                       </div>
                     )}
@@ -687,70 +591,78 @@ const Quiz = () => {
               </div>
             </div>
 
-            {/* Enhanced Submit Button */}
+            {/* Submit Button */}
             {!state.showFeedback && (
               <div className="text-center mb-8">
                 <Button 
                   onClick={handleBeatSelectionSubmit} 
-                  className="pixel-button text-xl px-16 py-6" 
+                  className="font-pixel text-lg px-8 py-4" 
                   disabled={state.hasSubmitted}
                 >
-                  <CheckCircle2 className="w-6 h-6 mr-3" />
-                  <span className="font-pixel">SUBMIT ANSWER</span>
+                  Submit Answer
                 </Button>
               </div>
             )}
 
-            {/* Enhanced Feedback Section */}
+            {/* Feedback */}
             {state.showFeedback && (
-              <div className={`p-6 rounded-lg border-4 border-black mb-8 relative ${
-                state.lastAnswerCorrect 
-                  ? 'bg-gradient-to-r from-green-400 to-green-600 text-white' 
-                  : 'bg-gradient-to-r from-red-400 to-red-600 text-white'
+              <div className={`p-6 rounded-lg mb-8 ${
+                state.lastAnswerCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
               }`}>
-                <div className="flex items-center justify-center gap-4 mb-6">
-                  {state.lastAnswerCorrect ? (
-                    <CheckCircle2 className="w-16 h-16 animate-bounce" />
-                  ) : (
-                    <XCircle className="w-16 h-16" />
-                  )}
-                  <div className="font-pixel text-3xl">
-                    {state.lastAnswerCorrect ? 'PERFECT!' : 'TRY AGAIN!'}
-                  </div>
+                <div className="font-pixel text-lg mb-6 text-center">
+                  {state.lastAnswerCorrect ? '✓ Correct!' : '✗ Wrong!'}
                 </div>
                 
-                {/* Enhanced correct answer display when wrong */}
+                {/* Show correct answer visually when wrong */}
                 {!state.lastAnswerCorrect && (
-                  <div className="bg-white/90 p-6 rounded-lg border-3 border-black">
-                    <div className="font-pixel text-lg mb-4 text-center text-gray-800">
-                      ✨ CORRECT PATTERN ✨
+                  <div className="bg-white p-4 rounded-lg">
+                    <div className="font-pixel text-sm mb-4 text-center text-gray-800">
+                      Correct Answer:
                     </div>
                     
                     {/* Visual representation of correct answer */}
                     <div className="flex justify-center mb-4">
-                      <div className="flex gap-4">
+                      <div className="flex gap-1 md:gap-3">
                         {Array.from({ length: 4 }).map((_, beatIndex) => (
-                          <div key={beatIndex} className="flex items-center gap-3">
-                            {/* Correct main beat display */}
+                          <div key={beatIndex} className="flex items-center gap-1 md:gap-2">
+                            {/* Main beat - show if it should be active */}
                             <div className={`
-                                w-16 h-16 border-3 border-black font-pixel text-xl flex items-center justify-center
+                                w-12 h-12 md:w-16 md:h-16 border-2 font-pixel text-lg flex items-center justify-center
                                 ${state.currentPreset!.mainBeats.includes(beatIndex + 1) 
-                                  ? 'bg-gradient-to-br from-berlin-red to-red-600 text-white shadow-[0_0_20px_hsl(var(--berlin-red))]' 
+                                  ? 'bg-berlin-red border-berlin-red text-white' 
                                   : 'bg-gray-100 border-gray-300 text-gray-400'
                                 }
                               `}>
                               {beatIndex + 1}
                             </div>
                             
-                            {/* Correct half beat display (except after last beat) */}
+                            {/* Half beat - show if it should be active (except after last beat) */}
                             {beatIndex < 3 && (
                               <div className={`
-                                  w-10 h-10 rounded-full border-3 border-black font-pixel text-sm flex items-center justify-center
+                                  w-6 h-6 md:w-8 md:h-8 rounded-full border-2 font-pixel text-xs flex items-center justify-center
                                   ${state.currentPreset!.halfBeats.includes(beatIndex + 1) 
-                                    ? 'bg-gradient-to-br from-berlin-orange to-orange-600 text-white shadow-[0_0_15px_hsl(var(--berlin-orange))]' 
+                                    ? 'bg-berlin-orange border-berlin-orange text-white' 
                                     : 'bg-gray-100 border-gray-300 text-gray-400'
                                   }
                                 `}>
+                                +
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* Beat numbers for the correct answer */}
+                    <div className="flex justify-center">
+                      <div className="flex gap-1 md:gap-3">
+                        {[1, 2, 3, 4].map((number, index) => (
+                          <div key={index} className="flex items-center gap-1 md:gap-2">
+                            <div className="text-center font-pixel text-sm w-12 md:w-16 text-gray-600">
+                              {number}
+                            </div>
+                            {index < 3 && (
+                              <div className="text-center font-pixel text-sm w-6 md:w-8 text-gray-400">
                                 +
                               </div>
                             )}
@@ -763,16 +675,13 @@ const Quiz = () => {
               </div>
             )}
 
-            {/* Enhanced Progress Bar */}
-            <div className="p-6 bg-gradient-to-r from-berlin-purple/20 to-berlin-pink/20 rounded-lg border-4 border-black">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Award className="w-6 h-6 text-berlin-orange" />
-                  <h3 className="font-pixel text-lg">PROGRESS</h3>
-                </div>
-                <span className="font-pixel text-xl text-berlin-orange">{progressPercentage}%</span>
+            {/* Progress Bar */}
+            <div className="p-4 bg-muted rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-pixel">Progress</h3>
+                <span className="font-pixel text-sm">{progressPercentage}%</span>
               </div>
-              <Progress value={progressPercentage} className="w-full h-4 border-2 border-black" />
+              <Progress value={progressPercentage} className="w-full" />
             </div>
           </div>
         )}
