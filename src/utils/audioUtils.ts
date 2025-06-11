@@ -83,7 +83,7 @@ const playBassSound = (audioContext: AudioContext, masterGain: GainNode, isHalfB
 const playSoftBassSound = (audioContext: AudioContext, masterGain: GainNode, isHalfBeat: boolean) => {
   const fundamentalFreq = isHalfBeat ? 98.00 : 82.41;
   const duration = isHalfBeat ? 0.25 : 0.4;
-  const volumeMultiplier = isHalfBeat ? 1.2 : 1.4; // Increased from 0.6/0.7 to 1.2/1.4
+  const volumeMultiplier = isHalfBeat ? 2.0 : 2.2; // Increased from 1.2/1.4 to 2.0/2.2
 
   const osc1 = audioContext.createOscillator();
   const gain1 = audioContext.createGain();
@@ -99,8 +99,8 @@ const playSoftBassSound = (audioContext: AudioContext, masterGain: GainNode, isH
   filter1.Q.setValueAtTime(1, audioContext.currentTime);
 
   gain1.gain.setValueAtTime(0, audioContext.currentTime);
-  gain1.gain.linearRampToValueAtTime(0.5 * volumeMultiplier, audioContext.currentTime + 0.05); // Increased base gain from 0.3 to 0.5
-  gain1.gain.exponentialRampToValueAtTime(0.2 * volumeMultiplier, audioContext.currentTime + 0.2); // Increased from 0.1 to 0.2
+  gain1.gain.linearRampToValueAtTime(0.7 * volumeMultiplier, audioContext.currentTime + 0.05); // Increased base gain from 0.5 to 0.7
+  gain1.gain.exponentialRampToValueAtTime(0.3 * volumeMultiplier, audioContext.currentTime + 0.2); // Increased from 0.2 to 0.3
   gain1.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
 
   osc1.start(audioContext.currentTime);
