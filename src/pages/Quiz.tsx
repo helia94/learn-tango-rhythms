@@ -18,11 +18,15 @@ interface QuizState {
   lastAnswerCorrect: boolean;
   isPlaying: boolean;
   currentBeat: number;
+  // Beat selection quiz state
+  selectedMainBeats: boolean[];
+  selectedHalfBeats: boolean[];
+  hasSubmitted: boolean;
 }
 
 const Quiz = () => {
   const navigate = useNavigate();
-  const [quizType, setQuizType] = useState<'preset-recognition' | 'future-quiz'>('preset-recognition');
+  const [quizType, setQuizType] = useState<'preset-recognition' | 'beat-selection'>('preset-recognition');
   const [playbackInterval, setPlaybackInterval] = useState<NodeJS.Timeout | null>(null);
   
   const [state, setState] = useState<QuizState>({
@@ -35,6 +39,9 @@ const Quiz = () => {
     lastAnswerCorrect: false,
     isPlaying: false,
     currentBeat: 0,
+    selectedMainBeats: new Array(4).fill(false),
+    selectedHalfBeats: new Array(4).fill(false),
+    hasSubmitted: false,
   });
 
   const generateQuestion = () => {
@@ -49,29 +56,41 @@ const Quiz = () => {
     // Pick a random incomplete preset
     const currentPreset = incompletePresets[Math.floor(Math.random() * incompletePresets.length)];
     
-    // Create options (current preset + 3 random others from all presets)
-    let otherPresets = presetRhythms.filter(p => p.name !== currentPreset.name);
-    
-    // If current preset is MERCATO 2, exclude MERCATO OPPOSITE from options
-    if (currentPreset.name === 'MERCATO 2') {
-      otherPresets = otherPresets.filter(p => p.name !== 'MERCATO OPPOSITE');
-    }
-    // If current preset is MERCATO OPPOSITE, exclude MERCATO 2 from options
-    else if (currentPreset.name === 'MERCATO OPPOSITE') {
-      otherPresets = otherPresets.filter(p => p.name !== 'MERCATO 2');
-    }
-    
-    const randomOthers = otherPresets.sort(() => 0.5 - Math.random()).slice(0, 3);
-    const options = [currentPreset, ...randomOthers].sort(() => 0.5 - Math.random());
+    if (quizType === 'preset-recognition') {
+      // Create options (current preset + 3 random others from all presets)
+      let otherPresets = presetRhythms.filter(p => p.name !== currentPreset.name);
+      
+      // If current preset is MERCATO 2, exclude MERCATO OPPOSITE from options
+      if (currentPreset.name === 'MERCATO 2') {
+        otherPresets = otherPresets.filter(p => p.name !== 'MERCATO OPPOSITE');
+      }
+      // If current preset is MERCATO OPPOSITE, exclude MERCATO 2 from options
+      else if (currentPreset.name === 'MERCATO OPPOSITE') {
+        otherPresets = otherPresets.filter(p => p.name !== 'MERCATO 2');
+      }
+      
+      const randomOthers = otherPresets.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const options = [currentPreset, ...randomOthers].sort(() => 0.5 - Math.random());
 
-    setState(prev => ({
-      ...prev,
-      currentPreset,
-      options,
-      showFeedback: false,
-      isPlaying: false,
-      currentBeat: 0,
-    }));
+      setState(prev => ({
+        ...prev,
+        currentPreset,
+        options,
+        showFeedback: false,
+        isPlaying: false,
+        currentBeat: 0,
+      }));
+    } else {
+      // Beat selection quiz - no options needed, just reset the grid
+      setState(prev => ({
+        ...prev,
+        currentPreset,
+        showFeedback: false,
+        selectedMainBeats: new Array(4).fill(false),
+        selectedHalfBeats: new Array(4).fill(false),
+        hasSubmitted: false,
+      }));
+    }
 
     // Stop any existing playback
     if (playbackInterval) {
@@ -147,21 +166,78 @@ const Quiz = () => {
     setTimeout(() => {
       if (state.lives <= 1 && !isCorrect) {
         // Game over - reset
-        setState({
-          currentPreset: null,
-          options: [],
-          lives: 3,
-          correctCounts: presetRhythms.reduce((acc, preset) => ({ ...acc, [preset.name]: 0 }), {}),
-          gameComplete: false,
-          showFeedback: false,
-          lastAnswerCorrect: false,
-          isPlaying: false,
-          currentBeat: 0,
-        });
+        resetGame();
       } else {
         generateQuestion();
       }
     }, 2000);
+  };
+
+  const handleBeatSelection = (beatIndex: number, isHalfBeat: boolean) => {
+    if (state.showFeedback || state.hasSubmitted) return;
+
+    if (isHalfBeat) {
+      setState(prev => ({
+        ...prev,
+        selectedHalfBeats: prev.selectedHalfBeats.map((beat, index) => 
+          index === beatIndex ? !beat : beat
+        )
+      }));
+    } else {
+      setState(prev => ({
+        ...prev,
+        selectedMainBeats: prev.selectedMainBeats.map((beat, index) => 
+          index === beatIndex ? !beat : beat
+        )
+      }));
+    }
+  };
+
+  const handleBeatSelectionSubmit = () => {
+    if (!state.currentPreset || state.hasSubmitted) return;
+
+    // Convert selected beats to the same format as preset (1-4 instead of 0-3)
+    const selectedMainBeatsNumbers = state.selectedMainBeats
+      .map((selected, index) => selected ? index + 1 : null)
+      .filter(beat => beat !== null) as number[];
+    
+    const selectedHalfBeatsNumbers = state.selectedHalfBeats
+      .map((selected, index) => selected ? index + 1 : null)
+      .filter(beat => beat !== null) as number[];
+
+    // Check if the selection matches the preset
+    const mainBeatsMatch = 
+      selectedMainBeatsNumbers.length === state.currentPreset.mainBeats.length &&
+      selectedMainBeatsNumbers.every(beat => state.currentPreset!.mainBeats.includes(beat)) &&
+      state.currentPreset.mainBeats.every(beat => selectedMainBeatsNumbers.includes(beat));
+
+    const halfBeatsMatch = 
+      selectedHalfBeatsNumbers.length === state.currentPreset.halfBeats.length &&
+      selectedHalfBeatsNumbers.every(beat => state.currentPreset!.halfBeats.includes(beat)) &&
+      state.currentPreset.halfBeats.every(beat => selectedHalfBeatsNumbers.includes(beat));
+
+    const isCorrect = mainBeatsMatch && halfBeatsMatch;
+
+    setState(prev => ({
+      ...prev,
+      showFeedback: true,
+      lastAnswerCorrect: isCorrect,
+      hasSubmitted: true,
+      correctCounts: isCorrect 
+        ? { ...prev.correctCounts, [state.currentPreset!.name]: prev.correctCounts[state.currentPreset!.name] + 1 }
+        : prev.correctCounts,
+      lives: isCorrect ? prev.lives : prev.lives - 1,
+    }));
+
+    // Auto-continue after 3 seconds
+    setTimeout(() => {
+      if (state.lives <= 1 && !isCorrect) {
+        // Game over - reset
+        resetGame();
+      } else {
+        generateQuestion();
+      }
+    }, 3000);
   };
 
   const resetGame = () => {
@@ -181,11 +257,19 @@ const Quiz = () => {
       lastAnswerCorrect: false,
       isPlaying: false,
       currentBeat: 0,
+      selectedMainBeats: new Array(4).fill(false),
+      selectedHalfBeats: new Array(4).fill(false),
+      hasSubmitted: false,
     });
   };
 
+  const handleQuizTypeChange = (newQuizType: 'preset-recognition' | 'beat-selection') => {
+    setQuizType(newQuizType);
+    resetGame();
+  };
+
   useEffect(() => {
-    if (quizType === 'preset-recognition' && !state.currentPreset && !state.gameComplete) {
+    if (!state.currentPreset && !state.gameComplete) {
       generateQuestion();
     }
   }, [quizType]);
@@ -237,24 +321,23 @@ const Quiz = () => {
         <div className="game-panel p-6 mb-6">
           <div className="flex gap-4">
             <Button
-              onClick={() => setQuizType('preset-recognition')}
+              onClick={() => handleQuizTypeChange('preset-recognition')}
               variant={quizType === 'preset-recognition' ? 'default' : 'outline'}
               className="font-pixel"
             >
               Preset Recognition
             </Button>
             <Button
-              onClick={() => setQuizType('future-quiz')}
-              variant={quizType === 'future-quiz' ? 'default' : 'outline'}
+              onClick={() => handleQuizTypeChange('beat-selection')}
+              variant={quizType === 'beat-selection' ? 'default' : 'outline'}
               className="font-pixel"
-              disabled
             >
-              Coming Soon...
+              Beat Selection
             </Button>
           </div>
         </div>
 
-        {/* Quiz Content */}
+        {/* Quiz Content - Preset Recognition */}
         {quizType === 'preset-recognition' && state.currentPreset && (
           <div className="game-panel p-8">
             <div className="text-center mb-8">
@@ -337,6 +420,114 @@ const Quiz = () => {
           </div>
         )}
 
+        {/* Quiz Content - Beat Selection */}
+        {quizType === 'beat-selection' && state.currentPreset && (
+          <div className="game-panel p-8">
+            <div className="text-center mb-8">
+              <h2 className="font-pixel text-xl mb-4">Select the beats for:</h2>
+              <h3 className="font-pixel text-2xl text-berlin-orange mb-2">{state.currentPreset.name}</h3>
+              <p className="text-muted-foreground mb-6">{state.currentPreset.category}</p>
+            </div>
+
+            {/* Beat Selection Grid */}
+            <div className="space-y-8">
+              {/* Main Beats */}
+              <div>
+                <h4 className="font-pixel text-lg mb-4 text-center">Main Beats (Strong)</h4>
+                <div className="flex justify-center gap-4">
+                  {Array.from({ length: 4 }).map((_, beatIndex) => (
+                    <div key={beatIndex} className="flex flex-col items-center gap-2">
+                      <button
+                        onClick={() => handleBeatSelection(beatIndex, false)}
+                        disabled={state.showFeedback}
+                        className={`
+                          w-16 h-16 border-2 font-pixel text-lg transition-colors
+                          ${state.selectedMainBeats[beatIndex] 
+                            ? 'bg-berlin-red border-berlin-red text-white' 
+                            : 'bg-white border-gray-300 text-gray-700 hover:border-berlin-red'
+                          }
+                          ${state.showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}
+                        `}
+                      >
+                        {beatIndex + 1}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Half Beats */}
+              <div>
+                <h4 className="font-pixel text-lg mb-4 text-center">Half Beats (+)</h4>
+                <div className="flex justify-center gap-4">
+                  {Array.from({ length: 4 }).map((_, beatIndex) => (
+                    <div key={beatIndex} className="flex flex-col items-center gap-2">
+                      <button
+                        onClick={() => handleBeatSelection(beatIndex, true)}
+                        disabled={state.showFeedback}
+                        className={`
+                          w-12 h-12 rounded-full border-2 font-pixel text-sm transition-colors
+                          ${state.selectedHalfBeats[beatIndex] 
+                            ? 'bg-berlin-orange border-berlin-orange text-white' 
+                            : 'bg-white border-gray-300 text-gray-700 hover:border-berlin-orange'
+                          }
+                          ${state.showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}
+                        `}
+                      >
+                        {beatIndex + 1}+
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              {!state.showFeedback && (
+                <div className="text-center">
+                  <Button
+                    onClick={handleBeatSelectionSubmit}
+                    className="font-pixel text-lg px-8 py-4"
+                    disabled={state.hasSubmitted}
+                  >
+                    Submit Answer
+                  </Button>
+                </div>
+              )}
+
+              {/* Feedback */}
+              {state.showFeedback && (
+                <div className={`text-center p-6 rounded-lg ${
+                  state.lastAnswerCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                }`}>
+                  <div className="font-pixel text-lg mb-4">
+                    {state.lastAnswerCorrect ? '✓ Correct!' : '✗ Wrong!'}
+                  </div>
+                  <div className="text-sm">
+                    <div className="mb-2">
+                      <strong>Correct Answer:</strong>
+                    </div>
+                    <div className="mb-1">
+                      Main Beats: {state.currentPreset.mainBeats.length > 0 ? state.currentPreset.mainBeats.join(', ') : 'None'}
+                    </div>
+                    <div>
+                      Half Beats: {state.currentPreset.halfBeats.length > 0 ? state.currentPreset.halfBeats.map(b => `${b}+`).join(', ') : 'None'}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Progress Bar */}
+            <div className="mt-8 p-4 bg-muted rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-pixel">Progress</h3>
+                <span className="font-pixel text-sm">{progressPercentage}%</span>
+              </div>
+              <Progress value={progressPercentage} className="w-full" />
+            </div>
+          </div>
+        )}
+
         {/* Victory Modal */}
         <Dialog open={state.gameComplete && allPresetsCompleted}>
           <DialogContent>
@@ -387,3 +578,5 @@ const Quiz = () => {
 };
 
 export default Quiz;
+
+</edits_to_apply>
