@@ -13,7 +13,7 @@ const PlaybackControls = ({ isPlaying, onTogglePlayback, onClearAll }: PlaybackC
     <div className="flex flex-col sm:flex-row items-center gap-6">
       <button 
         onClick={onTogglePlayback} 
-        className={`control-button ${isPlaying ? 'pause' : 'play'} flex items-center gap-3`}
+        className={`control-button text-sm ${isPlaying ? 'pause' : 'play'} flex items-center gap-3`}
       >
         {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
         {isPlaying ? 'PAUSE' : 'PLAY'}
@@ -21,7 +21,7 @@ const PlaybackControls = ({ isPlaying, onTogglePlayback, onClearAll }: PlaybackC
       
       <button 
         onClick={onClearAll} 
-        className="control-button clear flex items-center gap-3"
+        className="control-button clear text-sm flex items-center gap-3"
       >
         <RotateCcw className="w-5 h-5" />
         CLEAR

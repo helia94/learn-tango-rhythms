@@ -30,7 +30,7 @@ const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
       <div className="hidden md:block space-y-6">
         {Object.entries(groupedPresets).map(([category, presets]) => (
           <div key={category}>
-            <div className="berlin-track-label bg-berlin-cyan text-white mb-4 inline-block">
+            <div className="berlin-track-label bg-berlin-cyan text-white mb-4 inline-block text-sm">
               {category}
             </div>
             <div className="flex flex-wrap gap-3">
@@ -38,7 +38,7 @@ const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
                 <button
                   key={preset.name}
                   onClick={() => onApplyPreset('bass', preset)}
-                  className="preset-button"
+                  className="preset-button text-sm"
                 >
                   {preset.name}
                 </button>
@@ -57,7 +57,7 @@ const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
                 <CarouselItem key={preset.name} className="pl-2 basis-auto">
                   <button
                     onClick={() => onApplyPreset('bass', preset)}
-                    className="preset-button whitespace-nowrap"
+                    className="preset-button text-sm whitespace-nowrap"
                   >
                     {preset.name}
                   </button>

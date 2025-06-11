@@ -22,7 +22,7 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
         {tracks.map((track) => (
           <div key={track.id} className="flex items-center gap-6">
             <div className="flex items-center gap-3 min-w-[180px]">
-              <div className={`berlin-track-label ${track.color} text-white min-w-[120px] text-center`}>
+              <div className={`berlin-track-label ${track.color} text-white min-w-[120px] text-center text-sm`}>
                 {track.name}
               </div>
               {track.id === 'softbass' && onToggleAllBeats && (

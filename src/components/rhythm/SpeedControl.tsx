@@ -11,13 +11,13 @@ interface SpeedControlProps {
 const SpeedControl = ({ speedLevels, currentSpeedLevel, onSpeedChange }: SpeedControlProps) => {
   return (
     <div className="flex flex-col sm:flex-row items-center gap-4">
-      <div className="berlin-track-label">SPEED</div>
+      <div className="berlin-track-label text-sm">SPEED</div>
       <div className="flex gap-2">
         {speedLevels.map((speed, index) => (
           <button
             key={index}
             onClick={() => onSpeedChange(index)}
-            className={`preset-button ${currentSpeedLevel === index ? 'bg-berlin-lime' : ''}`}
+            className={`preset-button text-sm ${currentSpeedLevel === index ? 'bg-berlin-lime' : ''}`}
           >
             {speed.name}
           </button>

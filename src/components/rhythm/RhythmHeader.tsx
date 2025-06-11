@@ -8,7 +8,7 @@ const RhythmHeader = () => {
         RHYTHM LAB
       </h1>
       <div className="game-panel p-6 max-w-4xl mx-auto">
-        <p className="font-pixel text-xs md:text-sm text-foreground leading-relaxed">
+        <p className="font-pixel text-sm leading-relaxed text-foreground">
           CREATE BERLIN BEATS • CLICK SQUARES FOR MAIN BEATS • CLICK DOTS FOR HALF BEATS
         </p>
       </div>
