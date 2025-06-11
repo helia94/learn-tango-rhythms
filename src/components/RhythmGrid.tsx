@@ -40,6 +40,23 @@ const RhythmGrid = () => {
     );
   };
 
+  const toggleAllBeats = (trackId: string) => {
+    setTracks(prevTracks =>
+      prevTracks.map(track => {
+        if (track.id !== trackId) return track;
+        
+        const allActive = track.pattern.every(beat => beat);
+        const newPattern = allActive ? new Array(8).fill(false) : new Array(8).fill(true);
+        
+        return {
+          ...track,
+          pattern: newPattern,
+          manuallyModified: new Array(8).fill(true)
+        };
+      })
+    );
+  };
+
   const clearAll = () => {
     setTracks(prevTracks => prevTracks.map(clearTrack));
   };
@@ -69,6 +86,7 @@ const RhythmGrid = () => {
           currentBeat={currentBeat}
           currentHalfBeat={currentHalfBeat}
           onToggleBeat={toggleBeat}
+          onToggleAllBeats={toggleAllBeats}
         />
 
         <PresetPanel 
