@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
@@ -8,6 +9,7 @@ import { presetRhythms } from '@/data/presets';
 import { PresetRhythm } from '@/types/rhythm';
 import { playSound } from '@/utils/audioUtils';
 import { useQuizPlayback } from '@/hooks/useQuizPlayback';
+import LeaderboardSubmission from '@/components/LeaderboardSubmission';
 
 interface QuizState {
   currentPreset: PresetRhythm | null;
@@ -23,6 +25,9 @@ interface QuizState {
   selectedMainBeats: boolean[];
   selectedHalfBeats: boolean[];
   hasSubmitted: boolean;
+  // Scoring state
+  totalCorrectAnswers: number;
+  showLeaderboardSubmission: boolean;
 }
 
 const Quiz = () => {
@@ -45,7 +50,9 @@ const Quiz = () => {
     currentBeat: 0,
     selectedMainBeats: new Array(4).fill(false),
     selectedHalfBeats: new Array(4).fill(false),
-    hasSubmitted: false
+    hasSubmitted: false,
+    totalCorrectAnswers: 0,
+    showLeaderboardSubmission: false
   });
 
   // Use the quiz playback hook for beat selection
@@ -65,7 +72,8 @@ const Quiz = () => {
     if (incompletePresets.length === 0) {
       setState(prev => ({
         ...prev,
-        gameComplete: true
+        gameComplete: true,
+        showLeaderboardSubmission: true
       }));
       return;
     }
@@ -185,14 +193,18 @@ const Quiz = () => {
         ...prev.correctCounts,
         [selectedPreset.name]: prev.correctCounts[selectedPreset.name] + 1
       } : prev.correctCounts,
-      lives: isCorrect ? prev.lives : prev.lives - 1
+      lives: isCorrect ? prev.lives : prev.lives - 1,
+      totalCorrectAnswers: isCorrect ? prev.totalCorrectAnswers + 1 : prev.totalCorrectAnswers
     }));
 
     // Auto-continue after 2 seconds
     setTimeout(() => {
       if (state.lives <= 1 && !isCorrect) {
-        // Game over - reset
-        resetGame();
+        // Game over - show leaderboard submission
+        setState(prev => ({
+          ...prev,
+          showLeaderboardSubmission: true
+        }));
       } else {
         generateQuestion();
       }
@@ -237,7 +249,8 @@ const Quiz = () => {
         ...prev.correctCounts,
         [state.currentPreset!.name]: prev.correctCounts[state.currentPreset!.name] + 1
       } : prev.correctCounts,
-      lives: isCorrect ? prev.lives : prev.lives - 1
+      lives: isCorrect ? prev.lives : prev.lives - 1,
+      totalCorrectAnswers: isCorrect ? prev.totalCorrectAnswers + 1 : prev.totalCorrectAnswers
     }));
 
     // Use different timeouts based on whether answer is correct
@@ -245,8 +258,11 @@ const Quiz = () => {
 
     setTimeout(() => {
       if (state.lives <= 1 && !isCorrect) {
-        // Game over - reset
-        resetGame();
+        // Game over - show leaderboard submission
+        setState(prev => ({
+          ...prev,
+          showLeaderboardSubmission: true
+        }));
       } else {
         generateQuestion();
       }
@@ -276,7 +292,9 @@ const Quiz = () => {
       currentBeat: 0,
       selectedMainBeats: new Array(4).fill(false),
       selectedHalfBeats: new Array(4).fill(false),
-      hasSubmitted: false
+      hasSubmitted: false,
+      totalCorrectAnswers: 0,
+      showLeaderboardSubmission: false
     });
   };
 
@@ -318,6 +336,10 @@ const Quiz = () => {
   const totalRequiredAnswers = presetRhythms.length * 3;
   const progressPercentage = Math.round(totalCorrectAnswers / totalRequiredAnswers * 100);
 
+  // Calculate final score for leaderboard (max 60 points total)
+  const maxPossibleScore = 60;
+  const finalScore = state.totalCorrectAnswers * 2; // 2 points per correct answer (30 max answers * 2 = 60 max score)
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
       <div className="max-w-4xl mx-auto">
@@ -330,12 +352,18 @@ const Quiz = () => {
           
           <h1 className="font-pixel text-2xl text-foreground">Preset Quiz</h1>
           
-          {/* Lives */}
-          <div className="flex items-center gap-2 ml-auto">
-            <span className="font-pixel text-sm">Lives:</span>
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Heart key={i} className={`w-6 h-6 ${i < state.lives ? 'text-red-500 fill-red-500' : 'text-gray-300'}`} />
-            ))}
+          {/* Lives and Score */}
+          <div className="flex items-center gap-6 ml-auto">
+            <div className="flex items-center gap-2">
+              <span className="font-pixel text-sm">Score:</span>
+              <span className="font-pixel text-lg text-berlin-orange">{finalScore}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-pixel text-sm">Lives:</span>
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Heart key={i} className={`w-6 h-6 ${i < state.lives ? 'text-red-500 fill-red-500' : 'text-gray-300'}`} />
+              ))}
+            </div>
           </div>
         </div>
 
@@ -638,12 +666,15 @@ const Quiz = () => {
               <p className="mb-6">
                 You successfully identified each preset three times. You're now a rhythm expert!
               </p>
+              <div className="font-pixel text-2xl mb-6 text-berlin-orange">
+                Final Score: {finalScore}/{maxPossibleScore}
+              </div>
               <div className="flex gap-4 justify-center">
                 <Button onClick={resetGame} className="font-pixel">
                   Play Again
                 </Button>
-                <Button onClick={() => navigate('/')} variant="outline" className="font-pixel">
-                  Back to Grid
+                <Button onClick={() => navigate('/leaderboard')} variant="outline" className="font-pixel">
+                  View Leaderboard
                 </Button>
               </div>
             </div>
@@ -657,18 +688,29 @@ const Quiz = () => {
               <DialogTitle className="font-pixel text-xl text-center">Game Over</DialogTitle>
             </DialogHeader>
             <div className="text-center p-6">
-              <p className="mb-6">You've run out of lives! Don't worry, practice makes perfect.</p>
+              <p className="mb-4">You've run out of lives! Don't worry, practice makes perfect.</p>
+              <div className="font-pixel text-2xl mb-6 text-berlin-orange">
+                Final Score: {finalScore}/{maxPossibleScore}
+              </div>
               <div className="flex gap-4 justify-center">
                 <Button onClick={resetGame} className="font-pixel">
                   Try Again
                 </Button>
-                <Button onClick={() => navigate('/')} variant="outline" className="font-pixel">
-                  Back to Grid
+                <Button onClick={() => navigate('/leaderboard')} variant="outline" className="font-pixel">
+                  View Leaderboard
                 </Button>
               </div>
             </div>
           </DialogContent>
         </Dialog>
+
+        {/* Leaderboard Submission Modal */}
+        <LeaderboardSubmission
+          isOpen={state.showLeaderboardSubmission}
+          onClose={() => setState(prev => ({ ...prev, showLeaderboardSubmission: false }))}
+          score={finalScore}
+          maxScore={maxPossibleScore}
+        />
       </div>
     </div>
   );
