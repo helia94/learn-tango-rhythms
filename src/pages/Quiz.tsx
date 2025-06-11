@@ -37,8 +37,8 @@ const Quiz = () => {
   });
 
   const generateQuestion = () => {
-    // Find presets that need more correct answers
-    const incompletePresets = presetRhythms.filter(preset => state.correctCounts[preset.name] < 2);
+    // Find presets that need more correct answers (less than 3 correct answers)
+    const incompletePresets = presetRhythms.filter(preset => state.correctCounts[preset.name] < 3);
     
     if (incompletePresets.length === 0) {
       setState(prev => ({ ...prev, gameComplete: true }));
@@ -48,7 +48,7 @@ const Quiz = () => {
     // Pick a random incomplete preset
     const currentPreset = incompletePresets[Math.floor(Math.random() * incompletePresets.length)];
     
-    // Create options (current preset + 3 random others)
+    // Create options (current preset + 3 random others from all presets)
     const otherPresets = presetRhythms.filter(p => p.name !== currentPreset.name);
     const randomOthers = otherPresets.sort(() => 0.5 - Math.random()).slice(0, 3);
     const options = [currentPreset, ...randomOthers].sort(() => 0.5 - Math.random());
@@ -187,7 +187,7 @@ const Quiz = () => {
     };
   }, [playbackInterval]);
 
-  const allPresetsCompleted = Object.values(state.correctCounts).every(count => count >= 2);
+  const allPresetsCompleted = Object.values(state.correctCounts).every(count => count >= 3);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
@@ -312,13 +312,13 @@ const Quiz = () => {
 
             {/* Progress */}
             <div className="mt-8 p-4 bg-muted rounded-lg">
-              <h3 className="font-pixel mb-4">Progress (need 2 correct for each):</h3>
+              <h3 className="font-pixel mb-4">Progress (need 3 correct for each):</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
                 {presetRhythms.map(preset => (
                   <div key={preset.name} className="flex justify-between">
                     <span>{preset.name}:</span>
-                    <span className={state.correctCounts[preset.name] >= 2 ? 'text-green-600 font-bold' : ''}>
-                      {state.correctCounts[preset.name]}/2
+                    <span className={state.correctCounts[preset.name] >= 3 ? 'text-green-600 font-bold' : ''}>
+                      {state.correctCounts[preset.name]}/3
                     </span>
                   </div>
                 ))}
@@ -338,7 +338,7 @@ const Quiz = () => {
                 You've mastered all the presets!
               </p>
               <p className="mb-6">
-                You successfully identified each preset twice. You're now a rhythm expert!
+                You successfully identified each preset three times. You're now a rhythm expert!
               </p>
               <div className="flex gap-4 justify-center">
                 <Button onClick={resetGame} className="font-pixel">
