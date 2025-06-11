@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Play, Pause } from 'lucide-react';
@@ -505,23 +506,76 @@ const Quiz = () => {
 
             {/* Feedback */}
             {state.showFeedback && (
-              <div className={`text-center p-6 rounded-lg mb-8 ${
+              <div className={`p-6 rounded-lg mb-8 ${
                 state.lastAnswerCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
               }`}>
-                <div className="font-pixel text-lg mb-4">
+                <div className="font-pixel text-lg mb-6 text-center">
                   {state.lastAnswerCorrect ? '✓ Correct!' : '✗ Wrong!'}
                 </div>
-                <div className="text-sm">
-                  <div className="mb-2">
-                    <strong>Correct Answer:</strong>
+                
+                {/* Show correct answer visually when wrong */}
+                {!state.lastAnswerCorrect && (
+                  <div className="bg-white p-4 rounded-lg">
+                    <div className="font-pixel text-sm mb-4 text-center text-gray-800">
+                      Correct Answer:
+                    </div>
+                    
+                    {/* Visual representation of correct answer */}
+                    <div className="flex justify-center mb-4">
+                      <div className="flex gap-1 md:gap-3">
+                        {Array.from({ length: 4 }).map((_, beatIndex) => (
+                          <div key={beatIndex} className="flex items-center gap-1 md:gap-2">
+                            {/* Main beat - show if it should be active */}
+                            <div
+                              className={`
+                                w-12 h-12 md:w-16 md:h-16 border-2 font-pixel text-lg flex items-center justify-center
+                                ${state.currentPreset!.mainBeats.includes(beatIndex + 1)
+                                  ? 'bg-berlin-red border-berlin-red text-white' 
+                                  : 'bg-gray-100 border-gray-300 text-gray-400'
+                                }
+                              `}
+                            >
+                              {beatIndex + 1}
+                            </div>
+                            
+                            {/* Half beat - show if it should be active (except after last beat) */}
+                            {beatIndex < 3 && (
+                              <div
+                                className={`
+                                  w-6 h-6 md:w-8 md:h-8 rounded-full border-2 font-pixel text-xs flex items-center justify-center
+                                  ${state.currentPreset!.halfBeats.includes(beatIndex + 1)
+                                    ? 'bg-berlin-orange border-berlin-orange text-white' 
+                                    : 'bg-gray-100 border-gray-300 text-gray-400'
+                                  }
+                                `}
+                              >
+                                +
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* Beat numbers for the correct answer */}
+                    <div className="flex justify-center">
+                      <div className="flex gap-1 md:gap-3">
+                        {[1, 2, 3, 4].map((number, index) => (
+                          <div key={index} className="flex items-center gap-1 md:gap-2">
+                            <div className="text-center font-pixel text-sm w-12 md:w-16 text-gray-600">
+                              {number}
+                            </div>
+                            {index < 3 && (
+                              <div className="text-center font-pixel text-sm w-6 md:w-8 text-gray-400">
+                                +
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="mb-1">
-                    Main Beats: {state.currentPreset.mainBeats.length > 0 ? state.currentPreset.mainBeats.join(', ') : 'None'}
-                  </div>
-                  <div>
-                    Half Beats: {state.currentPreset.halfBeats.length > 0 ? state.currentPreset.halfBeats.map(b => `${b}+`).join(', ') : 'None'}
-                  </div>
-                </div>
+                )}
               </div>
             )}
 
