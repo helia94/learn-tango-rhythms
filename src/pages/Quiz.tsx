@@ -1,10 +1,12 @@
+
 import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Play, Pause, Volume2, Trophy, Clock, Target } from 'lucide-react';
-import { PresetRhythm, presets } from '@/data/presets';
+import { PresetRhythm } from '@/types/rhythm';
+import { presetRhythms } from '@/data/presets';
 import { playSound } from '@/utils/audioUtils';
 import { useQuizPlayback } from '@/hooks/useQuizPlayback';
 import LeaderboardSubmission from '@/components/LeaderboardSubmission';
@@ -46,14 +48,24 @@ const Quiz = () => {
   });
 
   const [selectedDifficulty, setSelectedDifficulty] = useState<'easy' | 'medium' | 'hard'>('easy');
-  const { isPlaying, currentBeat, togglePlayback, resetPlayback } = useQuizPlayback(
-    quizState.currentPreset?.pattern || [],
-    quizState.currentPreset?.bpm || 120
-  );
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+
+  // Create pattern arrays for the quiz playback hook
+  const selectedMainBeats = quizState.currentPreset ? 
+    new Array(4).fill(false).map((_, i) => quizState.currentPreset!.mainBeats.includes(i + 1)) : 
+    new Array(4).fill(false);
+  const selectedHalfBeats = quizState.currentPreset ? 
+    new Array(4).fill(false).map((_, i) => quizState.currentPreset!.halfBeats.includes(i + 1)) : 
+    new Array(4).fill(false);
+
+  const { isPlaying, currentBeat, togglePlayback } = useQuizPlayback({
+    selectedMainBeats,
+    selectedHalfBeats
+  });
 
   const startQuiz = useCallback(() => {
     const totalQuestions = selectedDifficulty === 'easy' ? 5 : selectedDifficulty === 'medium' ? 10 : 15;
-    const initialPresets = getRandomPresets(presets, totalQuestions);
+    const initialPresets = getRandomPresets(presetRhythms, totalQuestions);
 
     setQuizState(prevState => ({
       ...prevState,
@@ -64,13 +76,12 @@ const Quiz = () => {
       gameFinished: false,
       showResults: false,
       currentPreset: initialPresets[0],
-      options: getRandomPresets(presets.filter(p => p.name !== initialPresets[0].name), 3).concat(initialPresets[0]),
+      options: getRandomPresets(presetRhythms.filter(p => p.name !== initialPresets[0].name), 3).concat(initialPresets[0]),
       correctAnswer: initialPresets[0].name,
       userAnswer: '',
       timeLeft: 30,
     }));
-    resetPlayback();
-  }, [selectedDifficulty, resetPlayback]);
+  }, [selectedDifficulty]);
 
   useEffect(() => {
     if (quizState.gameStarted && !quizState.gameFinished) {
@@ -88,7 +99,12 @@ const Quiz = () => {
 
   const handlePlaySound = useCallback(() => {
     if (quizState.currentPreset) {
-      playSound(quizState.currentPreset.pattern, quizState.currentPreset.bpm);
+      // Convert preset format to pattern array for playSound
+      const pattern = new Array(8).fill(false);
+      quizState.currentPreset.mainBeats.forEach(beat => {
+        pattern[beat - 1] = true;
+      });
+      playSound(pattern, 120);
     }
   }, [quizState.currentPreset]);
 
@@ -100,24 +116,22 @@ const Quiz = () => {
       showResults: true,
       timeLeft: 0,
     }));
-    resetPlayback();
   };
 
   const nextQuestion = () => {
     if (quizState.currentQuestion < quizState.totalQuestions) {
       const nextQuestionNumber = quizState.currentQuestion + 1;
-      const nextPreset = getRandomPresets(presets, 1)[0];
+      const nextPreset = getRandomPresets(presetRhythms, 1)[0];
       setQuizState(prevState => ({
         ...prevState,
         currentQuestion: nextQuestionNumber,
         currentPreset: nextPreset,
-        options: getRandomPresets(presets.filter(p => p.name !== nextPreset.name), 3).concat(nextPreset),
+        options: getRandomPresets(presetRhythms.filter(p => p.name !== nextPreset.name), 3).concat(nextPreset),
         correctAnswer: nextPreset.name,
         userAnswer: '',
         showResults: false,
         timeLeft: 30,
       }));
-      resetPlayback();
     } else {
       setQuizState(prevState => ({
         ...prevState,
@@ -125,6 +139,7 @@ const Quiz = () => {
         gameStarted: false,
         showResults: false,
       }));
+      setShowLeaderboard(true);
     }
   };
 
@@ -316,7 +331,7 @@ const Quiz = () => {
                         >
                           <div className="space-y-1">
                             <div className="text-lg font-bold">{option.name}</div>
-                            <div className="text-sm opacity-80">{option.description}</div>
+                            <div className="text-sm opacity-80">Category: {option.category}</div>
                           </div>
                         </Button>
                       ))}
@@ -365,28 +380,12 @@ const Quiz = () => {
         )}
 
         {/* Final Results */}
-        {quizState.gameFinished && (
-          <LeaderboardSubmission 
-            score={quizState.score} 
-            totalQuestions={quizState.totalQuestions} 
-            difficulty={selectedDifficulty}
-            quizType={quizState.quizType}
-            onRestart={() => setQuizState({
-              currentPreset: null,
-              options: [],
-              correctAnswer: '',
-              userAnswer: '',
-              score: 0,
-              currentQuestion: 0,
-              totalQuestions: 0,
-              gameStarted: false,
-              gameFinished: false,
-              quizType: 'identify',
-              showResults: false,
-              timeLeft: 30,
-            })}
-          />
-        )}
+        <LeaderboardSubmission 
+          isOpen={showLeaderboard}
+          onClose={() => setShowLeaderboard(false)}
+          score={quizState.score} 
+          maxScore={quizState.totalQuestions}
+        />
       </div>
     </div>
   );
