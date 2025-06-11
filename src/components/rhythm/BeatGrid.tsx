@@ -2,6 +2,7 @@
 import React from 'react';
 import { Track } from '@/types/rhythm';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface BeatGridProps {
   tracks: Track[];
@@ -12,6 +13,9 @@ interface BeatGridProps {
 }
 
 const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggleAllBeats }: BeatGridProps) => {
+  const isMobile = useIsMobile();
+  const beatsToShow = isMobile ? 4 : 8;
+  
   const isAllBeatsActive = (track: Track) => {
     return track.pattern.every(beat => beat);
   };
@@ -36,9 +40,9 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
             </div>
             
             {/* Beat Pattern */}
-            <div className="flex gap-1 md:gap-3 flex-1 justify-center overflow-x-auto">
-              {track.pattern.map((isActive, beatIndex) => (
-                <div key={beatIndex} className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+            <div className="flex gap-1 md:gap-3 flex-1 justify-center">
+              {track.pattern.slice(0, beatsToShow).map((isActive, beatIndex) => (
+                <div key={beatIndex} className="flex items-center gap-1 md:gap-2">
                   {/* Main beat - responsive sizing */}
                   <button
                     onClick={() => onToggleBeat(track.id, beatIndex, false)}
@@ -50,7 +54,7 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
                   />
                   
                   {/* Half beat - responsive sizing (except after last beat) */}
-                  {beatIndex < 7 && (
+                  {beatIndex < beatsToShow - 1 && (
                     <button
                       onClick={() => onToggleBeat(track.id, beatIndex, true)}
                       className={`
@@ -70,13 +74,13 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
       {/* Beat Numbers - responsive layout */}
       <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 mt-6 md:mt-8 justify-center">
         <div className="md:min-w-[180px]"></div>
-        <div className="flex gap-1 md:gap-3 justify-center overflow-x-auto">
-          {[1, 2, 3, 4, 1, 2, 3, 4].map((number, index) => (
-            <div key={index} className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+        <div className="flex gap-1 md:gap-3 justify-center">
+          {[1, 2, 3, 4, 1, 2, 3, 4].slice(0, beatsToShow).map((number, index) => (
+            <div key={index} className="flex items-center gap-1 md:gap-2">
               <div className="text-center font-pixel text-sm w-8 md:w-12 lg:w-16 text-foreground">
                 {number}
               </div>
-              {index < 7 && (
+              {index < beatsToShow - 1 && (
                 <div className="text-center font-pixel text-sm w-4 md:w-6 lg:w-8 text-muted-foreground">
                   +
                 </div>
