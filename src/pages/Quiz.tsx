@@ -9,7 +9,6 @@ import { PresetRhythm } from '@/types/rhythm';
 import { playSound } from '@/utils/audioUtils';
 import { useQuizPlayback } from '@/hooks/useQuizPlayback';
 import LeaderboardSubmission from '@/components/LeaderboardSubmission';
-
 interface QuizState {
   currentPreset: PresetRhythm | null;
   options: PresetRhythm[];
@@ -355,7 +354,7 @@ const Quiz = () => {
         {/* Quiz Type Toggle */}
         <div className="game-panel p-6 mb-6">
           <div className="flex flex-col sm:flex-row gap-4 w-full">
-            <Button onClick={() => handleQuizTypeChange('preset-recognition')} variant={quizType === 'preset-recognition' ? 'default' : 'outline'} className="font-pixel flex-1 min-w-0">
+            <Button onClick={() => handleQuizTypeChange('preset-recognition')} variant={quizType === 'preset-recognition' ? 'default' : 'outline'} className="font-pixel flex-1 min-w-0 bg-orange-600 hover:bg-orange-500">
               <span className="truncate">Listen and Guess</span>
             </Button>
             <Button onClick={() => handleQuizTypeChange('beat-selection')} variant={quizType === 'beat-selection' ? 'default' : 'outline'} className="font-pixel flex-1 min-w-0">
