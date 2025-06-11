@@ -10,7 +10,7 @@ interface PlaybackControlsProps {
 
 const PlaybackControls = ({ isPlaying, onTogglePlayback, onClearAll }: PlaybackControlsProps) => {
   return (
-    <div className="flex flex-col sm:flex-row items-center gap-6">
+    <div className="flex items-center gap-4 md:gap-6">
       <button 
         onClick={onTogglePlayback} 
         className={`control-button text-sm ${isPlaying ? 'pause' : 'play'} flex items-center gap-3`}
