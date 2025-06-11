@@ -1,4 +1,3 @@
-
 export const createAudioContext = () => {
   return new (window.AudioContext || (window as any).webkitAudioContext)();
 };
@@ -83,8 +82,9 @@ const playBassSound = (audioContext: AudioContext, masterGain: GainNode, isHalfB
 const playSoftBassSound = (audioContext: AudioContext, masterGain: GainNode, isHalfBeat: boolean) => {
   const fundamentalFreq = isHalfBeat ? 98.00 : 82.41;
   const duration = isHalfBeat ? 0.25 : 0.4;
-  const volumeMultiplier = isHalfBeat ? 1.0 : 1.2; // Reduced from 2.0/2.2 to 1.0/1.2 for softer sound
+  const volumeMultiplier = isHalfBeat ? 1.0 : 1.2; // Keep current volume levels
 
+  // Main bass oscillator - using sawtooth for bass character
   const osc1 = audioContext.createOscillator();
   const gain1 = audioContext.createGain();
   const filter1 = audioContext.createBiquadFilter();
@@ -92,19 +92,35 @@ const playSoftBassSound = (audioContext: AudioContext, masterGain: GainNode, isH
   filter1.connect(gain1);
   gain1.connect(masterGain);
   osc1.frequency.setValueAtTime(fundamentalFreq, audioContext.currentTime);
-  osc1.type = 'sine';
+  osc1.type = 'sawtooth'; // Changed from sine to sawtooth for more bass character
+
+  // Sub-bass for deeper bass tone
+  const osc2 = audioContext.createOscillator();
+  const gain2 = audioContext.createGain();
+  osc2.connect(gain2);
+  gain2.connect(masterGain);
+  osc2.frequency.setValueAtTime(fundamentalFreq * 0.5, audioContext.currentTime);
+  osc2.type = 'sine';
 
   filter1.type = 'lowpass';
-  filter1.frequency.setValueAtTime(150, audioContext.currentTime); // Reduced from 200 for softer tone
-  filter1.Q.setValueAtTime(0.5, audioContext.currentTime); // Reduced Q for gentler filtering
+  filter1.frequency.setValueAtTime(200, audioContext.currentTime); // Increased back to 200 for better bass presence
+  filter1.Q.setValueAtTime(1.5, audioContext.currentTime); // Moderate Q for bass character
 
+  // Main bass envelope
   gain1.gain.setValueAtTime(0, audioContext.currentTime);
-  gain1.gain.linearRampToValueAtTime(0.4 * volumeMultiplier, audioContext.currentTime + 0.05); // Reduced from 0.7 to 0.4
-  gain1.gain.exponentialRampToValueAtTime(0.2 * volumeMultiplier, audioContext.currentTime + 0.2); // Reduced from 0.3 to 0.2
+  gain1.gain.linearRampToValueAtTime(0.4 * volumeMultiplier, audioContext.currentTime + 0.02); // Faster attack for bass
+  gain1.gain.exponentialRampToValueAtTime(0.25 * volumeMultiplier, audioContext.currentTime + 0.1);
   gain1.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+
+  // Sub-bass envelope
+  gain2.gain.setValueAtTime(0, audioContext.currentTime);
+  gain2.gain.linearRampToValueAtTime(0.3 * volumeMultiplier, audioContext.currentTime + 0.03);
+  gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
 
   osc1.start(audioContext.currentTime);
   osc1.stop(audioContext.currentTime + duration);
+  osc2.start(audioContext.currentTime);
+  osc2.stop(audioContext.currentTime + duration);
 };
 
 const playDragBeatSound = (audioContext: AudioContext, masterGain: GainNode, isHalfBeat: boolean) => {
