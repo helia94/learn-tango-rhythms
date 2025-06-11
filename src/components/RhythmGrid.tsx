@@ -4,6 +4,7 @@ import { Track, PresetRhythm } from '@/types/rhythm';
 import { speedLevels, presetRhythms } from '@/data/presets';
 import { createInitialTracks, applyPresetToTrack, toggleTrackBeat, clearTrack } from '@/utils/rhythmUtils';
 import { useRhythmPlayback } from '@/hooks/useRhythmPlayback';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 import RhythmHeader from './rhythm/RhythmHeader';
 import PlaybackControls from './rhythm/PlaybackControls';
@@ -15,11 +16,14 @@ import Instructions from './rhythm/Instructions';
 const RhythmGrid = () => {
   const [speedLevel, setSpeedLevel] = useState(1);
   const [tracks, setTracks] = useState<Track[]>(createInitialTracks());
+  const isMobile = useIsMobile();
+  const maxBeats = isMobile ? 4 : 8;
 
   const { isPlaying, currentBeat, currentHalfBeat, togglePlayback } = useRhythmPlayback({
     tracks,
     speedLevels,
-    speedLevel
+    speedLevel,
+    maxBeats
   });
 
   const applyPreset = (trackId: string, preset: PresetRhythm) => {

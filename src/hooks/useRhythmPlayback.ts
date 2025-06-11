@@ -7,9 +7,10 @@ interface UseRhythmPlaybackProps {
   tracks: Track[];
   speedLevels: SpeedLevel[];
   speedLevel: number;
+  maxBeats: number;
 }
 
-export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel }: UseRhythmPlaybackProps) => {
+export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel, maxBeats }: UseRhythmPlaybackProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentBeat, setCurrentBeat] = useState(0);
   const [currentHalfBeat, setCurrentHalfBeat] = useState(0);
@@ -30,8 +31,8 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel }: UseRhythm
           
           if (nextHalfBeat === 0) {
             setCurrentBeat(prevBeat => {
-              const nextBeat = (prevBeat + 1) % 8;
-              console.log(`Main beat ${nextBeat}`);
+              const nextBeat = (prevBeat + 1) % maxBeats;
+              console.log(`Main beat ${nextBeat} (max: ${maxBeats})`);
               
               tracks.forEach(track => {
                 if (track.pattern[nextBeat]) {
@@ -42,7 +43,7 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel }: UseRhythm
               return nextBeat;
             });
           } else {
-            console.log(`Half beat for beat ${currentBeat}`);
+            console.log(`Half beat for beat ${currentBeat} (max: ${maxBeats})`);
             tracks.forEach(track => {
               if (track.halfPattern[currentBeat]) {
                 playSound(track.sound, true);
@@ -65,7 +66,7 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel }: UseRhythm
         clearInterval(intervalRef.current);
       }
     };
-  }, [isPlaying, speedLevel, tracks, speedLevels, currentBeat]);
+  }, [isPlaying, speedLevel, tracks, speedLevels, currentBeat, maxBeats]);
 
   return {
     isPlaying,
