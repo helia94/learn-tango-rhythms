@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -99,12 +98,8 @@ const Quiz = () => {
 
   const handlePlaySound = useCallback(() => {
     if (quizState.currentPreset) {
-      // Convert preset format to pattern array for playSound
-      const pattern = new Array(8).fill(false);
-      quizState.currentPreset.mainBeats.forEach(beat => {
-        pattern[beat - 1] = true;
-      });
-      playSound(pattern, 120);
+      // Use the sound type directly from the track
+      playSound('bass', false);
     }
   }, [quizState.currentPreset]);
 
@@ -392,3 +387,5 @@ const Quiz = () => {
 };
 
 export default Quiz;
+
+}

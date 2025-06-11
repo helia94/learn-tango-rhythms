@@ -7,8 +7,6 @@ export const speedLevels: SpeedLevel[] = [
   { name: 'FAST', bpm: 80 }
 ];
 
-export const presets = presetRhythms;
-
 export const presetRhythms: PresetRhythm[] = [
   { name: 'MERCATO 1', category: 'BASE', mainBeats: [1], halfBeats: [] },
   { name: 'MERCATO 2', category: 'BASE', mainBeats: [1, 3], halfBeats: [] },
@@ -20,3 +18,5 @@ export const presetRhythms: PresetRhythm[] = [
   { name: '4-1', category: 'OTHER', mainBeats: [1, 4], halfBeats: [] },
   { name: '3-3-2', category: 'OTHER', mainBeats: [1, 4], halfBeats: [2] },
 ];
+
+export const presets = presetRhythms;
