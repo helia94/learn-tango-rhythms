@@ -9,6 +9,7 @@ import { PresetRhythm } from '@/types/rhythm';
 import { playSound } from '@/utils/audioUtils';
 import { useQuizPlayback } from '@/hooks/useQuizPlayback';
 import LeaderboardSubmission from '@/components/LeaderboardSubmission';
+
 interface QuizState {
   currentPreset: PresetRhythm | null;
   options: PresetRhythm[];
@@ -375,7 +376,7 @@ const Quiz = () => {
                     Stop
                   </> : <>
                     <Play className="w-6 h-6 mr-2" />
-                    Play Rhythm
+                    Play
                   </>}
               </Button>
 
