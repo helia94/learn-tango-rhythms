@@ -341,7 +341,7 @@ const Quiz = () => {
           <div className="flex items-center gap-6 ml-auto">
             <div className="flex items-center gap-2">
               <span className="font-pixel text-sm">Score:</span>
-              <span className="font-pixel text-lg text-berlin-orange">{finalScore}</span>
+              <span className="font-pixel text-lg text-berlin-brick-orange">{finalScore}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="font-pixel text-sm">Lives:</span>
@@ -384,7 +384,7 @@ const Quiz = () => {
               {state.isPlaying && <div className="flex justify-center gap-2 mb-6">
                   {Array.from({
               length: 4
-            }).map((_, i) => <div key={i} className={`w-4 h-4 rounded-full border-2 ${i === state.currentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'}`} />)}
+            }).map((_, i) => <div key={i} className={`w-4 h-4 rounded-full border-2 ${i === state.currentBeat ? 'bg-berlin-brick-orange border-berlin-brick-orange' : 'border-gray-300'}`} />)}
                 </div>}
             </div>
 
@@ -422,12 +422,12 @@ const Quiz = () => {
         {quizType === 'beat-selection' && state.currentPreset && <div className="game-panel p-8">
             <div className="text-center mb-8">
               <h2 className="font-pixel text-xl mb-4">Select the beats for:</h2>
-              <h3 className="font-pixel text-2xl text-berlin-orange mb-2">{state.currentPreset.name}</h3>
+              <h3 className="font-pixel text-2xl text-berlin-brick-orange mb-2">{state.currentPreset.name}</h3>
               <p className="text-muted-foreground mb-6">{state.currentPreset.category}</p>
               
               {/* Audio status indicator - no manual control needed */}
               {isQuizPlaying && !state.showFeedback && <div className="flex items-center justify-center gap-2 mb-6">
-                  <div className="w-2 h-2 bg-berlin-orange rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-berlin-brick-orange rounded-full animate-pulse"></div>
                   <span className="font-pixel text-sm text-muted-foreground">Audio playing...</span>
                 </div>}
 
@@ -435,7 +435,7 @@ const Quiz = () => {
               {isQuizPlaying && <div className="flex justify-center gap-2 mb-6">
                   {Array.from({
               length: 4
-            }).map((_, i) => <div key={i} className={`w-4 h-4 rounded-full border-2 ${i === quizCurrentBeat ? 'bg-berlin-orange border-berlin-orange' : 'border-gray-300'}`} />)}
+            }).map((_, i) => <div key={i} className={`w-4 h-4 rounded-full border-2 ${i === quizCurrentBeat ? 'bg-berlin-brick-orange border-berlin-brick-orange' : 'border-gray-300'}`} />)}
                 </div>}
             </div>
 
@@ -563,7 +563,7 @@ const Quiz = () => {
               <p className="mb-6">
                 You successfully identified each preset three times. You're now a rhythm expert!
               </p>
-              <div className="font-pixel text-2xl mb-6 text-berlin-orange">
+              <div className="font-pixel text-2xl mb-6 text-berlin-brick-orange">
                 Final Score: {finalScore}/{maxPossibleScore}
               </div>
               <div className="flex gap-4 justify-center">
@@ -586,7 +586,7 @@ const Quiz = () => {
             </DialogHeader>
             <div className="text-center p-6">
               <p className="mb-4">You've run out of lives! Don't worry, practice makes perfect.</p>
-              <div className="font-pixel text-2xl mb-6 text-berlin-orange">
+              <div className="font-pixel text-2xl mb-6 text-berlin-brick-orange">
                 Final Score: {finalScore}/{maxPossibleScore}
               </div>
               <div className="flex gap-4 justify-center">

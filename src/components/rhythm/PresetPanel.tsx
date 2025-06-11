@@ -24,7 +24,7 @@ const PresetPanel = ({
   }, {} as Record<string, PresetRhythm[]>);
   return <div className="game-panel p-8 max-w-5xl mx-auto">
       <div className="flex items-center gap-4 mb-6">
-        <Zap className="w-8 h-8 text-berlin-orange" />
+        <Zap className="w-8 h-8 text-berlin-brick-orange" />
         <h3 className="font-pixel text-lg text-foreground">STRONG BEAT PRESETS</h3>
       </div>
       
@@ -67,7 +67,7 @@ const PresetPanel = ({
 
       {/* Quiz Button */}
       <div className="flex justify-center mt-8">
-        <Button onClick={() => navigate('/quiz')} className="font-pixel text-lg px-8 py-4 bg-berlin-orange hover:bg-berlin-orange/80 text-white">Take The Quiz!</Button>
+        <Button onClick={() => navigate('/quiz')} className="font-pixel text-lg px-8 py-4 bg-berlin-brick-orange hover:bg-berlin-brick-orange/80 text-white">Take The Quiz!</Button>
       </div>
     </div>;
 };

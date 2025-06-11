@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -50,6 +49,7 @@
     --berlin-green: 120 80% 45%;
     --berlin-blue: 210 100% 55%;
     --berlin-magenta: 300 90% 65%;
+    --berlin-brick-orange: 20 85% 50%;
     
     /* Dark variants */
     --berlin-dark-pink: 320 80% 35%;
@@ -103,14 +103,14 @@
   @keyframes pixel-glow {
     0%, 100% { 
       box-shadow: 
-        0 0 0 2px hsl(var(--berlin-pink)),
+        0 0 0 2px hsl(var(--berlin-brick-orange)),
         0 0 0 4px hsl(var(--berlin-cyan)),
-        0 0 20px hsl(var(--berlin-pink));
+        0 0 20px hsl(var(--berlin-brick-orange));
     }
     50% { 
       box-shadow: 
         0 0 0 2px hsl(var(--berlin-cyan)),
-        0 0 0 4px hsl(var(--berlin-pink)),
+        0 0 0 4px hsl(var(--berlin-brick-orange)),
         0 0 30px hsl(var(--berlin-cyan));
     }
   }
@@ -130,7 +130,7 @@
   .pixel-button {
     border: 4px solid #000;
     background: linear-gradient(135deg, 
-      hsl(var(--berlin-pink)), 
+      hsl(var(--berlin-brick-orange)), 
       hsl(var(--berlin-cyan)));
     font-family: 'Press Start 2P', monospace;
     text-transform: uppercase;
@@ -223,7 +223,7 @@
   .berlin-title {
     font-family: 'Press Start 2P', monospace;
     background: linear-gradient(45deg, 
-      hsl(var(--berlin-pink)),
+      hsl(var(--berlin-brick-orange)),
       hsl(var(--berlin-cyan)),
       hsl(var(--berlin-lime)),
       hsl(var(--berlin-orange)));
@@ -257,7 +257,7 @@
   .berlin-track-label:nth-child(2n) {
     transform: rotate(1deg);
     background: linear-gradient(45deg, 
-      hsl(var(--berlin-pink)), 
+      hsl(var(--berlin-brick-orange)), 
       hsl(var(--berlin-purple)));
     color: #fff !important;
   }
@@ -367,6 +367,7 @@
   .berlin-lime { color: hsl(var(--berlin-lime)); }
   .berlin-orange { color: hsl(var(--berlin-orange)); }
   .berlin-purple { color: hsl(var(--berlin-purple)); }
+  .berlin-brick-orange { color: hsl(var(--berlin-brick-orange)); }
   
   .bg-berlin-pink { background-color: hsl(var(--berlin-pink)); }
   .bg-berlin-cyan { background-color: hsl(var(--berlin-cyan)); }
@@ -375,6 +376,7 @@
   .bg-berlin-purple { background-color: hsl(var(--berlin-purple)); }
   .bg-berlin-red { background-color: hsl(var(--berlin-red)); }
   .bg-berlin-blue { background-color: hsl(var(--berlin-blue)); }
+  .bg-berlin-brick-orange { background-color: hsl(var(--berlin-brick-orange)); }
   
   .pixel-shadow {
     box-shadow: 4px 4px 0 #000,

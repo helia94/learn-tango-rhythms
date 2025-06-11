@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -78,7 +77,8 @@ export default {
 				'techno-pink': 'hsl(var(--techno-pink))',
 				'underground-purple': 'hsl(var(--underground-purple))',
 				'strobe-cyan': 'hsl(var(--strobe-cyan))',
-				'disco-gold': 'hsl(var(--disco-gold))'
+				'disco-gold': 'hsl(var(--disco-gold))',
+				'berlin-brick-orange': 'hsl(var(--berlin-brick-orange))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
