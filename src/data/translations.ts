@@ -58,6 +58,50 @@ export const translations = {
       en: "Success!",
       de: "Erfolg!",
       context: "Success message"
+    },
+    backToHome: {
+      en: "Back to Home",
+      de: "Zurück zur Startseite",
+      context: "Back to home navigation button"
+    }
+  },
+
+  // Road Map page content
+  roadmap: {
+    title: {
+      en: "ROAD MAP",
+      de: "ROADMAP",
+      context: "Road Map page title"
+    },
+    subtitle: {
+      en: "🎯 Your Tango Mastery Journey",
+      de: "🎯 Deine Tango Meisterschafts-Reise",
+      context: "Road Map page subtitle"
+    },
+    description: {
+      en: "Follow the winding path through fundamental concepts and advanced techniques",
+      de: "Folge dem gewundenen Pfad durch grundlegende Konzepte und fortgeschrittene Techniken",
+      context: "Road Map page description"
+    },
+    readyToStart: {
+      en: "🚀 READY TO START YOUR JOURNEY?",
+      de: "🚀 BEREIT, DEINE REISE ZU BEGINNEN?",
+      context: "Call to action title"
+    },
+    startPracticeDescription: {
+      en: "Begin practicing and unlock new concepts as you progress along the path",
+      de: "Beginne zu üben und schalte neue Konzepte frei, während du auf dem Pfad voranschreitest",
+      context: "Practice description text"
+    },
+    startPractice: {
+      en: "🎵 START PRACTICE",
+      de: "🎵 ÜBUNG STARTEN",
+      context: "Start practice button"
+    },
+    takeQuiz: {
+      en: "🧠 TAKE QUIZ",
+      de: "🧠 QUIZ MACHEN",
+      context: "Take quiz button"
     }
   },
 

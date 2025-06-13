@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
@@ -87,7 +88,7 @@ const RoadMap = () => {
           className="inline-flex items-center gap-2 text-cream bg-warm-brown/80 px-4 py-2 rounded-full hover:bg-warm-brown transition-all duration-300 shadow-lg backdrop-blur-sm"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Home
+          {t('common.backToHome')}
         </Link>
         
         <LanguageSelector />
@@ -98,16 +99,16 @@ const RoadMap = () => {
         <div className="flex items-center justify-center gap-4 mb-6">
           <Map className="w-16 h-16 text-golden-yellow drop-shadow-lg" />
           <h1 className="text-6xl md:text-8xl font-display text-cream drop-shadow-2xl tracking-wider">
-            ROAD MAP
+            {t('roadmap.title')}
           </h1>
         </div>
         
         <div className="mx-auto max-w-2xl bg-cream/90 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border-4 border-golden-yellow">
           <p className="text-xl text-warm-brown font-medium">
-            🎯 Your Tango Mastery Journey
+            {t('roadmap.subtitle')}
           </p>
           <p className="text-warm-brown mt-2">
-            Follow the winding path through fundamental concepts and advanced techniques
+            {t('roadmap.description')}
           </p>
         </div>
       </div>
@@ -221,23 +222,23 @@ const RoadMap = () => {
         <div className="text-center mb-16 mt-16">
           <div className="bg-gradient-to-r from-burnt-orange to-terracotta backdrop-blur-sm rounded-3xl p-8 shadow-2xl border-4 border-golden-yellow max-w-2xl mx-auto">
             <h3 className="text-3xl font-display text-cream mb-4 drop-shadow-lg">
-              🚀 READY TO START YOUR JOURNEY?
+              {t('roadmap.readyToStart')}
             </h3>
             <p className="text-cream mb-6 text-lg">
-              Begin practicing and unlock new concepts as you progress along the path
+              {t('roadmap.startPracticeDescription')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 to="/rhythmlab" 
                 className="game-button bg-gradient-to-r from-sage-green to-deep-teal text-cream px-8 py-4 rounded-xl font-bold text-lg shadow-xl border-2 border-cream hover:scale-105 transition-all duration-300 hover:shadow-2xl"
               >
-                🎵 START PRACTICE
+                {t('roadmap.startPractice')}
               </Link>
               <Link 
                 to="/rhythmlab/quiz" 
                 className="game-button bg-gradient-to-r from-golden-yellow to-dusty-rose text-warm-brown px-8 py-4 rounded-xl font-bold text-lg shadow-xl border-2 border-cream hover:scale-105 transition-all duration-300 hover:shadow-2xl"
               >
-                🧠 TAKE QUIZ
+                {t('roadmap.takeQuiz')}
               </Link>
             </div>
           </div>
