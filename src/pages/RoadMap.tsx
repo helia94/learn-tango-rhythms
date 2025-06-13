@@ -3,121 +3,41 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import LanguageSelector from '@/components/LanguageSelector';
+
 const RoadMap = () => {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
 
   // All concepts combined into one flowing sequence
-  const allConcepts = [{
-    name: "Dancing fast vs slow",
-    unlocked: true,
-    completed: true
-  }, {
-    name: "Dancing small vs big",
-    unlocked: true,
-    completed: true
-  }, {
-    name: "Dancing high vs low",
-    unlocked: true,
-    completed: false
-  }, {
-    name: "Dancing circular vs linear",
-    unlocked: true,
-    completed: false
-  }, {
-    name: "With control vs without control",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Full weight transfer vs rebounds",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Expanding vs shrinking",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "High body tension vs low body tension",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Feet always on the floor vs feet off the floor",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Pushing the floor vs not pushing the floor",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Leading every step vs not leading every step",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Same steps vs different steps",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Few steps vs many steps",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Dancing rhythm vs dancing melody",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Facing partner vs turning away",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Accelerating vs decelerating",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Dancing rubato",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Marcato in 2 vs in 4",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "The normal syncopa",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "The double syncopa",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "The drag syncopa",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Dance 4-1",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Dance triplets",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Dance like a jellyfish",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Dance like water",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Dance like sculptures",
-    unlocked: false,
-    completed: false
-  }, {
-    name: "Dance the accents",
-    unlocked: false,
-    completed: false
-  }];
+  const allConcepts = [
+    { key: "dancingFastVsSlow", unlocked: true, completed: true },
+    { key: "dancingSmallVsBig", unlocked: true, completed: true },
+    { key: "dancingHighVsLow", unlocked: true, completed: false },
+    { key: "dancingCircularVsLinear", unlocked: true, completed: false },
+    { key: "withControlVsWithoutControl", unlocked: false, completed: false },
+    { key: "fullWeightTransferVsRebounds", unlocked: false, completed: false },
+    { key: "expandingVsShrinking", unlocked: false, completed: false },
+    { key: "highBodyTensionVsLowBodyTension", unlocked: false, completed: false },
+    { key: "feetAlwaysOnFloorVsFeetOffFloor", unlocked: false, completed: false },
+    { key: "pushingFloorVsNotPushingFloor", unlocked: false, completed: false },
+    { key: "leadingEveryStepVsNotLeadingEveryStep", unlocked: false, completed: false },
+    { key: "sameStepsVsDifferentSteps", unlocked: false, completed: false },
+    { key: "fewStepsVsManySteps", unlocked: false, completed: false },
+    { key: "dancingRhythmVsDancingMelody", unlocked: false, completed: false },
+    { key: "facingPartnerVsTurningAway", unlocked: false, completed: false },
+    { key: "acceleratingVsDecelerating", unlocked: false, completed: false },
+    { key: "dancingRubato", unlocked: false, completed: false },
+    { key: "marcatoIn2VsIn4", unlocked: false, completed: false },
+    { key: "normalSyncopa", unlocked: false, completed: false },
+    { key: "doubleSyncopa", unlocked: false, completed: false },
+    { key: "dragSyncopa", unlocked: false, completed: false },
+    { key: "dance4To1", unlocked: false, completed: false },
+    { key: "danceTriplets", unlocked: false, completed: false },
+    { key: "danceLikeJellyfish", unlocked: false, completed: false },
+    { key: "danceLikeWater", unlocked: false, completed: false },
+    { key: "danceLikeSculptures", unlocked: false, completed: false },
+    { key: "danceTheAccents", unlocked: false, completed: false }
+  ];
+
   const getNodeStatus = (unlocked: boolean, completed: boolean) => {
     if (completed) return 'completed';
     if (unlocked) return 'unlocked';
@@ -151,7 +71,8 @@ const RoadMap = () => {
       y
     };
   };
-  return <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-golden-yellow animate-organic-pulse"></div>
@@ -177,8 +98,6 @@ const RoadMap = () => {
             {t('roadmap.title')}
           </h1>
         </div>
-        
-        
       </div>
 
       {/* Winding Road Container */}
@@ -209,25 +128,32 @@ const RoadMap = () => {
 
           {/* Concept Nodes along the winding path */}
           {allConcepts.map((concept, index) => {
-          const status = getNodeStatus(concept.unlocked, concept.completed);
-          const position = generateWindingPath(index, allConcepts.length);
-          const isLeft = position.x < 50; // Determine which side of the road to place the concept
+            const status = getNodeStatus(concept.unlocked, concept.completed);
+            const position = generateWindingPath(index, allConcepts.length);
+            const isLeft = position.x < 50; // Determine which side of the road to place the concept
 
-          return <div key={index} className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{
-            left: `${position.x}%`,
-            top: `${position.y}%`
-          }}>
+            return (
+              <div
+                key={index}
+                className="absolute transform -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  left: `${position.x}%`,
+                  top: `${position.y}%`
+                }}
+              >
                 {/* Road Node */}
                 <div className="relative flex items-center">
                   {/* Concept Card */}
                   <div className={`${isLeft ? 'order-1 mr-8' : 'order-3 ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
                     <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${status === 'locked' ? 'opacity-60 grayscale' : ''}`}>
                       <div className="text-warm-brown font-bold text-center text-sm">
-                        {concept.name}
+                        {t(`concepts.${concept.key}`)}
                       </div>
-                      {status === 'locked' && <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
+                      {status === 'locked' && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
                           <Lock className="w-6 h-6 text-cream" />
-                        </div>}
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -245,8 +171,9 @@ const RoadMap = () => {
                     </div>
                   </div>
                 </div>
-              </div>;
-        })}
+              </div>
+            );
+          })}
         </div>
 
         {/* Call to Action - Game Style */}
@@ -254,6 +181,8 @@ const RoadMap = () => {
           
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default RoadMap;

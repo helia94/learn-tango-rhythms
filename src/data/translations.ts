@@ -1,4 +1,3 @@
-
 export interface TranslationItem {
   en: string;
   de: string;
@@ -266,6 +265,145 @@ export const translations = {
       en: "Return to Home",
       de: "Zurück zur Startseite",
       context: "Return home button"
+    }
+  },
+
+  // Concept names for the roadmap
+  concepts: {
+    dancingFastVsSlow: {
+      en: "Dancing fast vs slow",
+      de: "Schnell vs langsam tanzen",
+      context: "First concept in roadmap"
+    },
+    dancingSmallVsBig: {
+      en: "Dancing small vs big", 
+      de: "Klein vs groß tanzen",
+      context: "Second concept in roadmap"
+    },
+    dancingHighVsLow: {
+      en: "Dancing high vs low",
+      de: "Hoch vs tief tanzen", 
+      context: "Third concept in roadmap"
+    },
+    dancingCircularVsLinear: {
+      en: "Dancing circular vs linear",
+      de: "Kreisförmig vs linear tanzen",
+      context: "Fourth concept in roadmap"
+    },
+    withControlVsWithoutControl: {
+      en: "With control vs without control",
+      de: "Mit Kontrolle vs ohne Kontrolle",
+      context: "Fifth concept in roadmap"
+    },
+    fullWeightTransferVsRebounds: {
+      en: "Full weight transfer vs rebounds",
+      de: "Vollständige Gewichtsverlagerung vs Rückprall",
+      context: "Sixth concept in roadmap"
+    },
+    expandingVsShrinking: {
+      en: "Expanding vs shrinking",
+      de: "Ausdehnen vs schrumpfen",
+      context: "Seventh concept in roadmap"
+    },
+    highBodyTensionVsLowBodyTension: {
+      en: "High body tension vs low body tension",
+      de: "Hohe Körperspannung vs niedrige Körperspannung",
+      context: "Eighth concept in roadmap"
+    },
+    feetAlwaysOnFloorVsFeetOffFloor: {
+      en: "Feet always on the floor vs feet off the floor",
+      de: "Füße immer am Boden vs Füße vom Boden",
+      context: "Ninth concept in roadmap"
+    },
+    pushingFloorVsNotPushingFloor: {
+      en: "Pushing the floor vs not pushing the floor",
+      de: "Den Boden drücken vs den Boden nicht drücken",
+      context: "Tenth concept in roadmap"
+    },
+    leadingEveryStepVsNotLeadingEveryStep: {
+      en: "Leading every step vs not leading every step",
+      de: "Jeden Schritt führen vs nicht jeden Schritt führen",
+      context: "Eleventh concept in roadmap"
+    },
+    sameStepsVsDifferentSteps: {
+      en: "Same steps vs different steps",
+      de: "Gleiche Schritte vs verschiedene Schritte",
+      context: "Twelfth concept in roadmap"
+    },
+    fewStepsVsManySteps: {
+      en: "Few steps vs many steps",
+      de: "Wenige Schritte vs viele Schritte",
+      context: "Thirteenth concept in roadmap"
+    },
+    dancingRhythmVsDancingMelody: {
+      en: "Dancing rhythm vs dancing melody",
+      de: "Rhythmus tanzen vs Melodie tanzen",
+      context: "Fourteenth concept in roadmap"
+    },
+    facingPartnerVsTurningAway: {
+      en: "Facing partner vs turning away",
+      de: "Partner zugewandt vs sich abwenden",
+      context: "Fifteenth concept in roadmap"
+    },
+    acceleratingVsDecelerating: {
+      en: "Accelerating vs decelerating",
+      de: "Beschleunigen vs verlangsamen",
+      context: "Sixteenth concept in roadmap"
+    },
+    dancingRubato: {
+      en: "Dancing rubato",
+      de: "Rubato tanzen",
+      context: "Seventeenth concept in roadmap"
+    },
+    marcatoIn2VsIn4: {
+      en: "Marcato in 2 vs in 4",
+      de: "Marcato in 2 vs in 4",
+      context: "Eighteenth concept in roadmap"
+    },
+    normalSyncopa: {
+      en: "The normal syncopa",
+      de: "Die normale Synkope",
+      context: "Nineteenth concept in roadmap"
+    },
+    doubleSyncopa: {
+      en: "The double syncopa",
+      de: "Die doppelte Synkope",
+      context: "Twentieth concept in roadmap"
+    },
+    dragSyncopa: {
+      en: "The drag syncopa",
+      de: "Die Zieh-Synkope",
+      context: "Twenty-first concept in roadmap"
+    },
+    dance4To1: {
+      en: "Dance 4-1",
+      de: "Tanze 4-1",
+      context: "Twenty-second concept in roadmap"
+    },
+    danceTriplets: {
+      en: "Dance triplets",
+      de: "Tanze Triolen",
+      context: "Twenty-third concept in roadmap"
+    },
+    danceLikeJellyfish: {
+      en: "Dance like a jellyfish",
+      de: "Tanze wie eine Qualle",
+      context: "Twenty-fourth concept in roadmap"
+    },
+    danceLikeWater: {
+      en: "Dance like water",
+      de: "Tanze wie Wasser",
+      context: "Twenty-fifth concept in roadmap"
+    },
+    danceLikeSculptures: {
+      en: "Dance like sculptures",
+      de: "Tanze wie Skulpturen",
+      context: "Twenty-sixth concept in roadmap"
+    },
+    danceTheAccents: {
+      en: "Dance the accents",
+      de: "Tanze die Akzente",
+      context: "Twenty-seventh concept in roadmap"
     }
   }
 };
