@@ -1,9 +1,11 @@
 
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const NotFound = () => {
   const location = useLocation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     console.error(
@@ -16,10 +18,10 @@ const NotFound = () => {
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
         <div className="boho-panel p-8 max-w-md mx-auto">
-          <h1 className="boho-title text-4xl font-display mb-4">404</h1>
-          <p className="boho-subtitle text-lg mb-6">Oops! Page not found</p>
+          <h1 className="boho-title text-4xl font-display mb-4">{t('notFound.title')}</h1>
+          <p className="boho-subtitle text-lg mb-6">{t('notFound.message')}</p>
           <a href="/" className="boho-button inline-block">
-            Return to Home
+            {t('notFound.returnHome')}
           </a>
         </div>
       </div>

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { SpeedLevel } from '@/types/rhythm';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface SpeedControlProps {
   speedLevels: SpeedLevel[];
@@ -9,9 +10,11 @@ interface SpeedControlProps {
 }
 
 const SpeedControl = ({ speedLevels, currentSpeedLevel, onSpeedChange }: SpeedControlProps) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col sm:flex-row items-center gap-4">
-      <div className="track-label text-sm">SPEED</div>
+      <div className="track-label text-sm">{t('common.speed')}</div>
       <div className="flex gap-2">
         {speedLevels.map((speed, index) => (
           <button

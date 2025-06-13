@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Button } from '@/components/ui/button';
 import { PresetRhythm } from '@/types/rhythm';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface PresetPanelProps {
   presetRhythms: PresetRhythm[];
@@ -13,6 +14,7 @@ interface PresetPanelProps {
 
 const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // Group presets by category
   const groupedPresets = presetRhythms.reduce((acc, preset) => {
@@ -27,7 +29,7 @@ const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
     <div className="boho-panel p-8 max-w-5xl mx-auto">
       <div className="flex items-center gap-4 mb-6">
         <Zap className="w-8 h-8 text-burnt-orange" />
-        <h3 className="boho-subtitle text-lg">STRONG BEAT PRESETS</h3>
+        <h3 className="boho-subtitle text-lg">{t('rhythm.presets')}</h3>
       </div>
       
       {/* Desktop: Grid Layout */}
@@ -87,7 +89,7 @@ const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
           onClick={() => navigate('/quiz')}
           className="boho-button text-lg px-8 py-4"
         >
-          Take The Quiz!
+          {t('quiz.takeQuiz')}
         </Button>
       </div>
     </div>

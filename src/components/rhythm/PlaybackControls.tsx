@@ -2,6 +2,7 @@
 import React from 'react';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 import { initializeAudioContext } from '@/utils/audioUtils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface PlaybackControlsProps {
   isPlaying: boolean;
@@ -10,6 +11,8 @@ interface PlaybackControlsProps {
 }
 
 const PlaybackControls = ({ isPlaying, onTogglePlayback, onClearAll }: PlaybackControlsProps) => {
+  const { t } = useTranslation();
+
   const handlePlayClick = async () => {
     // Initialize audio context on first user interaction (required for iOS)
     if (!isPlaying) {
@@ -30,7 +33,7 @@ const PlaybackControls = ({ isPlaying, onTogglePlayback, onClearAll }: PlaybackC
         className={`control-button ${isPlaying ? 'pause' : 'play'} flex items-center gap-3`}
       >
         {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
-        {isPlaying ? 'PAUSE' : 'PLAY'}
+        {isPlaying ? t('common.pause') : t('common.play')}
       </button>
       
       <button 
@@ -38,7 +41,7 @@ const PlaybackControls = ({ isPlaying, onTogglePlayback, onClearAll }: PlaybackC
         className="control-button clear flex items-center gap-3"
       >
         <RotateCcw className="w-5 h-5" />
-        CLEAR
+        {t('common.clear')}
       </button>
     </div>
   );

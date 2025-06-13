@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Quiz from "./pages/Quiz";
 import Leaderboard from "./pages/Leaderboard";
@@ -23,19 +24,21 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/quiz" element={<Quiz />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <LanguageProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 };

@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface LeaderboardSubmissionProps {
   isOpen: boolean;
@@ -21,14 +22,15 @@ const LeaderboardSubmission = ({ isOpen, onClose, score, maxScore }: Leaderboard
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!playerName.trim()) {
       toast({
-        title: "Error",
-        description: "Please enter your name",
+        title: t('common.error'),
+        description: t('errors.enterName'),
         variant: "destructive",
       });
       return;
@@ -49,16 +51,16 @@ const LeaderboardSubmission = ({ isOpen, onClose, score, maxScore }: Leaderboard
       if (error) {
         console.error('Error submitting score:', error);
         toast({
-          title: "Error",
-          description: "Failed to submit your score. Please try again.",
+          title: t('common.error'),
+          description: t('errors.submitFailed'),
           variant: "destructive",
         });
         return;
       }
 
       toast({
-        title: "Success!",
-        description: "Your score has been added to the leaderboard!",
+        title: t('common.success'),
+        description: t('messages.scoreSubmitted'),
       });
 
       onClose();
@@ -71,8 +73,8 @@ const LeaderboardSubmission = ({ isOpen, onClose, score, maxScore }: Leaderboard
     } catch (error) {
       console.error('Error submitting score:', error);
       toast({
-        title: "Error",
-        description: "Failed to submit your score. Please try again.",
+        title: t('common.error'),
+        description: t('errors.submitFailed'),
         variant: "destructive",
       });
     } finally {
@@ -90,30 +92,30 @@ const LeaderboardSubmission = ({ isOpen, onClose, score, maxScore }: Leaderboard
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="font-pixel text-xl text-center">
-            🎉 Quiz Complete! 🎉
+            {t('quiz.complete')}
           </DialogTitle>
         </DialogHeader>
         
         <div className="text-center mb-6">
-          <div className="font-pixel text-2xl mb-2">Final Score</div>
+          <div className="font-pixel text-2xl mb-2">{t('quiz.finalScore')}</div>
           <div className="font-pixel text-4xl text-berlin-orange">
             {score}/{maxScore}
           </div>
           <div className="text-lg text-muted-foreground">
-            {Math.round((score / maxScore) * 100)}% Complete
+            {Math.round((score / maxScore) * 100)}{t('quiz.complete_percentage')}
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Label htmlFor="playerName" className="font-pixel">
-              Your Name <span className="text-red-500">*</span>
+              {t('quiz.yourName')} <span className="text-red-500">*</span>
             </Label>
             <Input
               id="playerName"
               value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
-              placeholder="Enter your name"
+              placeholder={t('quiz.enterName')}
               maxLength={50}
               required
             />
@@ -121,13 +123,13 @@ const LeaderboardSubmission = ({ isOpen, onClose, score, maxScore }: Leaderboard
 
           <div>
             <Label htmlFor="city" className="font-pixel">
-              City (Optional)
+              {t('quiz.city')}
             </Label>
             <Input
               id="city"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              placeholder="Enter your city"
+              placeholder={t('quiz.enterCity')}
               maxLength={50}
             />
           </div>
@@ -138,7 +140,7 @@ const LeaderboardSubmission = ({ isOpen, onClose, score, maxScore }: Leaderboard
               disabled={isSubmitting}
               className="font-pixel flex-1"
             >
-              {isSubmitting ? 'Submitting...' : 'Submit Score'}
+              {isSubmitting ? t('quiz.submitting') : t('quiz.submitScore')}
             </Button>
             <Button
               type="button"
@@ -146,7 +148,7 @@ const LeaderboardSubmission = ({ isOpen, onClose, score, maxScore }: Leaderboard
               onClick={handleSkip}
               className="font-pixel"
             >
-              Skip
+              {t('common.skip')}
             </Button>
           </div>
         </form>
@@ -157,7 +159,7 @@ const LeaderboardSubmission = ({ isOpen, onClose, score, maxScore }: Leaderboard
             onClick={() => navigate('/leaderboard')}
             className="font-pixel text-sm"
           >
-            View Leaderboard
+            {t('leaderboard.viewLeaderboard')}
           </Button>
         </div>
       </DialogContent>
