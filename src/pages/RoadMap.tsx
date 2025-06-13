@@ -7,26 +7,24 @@ import { useTranslation } from '@/hooks/useTranslation';
 const RoadMap = () => {
   const { t } = useTranslation();
 
-  const danceConceptPairs = [
-    { left: "Dancing fast", right: "Dancing slow", unlocked: true, completed: true },
-    { left: "Dancing small", right: "Dancing big", unlocked: true, completed: true },
-    { left: "Dancing high", right: "Dancing low", unlocked: true, completed: false },
-    { left: "Dancing circular", right: "Dancing linear", unlocked: true, completed: false },
-    { left: "With control", right: "Without control", unlocked: false, completed: false },
-    { left: "Full weight transfer", right: "Rebounds", unlocked: false, completed: false },
-    { left: "Expanding", right: "Shrinking", unlocked: false, completed: false },
-    { left: "High body tension", right: "Low body tension", unlocked: false, completed: false },
-    { left: "Feet always on the floor", right: "Feet off the floor", unlocked: false, completed: false },
-    { left: "Pushing the floor", right: "Not pushing the floor", unlocked: false, completed: false },
-    { left: "Leading every step", right: "Not leading every step", unlocked: false, completed: false },
-    { left: "Same steps", right: "Different steps", unlocked: false, completed: false },
-    { left: "Few steps", right: "Many steps", unlocked: false, completed: false },
-    { left: "Dancing rhythm", right: "Dancing melody", unlocked: false, completed: false },
-    { left: "Facing partner", right: "Turning away", unlocked: false, completed: false },
-    { left: "Accelerating", right: "Decelerating", unlocked: false, completed: false }
-  ];
-
-  const singleConcepts = [
+  // All concepts combined into one flowing sequence
+  const allConcepts = [
+    { name: "Dancing fast vs slow", unlocked: true, completed: true },
+    { name: "Dancing small vs big", unlocked: true, completed: true },
+    { name: "Dancing high vs low", unlocked: true, completed: false },
+    { name: "Dancing circular vs linear", unlocked: true, completed: false },
+    { name: "With control vs without control", unlocked: false, completed: false },
+    { name: "Full weight transfer vs rebounds", unlocked: false, completed: false },
+    { name: "Expanding vs shrinking", unlocked: false, completed: false },
+    { name: "High body tension vs low body tension", unlocked: false, completed: false },
+    { name: "Feet always on the floor vs feet off the floor", unlocked: false, completed: false },
+    { name: "Pushing the floor vs not pushing the floor", unlocked: false, completed: false },
+    { name: "Leading every step vs not leading every step", unlocked: false, completed: false },
+    { name: "Same steps vs different steps", unlocked: false, completed: false },
+    { name: "Few steps vs many steps", unlocked: false, completed: false },
+    { name: "Dancing rhythm vs dancing melody", unlocked: false, completed: false },
+    { name: "Facing partner vs turning away", unlocked: false, completed: false },
+    { name: "Accelerating vs decelerating", unlocked: false, completed: false },
     { name: "Dancing rubato", unlocked: false, completed: false },
     { name: "Marcato in 2 vs in 4", unlocked: false, completed: false },
     { name: "The normal syncopa", unlocked: false, completed: false },
@@ -55,6 +53,22 @@ const RoadMap = () => {
       default:
         return <Lock className="w-6 h-6 text-warm-brown opacity-50" />;
     }
+  };
+
+  // Generate winding path coordinates for each concept
+  const generateWindingPath = (index: number, total: number) => {
+    const progress = index / (total - 1);
+    const baseY = progress * 100; // Base vertical progression
+    
+    // Create curves using sine waves with different frequencies
+    const curve1 = Math.sin(progress * Math.PI * 3) * 15; // Primary curve
+    const curve2 = Math.sin(progress * Math.PI * 7) * 8;  // Secondary curve
+    const curve3 = Math.sin(progress * Math.PI * 11) * 4; // Tertiary curve
+    
+    const x = 50 + curve1 + curve2 + curve3; // Center at 50% with curves
+    const y = baseY;
+    
+    return { x, y };
   };
 
   return (
@@ -91,138 +105,124 @@ const RoadMap = () => {
             🎯 Your Tango Mastery Journey
           </p>
           <p className="text-warm-brown mt-2">
-            Navigate through fundamental concepts and unlock advanced techniques
+            Follow the winding path through fundamental concepts and advanced techniques
           </p>
         </div>
       </div>
 
-      {/* Road Path Container */}
+      {/* Winding Road Container */}
       <div className="relative z-10 max-w-6xl mx-auto px-4">
-        {/* The Road - Winding Path */}
-        <div className="relative">
-          {/* Road Background */}
-          <div className="absolute inset-0 flex justify-center">
-            <div className="w-32 bg-gradient-to-b from-warm-brown to-caramel rounded-full opacity-80 shadow-2xl min-h-full"></div>
-          </div>
-          
-          {/* Road Markings */}
-          <div className="absolute inset-0 flex justify-center">
-            <div className="w-2 bg-cream opacity-60 min-h-full flex flex-col gap-8 pt-8">
-              {Array.from({ length: 20 }).map((_, i) => (
-                <div key={i} className="h-8 bg-cream rounded-full"></div>
-              ))}
-            </div>
-          </div>
+        <div className="relative min-h-[3000px]">
+          {/* Winding Road Background - SVG Path */}
+          <svg 
+            className="absolute inset-0 w-full h-full" 
+            viewBox="0 0 100 100" 
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="roadGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="hsl(var(--warm-brown))" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="hsl(var(--caramel))" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="hsl(var(--warm-brown))" stopOpacity="0.8" />
+              </linearGradient>
+            </defs>
+            
+            {/* Generate smooth winding path */}
+            <path
+              d={`M ${generateWindingPath(0, allConcepts.length).x} ${generateWindingPath(0, allConcepts.length).y} ${
+                allConcepts.map((_, index) => {
+                  const point = generateWindingPath(index, allConcepts.length);
+                  return index === 0 ? '' : `L ${point.x} ${point.y}`;
+                }).join(' ')
+              }`}
+              stroke="url(#roadGradient)"
+              strokeWidth="8"
+              fill="none"
+              className="drop-shadow-2xl"
+            />
+            
+            {/* Road center line */}
+            <path
+              d={`M ${generateWindingPath(0, allConcepts.length).x} ${generateWindingPath(0, allConcepts.length).y} ${
+                allConcepts.map((_, index) => {
+                  const point = generateWindingPath(index, allConcepts.length);
+                  return index === 0 ? '' : `L ${point.x} ${point.y}`;
+                }).join(' ')
+              }`}
+              stroke="hsl(var(--cream))"
+              strokeWidth="1"
+              fill="none"
+              strokeDasharray="2 3"
+              className="opacity-60"
+            />
+          </svg>
 
-          {/* Concept Nodes on the Road */}
-          <div className="relative z-10 space-y-16 py-8">
-            {danceConceptPairs.map((pair, index) => {
-              const status = getNodeStatus(pair.unlocked, pair.completed);
-              const isEven = index % 2 === 0;
-              
-              return (
-                <div key={index} className="relative">
-                  {/* Concept Pair Node */}
-                  <div className={`flex items-center justify-center ${isEven ? 'flex-row' : 'flex-row-reverse'}`}>
-                    {/* Left/Right Concept */}
-                    <div className={`${isEven ? 'mr-8' : 'ml-8'} transform ${isEven ? 'rotate-2' : '-rotate-2'}`}>
-                      <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[200px] transition-all duration-300 hover:scale-105`}>
-                        <div className="text-warm-brown font-bold text-center">
-                          {isEven ? pair.left : pair.right}
+          {/* Concept Nodes along the winding path */}
+          {allConcepts.map((concept, index) => {
+            const status = getNodeStatus(concept.unlocked, concept.completed);
+            const position = generateWindingPath(index, allConcepts.length);
+            const isLeft = position.x < 50; // Determine which side of the road to place the concept
+            
+            return (
+              <div 
+                key={index} 
+                className="absolute transform -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  left: `${position.x}%`,
+                  top: `${position.y}%`
+                }}
+              >
+                {/* Road Node */}
+                <div className="relative flex items-center">
+                  {/* Concept Card */}
+                  <div className={`${isLeft ? 'order-1 mr-8' : 'order-3 ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
+                    <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${
+                      status === 'locked' ? 'opacity-60 grayscale' : ''
+                    }`}>
+                      <div className="text-warm-brown font-bold text-center text-sm">
+                        {concept.name}
+                      </div>
+                      {status === 'locked' && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
+                          <Lock className="w-6 h-6 text-cream" />
                         </div>
-                      </div>
-                    </div>
-
-                    {/* Central Road Node */}
-                    <div className="relative z-20">
-                      <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${
-                        status === 'completed' 
-                          ? 'bg-sage-green border-cream animate-gentle-bounce' 
-                          : status === 'unlocked'
-                          ? 'bg-golden-yellow border-cream hover:scale-110 cursor-pointer'
-                          : 'bg-warm-brown border-cream opacity-60'
-                      }`}>
-                        {getNodeIcon(status)}
-                      </div>
-                      
-                      {/* Node Number */}
-                      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
-                        <div className="bg-warm-brown text-cream px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-                          {index + 1}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right/Left Concept */}
-                    <div className={`${isEven ? 'ml-8' : 'mr-8'} transform ${isEven ? '-rotate-2' : 'rotate-2'}`}>
-                      <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[200px] transition-all duration-300 hover:scale-105`}>
-                        <div className="text-warm-brown font-bold text-center">
-                          {isEven ? pair.right : pair.left}
-                        </div>
-                      </div>
+                      )}
                     </div>
                   </div>
 
-                  {/* VS Indicator */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
-                    <div className="bg-burnt-orange text-cream px-2 py-1 rounded-full text-xs font-bold shadow-lg">
-                      VS
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Advanced Concepts Section - Bonus Area */}
-        <div className="mt-16 mb-12">
-          <div className="text-center mb-8">
-            <h2 className="text-4xl font-display text-cream drop-shadow-lg mb-4">
-              🏆 BONUS CHALLENGES
-            </h2>
-            <div className="bg-terracotta/90 backdrop-blur-sm rounded-2xl p-4 max-w-md mx-auto shadow-xl border-2 border-golden-yellow">
-              <p className="text-cream font-medium">
-                Master the fundamentals to unlock these advanced techniques!
-              </p>
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {singleConcepts.map((concept, index) => {
-              const status = getNodeStatus(concept.unlocked, concept.completed);
-              
-              return (
-                <div key={index} className="relative group">
-                  <div className={`game-card ${status} bg-gradient-to-br from-dusty-rose to-paprika border-3 border-cream shadow-xl rounded-xl p-4 text-center transition-all duration-300 ${
-                    status === 'locked' ? 'opacity-50 grayscale' : 'hover:scale-105 hover:rotate-1'
-                  }`}>
-                    <div className="flex items-center justify-center mb-2">
+                  {/* Central Road Node */}
+                  <div className="order-2 relative z-20">
+                    <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${
+                      status === 'completed' 
+                        ? 'bg-sage-green border-cream animate-gentle-bounce' 
+                        : status === 'unlocked'
+                        ? 'bg-golden-yellow border-cream hover:scale-110 cursor-pointer'
+                        : 'bg-warm-brown border-cream opacity-60'
+                    }`}>
                       {getNodeIcon(status)}
                     </div>
-                    <div className="text-cream font-bold text-sm">
-                      {concept.name}
-                    </div>
-                    {status === 'locked' && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-xl">
-                        <Lock className="w-8 h-8 text-cream" />
+                    
+                    {/* Node Number */}
+                    <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-warm-brown text-cream px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                        {index + 1}
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
 
         {/* Call to Action - Game Style */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 mt-16">
           <div className="bg-gradient-to-r from-burnt-orange to-terracotta backdrop-blur-sm rounded-3xl p-8 shadow-2xl border-4 border-golden-yellow max-w-2xl mx-auto">
             <h3 className="text-3xl font-display text-cream mb-4 drop-shadow-lg">
               🚀 READY TO START YOUR JOURNEY?
             </h3>
             <p className="text-cream mb-6 text-lg">
-              Begin practicing and unlock new concepts as you progress
+              Begin practicing and unlock new concepts as you progress along the path
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
