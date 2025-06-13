@@ -1,14 +1,12 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import LanguageSelector from '@/components/LanguageSelector';
-
 const Home = () => {
-  const { t } = useTranslation();
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
+  const {
+    t
+  } = useTranslation();
+  return <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
       <div className="max-w-4xl mx-auto">
         {/* Language Selector in top right */}
         <div className="flex justify-end mb-8">
@@ -26,31 +24,17 @@ const Home = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link 
-                to="/roadmap" 
-                className="boho-button text-lg px-8 py-4 inline-block"
-              >
+              <Link to="/roadmap" className="boho-button text-lg px-8 py-4 inline-block">
                 Road Map
               </Link>
               
-              <Link 
-                to="/rhythmlab" 
-                className="boho-button text-lg px-8 py-4 inline-block"
-              >
+              <Link to="/rhythmlab" className="boho-button text-lg px-8 py-4 inline-block">
                 Enter Rhythm Lab
               </Link>
               
-              <Link 
-                to="/rhythmlab/quiz" 
-                className="boho-button text-lg px-8 py-4 inline-block"
-              >
-                {t('quiz.takeQuiz')}
-              </Link>
               
-              <Link 
-                to="/rhythmlab/leaderboard" 
-                className="boho-button text-lg px-8 py-4 inline-block"
-              >
+              
+              <Link to="/rhythmlab/leaderboard" className="boho-button text-lg px-8 py-4 inline-block">
                 {t('leaderboard.viewLeaderboard')}
               </Link>
             </div>
@@ -75,8 +59,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Home;
