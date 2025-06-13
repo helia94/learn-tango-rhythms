@@ -27,6 +27,13 @@ const Home = () => {
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link 
+                to="/roadmap" 
+                className="boho-button text-lg px-8 py-4 inline-block"
+              >
+                Road Map
+              </Link>
+              
+              <Link 
                 to="/rhythmlab" 
                 className="boho-button text-lg px-8 py-4 inline-block"
               >

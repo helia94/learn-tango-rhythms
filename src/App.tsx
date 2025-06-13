@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Index from "./pages/Index";
 import Quiz from "./pages/Quiz";
 import Leaderboard from "./pages/Leaderboard";
+import RoadMap from "./pages/RoadMap";
 import NotFound from "./pages/NotFound";
 import RhythmLabLayout from "./components/layouts/RhythmLabLayout";
 
@@ -34,6 +35,9 @@ const App = () => {
             <Routes>
               {/* Home page */}
               <Route path="/" element={<Home />} />
+              
+              {/* Road Map page */}
+              <Route path="/roadmap" element={<RoadMap />} />
               
               {/* Rhythm Lab sub-routes */}
               <Route path="/rhythmlab" element={<RhythmLabLayout />}>
