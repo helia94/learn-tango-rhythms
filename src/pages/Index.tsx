@@ -1,8 +1,8 @@
 
-import RhythmGrid from '@/components/RhythmGrid';
+import Roadmap from './Roadmap';
 
 const Index = () => {
-  return <RhythmGrid />;
+  return <Roadmap />;
 };
 
 export default Index;

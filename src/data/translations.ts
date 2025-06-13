@@ -1,4 +1,3 @@
-
 export interface TranslationItem {
   en: string;
   de: string;
@@ -223,7 +222,107 @@ export const translations = {
       de: "Zurück zur Startseite",
       context: "Return home button"
     }
+  },
+
+  // Music Mastery Journey
+  roadmap: {
+    title: {
+      en: "Music Mastery Journey",
+      de: "Musik-Meisterschaftsreise"
+    },
+    subtitle: {
+      en: "Unlock your musical potential through our structured learning path. Master rhythm, harmony, melody, and performance skills step by step.",
+      de: "Entfalten Sie Ihr musikalisches Potenzial durch unseren strukturierten Lernpfad. Meistern Sie Rhythmus, Harmonie, Melodie und Aufführungsfähigkeiten Schritt für Schritt."
+    },
+    rhythmLab: {
+      title: {
+        en: "Rhythm Lab",
+        de: "Rhythmus-Labor"
+      },
+      description: {
+        en: "Master the fundamentals of rhythm with interactive beat patterns and timing exercises.",
+        de: "Meistern Sie die Grundlagen des Rhythmus mit interaktiven Schlagmustern und Timing-Übungen."
+      }
+    },
+    harmonyStudio: {
+      title: {
+        en: "Harmony Studio",
+        de: "Harmonie-Studio"
+      },
+      description: {
+        en: "Explore chord progressions, scales, and harmonic relationships in music.",
+        de: "Erkunden Sie Akkordfolgen, Tonleitern und harmonische Beziehungen in der Musik."
+      }
+    },
+    melodyComposer: {
+      title: {
+        en: "Melody Composer",
+        de: "Melodie-Komponist"
+      },
+      description: {
+        en: "Create beautiful melodies and understand melodic structure and development.",
+        de: "Erstellen Sie schöne Melodien und verstehen Sie melodische Struktur und Entwicklung."
+      }
+    },
+    performanceHall: {
+      title: {
+        en: "Performance Hall",
+        de: "Aufführungssaal"
+      },
+      description: {
+        en: "Practice performance skills, stage presence, and musical expression.",
+        de: "Üben Sie Aufführungsfähigkeiten, Bühnenpräsenz und musikalischen Ausdruck."
+      }
+    },
+    collaborationSpace: {
+      title: {
+        en: "Collaboration Space",
+        de: "Kollaborationsraum"
+      },
+      description: {
+        en: "Work with other musicians, share compositions, and learn together.",
+        de: "Arbeiten Sie mit anderen Musikern, teilen Sie Kompositionen und lernen Sie gemeinsam."
+      }
+    },
+    masterClass: {
+      title: {
+        en: "Master Class",
+        de: "Meisterklasse"
+      },
+      description: {
+        en: "Advanced techniques and professional-level music theory and practice.",
+        de: "Fortgeschrittene Techniken und professionelle Musiktheorie und -praxis."
+      }
+    },
+    status: {
+      available: {
+        en: "Available",
+        de: "Verfügbar"
+      },
+      locked: {
+        en: "Locked",
+        de: "Gesperrt"
+      }
+    },
+    progress: {
+      title: {
+        en: "Your Learning Progress",
+        de: "Ihr Lernfortschritt"
+      },
+      available: {
+        en: "Available",
+        de: "Verfügbar"
+      },
+      locked: {
+        en: "Coming Soon",
+        de: "Demnächst"
+      },
+      description: {
+        en: "Complete each module to unlock the next level of your musical journey.",
+        de: "Schließen Sie jedes Modul ab, um die nächste Stufe Ihrer musikalischen Reise freizuschalten."
+      }
+    }
   }
-};
+} as const;
 
 export type TranslationKey = string;
