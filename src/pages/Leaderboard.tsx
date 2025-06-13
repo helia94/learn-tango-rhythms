@@ -62,20 +62,20 @@ const Leaderboard = () => {
   const getRankIcon = (rank: number) => {
     switch (rank) {
       case 1:
-        return <Trophy className="w-6 h-6 text-yellow-500" />;
+        return <Trophy className="w-6 h-6 text-golden-yellow" />;
       case 2:
-        return <Medal className="w-6 h-6 text-gray-400" />;
+        return <Medal className="w-6 h-6 text-mushroom" />;
       case 3:
-        return <Award className="w-6 h-6 text-amber-600" />;
+        return <Award className="w-6 h-6 text-burnt-orange" />;
       default:
-        return <span className="font-pixel text-lg text-muted-foreground">#{rank}</span>;
+        return <span className="font-body font-semibold text-lg text-warm-brown">#{rank}</span>;
     }
   };
 
   const getAvatarColor = (name: string) => {
     const colors = [
-      'bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 
-      'bg-purple-500', 'bg-pink-500', 'bg-indigo-500', 'bg-orange-500'
+      'bg-terracotta', 'bg-burnt-orange', 'bg-sage-green', 'bg-deep-teal', 
+      'bg-dusty-rose', 'bg-golden-yellow', 'bg-warm-brown', 'bg-paprika'
     ];
     const index = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     return colors[index % colors.length];
@@ -87,45 +87,45 @@ const Leaderboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
+      <div className="min-h-screen p-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
-            <Button variant="ghost" onClick={() => navigate('/')} className="font-pixel">
+            <Button variant="ghost" onClick={() => navigate('/')} className="font-body">
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Rhythm Grid
             </Button>
-            <h1 className="font-pixel text-2xl text-foreground">Leaderboard</h1>
+            <h1 className="boho-title text-2xl font-display">Leaderboard</h1>
           </div>
-          <div className="text-center font-pixel">Loading...</div>
+          <div className="text-center boho-subtitle">Loading...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted p-4 pixelated">
+    <div className="min-h-screen p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
-          <Button variant="ghost" onClick={() => navigate('/')} className="font-pixel">
+          <Button variant="ghost" onClick={() => navigate('/')} className="font-body">
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back to Rhythm Grid
           </Button>
-          <h1 className="font-pixel text-2xl text-foreground">Leaderboard</h1>
+          <h1 className="boho-title text-2xl font-display">Leaderboard</h1>
         </div>
 
         {/* Leaderboard */}
-        <Card className="game-panel">
+        <Card className="boho-panel">
           <CardHeader>
-            <CardTitle className="font-pixel text-xl text-center">Top Players</CardTitle>
+            <CardTitle className="boho-title text-xl text-center font-display">Top Players</CardTitle>
           </CardHeader>
           <CardContent>
             {leaderboardData.length === 0 ? (
               <div className="text-center py-8">
-                <p className="font-pixel text-muted-foreground">No scores yet! Be the first to complete the quiz.</p>
+                <p className="boho-subtitle text-warm-brown mb-4">No scores yet! Be the first to complete the quiz.</p>
                 <Button 
                   onClick={() => navigate('/quiz')} 
-                  className="font-pixel mt-4"
+                  className="boho-button"
                 >
                   Start Quiz
                 </Button>
@@ -139,8 +139,8 @@ const Leaderboard = () => {
                   return (
                     <div 
                       key={entry.id} 
-                      className={`flex items-center gap-4 p-4 rounded-lg border ${
-                        rank <= 3 ? 'bg-muted/50' : 'bg-background'
+                      className={`flex items-center gap-4 p-4 rounded-xl border ${
+                        rank <= 3 ? 'boho-panel' : 'bg-cream/50 border-warm-brown/20'
                       }`}
                     >
                       {/* Rank */}
@@ -150,27 +150,27 @@ const Leaderboard = () => {
 
                       {/* Avatar */}
                       <Avatar className="w-12 h-12">
-                        <AvatarFallback className={`${getAvatarColor(entry.player_name)} text-white font-pixel`}>
+                        <AvatarFallback className={`${getAvatarColor(entry.player_name)} text-cream font-body font-semibold`}>
                           {getInitials(entry.player_name)}
                         </AvatarFallback>
                       </Avatar>
 
                       {/* Player Info */}
                       <div className="flex-1">
-                        <div className="font-pixel text-lg">{entry.player_name}</div>
+                        <div className="font-body font-semibold text-lg text-warm-brown">{entry.player_name}</div>
                         {entry.city && (
-                          <div className="text-sm text-muted-foreground">{entry.city}</div>
+                          <div className="text-sm text-mushroom">{entry.city}</div>
                         )}
                       </div>
 
                       {/* Score */}
                       <div className="text-right">
-                        <div className="font-pixel text-xl">{entry.score}/{entry.max_possible_score}</div>
-                        <div className="text-sm text-muted-foreground">{percentage}%</div>
+                        <div className="font-body font-bold text-xl text-burnt-orange">{entry.score}/{entry.max_possible_score}</div>
+                        <div className="text-sm text-warm-brown">{percentage}%</div>
                       </div>
 
                       {/* Date */}
-                      <div className="text-sm text-muted-foreground w-24 text-right">
+                      <div className="text-sm text-mushroom w-24 text-right">
                         {new Date(entry.created_at).toLocaleDateString()}
                       </div>
                     </div>
@@ -186,7 +186,7 @@ const Leaderboard = () => {
           <div className="text-center mt-8">
             <Button 
               onClick={() => navigate('/quiz')} 
-              className="font-pixel text-lg px-8 py-4"
+              className="boho-button text-lg px-8 py-4"
             >
               Try to Beat the Top Score!
             </Button>

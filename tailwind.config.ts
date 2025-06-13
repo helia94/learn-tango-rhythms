@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -66,26 +67,29 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Retro Berlin color palette
-				'neon-pink': 'hsl(var(--neon-pink))',
-				'electric-blue': 'hsl(var(--electric-blue))',
-				'lime-green': 'hsl(var(--lime-green))',
-				'sunshine-yellow': 'hsl(var(--sunshine-yellow))',
-				'purple-haze': 'hsl(var(--purple-haze))',
-				'orange-burst': 'hsl(var(--orange-burst))',
-				'mint-fresh': 'hsl(var(--mint-fresh))',
-				'techno-pink': 'hsl(var(--techno-pink))',
-				'underground-purple': 'hsl(var(--underground-purple))',
-				'strobe-cyan': 'hsl(var(--strobe-cyan))',
-				'disco-gold': 'hsl(var(--disco-gold))',
-				'berlin-brick-orange': 'hsl(var(--berlin-brick-orange))'
+				// Mid-Century Modern/Boho Color Palette
+				'terracotta': 'hsl(var(--terracotta))',
+				'burnt-orange': 'hsl(var(--burnt-orange))',
+				'warm-brown': 'hsl(var(--warm-brown))',
+				'sandy-beige': 'hsl(var(--sandy-beige))',
+				'cream': 'hsl(var(--cream))',
+				'sage-green': 'hsl(var(--sage-green))',
+				'dusty-rose': 'hsl(var(--dusty-rose))',
+				'golden-yellow': 'hsl(var(--golden-yellow))',
+				'deep-teal': 'hsl(var(--deep-teal))',
+				'mushroom': 'hsl(var(--mushroom))',
+				'paprika': 'hsl(var(--paprika))',
+				'caramel': 'hsl(var(--caramel))',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
-				'retro': '1.5rem',
-				'bubble': '2rem'
+				'organic': '20px 8px 20px 8px',
+			},
+			fontFamily: {
+				'display': ['Crimson Text', 'serif'],
+				'body': ['Space Grotesk', 'sans-serif'],
 			},
 			keyframes: {
 				'accordion-down': {
@@ -104,50 +108,36 @@ export default {
 						height: '0'
 					}
 				},
-				'neon-glow': {
+				'warm-glow': {
 					'0%, 100%': { 
-						boxShadow: '0 0 5px hsl(var(--neon-pink)), 0 0 10px hsl(var(--neon-pink)), 0 0 15px hsl(var(--neon-pink))'
+						boxShadow: '0 0 0 2px hsl(var(--burnt-orange)), 0 0 20px hsl(var(--terracotta) / 0.3)'
 					},
 					'50%': { 
-						boxShadow: '0 0 10px hsl(var(--electric-blue)), 0 0 20px hsl(var(--electric-blue)), 0 0 30px hsl(var(--electric-blue))'
+						boxShadow: '0 0 0 2px hsl(var(--terracotta)), 0 0 30px hsl(var(--burnt-orange) / 0.4)'
 					}
 				},
-				'disco-rotate': {
-					'0%': { transform: 'rotate(0deg) scale(1)' },
-					'25%': { transform: 'rotate(90deg) scale(1.1)' },
-					'50%': { transform: 'rotate(180deg) scale(1)' },
-					'75%': { transform: 'rotate(270deg) scale(1.1)' },
-					'100%': { transform: 'rotate(360deg) scale(1)' }
+				'gentle-bounce': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-6px)' }
 				},
-				'pulse-rainbow': {
-					'0%': { backgroundColor: 'hsl(var(--neon-pink))' },
-					'16%': { backgroundColor: 'hsl(var(--electric-blue))' },
-					'32%': { backgroundColor: 'hsl(var(--lime-green))' },
-					'48%': { backgroundColor: 'hsl(var(--sunshine-yellow))' },
-					'64%': { backgroundColor: 'hsl(var(--purple-haze))' },
-					'80%': { backgroundColor: 'hsl(var(--orange-burst))' },
-					'100%': { backgroundColor: 'hsl(var(--neon-pink))' }
+				'subtle-shake': {
+					'0%, 100%': { transform: 'translateX(0)' },
+					'25%': { transform: 'translateX(-1px)' },
+					'75%': { transform: 'translateX(1px)' }
 				},
-				'bounce-fun': {
-					'0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-					'50%': { transform: 'translateY(-20px) rotate(5deg)' }
-				},
-				'wiggle': {
-					'0%, 100%': { transform: 'rotate(-3deg)' },
-					'50%': { transform: 'rotate(3deg)' }
+				'organic-pulse': {
+					'0%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.02)' },
+					'100%': { transform: 'scale(1)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'neon-glow': 'neon-glow 1s infinite alternate',
-				'disco-rotate': 'disco-rotate 4s infinite linear',
-				'pulse-rainbow': 'pulse-rainbow 2s infinite',
-				'bounce-fun': 'bounce-fun 2s ease-in-out infinite',
-				'wiggle': 'wiggle 1s ease-in-out infinite'
-			},
-			backdropFilter: {
-				'retro': 'blur(10px) saturate(150%) hue-rotate(30deg)'
+				'warm-glow': 'warm-glow 0.3s ease-in-out',
+				'gentle-bounce': 'gentle-bounce 0.6s ease-in-out infinite',
+				'subtle-shake': 'subtle-shake 0.2s ease-in-out',
+				'organic-pulse': 'organic-pulse 2s ease-in-out infinite'
 			}
 		}
 	},

@@ -20,14 +20,27 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
     return track.pattern.every(beat => beat);
   };
 
+  const getTrackColorClass = (trackColor: string) => {
+    // Map old color classes to new boho colors
+    const colorMap: { [key: string]: string } = {
+      'bg-berlin-red': 'bg-terracotta',
+      'bg-berlin-blue': 'bg-deep-teal',
+      'bg-berlin-purple': 'bg-dusty-rose',
+      'bg-berlin-orange': 'bg-burnt-orange',
+      'bg-berlin-lime': 'bg-sage-green',
+      'bg-berlin-cyan': 'bg-golden-yellow',
+    };
+    return colorMap[trackColor] || 'bg-warm-brown';
+  };
+
   return (
-    <div className="game-panel p-4 md:p-8 mb-12 max-w-6xl mx-auto">
+    <div className="boho-panel p-4 md:p-8 mb-12 max-w-6xl mx-auto">
       <div className="space-y-4 md:space-y-8">
         {tracks.map((track) => (
           <div key={track.id} className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
             {/* Track Label and Checkbox */}
             <div className="flex items-center justify-between md:justify-start gap-3 md:min-w-[180px]">
-              <div className={`berlin-track-label ${track.color} text-white min-w-[120px] text-center text-sm`}>
+              <div className="track-label min-w-[120px] text-center text-sm">
                 {track.name}
               </div>
               {track.id === 'softbass' && onToggleAllBeats && (
@@ -47,8 +60,8 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
                   <button
                     onClick={() => onToggleBeat(track.id, beatIndex, false)}
                     className={`
-                      pixel-grid-cell w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16
-                      ${isActive ? `${track.color} active` : 'bg-white'}
+                      geometric-cell w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16
+                      ${isActive ? `${getTrackColorClass(track.color)} active` : ''}
                       ${currentBeat === beatIndex && currentHalfBeat === 0 ? 'current' : ''}
                     `}
                   />
@@ -58,8 +71,8 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
                     <button
                       onClick={() => onToggleBeat(track.id, beatIndex, true)}
                       className={`
-                        pixel-grid-cell w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full
-                        ${track.halfPattern[beatIndex] ? `${track.color} active` : 'bg-white'}
+                        geometric-cell w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full
+                        ${track.halfPattern[beatIndex] ? `${getTrackColorClass(track.color)} active` : ''}
                         ${currentBeat === beatIndex && currentHalfBeat === 1 ? 'current' : ''}
                       `}
                     />
@@ -77,11 +90,11 @@ const BeatGrid = ({ tracks, currentBeat, currentHalfBeat, onToggleBeat, onToggle
         <div className="flex gap-1 md:gap-3 justify-center">
           {[1, 2, 3, 4, 1, 2, 3, 4].slice(0, beatsToShow).map((number, index) => (
             <div key={index} className="flex items-center gap-1 md:gap-2">
-              <div className="text-center font-pixel text-sm w-8 md:w-12 lg:w-16 text-foreground">
+              <div className="text-center font-body font-medium text-sm w-8 md:w-12 lg:w-16 text-warm-brown">
                 {number}
               </div>
               {index < beatsToShow - 1 && (
-                <div className="text-center font-pixel text-sm w-4 md:w-6 lg:w-8 text-muted-foreground">
+                <div className="text-center font-body font-medium text-sm w-4 md:w-6 lg:w-8 text-mushroom">
                   +
                 </div>
               )}
