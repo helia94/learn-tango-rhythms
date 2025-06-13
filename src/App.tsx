@@ -13,6 +13,7 @@ import Leaderboard from "./pages/Leaderboard";
 import RoadMap from "./pages/RoadMap";
 import NotFound from "./pages/NotFound";
 import RhythmLabLayout from "./components/layouts/RhythmLabLayout";
+import DancingFastSlow from "./pages/exercises/DancingFastSlow";
 
 const App = () => {
   // Create QueryClient inside component to avoid context issues
@@ -38,6 +39,9 @@ const App = () => {
               
               {/* Road Map page */}
               <Route path="/roadmap" element={<RoadMap />} />
+              
+              {/* Exercise pages */}
+              <Route path="/exercises/dancing-fast-slow" element={<DancingFastSlow />} />
               
               {/* Rhythm Lab sub-routes */}
               <Route path="/rhythmlab" element={<RhythmLabLayout />}>

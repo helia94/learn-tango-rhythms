@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
@@ -9,7 +10,7 @@ const RoadMap = () => {
 
   // All concepts combined into one flowing sequence
   const allConcepts = [
-    { key: "dancingFastVsSlow", unlocked: true, completed: true },
+    { key: "dancingFastVsSlow", unlocked: true, completed: true, link: "/exercises/dancing-fast-slow" },
     { key: "dancingSmallVsBig", unlocked: true, completed: true },
     { key: "dancingHighVsLow", unlocked: true, completed: false },
     { key: "dancingCircularVsLinear", unlocked: true, completed: false },
@@ -43,6 +44,7 @@ const RoadMap = () => {
     if (unlocked) return 'unlocked';
     return 'locked';
   };
+  
   const getNodeIcon = (status: string) => {
     switch (status) {
       case 'completed':
@@ -71,6 +73,7 @@ const RoadMap = () => {
       y
     };
   };
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
       {/* Animated background elements */}
@@ -132,6 +135,17 @@ const RoadMap = () => {
             const position = generateWindingPath(index, allConcepts.length);
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
 
+            const ConceptCard = ({ children }: { children: React.ReactNode }) => {
+              if (concept.link && status !== 'locked') {
+                return (
+                  <Link to={concept.link} className="block">
+                    {children}
+                  </Link>
+                );
+              }
+              return <>{children}</>;
+            };
+
             return (
               <div
                 key={index}
@@ -145,23 +159,27 @@ const RoadMap = () => {
                 <div className="relative flex items-center">
                   {/* Concept Card */}
                   <div className={`${isLeft ? 'order-1 mr-8' : 'order-3 ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
-                    <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${status === 'locked' ? 'opacity-60 grayscale' : ''}`}>
-                      <div className="text-warm-brown font-bold text-center text-sm">
-                        {t(`concepts.${concept.key}`)}
-                      </div>
-                      {status === 'locked' && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
-                          <Lock className="w-6 h-6 text-cream" />
+                    <ConceptCard>
+                      <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${status === 'locked' ? 'opacity-60 grayscale' : 'cursor-pointer hover:shadow-2xl'}`}>
+                        <div className="text-warm-brown font-bold text-center text-sm">
+                          {t(`concepts.${concept.key}`)}
                         </div>
-                      )}
-                    </div>
+                        {status === 'locked' && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
+                            <Lock className="w-6 h-6 text-cream" />
+                          </div>
+                        )}
+                      </div>
+                    </ConceptCard>
                   </div>
 
                   {/* Central Road Node */}
                   <div className="order-2 relative z-20">
-                    <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${status === 'completed' ? 'bg-sage-green border-cream animate-gentle-bounce' : status === 'unlocked' ? 'bg-golden-yellow border-cream hover:scale-110 cursor-pointer' : 'bg-warm-brown border-cream opacity-60'}`}>
-                      {getNodeIcon(status)}
-                    </div>
+                    <ConceptCard>
+                      <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${status === 'completed' ? 'bg-sage-green border-cream animate-gentle-bounce' : status === 'unlocked' ? 'bg-golden-yellow border-cream hover:scale-110 cursor-pointer' : 'bg-warm-brown border-cream opacity-60'}`}>
+                        {getNodeIcon(status)}
+                      </div>
+                    </ConceptCard>
                     
                     {/* Node Number */}
                     <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
