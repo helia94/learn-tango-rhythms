@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import LanguageSelector from '@/components/LanguageSelector';
 
 const RoadMap = () => {
   const { t } = useTranslation();
@@ -81,7 +81,7 @@ const RoadMap = () => {
       </div>
 
       {/* Navigation */}
-      <div className="relative z-10 p-4">
+      <div className="relative z-10 p-4 flex justify-between items-center">
         <Link 
           to="/" 
           className="inline-flex items-center gap-2 text-cream bg-warm-brown/80 px-4 py-2 rounded-full hover:bg-warm-brown transition-all duration-300 shadow-lg backdrop-blur-sm"
@@ -89,6 +89,8 @@ const RoadMap = () => {
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
+        
+        <LanguageSelector />
       </div>
 
       {/* Header */}
