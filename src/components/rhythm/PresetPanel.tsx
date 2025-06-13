@@ -86,7 +86,7 @@ const PresetPanel = ({ presetRhythms, onApplyPreset }: PresetPanelProps) => {
       {/* Quiz Button */}
       <div className="flex justify-center mt-8">
         <Button
-          onClick={() => navigate('/quiz')}
+          onClick={() => navigate('/rhythmlab/quiz')}
           className="boho-button text-lg px-8 py-4"
         >
           {t('quiz.takeQuiz')}
