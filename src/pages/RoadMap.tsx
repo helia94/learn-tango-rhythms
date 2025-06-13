@@ -251,22 +251,7 @@ const RoadMap = () => {
 
         {/* Call to Action - Game Style */}
         <div className="text-center mb-16 mt-16">
-          <div className="bg-gradient-to-r from-burnt-orange to-terracotta backdrop-blur-sm rounded-3xl p-8 shadow-2xl border-4 border-golden-yellow max-w-2xl mx-auto">
-            <h3 className="text-3xl font-display text-cream mb-4 drop-shadow-lg">
-              {t('roadmap.readyToStart')}
-            </h3>
-            <p className="text-cream mb-6 text-lg">
-              {t('roadmap.startPracticeDescription')}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/rhythmlab" className="game-button bg-gradient-to-r from-sage-green to-deep-teal text-cream px-8 py-4 rounded-xl font-bold text-lg shadow-xl border-2 border-cream hover:scale-105 transition-all duration-300 hover:shadow-2xl">
-                {t('roadmap.startPractice')}
-              </Link>
-              <Link to="/rhythmlab/quiz" className="game-button bg-gradient-to-r from-golden-yellow to-dusty-rose text-warm-brown px-8 py-4 rounded-xl font-bold text-lg shadow-xl border-2 border-cream hover:scale-105 transition-all duration-300 hover:shadow-2xl">
-                {t('roadmap.takeQuiz')}
-              </Link>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>;
