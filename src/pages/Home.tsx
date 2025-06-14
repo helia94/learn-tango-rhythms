@@ -14,9 +14,7 @@ const Home = () => {
         </div>
         
         <div className="text-center">
-          <h1 className="boho-title text-6xl md:text-8xl mb-8 font-display">
-            TANGO RHYTHM LAB
-          </h1>
+          <h1 className="boho-title text-6xl md:text-8xl mb-8 font-display">5 MIN TANGO </h1>
           
           <div className="boho-panel p-8 mb-12">
             <p className="boho-subtitle text-lg mb-8">
