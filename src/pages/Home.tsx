@@ -34,9 +34,7 @@ const Home = () => {
               
               
               
-              <Link to="/rhythmlab/leaderboard" className="boho-button text-lg px-8 py-4 inline-block">
-                {t('leaderboard.viewLeaderboard')}
-              </Link>
+              
             </div>
           </div>
           
