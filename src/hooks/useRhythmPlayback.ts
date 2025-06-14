@@ -31,7 +31,7 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel, maxBeats }:
   useEffect(() => {
     if (isPlaying) {
       const currentBpm = speedLevels[speedLevel].bpm;
-      const beatDuration = (60 / currentBpm) * 250;
+      const beatDuration = (60 / currentBpm) * 1000 * 0.5;
 
       intervalRef.current = setInterval(() => {
         setCurrentHalfBeat(prevHalfBeat => {
