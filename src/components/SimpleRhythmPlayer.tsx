@@ -9,9 +9,10 @@ import { Track } from '@/types/rhythm';
 interface SimpleRhythmPlayerProps {
   pattern: boolean[];
   label: string;
+  speedLevel?: number;
 }
 
-const SimpleRhythmPlayer = ({ pattern, label }: SimpleRhythmPlayerProps) => {
+const SimpleRhythmPlayer = ({ pattern, label, speedLevel = 1 }: SimpleRhythmPlayerProps) => {
   // Create a track with the given pattern
   const track: Track = {
     id: 'simple-rhythm',
@@ -27,7 +28,7 @@ const SimpleRhythmPlayer = ({ pattern, label }: SimpleRhythmPlayerProps) => {
   const { isPlaying, currentBeat, togglePlayback } = useRhythmPlayback({
     tracks: [track],
     speedLevels,
-    speedLevel: 1, // MID speed
+    speedLevel: speedLevel,
     maxBeats: 4
   });
 

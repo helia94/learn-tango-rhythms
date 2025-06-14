@@ -4,6 +4,7 @@ import { ArrowLeft, CheckCircle, Music, Play, Pause } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import LanguageSelector from '@/components/LanguageSelector';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 
@@ -11,6 +12,7 @@ const DancingFastSlow = () => {
   const { t } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
   const [currentlyPlaying, setCurrentlyPlaying] = useState<string | null>(null);
+  const [rhythmSpeed, setRhythmSpeed] = useState<string>('1');
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleTaskComplete = (taskId: string) => {
@@ -80,6 +82,24 @@ const DancingFastSlow = () => {
       }
     };
   }, []);
+
+  const getRhythmPattern = (speed: string) => {
+    switch (speed) {
+      case '1': return [true, false, false, false]; // Beat 1 only
+      case '2': return [true, false, true, false];  // Beats 1 and 3
+      case '4': return [true, true, true, true];    // All beats
+      default: return [true, false, true, false];
+    }
+  };
+
+  const getSpeedLevel = (speed: string) => {
+    switch (speed) {
+      case '1': return 0; // SLOW
+      case '2': return 1; // MID
+      case '4': return 2; // FAST
+      default: return 1;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
@@ -189,6 +209,53 @@ const DancingFastSlow = () => {
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                 loading="lazy"
               />
+            </div>
+          </div>
+
+          {/* Interactive Rhythm Player */}
+          <div className="mb-8">
+            <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20">
+              <h3 className="text-xl font-display text-cream mb-4 text-center">Practice with Interactive Rhythm</h3>
+              
+              {/* Speed Toggle */}
+              <div className="flex justify-center mb-6">
+                <ToggleGroup 
+                  type="single" 
+                  value={rhythmSpeed} 
+                  onValueChange={(value) => value && setRhythmSpeed(value)}
+                  className="bg-warm-brown/40 rounded-lg p-1"
+                >
+                  <ToggleGroupItem 
+                    value="1" 
+                    className="data-[state=on]:bg-terracotta data-[state=on]:text-cream text-cream/70 hover:text-cream"
+                  >
+                    Speed 1
+                  </ToggleGroupItem>
+                  <ToggleGroupItem 
+                    value="2" 
+                    className="data-[state=on]:bg-golden-yellow data-[state=on]:text-warm-brown text-cream/70 hover:text-cream"
+                  >
+                    Speed 2
+                  </ToggleGroupItem>
+                  <ToggleGroupItem 
+                    value="4" 
+                    className="data-[state=on]:bg-dusty-rose data-[state=on]:text-cream text-cream/70 hover:text-cream"
+                  >
+                    Speed 4
+                  </ToggleGroupItem>
+                </ToggleGroup>
+              </div>
+
+              {/* Rhythm Player */}
+              <SimpleRhythmPlayer 
+                pattern={getRhythmPattern(rhythmSpeed)} 
+                label={`Practice Rhythm - Speed ${rhythmSpeed}`}
+                speedLevel={getSpeedLevel(rhythmSpeed)}
+              />
+              
+              <p className="text-cream/70 text-sm text-center mt-4">
+                Toggle between different speeds to practice walking at various tempos
+              </p>
             </div>
           </div>
 
