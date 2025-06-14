@@ -92,15 +92,6 @@ const DancingFastSlow = () => {
     }
   };
 
-  const getSpeedLevel = (speed: string) => {
-    switch (speed) {
-      case '1': return 0; // SLOW
-      case '2': return 1; // MID
-      case '4': return 2; // FAST
-      default: return 1;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       {/* Navigation */}
@@ -243,7 +234,7 @@ const DancingFastSlow = () => {
               <SimpleRhythmPlayer 
                 pattern={getRhythmPattern(rhythmSpeed)} 
                 label=""
-                speedLevel={getSpeedLevel(rhythmSpeed)}
+                speedLevel={1}
               />
             </div>
           </div>
