@@ -2,8 +2,35 @@
 export type TranslationKey = 
   | 'common.backToHome'
   | 'common.backToRoadmap'
+  | 'common.play'
+  | 'common.pause'
+  | 'common.clear'
+  | 'common.speed'
+  | 'common.error'
+  | 'common.success'
+  | 'common.skip'
   | 'roadmap.title'
   | 'leaderboard.viewLeaderboard'
+  | 'rhythm.title'
+  | 'rhythm.subtitle'
+  | 'rhythm.instructions'
+  | 'rhythm.presets'
+  | 'quiz.takeQuiz'
+  | 'quiz.complete'
+  | 'quiz.finalScore'
+  | 'quiz.complete_percentage'
+  | 'quiz.yourName'
+  | 'quiz.enterName'
+  | 'quiz.city'
+  | 'quiz.enterCity'
+  | 'quiz.submitting'
+  | 'quiz.submitScore'
+  | 'errors.enterName'
+  | 'errors.submitFailed'
+  | 'messages.scoreSubmitted'
+  | 'notFound.title'
+  | 'notFound.message'
+  | 'notFound.returnHome'
   | 'concepts.dancingFastVsSlow'
   | 'concepts.dancingSmallVsBig'
   | 'concepts.dancingHighVsLow'
@@ -41,6 +68,34 @@ export const translations = {
     backToRoadmap: {
       en: "Back to Roadmap",
       de: "Zurück zur Roadmap"
+    },
+    play: {
+      en: "Play",
+      de: "Abspielen"
+    },
+    pause: {
+      en: "Pause",
+      de: "Pause"
+    },
+    clear: {
+      en: "Clear",
+      de: "Löschen"
+    },
+    speed: {
+      en: "Speed",
+      de: "Geschwindigkeit"
+    },
+    error: {
+      en: "Error",
+      de: "Fehler"
+    },
+    success: {
+      en: "Success",
+      de: "Erfolg"
+    },
+    skip: {
+      en: "Skip",
+      de: "Überspringen"
     }
   },
   roadmap: {
@@ -53,6 +108,96 @@ export const translations = {
     viewLeaderboard: {
       en: "View Leaderboard",
       de: "Bestenliste anzeigen"
+    }
+  },
+  rhythm: {
+    title: {
+      en: "Rhythm Lab",
+      de: "Rhythmus Labor"
+    },
+    subtitle: {
+      en: "Practice your rhythm",
+      de: "Übe deinen Rhythmus"
+    },
+    instructions: {
+      en: "Click the squares to create your rhythm pattern",
+      de: "Klicke auf die Quadrate, um dein Rhythmusmuster zu erstellen"
+    },
+    presets: {
+      en: "Presets",
+      de: "Voreinstellungen"
+    }
+  },
+  quiz: {
+    takeQuiz: {
+      en: "Take Quiz",
+      de: "Quiz machen"
+    },
+    complete: {
+      en: "Quiz Complete!",
+      de: "Quiz abgeschlossen!"
+    },
+    finalScore: {
+      en: "Final Score",
+      de: "Endergebnis"
+    },
+    complete_percentage: {
+      en: "% Complete",
+      de: "% Abgeschlossen"
+    },
+    yourName: {
+      en: "Your Name",
+      de: "Dein Name"
+    },
+    enterName: {
+      en: "Enter your name",
+      de: "Gib deinen Namen ein"
+    },
+    city: {
+      en: "City",
+      de: "Stadt"
+    },
+    enterCity: {
+      en: "Enter your city",
+      de: "Gib deine Stadt ein"
+    },
+    submitting: {
+      en: "Submitting...",
+      de: "Übertrage..."
+    },
+    submitScore: {
+      en: "Submit Score",
+      de: "Ergebnis übertragen"
+    }
+  },
+  errors: {
+    enterName: {
+      en: "Please enter your name",
+      de: "Bitte gib deinen Namen ein"
+    },
+    submitFailed: {
+      en: "Failed to submit score",
+      de: "Ergebnis konnte nicht übertragen werden"
+    }
+  },
+  messages: {
+    scoreSubmitted: {
+      en: "Score submitted successfully!",
+      de: "Ergebnis erfolgreich übertragen!"
+    }
+  },
+  notFound: {
+    title: {
+      en: "Page Not Found",
+      de: "Seite nicht gefunden"
+    },
+    message: {
+      en: "The page you're looking for doesn't exist.",
+      de: "Die gesuchte Seite existiert nicht."
+    },
+    returnHome: {
+      en: "Return Home",
+      de: "Zur Startseite"
     }
   },
   concepts: {

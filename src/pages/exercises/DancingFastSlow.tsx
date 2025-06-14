@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Music, Play, Pause } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -11,6 +11,7 @@ const DancingFastSlow = () => {
   const { t } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
   const [currentlyPlaying, setCurrentlyPlaying] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleTaskComplete = (taskId: string) => {
     setCompletedTasks(prev => ({
@@ -20,15 +21,65 @@ const DancingFastSlow = () => {
   };
 
   const playAudio = (audioId: string, url: string) => {
+    // Stop current audio if playing
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+
     if (currentlyPlaying === audioId) {
       setCurrentlyPlaying(null);
-      // In a real implementation, you'd pause the audio here
-    } else {
-      setCurrentlyPlaying(audioId);
-      // In a real implementation, you'd play the audio here
-      console.log(`Playing audio: ${url}`);
+      return;
     }
+
+    // Create new audio element
+    const audio = new Audio(url);
+    audioRef.current = audio;
+    
+    audio.onloadstart = () => {
+      console.log(`Loading audio: ${url}`);
+    };
+    
+    audio.oncanplay = () => {
+      console.log(`Audio ready to play: ${url}`);
+    };
+    
+    audio.onplay = () => {
+      console.log(`Audio started playing: ${url}`);
+      setCurrentlyPlaying(audioId);
+    };
+    
+    audio.onpause = () => {
+      console.log(`Audio paused: ${url}`);
+      setCurrentlyPlaying(null);
+    };
+    
+    audio.onended = () => {
+      console.log(`Audio ended: ${url}`);
+      setCurrentlyPlaying(null);
+    };
+    
+    audio.onerror = (e) => {
+      console.error(`Audio error for ${url}:`, e);
+      setCurrentlyPlaying(null);
+    };
+
+    // Play the audio
+    audio.play().catch(error => {
+      console.error(`Failed to play audio ${url}:`, error);
+      setCurrentlyPlaying(null);
+    });
   };
+
+  // Cleanup audio on component unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
