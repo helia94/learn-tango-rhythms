@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Music, Play, Pause } from 'lucide-react';
@@ -90,15 +89,6 @@ const DancingFastSlow = () => {
       case '2': return [true, false, true, false];  // Beats 1 and 3
       case '4': return [true, true, true, true];    // All beats
       default: return [true, false, true, false];
-    }
-  };
-
-  const getSpeedLevel = (speed: string) => {
-    switch (speed) {
-      case '1': return 0; // SLOW
-      case '2': return 1; // MID
-      case '4': return 2; // FAST
-      default: return 1;
     }
   };
 
@@ -247,15 +237,15 @@ const DancingFastSlow = () => {
                 </ToggleGroup>
               </div>
 
-              {/* Rhythm Player */}
+              {/* Rhythm Player - now uses same speed level (1 = MID = 60 BPM) for all patterns */}
               <SimpleRhythmPlayer 
                 pattern={getRhythmPattern(rhythmSpeed)} 
-                label={`Practice Rhythm - Speed ${rhythmSpeed}`}
-                speedLevel={getSpeedLevel(rhythmSpeed)}
+                label={`Practice Rhythm - Pattern ${rhythmSpeed}`}
+                speedLevel={1}
               />
               
               <p className="text-cream/70 text-sm text-center mt-4">
-                Toggle between different speeds to practice walking at various tempos
+                Toggle between different patterns - same tempo, different beats
               </p>
             </div>
           </div>

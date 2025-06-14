@@ -1,10 +1,9 @@
-
 import { PresetRhythm, SpeedLevel } from '@/types/rhythm';
 
 export const speedLevels: SpeedLevel[] = [
   { name: 'SLOW', bpm: 40 },
-  { name: 'MID', bpm: 60 },
-  { name: 'FAST', bpm: 80 }
+  { name: 'MID', bpm: 116 },
+  { name: 'FAST', bpm: 140 }
 ];
 
 export const presetRhythms: PresetRhythm[] = [
