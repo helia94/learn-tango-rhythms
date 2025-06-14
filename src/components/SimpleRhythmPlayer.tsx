@@ -24,10 +24,15 @@ const SimpleRhythmPlayer = ({ pattern, label }: SimpleRhythmPlayerProps) => {
     halfManuallyModified: new Array(8).fill(false)
   };
 
+  // Custom speed levels with 116 BPM
+  const customSpeedLevels = [
+    { name: 'CUSTOM', bpm: 116 }
+  ];
+
   const { isPlaying, currentBeat, togglePlayback } = useRhythmPlayback({
     tracks: [track],
-    speedLevels,
-    speedLevel: 1, // MID speed
+    speedLevels: customSpeedLevels,
+    speedLevel: 0, // Use the first (and only) custom speed level
     maxBeats: 4
   });
 
