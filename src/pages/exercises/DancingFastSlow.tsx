@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Music, Play, Pause } from 'lucide-react';
@@ -6,6 +5,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import LanguageSelector from '@/components/LanguageSelector';
+import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 
 const DancingFastSlow = () => {
   const { t } = useTranslation();
@@ -140,9 +140,17 @@ const DancingFastSlow = () => {
             </div>
           </div>
 
-          <p className="text-cream/80 text-center italic">
+          <p className="text-cream/80 text-center italic mb-8">
             If you could not find the downbeat, use this simple version instead.
           </p>
+
+          {/* Simple Rhythm Player */}
+          <div className="mb-8">
+            <SimpleRhythmPlayer 
+              pattern={[true, false, true, false]} 
+              label="Mercato 2 - Practice Rhythm"
+            />
+          </div>
         </div>
 
         {/* Three Speeds Section */}
