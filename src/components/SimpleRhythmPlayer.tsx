@@ -61,10 +61,6 @@ const SimpleRhythmPlayer = ({ pattern, label, speedLevel = 1 }: SimpleRhythmPlay
           </div>
         ))}
       </div>
-      
-      <div className="text-center mt-4 text-cream/80 text-sm">
-        Click play to hear the rhythm
-      </div>
     </div>
   );
 };
