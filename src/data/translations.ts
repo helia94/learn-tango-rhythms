@@ -31,32 +31,6 @@ export interface TranslationKey {
   'concepts.danceLikeWater': string;
   'concepts.danceLikeSculptures': string;
   'concepts.danceTheAccents': string;
-  // Missing keys that are being used
-  'rhythm.instructions': string;
-  'rhythm.play': string;
-  'rhythm.pause': string;
-  'rhythm.clear': string;
-  'rhythm.presets': string;
-  'rhythm.speed': string;
-  'rhythm.bpm': string;
-  'exercise.title': string;
-  'exercise.subtitle': string;
-  'leaderboard.name': string;
-  'leaderboard.submit': string;
-  'leaderboard.score': string;
-  'leaderboard.rank': string;
-  'leaderboard.loading': string;
-  'common.loading': string;
-  'common.error': string;
-  'common.success': string;
-  'common.cancel': string;
-  'common.confirm': string;
-  'quiz.correct': string;
-  'quiz.incorrect': string;
-  'home.welcome': string;
-  'notFound.title': string;
-  'notFound.description': string;
-  'notFound.goHome': string;
 }
 
 export const translations = {
@@ -68,26 +42,6 @@ export const translations = {
     backToRoadmap: {
       en: "Back to Roadmap",
       de: "Zurück zur Roadmap"
-    },
-    loading: {
-      en: "Loading...",
-      de: "Lädt..."
-    },
-    error: {
-      en: "Error",
-      de: "Fehler"
-    },
-    success: {
-      en: "Success",
-      de: "Erfolg"
-    },
-    cancel: {
-      en: "Cancel",
-      de: "Abbrechen"
-    },
-    confirm: {
-      en: "Confirm",
-      de: "Bestätigen"
     }
   },
   roadmap: {
@@ -100,96 +54,6 @@ export const translations = {
     viewLeaderboard: {
       en: "View Leaderboard",
       de: "Bestenliste anzeigen"
-    },
-    name: {
-      en: "Name",
-      de: "Name"
-    },
-    submit: {
-      en: "Submit",
-      de: "Einreichen"
-    },
-    score: {
-      en: "Score",
-      de: "Punkte"
-    },
-    rank: {
-      en: "Rank",
-      de: "Rang"
-    },
-    loading: {
-      en: "Loading leaderboard...",
-      de: "Bestenliste wird geladen..."
-    }
-  },
-  rhythm: {
-    instructions: {
-      en: "Create rhythmic patterns by clicking on the grid. Each row represents a different sound track.",
-      de: "Erstelle rhythmische Muster durch Klicken auf das Raster. Jede Reihe repräsentiert eine andere Tonspur."
-    },
-    play: {
-      en: "Play",
-      de: "Abspielen"
-    },
-    pause: {
-      en: "Pause",
-      de: "Pause"
-    },
-    clear: {
-      en: "Clear",
-      de: "Löschen"
-    },
-    presets: {
-      en: "Presets",
-      de: "Voreinstellungen"
-    },
-    speed: {
-      en: "Speed",
-      de: "Geschwindigkeit"
-    },
-    bpm: {
-      en: "BPM",
-      de: "BPM"
-    }
-  },
-  exercise: {
-    title: {
-      en: "Exercise",
-      de: "Übung"
-    },
-    subtitle: {
-      en: "Practice Session",
-      de: "Übungssitzung"
-    }
-  },
-  quiz: {
-    correct: {
-      en: "Correct!",
-      de: "Richtig!"
-    },
-    incorrect: {
-      en: "Incorrect",
-      de: "Falsch"
-    }
-  },
-  home: {
-    welcome: {
-      en: "Welcome",
-      de: "Willkommen"
-    }
-  },
-  notFound: {
-    title: {
-      en: "Page Not Found",
-      de: "Seite nicht gefunden"
-    },
-    description: {
-      en: "The page you're looking for doesn't exist.",
-      de: "Die gesuchte Seite existiert nicht."
-    },
-    goHome: {
-      en: "Go Home",
-      de: "Zur Startseite"
     }
   },
   concepts: {

@@ -94,7 +94,7 @@
     font-family: 'Space Grotesk', sans-serif;
   }
 
-  /* Storybook Animations */
+  /* Mid-Century Modern Animations */
   @keyframes warm-glow {
     0%, 100% { 
       box-shadow: 
@@ -123,82 +123,6 @@
     0% { transform: scale(1); }
     50% { transform: scale(1.02); }
     100% { transform: scale(1); }
-  }
-
-  @keyframes mystical-float {
-    0%, 100% { 
-      transform: translateY(0px) rotate(0deg); 
-      opacity: 0.8;
-    }
-    33% { 
-      transform: translateY(-8px) rotate(1deg); 
-      opacity: 1;
-    }
-    66% { 
-      transform: translateY(-4px) rotate(-0.5deg); 
-      opacity: 0.9;
-    }
-  }
-
-  @keyframes story-fade-in {
-    0% {
-      opacity: 0;
-      transform: translateY(30px) scale(0.95);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @keyframes magical-spin {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.1); }
-    100% { transform: rotate(360deg) scale(1); }
-  }
-
-  @keyframes sparkle {
-    0%, 100% { 
-      opacity: 0;
-      transform: scale(0.5) rotate(0deg);
-    }
-    50% { 
-      opacity: 1;
-      transform: scale(1.2) rotate(180deg);
-    }
-  }
-
-  @keyframes slide-in-right {
-    0% {
-      opacity: 0;
-      transform: translateX(50px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes scale-in {
-    0% {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes fade-in {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 }
 
@@ -388,35 +312,6 @@
   .control-button:active {
     @apply transform translate-y-0;
   }
-
-  /* Storybook specific styles */
-  .story-card {
-    @apply relative overflow-hidden;
-    @apply transition-all duration-500 ease-out;
-    @apply hover:shadow-2xl hover:-translate-y-2;
-    animation: mystical-float 6s ease-in-out infinite;
-  }
-
-  .story-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, 
-      hsl(var(--golden-yellow) / 0.1) 0%, 
-      transparent 70%);
-    animation: magical-spin 8s linear infinite;
-    pointer-events: none;
-  }
-
-  .magical-text {
-    @apply bg-gradient-to-r from-terracotta via-burnt-orange to-golden-yellow;
-    @apply bg-clip-text text-transparent;
-    @apply font-display font-bold;
-    text-shadow: 0 0 20px hsl(var(--golden-yellow) / 0.3);
-  }
 }
 
 /* Utility Classes */
@@ -448,53 +343,6 @@
   .bg-paprika { background-color: hsl(var(--paprika)); }
   .bg-caramel { background-color: hsl(var(--caramel)); }
 
-  /* Animation Utilities */
-  .animate-story-fade-in {
-    animation: story-fade-in 0.8s ease-out;
-  }
-
-  .animate-mystical-float {
-    animation: mystical-float 6s ease-in-out infinite;
-  }
-
-  .animate-sparkle {
-    animation: sparkle 2s ease-in-out infinite;
-  }
-
-  .animate-magical-spin {
-    animation: magical-spin 8s linear infinite;
-  }
-
-  .animate-slide-in-right {
-    animation: slide-in-right 0.6s ease-out;
-  }
-
-  .animate-scale-in {
-    animation: scale-in 0.5s ease-out;
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.6s ease-out;
-  }
-
-  /* Shadow Utilities */
-  .shadow-mystical {
-    box-shadow: 
-      0 10px 25px hsl(var(--deep-teal) / 0.3),
-      0 0 40px hsl(var(--sage-green) / 0.2);
-  }
-
-  .shadow-3xl {
-    box-shadow: 
-      0 25px 50px hsl(var(--warm-brown) / 0.25),
-      0 0 0 1px hsl(var(--golden-yellow) / 0.1);
-  }
-
-  /* Transform Utilities */
-  .scale-102 {
-    transform: scale(1.02);
-  }
-
   /* Geometric Utilities */
   .geometric-shadow {
     box-shadow: 
@@ -509,14 +357,5 @@
 
   .organic-rounded {
     border-radius: 20px 8px 20px 8px;
-  }
-
-  /* Font Family Utilities */
-  .font-display {
-    font-family: 'Crimson Text', serif;
-  }
-
-  .font-body {
-    font-family: 'Space Grotesk', sans-serif;
   }
 }

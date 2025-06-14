@@ -5,7 +5,7 @@ import { translations, TranslationKey } from '@/data/translations';
 export const useTranslation = () => {
   const { currentLanguage } = useLanguageContext();
 
-  const t = (key: keyof TranslationKey): string => {
+  const t = (key: TranslationKey): string => {
     try {
       // Split the key by dots to navigate nested object
       const keys = key.split('.');
