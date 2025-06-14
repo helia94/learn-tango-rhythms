@@ -38,23 +38,7 @@ const Home = () => {
             </div>
           </div>
           
-          <div className="boho-panel p-6">
-            <h2 className="boho-subtitle text-xl mb-4">Features</h2>
-            <div className="grid md:grid-cols-3 gap-6 text-left">
-              <div>
-                <h3 className="font-semibold text-burnt-orange mb-2">Interactive Beat Grid</h3>
-                <p className="text-sm text-warm-brown">Create and modify tango rhythms with our visual beat grid</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-burnt-orange mb-2">Rhythm Presets</h3>
-                <p className="text-sm text-warm-brown">Explore classic tango patterns and strong beat presets</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-burnt-orange mb-2">Knowledge Quiz</h3>
-                <p className="text-sm text-warm-brown">Test your understanding and compete on the leaderboard</p>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>;
