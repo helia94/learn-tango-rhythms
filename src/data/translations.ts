@@ -1,37 +1,36 @@
 
-export interface TranslationKey {
-  'common.backToHome': string;
-  'common.backToRoadmap': string;
-  'roadmap.title': string;
-  'leaderboard.viewLeaderboard': string;
-  'concepts.dancingFastVsSlow': string;
-  'concepts.dancingSmallVsBig': string;
-  'concepts.dancingHighVsLow': string;
-  'concepts.dancingCircularVsLinear': string;
-  'concepts.withControlVsWithoutControl': string;
-  'concepts.fullWeightTransferVsRebounds': string;
-  'concepts.expandingVsShrinking': string;
-  'concepts.highBodyTensionVsLowBodyTension': string;
-  'concepts.feetAlwaysOnFloorVsFeetOffFloor': string;
-  'concepts.pushingFloorVsNotPushingFloor': string;
-  'concepts.leadingEveryStepVsNotLeadingEveryStep': string;
-  'concepts.sameStepsVsDifferentSteps': string;
-  'concepts.fewStepsVsManySteps': string;
-  'concepts.dancingRhythmVsDancingMelody': string;
-  'concepts.facingPartnerVsTurningAway': string;
-  'concepts.acceleratingVsDecelerating': string;
-  'concepts.dancingRubato': string;
-  'concepts.marcatoIn2VsIn4': string;
-  'concepts.normalSyncopa': string;
-  'concepts.doubleSyncopa': string;
-  'concepts.dragSyncopa': string;
-  'concepts.dance4To1': string;
-  'concepts.danceTriplets': string;
-  'concepts.danceLikeJellyfish': string;
-  'concepts.danceLikeWater': string;
-  'concepts.danceLikeSculptures': string;
-  'concepts.danceTheAccents': string;
-}
+export type TranslationKey = 
+  | 'common.backToHome'
+  | 'common.backToRoadmap'
+  | 'roadmap.title'
+  | 'leaderboard.viewLeaderboard'
+  | 'concepts.dancingFastVsSlow'
+  | 'concepts.dancingSmallVsBig'
+  | 'concepts.dancingHighVsLow'
+  | 'concepts.dancingCircularVsLinear'
+  | 'concepts.withControlVsWithoutControl'
+  | 'concepts.fullWeightTransferVsRebounds'
+  | 'concepts.expandingVsShrinking'
+  | 'concepts.highBodyTensionVsLowBodyTension'
+  | 'concepts.feetAlwaysOnFloorVsFeetOffFloor'
+  | 'concepts.pushingFloorVsNotPushingFloor'
+  | 'concepts.leadingEveryStepVsNotLeadingEveryStep'
+  | 'concepts.sameStepsVsDifferentSteps'
+  | 'concepts.fewStepsVsManySteps'
+  | 'concepts.dancingRhythmVsDancingMelody'
+  | 'concepts.facingPartnerVsTurningAway'
+  | 'concepts.acceleratingVsDecelerating'
+  | 'concepts.dancingRubato'
+  | 'concepts.marcatoIn2VsIn4'
+  | 'concepts.normalSyncopa'
+  | 'concepts.doubleSyncopa'
+  | 'concepts.dragSyncopa'
+  | 'concepts.dance4To1'
+  | 'concepts.danceTriplets'
+  | 'concepts.danceLikeJellyfish'
+  | 'concepts.danceLikeWater'
+  | 'concepts.danceLikeSculptures'
+  | 'concepts.danceTheAccents';
 
 export const translations = {
   common: {
