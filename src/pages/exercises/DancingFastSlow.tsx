@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Music, Play, Pause } from 'lucide-react';
@@ -229,19 +230,19 @@ const DancingFastSlow = () => {
                     value="1" 
                     className="data-[state=on]:bg-terracotta data-[state=on]:text-cream text-cream/70 hover:text-cream"
                   >
-                    Speed 1
+                    1
                   </ToggleGroupItem>
                   <ToggleGroupItem 
                     value="2" 
                     className="data-[state=on]:bg-golden-yellow data-[state=on]:text-warm-brown text-cream/70 hover:text-cream"
                   >
-                    Speed 2
+                    2
                   </ToggleGroupItem>
                   <ToggleGroupItem 
                     value="4" 
                     className="data-[state=on]:bg-dusty-rose data-[state=on]:text-cream text-cream/70 hover:text-cream"
                   >
-                    Speed 4
+                    4
                   </ToggleGroupItem>
                 </ToggleGroup>
               </div>
