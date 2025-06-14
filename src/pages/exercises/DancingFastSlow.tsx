@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Music, Play, Pause } from 'lucide-react';
@@ -121,10 +120,6 @@ const DancingFastSlow = () => {
           <h1 className="text-4xl md:text-6xl font-display text-cream drop-shadow-2xl tracking-wider mb-4">
             Dancing Fast and Slow
           </h1>
-          <div className="flex items-center justify-center gap-2 text-golden-yellow">
-            <Music className="w-6 h-6" />
-            <span className="text-lg font-body">Exercise 1 of 7</span>
-          </div>
         </div>
 
         {/* Introduction Story */}
@@ -147,7 +142,6 @@ const DancingFastSlow = () => {
           
           <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-cream/20">
             <div className="flex items-center justify-between mb-4">
-              <span className="font-semibold text-cream text-lg">Di Sarli - 16 seconds</span>
               <Button
                 onClick={() => playAudio('disarli-16', 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749836334/SimpleMercato2-16Sec-CarlosDiSarli-La_vida_me_enga%C3%B1o_oxc9vb.mp3')}
                 className="bg-golden-yellow/80 hover:bg-golden-yellow text-warm-brown border-none"
@@ -169,7 +163,7 @@ const DancingFastSlow = () => {
           <div className="mb-8">
             <SimpleRhythmPlayer 
               pattern={[true, false, true, false]} 
-              label="Mercato 2 - Practice Rhythm"
+              label=""
             />
           </div>
         </div>
@@ -182,15 +176,15 @@ const DancingFastSlow = () => {
           
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <div className="bg-terracotta/30 backdrop-blur-sm rounded-2xl p-6 text-center border border-terracotta/40">
-              <div className="text-4xl font-bold text-cream mb-3">1/2</div>
+              <div className="text-4xl font-bold text-cream mb-3">1</div>
               <div className="text-cream text-lg">Half Speed</div>
             </div>
             <div className="bg-golden-yellow/30 backdrop-blur-sm rounded-2xl p-6 text-center border border-golden-yellow/40">
-              <div className="text-4xl font-bold text-cream mb-3">1</div>
+              <div className="text-4xl font-bold text-cream mb-3">2</div>
               <div className="text-cream text-lg">Normal Speed</div>
             </div>
             <div className="bg-dusty-rose/30 backdrop-blur-sm rounded-2xl p-6 text-center border border-dusty-rose/40">
-              <div className="text-4xl font-bold text-cream mb-3">2</div>
+              <div className="text-4xl font-bold text-cream mb-3">4</div>
               <div className="text-cream text-lg">Double Speed</div>
             </div>
           </div>
@@ -216,8 +210,6 @@ const DancingFastSlow = () => {
           {/* Interactive Rhythm Player */}
           <div className="mb-8">
             <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20">
-              <h3 className="text-xl font-display text-cream mb-4 text-center">Practice with Interactive Rhythm</h3>
-              
               {/* Speed Toggle */}
               <div className="flex justify-center mb-6">
                 <ToggleGroup 
@@ -250,13 +242,9 @@ const DancingFastSlow = () => {
               {/* Rhythm Player */}
               <SimpleRhythmPlayer 
                 pattern={getRhythmPattern(rhythmSpeed)} 
-                label={`Practice Rhythm - Speed ${rhythmSpeed}`}
+                label=""
                 speedLevel={getSpeedLevel(rhythmSpeed)}
               />
-              
-              <p className="text-cream/70 text-sm text-center mt-4">
-                Toggle between different speeds to practice walking at various tempos
-              </p>
             </div>
           </div>
 

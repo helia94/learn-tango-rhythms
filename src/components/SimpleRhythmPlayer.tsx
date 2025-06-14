@@ -35,10 +35,10 @@ const SimpleRhythmPlayer = ({ pattern, label, speedLevel = 1 }: SimpleRhythmPlay
   return (
     <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20">
       <div className="flex items-center justify-between mb-4">
-        <span className="font-semibold text-cream text-lg">{label}</span>
+        {label && <span className="font-semibold text-cream text-lg">{label}</span>}
         <Button
           onClick={togglePlayback}
-          className="bg-golden-yellow/80 hover:bg-golden-yellow text-warm-brown border-none"
+          className={`bg-golden-yellow/80 hover:bg-golden-yellow text-warm-brown border-none ${!label ? 'mx-auto' : ''}`}
           size="sm"
         >
           {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -60,10 +60,6 @@ const SimpleRhythmPlayer = ({ pattern, label, speedLevel = 1 }: SimpleRhythmPlay
             {index + 1}
           </div>
         ))}
-      </div>
-      
-      <div className="text-center mt-4 text-cream/80 text-sm">
-        Click play to hear the rhythm
       </div>
     </div>
   );
