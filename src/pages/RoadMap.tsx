@@ -1,42 +1,48 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import { TranslationKey } from '@/data/translations';
 import LanguageSelector from '@/components/LanguageSelector';
 
 const RoadMap = () => {
   const { t } = useTranslation();
 
   // All concepts combined into one flowing sequence
-  const allConcepts = [
-    { key: "dancingFastVsSlow", unlocked: true, completed: true, link: "/exercises/dancing-fast-slow" },
-    { key: "dancingSmallVsBig", unlocked: true, completed: true },
-    { key: "dancingHighVsLow", unlocked: true, completed: false },
-    { key: "dancingCircularVsLinear", unlocked: true, completed: false },
-    { key: "withControlVsWithoutControl", unlocked: false, completed: false },
-    { key: "fullWeightTransferVsRebounds", unlocked: false, completed: false },
-    { key: "expandingVsShrinking", unlocked: false, completed: false },
-    { key: "highBodyTensionVsLowBodyTension", unlocked: false, completed: false },
-    { key: "feetAlwaysOnFloorVsFeetOffFloor", unlocked: false, completed: false },
-    { key: "pushingFloorVsNotPushingFloor", unlocked: false, completed: false },
-    { key: "leadingEveryStepVsNotLeadingEveryStep", unlocked: false, completed: false },
-    { key: "sameStepsVsDifferentSteps", unlocked: false, completed: false },
-    { key: "fewStepsVsManySteps", unlocked: false, completed: false },
-    { key: "dancingRhythmVsDancingMelody", unlocked: false, completed: false },
-    { key: "facingPartnerVsTurningAway", unlocked: false, completed: false },
-    { key: "acceleratingVsDecelerating", unlocked: false, completed: false },
-    { key: "dancingRubato", unlocked: false, completed: false },
-    { key: "marcatoIn2VsIn4", unlocked: false, completed: false },
-    { key: "normalSyncopa", unlocked: false, completed: false },
-    { key: "doubleSyncopa", unlocked: false, completed: false },
-    { key: "dragSyncopa", unlocked: false, completed: false },
-    { key: "dance4To1", unlocked: false, completed: false },
-    { key: "danceTriplets", unlocked: false, completed: false },
-    { key: "danceLikeJellyfish", unlocked: false, completed: false },
-    { key: "danceLikeWater", unlocked: false, completed: false },
-    { key: "danceLikeSculptures", unlocked: false, completed: false },
-    { key: "danceTheAccents", unlocked: false, completed: false }
+  const allConcepts: Array<{
+    key: string;
+    translationKey: TranslationKey;
+    unlocked: boolean;
+    completed: boolean;
+    link?: string;
+  }> = [
+    { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", unlocked: true, completed: true, link: "/exercises/dancing-fast-slow" },
+    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", unlocked: true, completed: true },
+    { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", unlocked: true, completed: false },
+    { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear", unlocked: true, completed: false },
+    { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl", unlocked: false, completed: false },
+    { key: "fullWeightTransferVsRebounds", translationKey: "concepts.fullWeightTransferVsRebounds", unlocked: false, completed: false },
+    { key: "expandingVsShrinking", translationKey: "concepts.expandingVsShrinking", unlocked: false, completed: false },
+    { key: "highBodyTensionVsLowBodyTension", translationKey: "concepts.highBodyTensionVsLowBodyTension", unlocked: false, completed: false },
+    { key: "feetAlwaysOnFloorVsFeetOffFloor", translationKey: "concepts.feetAlwaysOnFloorVsFeetOffFloor", unlocked: false, completed: false },
+    { key: "pushingFloorVsNotPushingFloor", translationKey: "concepts.pushingFloorVsNotPushingFloor", unlocked: false, completed: false },
+    { key: "leadingEveryStepVsNotLeadingEveryStep", translationKey: "concepts.leadingEveryStepVsNotLeadingEveryStep", unlocked: false, completed: false },
+    { key: "sameStepsVsDifferentSteps", translationKey: "concepts.sameStepsVsDifferentSteps", unlocked: false, completed: false },
+    { key: "fewStepsVsManySteps", translationKey: "concepts.fewStepsVsManySteps", unlocked: false, completed: false },
+    { key: "dancingRhythmVsDancingMelody", translationKey: "concepts.dancingRhythmVsDancingMelody", unlocked: false, completed: false },
+    { key: "facingPartnerVsTurningAway", translationKey: "concepts.facingPartnerVsTurningAway", unlocked: false, completed: false },
+    { key: "acceleratingVsDecelerating", translationKey: "concepts.acceleratingVsDecelerating", unlocked: false, completed: false },
+    { key: "dancingRubato", translationKey: "concepts.dancingRubato", unlocked: false, completed: false },
+    { key: "marcatoIn2VsIn4", translationKey: "concepts.marcatoIn2VsIn4", unlocked: false, completed: false },
+    { key: "normalSyncopa", translationKey: "concepts.normalSyncopa", unlocked: false, completed: false },
+    { key: "doubleSyncopa", translationKey: "concepts.doubleSyncopa", unlocked: false, completed: false },
+    { key: "dragSyncopa", translationKey: "concepts.dragSyncopa", unlocked: false, completed: false },
+    { key: "dance4To1", translationKey: "concepts.dance4To1", unlocked: false, completed: false },
+    { key: "danceTriplets", translationKey: "concepts.danceTriplets", unlocked: false, completed: false },
+    { key: "danceLikeJellyfish", translationKey: "concepts.danceLikeJellyfish", unlocked: false, completed: false },
+    { key: "danceLikeWater", translationKey: "concepts.danceLikeWater", unlocked: false, completed: false },
+    { key: "danceLikeSculptures", translationKey: "concepts.danceLikeSculptures", unlocked: false, completed: false },
+    { key: "danceTheAccents", translationKey: "concepts.danceTheAccents", unlocked: false, completed: false }
   ];
 
   const getNodeStatus = (unlocked: boolean, completed: boolean) => {
@@ -162,7 +168,7 @@ const RoadMap = () => {
                     <ConceptCard>
                       <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${status === 'locked' ? 'opacity-60 grayscale' : 'cursor-pointer hover:shadow-2xl'}`}>
                         <div className="text-warm-brown font-bold text-center text-sm">
-                          {t(`concepts.${concept.key}`)}
+                          {t(concept.translationKey)}
                         </div>
                         {status === 'locked' && (
                           <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
