@@ -10,15 +10,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-golden-yellow animate-organic-pulse"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 rounded-full bg-dusty-rose animate-organic-pulse delay-1000"></div>
-        <div className="absolute bottom-40 left-20 w-40 h-40 rounded-full bg-terracotta animate-organic-pulse delay-2000"></div>
-        <div className="absolute top-60 left-1/2 w-28 h-28 rounded-full bg-burnt-orange animate-organic-pulse delay-500"></div>
-        <div className="absolute bottom-60 right-10 w-36 h-36 rounded-full bg-warm-brown animate-organic-pulse delay-1500"></div>
-      </div>
-
       {/* Geometric shapes for abstract design */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-32 right-32 w-16 h-16 bg-paprika transform rotate-45"></div>
