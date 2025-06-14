@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause } from 'lucide-react';
 import { useRhythmPlayback } from '@/hooks/useRhythmPlayback';
+import { speedLevels } from '@/data/presets';
 import { Track } from '@/types/rhythm';
 
 interface SimpleRhythmPlayerProps {
   pattern: boolean[];
   label: string;
-  bpm?: number;
 }
 
-const SimpleRhythmPlayer = ({ pattern, label, bpm = 116 }: SimpleRhythmPlayerProps) => {
+const SimpleRhythmPlayer = ({ pattern, label }: SimpleRhythmPlayerProps) => {
   // Create a track with the given pattern
   const track: Track = {
     id: 'simple-rhythm',
@@ -24,15 +24,10 @@ const SimpleRhythmPlayer = ({ pattern, label, bpm = 116 }: SimpleRhythmPlayerPro
     halfManuallyModified: new Array(8).fill(false)
   };
 
-  // Custom speed levels with configurable BPM
-  const customSpeedLevels = [
-    { name: 'CUSTOM', bpm: bpm }
-  ];
-
   const { isPlaying, currentBeat, togglePlayback } = useRhythmPlayback({
     tracks: [track],
-    speedLevels: customSpeedLevels,
-    speedLevel: 0, // Use the first (and only) custom speed level
+    speedLevels,
+    speedLevel: 1, // MID speed
     maxBeats: 4
   });
 
@@ -67,7 +62,7 @@ const SimpleRhythmPlayer = ({ pattern, label, bpm = 116 }: SimpleRhythmPlayerPro
       </div>
       
       <div className="text-center mt-4 text-cream/80 text-sm">
-        Click play to hear the rhythm • {bpm} BPM
+        Click play to hear the rhythm
       </div>
     </div>
   );
