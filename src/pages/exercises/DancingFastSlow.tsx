@@ -144,12 +144,11 @@ const DancingFastSlow = () => {
             If you could not find the downbeat, use this simple version instead.
           </p>
 
-          {/* Simple Rhythm Player - Fixed to only play beats 1 and 3 */}
+          {/* Simple Rhythm Player */}
           <div className="mb-8">
             <SimpleRhythmPlayer 
               pattern={[true, false, true, false]} 
               label="Mercato 2 - Practice Rhythm"
-              bpm={116}
             />
           </div>
         </div>
