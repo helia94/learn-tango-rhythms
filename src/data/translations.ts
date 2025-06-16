@@ -98,7 +98,58 @@ export type TranslationKey =
   | 'exercises.dancingFastSlow.commentsTitle'
   | 'exercises.dancingFastSlow.commentsPlaceholder'
   | 'exercises.dancingFastSlow.rateTitle'
-  | 'exercises.dancingFastSlow.ratePlaceholder';
+  | 'exercises.dancingFastSlow.ratePlaceholder'
+  | 'daily.title'
+  | 'daily.subtitle'
+  | 'daily.unlockTomorrow'
+  | 'daily.locked'
+  | 'daily.availableTomorrow'
+  | 'daily.day1.content'
+  | 'daily.day1.audioTitle'
+  | 'daily.day1.audioDescription'
+  | 'daily.day1.fullSong'
+  | 'daily.day1.task'
+  | 'daily.day2.content'
+  | 'daily.day2.description'
+  | 'daily.day2.bandonionSolos'
+  | 'daily.day2.violinSolos'
+  | 'daily.day2.singerSolo'
+  | 'daily.day2.task'
+  | 'daily.day3.content'
+  | 'daily.day3.description'
+  | 'daily.day3.task'
+  | 'daily.day4.content'
+  | 'daily.day4.description'
+  | 'daily.day4.task'
+  | 'daily.day5.content'
+  | 'daily.day5.task'
+  | 'daily.day6.content'
+  | 'daily.day6.task'
+  | 'daily.day7.content'
+  | 'daily.day7.task'
+  | 'daily.placeholder'
+  | 'daily.placeholderTask'
+  | 'tips.extremeSlowness'
+  | 'tips.extremeSlownessTip1'
+  | 'tips.extremeSlownessTip2'
+  | 'tips.extremeSlownessTip3'
+  | 'tips.extremeSlownessTip4'
+  | 'tips.extremeSpeed'
+  | 'tips.extremeSpeedTip1'
+  | 'tips.extremeSpeedTip2'
+  | 'tips.backOchoChallenge'
+  | 'tips.backOchoChallengeTitle'
+  | 'tips.backOchoChallengeTip1'
+  | 'tips.backOchoChallengeTip2'
+  | 'tips.backOchoChallengeTip3'
+  | 'tips.backOchoChallengeTip4'
+  | 'tips.ochoCortadoChallenge'
+  | 'tips.ochoCortadoChallengeTitle'
+  | 'tips.ochoCortadoChallengeTip1'
+  | 'tips.ochoCortadoChallengeTip2'
+  | 'tips.ochoCortadoChallengeTip3'
+  | 'tips.ochoCortadoChallengeTip4'
+  | 'tips.ochoCortadoChallengeTip5';
 
 export const translations = {
   common: {
@@ -521,6 +572,228 @@ export const translations = {
         en: "Review system coming soon...",
         de: "Bewertungssystem kommt bald..."
       }
+    }
+  },
+  daily: {
+    title: {
+      en: "Daily Assignments",
+      de: "Tägliche Aufgaben"
+    },
+    subtitle: {
+      en: "Progress through 7 days of focused practice",
+      de: "Durchlaufe 7 Tage konzentriertes Üben"
+    },
+    unlockTomorrow: {
+      en: "You can unlock this tomorrow",
+      de: "Du kannst das morgen freischalten"
+    },
+    locked: {
+      en: "Locked",
+      de: "Gesperrt"
+    },
+    availableTomorrow: {
+      en: "Available Tomorrow",
+      de: "Morgen verfügbar"
+    },
+    day1: {
+      content: {
+        en: "Make a fixed plan to change your speed every 8 beats. For example, 4,1,2,4 or 2,1,4,1 or whatever you wish, just plan in your head and then dance it. If you do it on your own choose older tango music, if you do it in a milonga do it when music is more monotonous, this way all four speed fit well to all part of the music. Make your change is very clear, and at the end of the phrase.",
+        de: "Mache einen festen Plan, deine Geschwindigkeit alle 8 Schläge zu ändern. Zum Beispiel 4,1,2,4 oder 2,1,4,1 oder was auch immer du möchtest, plane es einfach in deinem Kopf und tanze es dann. Wenn du alleine übst, wähle ältere Tango-Musik, wenn du es in einer Milonga machst, tue es wenn die Musik monotoner ist, so passen alle vier Geschwindigkeiten gut zu allen Teilen der Musik. Mache deine Änderung sehr deutlich und am Ende der Phrase."
+      },
+      audioTitle: {
+        en: "Alma del Bandoneon - Francisco Canaro (30 sec)",
+        de: "Alma del Bandoneon - Francisco Canaro (30 Sek)"
+      },
+      audioDescription: {
+        en: "Here is an example with 4 sections:",
+        de: "Hier ist ein Beispiel mit 4 Abschnitten:"
+      },
+      fullSong: {
+        en: "Full song:",
+        de: "Ganzes Lied:"
+      },
+      task: {
+        en: "I practiced fixed speed changes every 8 beats",
+        de: "Ich habe feste Geschwindigkeitsänderungen alle 8 Schläge geübt"
+      }
+    },
+    day2: {
+      content: {
+        en: "Identify solo pieces and slow down on them. Soft solos from singer, violin and Bandonion are a good chance to reduce your speed. A solo in tango is when only one instrument is playing the main melody, there could be still a soft contra bass or piano playing the beat.",
+        de: "Erkenne Solo-Stücke und verlangsame bei ihnen. Sanfte Solos von Sänger, Violine und Bandoneon sind eine gute Gelegenheit, deine Geschwindigkeit zu reduzieren. Ein Solo im Tango ist, wenn nur ein Instrument die Hauptmelodie spielt, es könnte immer noch einen sanften Kontrabass oder ein Klavier geben, das den Takt spielt."
+      },
+      description: {
+        en: "There are two tango orchestras who very often have a Solo section in their songs. Let's listen to two bandonion and two violin solos, and finally a singer solo to familiarize the ears, then we can also find them when dancing in the milongas.",
+        de: "Es gibt zwei Tango-Orchester, die sehr oft einen Solo-Abschnitt in ihren Liedern haben. Hören wir uns zwei Bandoneon- und zwei Violinsolos an und schließlich ein Sängersolo, um die Ohren zu gewöhnen, dann können wir sie auch beim Tanzen in den Milongas finden."
+      },
+      bandonionSolos: {
+        en: "Bandonion Solos",
+        de: "Bandoneon-Solos"
+      },
+      violinSolos: {
+        en: "Violin Solos",
+        de: "Violinsolos"
+      },
+      singerSolo: {
+        en: "Singer Solo",
+        de: "Sängersolo"
+      },
+      task: {
+        en: "I practiced identifying solos and slowing down during them",
+        de: "Ich habe das Erkennen von Solos und das Verlangsamen dabei geübt"
+      }
+    },
+    day3: {
+      content: {
+        en: "Slow down when the singer is almost talking instead of singing. It does not happen often, so it's even more delicious to catch it when it does.",
+        de: "Verlangsame, wenn der Sänger fast spricht anstatt zu singen. Es passiert nicht oft, deshalb ist es umso köstlicher, es zu erwischen, wenn es passiert."
+      },
+      description: {
+        en: "In this example, listen carefully to how the singer transitions from singing to almost talking. This is your cue to slow down and savor these intimate moments in the music.",
+        de: "In diesem Beispiel höre sorgfältig zu, wie der Sänger vom Singen zum fast Sprechen übergeht. Das ist dein Zeichen, langsamer zu werden und diese intimen Momente in der Musik zu genießen."
+      },
+      task: {
+        en: "I practiced identifying and slowing down during talking singer moments",
+        de: "Ich habe das Erkennen und Verlangsamen während sprechender Sängermomente geübt"
+      }
+    },
+    day4: {
+      content: {
+        en: "Go extremely slow. Can you take 8 beats for 1 step? What is your slowest humanly possible? Explore your limits, and explore the limit of your partners.",
+        de: "Gehe extrem langsam. Kannst du 8 Schläge für 1 Schritt brauchen? Was ist dein langsamster menschlich möglicher Zustand? Erkunde deine Grenzen und erkunde die Grenzen deiner Partner."
+      },
+      description: {
+        en: "This exercise pushes you to discover the absolute minimum speed of movement while maintaining connection and intention. It's about finding grace in extreme slowness.",
+        de: "Diese Übung drängt dich dazu, die absolute Mindestgeschwindigkeit der Bewegung zu entdecken, während du Verbindung und Absicht aufrechterhältst. Es geht darum, Anmut in extremer Langsamkeit zu finden."
+      },
+      task: {
+        en: "I practiced extremely slow movement, taking 8+ beats per step",
+        de: "Ich habe extrem langsame Bewegung geübt und 8+ Schläge pro Schritt gebraucht"
+      }
+    },
+    day5: {
+      content: {
+        en: "Go extremely fast; fast is hard to do together. Find some separation, lead something fast for the follower, or do something fast yourself, while the follower almost stays. Explore your limits.",
+        de: "Gehe extrem schnell; schnell ist schwer zusammen zu machen. Finde etwas Trennung, führe etwas Schnelles für den Follower, oder mache selbst etwas Schnelles, während der Follower fast bleibt. Erkunde deine Grenzen."
+      },
+      task: {
+        en: "I practiced extremely fast movements",
+        de: "Ich habe extrem schnelle Bewegungen geübt"
+      }
+    },
+    day6: {
+      content: {
+        en: "Do back ochos in all 3 speeds, without changing the speed in the middle. Like the ocho cortado from Day 7, this challenges your ability to maintain consistent speed throughout the entire movement.",
+        de: "Mache Rück-Ochos in allen 3 Geschwindigkeiten, ohne die Geschwindigkeit in der Mitte zu ändern. Wie das Ocho Cortado von Tag 7 fordert dies deine Fähigkeit heraus, eine konstante Geschwindigkeit während der gesamten Bewegung aufrechtzuerhalten."
+      },
+      task: {
+        en: "I practiced back ochos at all three speeds without changing speed mid-movement",
+        de: "Ich habe Rück-Ochos in allen drei Geschwindigkeiten geübt, ohne die Geschwindigkeit mitten in der Bewegung zu ändern"
+      }
+    },
+    day7: {
+      content: {
+        en: "Do ocho cortado in all 3 speeds, without changing the speed in the middle. This is much harder than it sounds because we are used to always doing it with an acceleration in the middle.",
+        de: "Mache Ocho Cortado in allen 3 Geschwindigkeiten, ohne die Geschwindigkeit in der Mitte zu ändern. Das ist viel schwerer als es klingt, weil wir es gewohnt sind, es immer mit einer Beschleunigung in der Mitte zu machen."
+      },
+      task: {
+        en: "I practiced ocho cortado at all three speeds without changing speed mid-movement",
+        de: "Ich habe Ocho Cortado in allen drei Geschwindigkeiten geübt, ohne die Geschwindigkeit mitten in der Bewegung zu ändern"
+      }
+    },
+    placeholder: {
+      en: "assignment content will be added here...",
+      de: "Aufgabeninhalt wird hier hinzugefügt..."
+    },
+    placeholderTask: {
+      en: "practice completed",
+      de: "Übung abgeschlossen"
+    }
+  },
+  tips: {
+    extremeSlowness: {
+      en: "Extreme Slowness Tips:",
+      de: "Tipps für extreme Langsamkeit:"
+    },
+    extremeSlownessTip1: {
+      en: "Focus on maintaining balance throughout the entire movement",
+      de: "Konzentriere dich darauf, das Gleichgewicht während der gesamten Bewegung zu halten"
+    },
+    extremeSlownessTip2: {
+      en: "Keep your connection with your partner constant",
+      de: "Halte deine Verbindung zu deinem Partner konstant"
+    },
+    extremeSlownessTip3: {
+      en: "Breathe deeply to help maintain control",
+      de: "Atme tief, um die Kontrolle zu behalten"
+    },
+    extremeSlownessTip4: {
+      en: "Challenge yourself: can you go even slower?",
+      de: "Fordere dich heraus: Kannst du noch langsamer gehen?"
+    },
+    extremeSpeed: {
+      en: "Extreme Speed Tips:",
+      de: "Tipps für extreme Geschwindigkeit:"
+    },
+    extremeSpeedTip1: {
+      en: "Start with small, quick movements before attempting larger ones",
+      de: "Beginne mit kleinen, schnellen Bewegungen, bevor du größere versuchst"
+    },
+    extremeSpeedTip2: {
+      en: "Practice separation - one partner stays while the other moves fast",
+      de: "Übe Trennung - ein Partner bleibt, während der andere sich schnell bewegt"
+    },
+    backOchoChallenge: {
+      en: "Back Ocho Speed Challenge Tips:",
+      de: "Tipps für die Rück-Ocho-Geschwindigkeitsherausforderung:"
+    },
+    backOchoChallengeTitle: {
+      en: "Back Ocho Speed Challenge Tips:",
+      de: "Tipps für die Rück-Ocho-Geschwindigkeitsherausforderung:"
+    },
+    backOchoChallengeTip1: {
+      en: "Start with speed 1 (half speed) - focus on smooth, controlled pivots",
+      de: "Beginne mit Geschwindigkeit 1 (halbe Geschwindigkeit) - konzentriere dich auf sanfte, kontrollierte Drehungen"
+    },
+    backOchoChallengeTip2: {
+      en: "Progress to speed 2 (normal) - maintain the natural flow without rushing",
+      de: "Gehe zu Geschwindigkeit 2 (normal) über - erhalte den natürlichen Fluss ohne zu hetzen"
+    },
+    backOchoChallengeTip3: {
+      en: "Challenge yourself at speed 4 (double)",
+      de: "Fordere dich bei Geschwindigkeit 4 (doppelt) heraus"
+    },
+    backOchoChallengeTip4: {
+      en: "As speed increases, make smaller pivot and smaller step",
+      de: "Wenn die Geschwindigkeit zunimmt, mache kleinere Drehungen und kleinere Schritte"
+    },
+    ochoCortadoChallenge: {
+      en: "Ocho Cortado Challenge Tips:",
+      de: "Tipps für die Ocho-Cortado-Herausforderung:"
+    },
+    ochoCortadoChallengeTitle: {
+      en: "Ocho Cortado Challenge Tips:",
+      de: "Tipps für die Ocho-Cortado-Herausforderung:"
+    },
+    ochoCortadoChallengeTip1: {
+      en: "Practice at speed 1 (half speed) first - maintain consistent slowness throughout",
+      de: "Übe zuerst bei Geschwindigkeit 1 (halbe Geschwindigkeit) - halte durchgehend konstante Langsamkeit"
+    },
+    ochoCortadoChallengeTip2: {
+      en: "Then speed 2 (normal) - resist the urge to accelerate in the middle",
+      de: "Dann Geschwindigkeit 2 (normal) - widerstehe dem Drang, in der Mitte zu beschleunigen"
+    },
+    ochoCortadoChallengeTip3: {
+      en: "Finally speed 4 (double) - keep the energy constant from start to finish",
+      de: "Schließlich Geschwindigkeit 4 (doppelt) - halte die Energie vom Anfang bis zum Ende konstant"
+    },
+    ochoCortadoChallengeTip4: {
+      en: "Focus on maintaining the same tempo for the entire movement sequence",
+      de: "Konzentriere dich darauf, das gleiche Tempo für die gesamte Bewegungssequenz beizubehalten"
+    },
+    ochoCortadoChallengeTip5: {
+      en: "Break the habit of natural acceleration - conscious control is key",
+      de: "Durchbrich die Gewohnheit der natürlichen Beschleunigung - bewusste Kontrolle ist der Schlüssel"
     }
   }
 };

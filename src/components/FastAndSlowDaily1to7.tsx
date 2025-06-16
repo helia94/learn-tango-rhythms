@@ -1,11 +1,14 @@
+
 import React, { useState } from 'react';
 import { Lock, CheckCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useTranslation } from '@/hooks/useTranslation';
 import AudioPlayer from '@/components/AudioPlayer';
 import TipsSection from '@/components/TipsSection';
 
 const FastAndSlowDaily1to7 = () => {
+  const { t } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
 
   // Simulate user progress (0-7 days unlocked)
@@ -34,7 +37,7 @@ const FastAndSlowDaily1to7 = () => {
       return <div className="flex items-center justify-center p-8 text-gray-600">
           <div className="text-center">
             <Lock className="w-8 h-8 mx-auto mb-3 text-golden-yellow" />
-            <p className="text-lg">You can unlock this tomorrow</p>
+            <p className="text-lg">{t('daily.unlockTomorrow')}</p>
           </div>
         </div>;
     }
@@ -42,7 +45,7 @@ const FastAndSlowDaily1to7 = () => {
       return <div className="flex items-center justify-center p-8 text-gray-500">
           <div className="text-center">
             <Lock className="w-8 h-8 mx-auto mb-3" />
-            <p className="text-lg">Locked</p>
+            <p className="text-lg">{t('daily.locked')}</p>
           </div>
         </div>;
     }
@@ -51,12 +54,12 @@ const FastAndSlowDaily1to7 = () => {
     if (dayNumber === 1) {
       return <div className="space-y-6">
           <p className="text-gray-700 text-lg leading-relaxed">
-            Make a fixed plan to change your speed every 8 beats. For example, 4,1,2,4 or 2,1,4,1 or whatever you wish, just plan in your head and then dance it. If you do it on your own choose older tango music, if you do it in a milonga do it when music is more monotonous, this way all four speed fit well to all part of the music. Make your change is very clear, and at the end of the phrase.
+            {t('daily.day1.content')}
           </p>
           
           <div>
-            <p className="text-gray-600 mb-4 text-center">Here is an example with 4 sections:</p>
-            <AudioPlayer title="Alma del Bandoneon - Francisco Canaro (30 sec)" audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750080593/ALMA_DEL_BANDONEON_ORQUESTA_TIPICA_FRANCISCO_CANARO-30_sec_nrc3lj.mp3" colorChanges={[{
+            <p className="text-gray-600 mb-4 text-center">{t('daily.day1.audioDescription')}</p>
+            <AudioPlayer title={t('daily.day1.audioTitle')} audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750080593/ALMA_DEL_BANDONEON_ORQUESTA_TIPICA_FRANCISCO_CANARO-30_sec_nrc3lj.mp3" colorChanges={[{
             timestamp: 7000,
             color: 'bg-dusty-rose'
           }, {
@@ -69,7 +72,7 @@ const FastAndSlowDaily1to7 = () => {
           </div>
 
           <div>
-            <p className="text-gray-600 mb-4 text-center">Full song:</p>
+            <p className="text-gray-600 mb-4 text-center">{t('daily.day1.fullSong')}</p>
             <div className="rounded-2xl overflow-hidden shadow-2xl">
               <iframe style={{
               borderRadius: '12px'
@@ -80,7 +83,7 @@ const FastAndSlowDaily1to7 = () => {
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-1-task" checked={completedTasks['day-1-task'] || false} onCheckedChange={() => handleTaskComplete('day-1-task')} />
             <label htmlFor="day-1-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              I practiced fixed speed changes every 8 beats
+              {t('daily.day1.task')}
             </label>
           </div>
         </div>;
@@ -90,15 +93,15 @@ const FastAndSlowDaily1to7 = () => {
     if (dayNumber === 2) {
       return <div className="space-y-6">
           <p className="text-gray-700 text-lg leading-relaxed">
-            Identify solo pieces and slow down on them. Soft solos from singer, violin and Bandonion are a good chance to reduce your speed. A solo in tango is when only one instrument is playing the main melody, there could be still a soft contra bass or piano playing the beat.
+            {t('daily.day2.content')}
           </p>
           
           <p className="text-gray-600 text-lg leading-relaxed">
-            There are two tango orchestras who very often have a Solo section in their songs. Let's listen to two bandonion and two violin solos, and finally a singer solo to familiarize the ears, then we can also find them when dancing in the milongas.
+            {t('daily.day2.description')}
           </p>
 
           <div className="space-y-4">
-            <h4 className="text-xl font-display text-gray-700 text-center mb-4">Bandonion Solos</h4>
+            <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('daily.day2.bandonionSolos')}</h4>
             
             <AudioPlayer title="El Africano - Aníbal Troilo (Bandonion Solo)" audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750083505/SOLO-El_africano-Troilo_jramon.mp3" />
             
@@ -106,7 +109,7 @@ const FastAndSlowDaily1to7 = () => {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-xl font-display text-gray-700 text-center mb-4">Violin Solos</h4>
+            <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('daily.day2.violinSolos')}</h4>
             
             <AudioPlayer title="Tierra Querida - Osvaldo Pugliese (Violin Solo)" audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750083505/SOLO_Tierra_Querida_-_Osvaldo_Pugliese_ccg0ce.mp3" />
             
@@ -114,7 +117,7 @@ const FastAndSlowDaily1to7 = () => {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-xl font-display text-gray-700 text-center mb-4">Singer Solo</h4>
+            <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('daily.day2.singerSolo')}</h4>
             
             <AudioPlayer title="Cotorrita de la Suerte (Singer Solo)" audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750083504/SOLO_Cotorrita_de_la_suerte_80706-1_TT_fbfz2t.mp3" />
           </div>
@@ -122,7 +125,7 @@ const FastAndSlowDaily1to7 = () => {
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-2-task" checked={completedTasks['day-2-task'] || false} onCheckedChange={() => handleTaskComplete('day-2-task')} />
             <label htmlFor="day-2-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              I practiced identifying solos and slowing down during them
+              {t('daily.day2.task')}
             </label>
           </div>
         </div>;
@@ -132,11 +135,11 @@ const FastAndSlowDaily1to7 = () => {
     if (dayNumber === 3) {
       return <div className="space-y-6">
           <p className="text-gray-700 text-lg leading-relaxed">
-            Slow down when the singer is almost talking instead of singing. It does not happen often, so it's even more delicious to catch it when it does.
+            {t('daily.day3.content')}
           </p>
           
           <p className="text-gray-600 text-lg leading-relaxed mb-6">
-            In this example, listen carefully to how the singer transitions from singing to almost talking. This is your cue to slow down and savor these intimate moments in the music.
+            {t('daily.day3.description')}
           </p>
 
           <div>
@@ -146,7 +149,7 @@ const FastAndSlowDaily1to7 = () => {
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-3-task" checked={completedTasks['day-3-task'] || false} onCheckedChange={() => handleTaskComplete('day-3-task')} />
             <label htmlFor="day-3-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              I practiced identifying and slowing down during talking singer moments
+              {t('daily.day3.task')}
             </label>
           </div>
         </div>;
@@ -156,27 +159,27 @@ const FastAndSlowDaily1to7 = () => {
     if (dayNumber === 4) {
       return <div className="space-y-6">
           <p className="text-gray-700 text-lg leading-relaxed">
-            Go extremely slow. Can you take 8 beats for 1 step? What is your slowest humanly possible? Explore your limits, and explore the limit of your partners.
+            {t('daily.day4.content')}
           </p>
           
           <p className="text-gray-600 text-lg leading-relaxed mb-6">
-            This exercise pushes you to discover the absolute minimum speed of movement while maintaining connection and intention. It's about finding grace in extreme slowness.
+            {t('daily.day4.description')}
           </p>
 
           <TipsSection 
-            title="Extreme Slowness Tips:"
+            title={t('tips.extremeSlowness')}
             tips={[
-              "Focus on maintaining balance throughout the entire movement",
-              "Keep your connection with your partner constant",
-              "Breathe deeply to help maintain control",
-              "Challenge yourself: can you go even slower?"
+              t('tips.extremeSlownessTip1'),
+              t('tips.extremeSlownessTip2'),
+              t('tips.extremeSlownessTip3'),
+              t('tips.extremeSlownessTip4')
             ]}
           />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-4-task" checked={completedTasks['day-4-task'] || false} onCheckedChange={() => handleTaskComplete('day-4-task')} />
             <label htmlFor="day-4-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              I practiced extremely slow movement, taking 8+ beats per step
+              {t('daily.day4.task')}
             </label>
           </div>
         </div>;
@@ -186,21 +189,21 @@ const FastAndSlowDaily1to7 = () => {
     if (dayNumber === 5) {
       return <div className="space-y-6">
           <p className="text-gray-700 text-lg leading-relaxed">
-            Go extremely fast; fast is hard to do together. Find some separation, lead something fast for the follower, or do something fast yourself, while the follower almost stays. Explore your limits.
+            {t('daily.day5.content')}
           </p>
           
           <TipsSection 
-            title="Extreme Speed Tips:"
+            title={t('tips.extremeSpeed')}
             tips={[
-              "Start with small, quick movements before attempting larger ones",
-              "Practice separation - one partner stays while the other moves fast"
+              t('tips.extremeSpeedTip1'),
+              t('tips.extremeSpeedTip2')
             ]}
           />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-5-task" checked={completedTasks['day-5-task'] || false} onCheckedChange={() => handleTaskComplete('day-5-task')} />
             <label htmlFor="day-5-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              I practiced extremely fast movements
+              {t('daily.day5.task')}
             </label>
           </div>
         </div>;
@@ -210,23 +213,23 @@ const FastAndSlowDaily1to7 = () => {
     if (dayNumber === 6) {
       return <div className="space-y-6">
           <p className="text-gray-700 text-lg leading-relaxed">
-            Do back ochos in all 3 speeds, without changing the speed in the middle. Like the ocho cortado from Day 7, this challenges your ability to maintain consistent speed throughout the entire movement.
+            {t('daily.day6.content')}
           </p>
           
           <TipsSection 
-            title="Back Ocho Speed Challenge Tips:"
+            title={t('tips.backOchoChallengeTitle')}
             tips={[
-              "Start with speed 1 (half speed) - focus on smooth, controlled pivots",
-              "Progress to speed 2 (normal) - maintain the natural flow without rushing",
-              "Challenge yourself at speed 4 (double)",
-              "As speed increases, make smaller pivot and smaller step"
+              t('tips.backOchoChallengeTip1'),
+              t('tips.backOchoChallengeTip2'),
+              t('tips.backOchoChallengeTip3'),
+              t('tips.backOchoChallengeTip4')
             ]}
           />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-6-task" checked={completedTasks['day-6-task'] || false} onCheckedChange={() => handleTaskComplete('day-6-task')} />
             <label htmlFor="day-6-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              I practiced back ochos at all three speeds without changing speed mid-movement
+              {t('daily.day6.task')}
             </label>
           </div>
         </div>;
@@ -236,24 +239,24 @@ const FastAndSlowDaily1to7 = () => {
     if (dayNumber === 7) {
       return <div className="space-y-6">
           <p className="text-gray-700 text-lg leading-relaxed">
-            Do ocho cortado in all 3 speeds, without changing the speed in the middle. This is much harder than it sounds because we are used to always doing it with an acceleration in the middle.
+            {t('daily.day7.content')}
           </p>
           
           <TipsSection 
-            title="Ocho Cortado Challenge Tips:"
+            title={t('tips.ochoCortadoChallengeTitle')}
             tips={[
-              "Practice at speed 1 (half speed) first - maintain consistent slowness throughout",
-              "Then speed 2 (normal) - resist the urge to accelerate in the middle",
-              "Finally speed 4 (double) - keep the energy constant from start to finish",
-              "Focus on maintaining the same tempo for the entire movement sequence",
-              "Break the habit of natural acceleration - conscious control is key"
+              t('tips.ochoCortadoChallengeTip1'),
+              t('tips.ochoCortadoChallengeTip2'),
+              t('tips.ochoCortadoChallengeTip3'),
+              t('tips.ochoCortadoChallengeTip4'),
+              t('tips.ochoCortadoChallengeTip5')
             ]}
           />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-7-task" checked={completedTasks['day-7-task'] || false} onCheckedChange={() => handleTaskComplete('day-7-task')} />
             <label htmlFor="day-7-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              I practiced ocho cortado at all three speeds without changing speed mid-movement
+              {t('daily.day7.task')}
             </label>
           </div>
         </div>;
@@ -262,13 +265,13 @@ const FastAndSlowDaily1to7 = () => {
     // Placeholder content for other days
     return <div className="space-y-6">
         <p className="text-gray-700 text-lg leading-relaxed">
-          Day {dayNumber} assignment content will be added here...
+          Day {dayNumber} {t('daily.placeholder')}
         </p>
         
         <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
           <Checkbox id={`day-${dayNumber}-task`} checked={completedTasks[`day-${dayNumber}-task`] || false} onCheckedChange={() => handleTaskComplete(`day-${dayNumber}-task`)} />
           <label htmlFor={`day-${dayNumber}-task`} className="text-gray-700 text-lg font-medium cursor-pointer">
-            Day {dayNumber} practice completed
+            Day {dayNumber} {t('daily.placeholderTask')}
           </label>
         </div>
       </div>;
@@ -277,9 +280,9 @@ const FastAndSlowDaily1to7 = () => {
   return <div className="mb-16">
       <div className="text-center mb-8">
         <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-        <h2 className="text-3xl font-display text-gray-800">Daily Assignments</h2>
+        <h2 className="text-3xl font-display text-gray-800">{t('daily.title')}</h2>
         <p className="text-gray-600 mt-2">
-          Progress through 7 days of focused practice ({daysUnlocked}/7 days unlocked)
+          {t('daily.subtitle')} ({daysUnlocked}/7 days unlocked)
         </p>
       </div>
 
@@ -298,11 +301,11 @@ const FastAndSlowDaily1to7 = () => {
                   </div>
                   
                   {status === 'tomorrow' && <span className="text-sm text-golden-yellow font-medium ml-auto mr-4">
-                      Available Tomorrow
+                      {t('daily.availableTomorrow')}
                     </span>}
                   
                   {status === 'locked' && dayNumber > daysUnlocked + 1 && <span className="text-sm text-gray-400 font-medium ml-auto mr-4">
-                      Locked
+                      {t('daily.locked')}
                     </span>}
                 </div>
               </AccordionTrigger>
