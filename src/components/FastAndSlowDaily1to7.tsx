@@ -209,13 +209,33 @@ const FastAndSlowDaily1to7 = () => {
     if (dayNumber === 6) {
       return <div className="space-y-6">
           <p className="text-gray-700 text-lg leading-relaxed">
-            Day 6 assignment content will be added here...
+            Do back ochos in all 3 speeds, without changing the speed in the middle. Like the ocho cortado from Day 7, this challenges your ability to maintain consistent speed throughout the entire movement.
           </p>
           
+          <div className="bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
+            <h4 className="text-lg font-display text-gray-700 mb-4">Back Ocho Speed Challenge Tips:</h4>
+            <ul className="text-gray-600 space-y-2 text-base">
+              <li>• Start with speed 1 (half speed) - focus on smooth, controlled pivots</li>
+              <li>• Progress to speed 2 (normal) - maintain the natural flow without rushing</li>
+              <li>• Challenge yourself at speed 4 (double) - keep control even at high speed</li>
+              <li>• Pay attention to the follower's pivot timing at each speed</li>
+              <li>• Maintain consistent embrace and connection throughout</li>
+              <li>• Each ocho should take the same amount of time from start to finish</li>
+            </ul>
+          </div>
+
+          <div className="bg-terracotta/20 backdrop-blur-sm rounded-2xl p-6 border border-terracotta/30">
+            <p className="text-gray-600 text-center leading-relaxed">
+              <strong>Focus Point:</strong> The challenge is maintaining the exact same tempo for each complete back ocho sequence. 
+              Resist the natural tendency to accelerate during the pivot or slow down during the step. 
+              Consistent speed control develops better leading and following skills.
+            </p>
+          </div>
+
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <Checkbox id={`day-${dayNumber}-task`} checked={completedTasks[`day-${dayNumber}-task`] || false} onCheckedChange={() => handleTaskComplete(`day-${dayNumber}-task`)} />
-            <label htmlFor={`day-${dayNumber}-task`} className="text-gray-700 text-lg font-medium cursor-pointer">
-              Day {dayNumber} practice completed
+            <Checkbox id="day-6-task" checked={completedTasks['day-6-task'] || false} onCheckedChange={() => handleTaskComplete('day-6-task')} />
+            <label htmlFor="day-6-task" className="text-gray-700 text-lg font-medium cursor-pointer">
+              I practiced back ochos at all three speeds without changing speed mid-movement
             </label>
           </div>
         </div>;
