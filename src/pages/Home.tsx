@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -88,7 +87,7 @@ const Home = () => {
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-golden-yellow to-dusty-rose rounded-xl transform rotate-1 group-hover:rotate-2 transition-transform duration-300"></div>
               <Link 
-                to={user ? "/rhythmlab" : "/auth"}
+                to={user ? "/profile" : "/auth"}
                 className="relative block bg-gradient-to-r from-golden-yellow to-dusty-rose text-warm-brown font-medium text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-warm-brown/20"
               >
                 <div className="flex items-center justify-center gap-3">

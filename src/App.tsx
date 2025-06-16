@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +12,7 @@ import Quiz from "./pages/Quiz";
 import Leaderboard from "./pages/Leaderboard";
 import RoadMap from "./pages/RoadMap";
 import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import RhythmLabLayout from "./components/layouts/RhythmLabLayout";
 import DancingFastSlow from "./pages/exercises/DancingFastSlow";
@@ -42,6 +42,9 @@ const App = () => {
                 
                 {/* Authentication page */}
                 <Route path="/auth" element={<Auth />} />
+                
+                {/* Profile page */}
+                <Route path="/profile" element={<Profile />} />
                 
                 {/* Road Map page */}
                 <Route path="/roadmap" element={<RoadMap />} />
