@@ -1,19 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, Music, Play, Pause } from 'lucide-react';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Button } from '@/components/ui/button';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import LanguageSelector from '@/components/LanguageSelector';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
+import AudioPlayer from '@/components/AudioPlayer';
 
 const DancingFastSlow = () => {
   const { t } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
-  const [currentlyPlaying, setCurrentlyPlaying] = useState<string | null>(null);
   const [rhythmSpeed, setRhythmSpeed] = useState<string>('1');
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleTaskComplete = (taskId: string) => {
     setCompletedTasks(prev => ({
@@ -21,67 +20,6 @@ const DancingFastSlow = () => {
       [taskId]: !prev[taskId]
     }));
   };
-
-  const playAudio = (audioId: string, url: string) => {
-    // Stop current audio if playing
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-
-    if (currentlyPlaying === audioId) {
-      setCurrentlyPlaying(null);
-      return;
-    }
-
-    // Create new audio element
-    const audio = new Audio(url);
-    audioRef.current = audio;
-    
-    audio.onloadstart = () => {
-      console.log(`Loading audio: ${url}`);
-    };
-    
-    audio.oncanplay = () => {
-      console.log(`Audio ready to play: ${url}`);
-    };
-    
-    audio.onplay = () => {
-      console.log(`Audio started playing: ${url}`);
-      setCurrentlyPlaying(audioId);
-    };
-    
-    audio.onpause = () => {
-      console.log(`Audio paused: ${url}`);
-      setCurrentlyPlaying(null);
-    };
-    
-    audio.onended = () => {
-      console.log(`Audio ended: ${url}`);
-      setCurrentlyPlaying(null);
-    };
-    
-    audio.onerror = (e) => {
-      console.error(`Audio error for ${url}:`, e);
-      setCurrentlyPlaying(null);
-    };
-
-    // Play the audio
-    audio.play().catch(error => {
-      console.error(`Failed to play audio ${url}:`, error);
-      setCurrentlyPlaying(null);
-    });
-  };
-
-  // Cleanup audio on component unmount
-  useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
 
   const getRhythmPattern = (speed: string) => {
     switch (speed) {
@@ -131,19 +69,11 @@ const DancingFastSlow = () => {
             That means without a partner. Do the normal walk and step on 1 and 3 in this song.
           </p>
           
-          <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-cream/20">
-            <div className="flex items-center justify-between mb-4">
-              <Button
-                onClick={() => playAudio('disarli-16', 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749836334/SimpleMercato2-16Sec-CarlosDiSarli-La_vida_me_enga%C3%B1o_oxc9vb.mp3')}
-                className="bg-golden-yellow/80 hover:bg-golden-yellow text-warm-brown border-none"
-                size="sm"
-              >
-                {currentlyPlaying === 'disarli-16' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-              </Button>
-            </div>
-            <div className="w-full bg-cream/20 rounded-full h-3">
-              <div className="bg-golden-yellow h-3 rounded-full w-0 transition-all duration-300"></div>
-            </div>
+          <div className="mb-8">
+            <AudioPlayer 
+              title="Carlos Di Sarli - La vida me engañó (16 sec)"
+              audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749836334/SimpleMercato2-16Sec-CarlosDiSarli-La_vida_me_enga%C3%B1o_oxc9vb.mp3"
+            />
           </div>
 
           <p className="text-gray-600 text-center italic mb-8">
@@ -267,31 +197,15 @@ const DancingFastSlow = () => {
             </p>
             
             <div className="space-y-4">
-              <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20">
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-gray-700 text-lg">From 2 beats to 4 beats</span>
-                  <Button
-                    onClick={() => playAudio('2to4', 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato_2_to_4_Me_quede_mirandola_widbtv.mp3')}
-                    className="bg-terracotta/80 hover:bg-terracotta text-cream border-none"
-                    size="sm"
-                  >
-                    {currentlyPlaying === '2to4' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                  </Button>
-                </div>
-              </div>
+              <AudioPlayer 
+                title="From 2 beats to 4 beats"
+                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato_2_to_4_Me_quede_mirandola_widbtv.mp3"
+              />
               
-              <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20">
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-gray-700 text-lg">From 4 beats to 2 beats</span>
-                  <Button
-                    onClick={() => playAudio('4to2', 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato4_to_2Me_quede_mirandola_n189ki.mp3')}
-                    className="bg-terracotta/80 hover:bg-terracotta text-cream border-none"
-                    size="sm"
-                  >
-                    {currentlyPlaying === '4to2' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                  </Button>
-                </div>
-              </div>
+              <AudioPlayer 
+                title="From 4 beats to 2 beats"
+                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato4_to_2Me_quede_mirandola_n189ki.mp3"
+              />
             </div>
           </div>
 
@@ -303,31 +217,15 @@ const DancingFastSlow = () => {
             </p>
             
             <div className="space-y-4">
-              <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20">
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-gray-700 text-lg">From Legato to Staccato</span>
-                  <Button
-                    onClick={() => playAudio('legato-staccato', 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/legato_to_Stacatto_Invierno_-_Francisco_Canaro-_gcc7qs.mp3')}
-                    className="bg-sage-green/80 hover:bg-sage-green text-cream border-none"
-                    size="sm"
-                  >
-                    {currentlyPlaying === 'legato-staccato' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                  </Button>
-                </div>
-              </div>
+              <AudioPlayer 
+                title="From Legato to Staccato"
+                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/legato_to_Stacatto_Invierno_-_Francisco_Canaro-_gcc7qs.mp3"
+              />
               
-              <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20">
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-gray-700 text-lg">From Staccato to Legato</span>
-                  <Button
-                    onClick={() => playAudio('staccato-legato', 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/Stacatto_to_legato_Invierno_-_Francisco_Canaro-_ho4nwj.mp3')}
-                    className="bg-sage-green/80 hover:bg-sage-green text-cream border-none"
-                    size="sm"
-                  >
-                    {currentlyPlaying === 'staccato-legato' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                  </Button>
-                </div>
-              </div>
+              <AudioPlayer 
+                title="From Staccato to Legato"
+                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/Stacatto_to_legato_Invierno_-_Francisco_Canaro-_ho4nwj.mp3"
+              />
             </div>
           </div>
         </div>
