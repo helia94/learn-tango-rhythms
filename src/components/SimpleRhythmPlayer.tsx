@@ -35,7 +35,7 @@ const SimpleRhythmPlayer = ({ pattern, label, speedLevel = 1 }: SimpleRhythmPlay
   return (
     <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20">
       <div className="flex items-center justify-between mb-4">
-        {label && <span className="font-semibold text-cream text-lg">{label}</span>}
+        {label && <span className="font-semibold text-gray-700 text-lg">{label}</span>}
         <Button
           onClick={togglePlayback}
           className={`bg-golden-yellow/80 hover:bg-golden-yellow text-warm-brown border-none ${!label ? 'mx-auto' : ''}`}
@@ -51,8 +51,8 @@ const SimpleRhythmPlayer = ({ pattern, label, speedLevel = 1 }: SimpleRhythmPlay
           <div
             key={index}
             className={`
-              w-12 h-12 rounded-lg border-2 flex items-center justify-center text-cream font-bold
-              ${isActive ? 'bg-terracotta border-cream' : 'bg-warm-brown/40 border-cream/40'}
+              w-12 h-12 rounded-lg border-2 flex items-center justify-center text-gray-700 font-bold
+              ${isActive ? 'bg-terracotta border-gray-700' : 'bg-warm-brown/40 border-gray-400'}
               ${currentBeat === index ? 'ring-4 ring-golden-yellow scale-110' : ''}
               transition-all duration-200
             `}
