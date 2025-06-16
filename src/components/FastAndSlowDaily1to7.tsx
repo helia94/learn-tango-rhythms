@@ -8,7 +8,7 @@ const FastAndSlowDaily1to7 = () => {
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
 
   // Simulate user progress (0-7 days unlocked)
-  const daysUnlocked = 5; // Updated to show Day 5 is now unlocked
+  const daysUnlocked = 7; // Updated to show Day 7 is now unlocked
 
   const handleTaskComplete = (taskId: string) => {
     setCompletedTasks(prev => ({
@@ -200,6 +200,57 @@ const FastAndSlowDaily1to7 = () => {
             <Checkbox id="day-5-task" checked={completedTasks['day-5-task'] || false} onCheckedChange={() => handleTaskComplete('day-5-task')} />
             <label htmlFor="day-5-task" className="text-gray-700 text-lg font-medium cursor-pointer">
               I practiced extremely fast movements
+            </label>
+          </div>
+        </div>;
+    }
+
+    // Day 6 content
+    if (dayNumber === 6) {
+      return <div className="space-y-6">
+          <p className="text-gray-700 text-lg leading-relaxed">
+            Day 6 assignment content will be added here...
+          </p>
+          
+          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
+            <Checkbox id={`day-${dayNumber}-task`} checked={completedTasks[`day-${dayNumber}-task`] || false} onCheckedChange={() => handleTaskComplete(`day-${dayNumber}-task`)} />
+            <label htmlFor={`day-${dayNumber}-task`} className="text-gray-700 text-lg font-medium cursor-pointer">
+              Day {dayNumber} practice completed
+            </label>
+          </div>
+        </div>;
+    }
+
+    // Day 7 content
+    if (dayNumber === 7) {
+      return <div className="space-y-6">
+          <p className="text-gray-700 text-lg leading-relaxed">
+            Do ocho cortado in all 3 speeds, without changing the speed in the middle. This is much harder than it sounds because we are used to always doing it with an acceleration in the middle.
+          </p>
+          
+          <div className="bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-6 border border-dusty-rose/30">
+            <h4 className="text-lg font-display text-gray-700 mb-4">Ocho Cortado Challenge Tips:</h4>
+            <ul className="text-gray-600 space-y-2 text-base">
+              <li>• Practice at speed 1 (half speed) first - maintain consistent slowness throughout</li>
+              <li>• Then speed 2 (normal) - resist the urge to accelerate in the middle</li>
+              <li>• Finally speed 4 (double) - keep the energy constant from start to finish</li>
+              <li>• Focus on maintaining the same tempo for the entire movement sequence</li>
+              <li>• Break the habit of natural acceleration - conscious control is key</li>
+            </ul>
+          </div>
+
+          <div className="bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
+            <p className="text-gray-600 text-center leading-relaxed">
+              <strong>Remember:</strong> The challenge is not just doing ocho cortado at different speeds, 
+              but maintaining that exact speed without any variation throughout the entire movement. 
+              This develops precise speed control and breaks automatic movement patterns.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
+            <Checkbox id="day-7-task" checked={completedTasks['day-7-task'] || false} onCheckedChange={() => handleTaskComplete('day-7-task')} />
+            <label htmlFor="day-7-task" className="text-gray-700 text-lg font-medium cursor-pointer">
+              I practiced ocho cortado at all three speeds without changing speed mid-movement
             </label>
           </div>
         </div>;
