@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
@@ -8,6 +7,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import LanguageSelector from '@/components/LanguageSelector';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
+import DailyAssignments from '@/components/DailyAssignments';
 
 const DancingFastSlow = () => {
   const { t } = useTranslation();
@@ -181,66 +181,8 @@ const DancingFastSlow = () => {
           </div>
         </div>
 
-        {/* Music Speed Changes Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">Using Music for Speed Changes</h2>
-          
-          <p className="text-gray-700 text-lg mb-12 text-center">
-            Ok, now you can move at three speeds, time to also use the music. Two simple ways to use music for a change of speed:
-          </p>
-
-          {/* Rhythm Changes */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-display text-gray-700 mb-6 text-center">When the rhythm changes</h3>
-            <p className="text-gray-600 mb-8 text-center leading-relaxed">
-              Sometimes the music changes from playing all beats loud and the same to playing 2 strong beat and 2 weak beats. This is a clear opportunity to adjust your speed.
-            </p>
-            
-            <div className="space-y-4">
-              <AudioPlayer 
-                title="From 2 beats to 4 beats"
-                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato_2_to_4_Me_quede_mirandola_widbtv.mp3"
-                colorChanges={[
-                  { timestamp: 7500, color: 'bg-dusty-rose' }
-                ]}
-              />
-              
-              <AudioPlayer 
-                title="From 4 beats to 2 beats"
-                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato4_to_2Me_quede_mirandola_n189ki.mp3"
-                colorChanges={[
-                  { timestamp: 6500, color: 'bg-dusty-rose' }
-                ]}
-              />
-            </div>
-          </div>
-
-          {/* Melody Changes */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-display text-gray-700 mb-6 text-center">When the melody changes</h3>
-            <p className="text-gray-600 mb-8 text-center leading-relaxed">
-              Old tango songs mostly have a fixed beat system all the time, so a good option is to change it according to the melody. Legato (melody that sounds like singing) for slower speed and Staccato (rhythmic melody) for higher speed.
-            </p>
-            
-            <div className="space-y-4">
-              <AudioPlayer 
-                title="From Legato to Staccato"
-                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/legato_to_Stacatto_Invierno_-_Francisco_Canaro-_gcc7qs.mp3"
-                colorChanges={[
-                  { timestamp: 6500, color: 'bg-dusty-rose' }
-                ]}
-              />
-              
-              <AudioPlayer 
-                title="From Staccato to Legato"
-                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/Stacatto_to_legato_Invierno_-_Francisco_Canaro-_ho4nwj.mp3"
-                colorChanges={[
-                  { timestamp: 6500, color: 'bg-dusty-rose' }
-                ]}
-              />
-            </div>
-          </div>
-        </div>
+        {/* Daily Assignments Section */}
+        <DailyAssignments />
 
         {/* Weekly Assignment Section */}
         <div className="mb-16">
