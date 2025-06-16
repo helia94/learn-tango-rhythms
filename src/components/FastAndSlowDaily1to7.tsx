@@ -217,19 +217,9 @@ const FastAndSlowDaily1to7 = () => {
             <ul className="text-gray-600 space-y-2 text-base">
               <li>• Start with speed 1 (half speed) - focus on smooth, controlled pivots</li>
               <li>• Progress to speed 2 (normal) - maintain the natural flow without rushing</li>
-              <li>• Challenge yourself at speed 4 (double) - keep control even at high speed</li>
-              <li>• Pay attention to the follower's pivot timing at each speed</li>
-              <li>• Maintain consistent embrace and connection throughout</li>
-              <li>• Each ocho should take the same amount of time from start to finish</li>
+              <li>• Challenge yourself at speed 4 (double)</li>
+              <li>• As speed increases, make smaller pivot and smaller step</li>
             </ul>
-          </div>
-
-          <div className="bg-terracotta/20 backdrop-blur-sm rounded-2xl p-6 border border-terracotta/30">
-            <p className="text-gray-600 text-center leading-relaxed">
-              <strong>Focus Point:</strong> The challenge is maintaining the exact same tempo for each complete back ocho sequence. 
-              Resist the natural tendency to accelerate during the pivot or slow down during the step. 
-              Consistent speed control develops better leading and following skills.
-            </p>
           </div>
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
@@ -257,14 +247,6 @@ const FastAndSlowDaily1to7 = () => {
               <li>• Focus on maintaining the same tempo for the entire movement sequence</li>
               <li>• Break the habit of natural acceleration - conscious control is key</li>
             </ul>
-          </div>
-
-          <div className="bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
-            <p className="text-gray-600 text-center leading-relaxed">
-              <strong>Remember:</strong> The challenge is not just doing ocho cortado at different speeds, 
-              but maintaining that exact speed without any variation throughout the entire movement. 
-              This develops precise speed control and breaks automatic movement patterns.
-            </p>
           </div>
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
