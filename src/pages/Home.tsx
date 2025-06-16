@@ -2,11 +2,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
-import { Music, Map, Zap } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { Music, Map, Zap, LogIn } from 'lucide-react';
 import LanguageSelector from '@/components/LanguageSelector';
 
 const Home = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
@@ -81,6 +83,22 @@ const Home = () => {
                 </div>
               </Link>
             </div>
+
+            {/* Login Button - only shown when not authenticated */}
+            {!user && (
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-golden-yellow to-dusty-rose rounded-xl transform rotate-1 group-hover:rotate-2 transition-transform duration-300"></div>
+                <Link 
+                  to="/auth" 
+                  className="relative block bg-gradient-to-r from-golden-yellow to-dusty-rose text-warm-brown font-medium text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-warm-brown/20"
+                >
+                  <div className="flex items-center justify-center gap-3">
+                    <LogIn className="w-6 h-6" />
+                    <span className="font-display tracking-wide">LOGIN</span>
+                  </div>
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Decorative Elements */}
