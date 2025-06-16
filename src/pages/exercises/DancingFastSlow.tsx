@@ -8,6 +8,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import LanguageSelector from '@/components/LanguageSelector';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
+import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
 
 const DancingFastSlow = () => {
   const { t } = useTranslation();
@@ -321,6 +322,9 @@ const DancingFastSlow = () => {
             At the end of the week, you will be asked how many times you did each assignment. The goal of 5min tango is three things: repeat, repeat, and repeat. More ideas and assignments will unfold on the same topic during the week.
           </p>
         </div>
+
+        {/* Daily Assignments Section */}
+        <FastAndSlowDaily1to7 />
 
         {/* Comment Section */}
         <div className="mb-16">
