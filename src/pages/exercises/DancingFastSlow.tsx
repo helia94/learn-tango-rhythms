@@ -119,7 +119,7 @@ const DancingFastSlow = () => {
             Most dancers always dance with the same tempo, but forcing yourself to dance at different speeds is one of the easiest ways to add diversity to your tango life.
           </p>
           <p className="text-gray-600 text-lg leading-relaxed text-center">
-            If you are a good beginner, you are most likely dancing always on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4]. This is the speed you are dancing all the songs, almost every second of it.
+            Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4]. 
           </p>
         </div>
 
