@@ -24,7 +24,7 @@ const AudioPlayer = ({
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [currentColor, setCurrentColor] = useState('bg-terracotta');
+  const [currentColor, setCurrentColor] = useState('bg-warm-brown/20');
   const [eventColor, setEventColor] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -46,6 +46,8 @@ const AudioPlayer = ({
       setIsPlaying(false);
       setProgress(0);
       setCurrentTime(0);
+      // Reset color when audio ends
+      setCurrentColor('bg-warm-brown/20');
     };
 
     const handleError = (e: any) => {
@@ -73,14 +75,24 @@ const AudioPlayer = ({
 
     const currentTimeMs = currentTime * 1000;
 
+    // Reset to initial color when starting from beginning
+    if (currentTime < 0.1) {
+      setCurrentColor('bg-warm-brown/20');
+      return;
+    }
+
     // Handle segment color changes
     const currentSegment = colorChanges
       .slice()
       .reverse()
       .find(change => currentTimeMs >= change.timestamp);
     
-    if (currentSegment && currentSegment.color !== currentColor) {
-      setCurrentColor(currentSegment.color);
+    if (currentSegment) {
+      // Convert to high contrast dark color
+      const darkColor = currentSegment.color === 'bg-dusty-rose' ? 'bg-gray-900' : 'bg-gray-900';
+      if (darkColor !== currentColor) {
+        setCurrentColor(darkColor);
+      }
     }
 
     // Handle event color changes
@@ -102,6 +114,10 @@ const AudioPlayer = ({
         audioRef.current.pause();
         setIsPlaying(false);
       } else {
+        // Reset color when starting playback
+        if (currentTime < 0.1) {
+          setCurrentColor('bg-warm-brown/20');
+        }
         await audioRef.current.play();
         setIsPlaying(true);
       }
@@ -114,12 +130,14 @@ const AudioPlayer = ({
   const displayColor = eventColor || currentColor;
 
   return (
-    <div className={`bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20 ${className}`}>
+    <div className={`${displayColor} backdrop-blur-sm rounded-2xl p-6 border border-cream/20 transition-colors duration-500 ${className}`}>
       <div className="flex items-center justify-between mb-4">
-        <span className="font-semibold text-gray-700 text-lg">{title}</span>
+        <span className={`font-semibold text-lg ${currentColor === 'bg-gray-900' ? 'text-white' : 'text-gray-700'}`}>
+          {title}
+        </span>
         <Button
           onClick={togglePlayback}
-          className={`${displayColor} hover:opacity-80 text-white border-none transition-all duration-200`}
+          className="bg-terracotta hover:bg-terracotta/80 text-white border-none transition-all duration-200"
           size="sm"
         >
           {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -131,7 +149,7 @@ const AudioPlayer = ({
           value={progress} 
           className="h-3 bg-cream/20"
         />
-        <div className="flex justify-between text-sm text-gray-600 mt-2">
+        <div className={`flex justify-between text-sm mt-2 ${currentColor === 'bg-gray-900' ? 'text-gray-300' : 'text-gray-600'}`}>
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
