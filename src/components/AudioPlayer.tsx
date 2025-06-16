@@ -81,17 +81,16 @@ const AudioPlayer = ({
       return;
     }
 
-    // Handle segment color changes
+    // Handle segment color changes - find the most recent color change that has passed
     const currentSegment = colorChanges
       .slice()
       .reverse()
       .find(change => currentTimeMs >= change.timestamp);
     
     if (currentSegment) {
-      // Convert to high contrast dark color
-      const darkColor = currentSegment.color === 'bg-dusty-rose' ? 'bg-gray-900' : 'bg-gray-900';
-      if (darkColor !== currentColor) {
-        setCurrentColor(darkColor);
+      // Use the actual color from the segment instead of converting all to gray
+      if (currentSegment.color !== currentColor) {
+        setCurrentColor(currentSegment.color);
       }
     }
 
@@ -129,10 +128,20 @@ const AudioPlayer = ({
 
   const displayColor = eventColor || currentColor;
 
+  // Determine text color based on background
+  const getTextColor = (bgColor: string) => {
+    if (bgColor.includes('dusty-rose') || bgColor.includes('terracotta') || bgColor.includes('golden-yellow')) {
+      return 'text-white';
+    }
+    return 'text-gray-700';
+  };
+
+  const textColor = getTextColor(currentColor);
+
   return (
     <div className={`${displayColor} backdrop-blur-sm rounded-2xl p-6 border border-cream/20 transition-colors duration-500 ${className}`}>
       <div className="flex items-center justify-between mb-4">
-        <span className={`font-semibold text-lg ${currentColor === 'bg-gray-900' ? 'text-white' : 'text-gray-700'}`}>
+        <span className={`font-semibold text-lg ${textColor}`}>
           {title}
         </span>
         <Button
@@ -149,7 +158,7 @@ const AudioPlayer = ({
           value={progress} 
           className="h-3 bg-cream/20"
         />
-        <div className={`flex justify-between text-sm mt-2 ${currentColor === 'bg-gray-900' ? 'text-gray-300' : 'text-gray-600'}`}>
+        <div className={`flex justify-between text-sm mt-2 ${textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
