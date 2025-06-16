@@ -4,7 +4,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Checkbox } from '@/components/ui/checkbox';
 import AudioPlayer from '@/components/AudioPlayer';
 import SlowWalkingAvatar from '@/components/SlowWalkingAvatar';
-
 const FastAndSlowDaily1to7 = () => {
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
 
@@ -17,7 +16,6 @@ const FastAndSlowDaily1to7 = () => {
       [taskId]: !prev[taskId]
     }));
   };
-
   const getDayStatus = (dayNumber: number) => {
     if (dayNumber <= daysUnlocked) {
       return 'unlocked';
@@ -27,7 +25,6 @@ const FastAndSlowDaily1to7 = () => {
       return 'locked';
     }
   };
-
   const renderDayContent = (dayNumber: number) => {
     const status = getDayStatus(dayNumber);
     if (status === 'tomorrow') {
@@ -168,7 +165,7 @@ const FastAndSlowDaily1to7 = () => {
           <div className="bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-6 border border-dusty-rose/30">
             <h4 className="text-lg font-display text-gray-700 mb-4">Extreme Slowness Tips:</h4>
             <ul className="text-gray-600 space-y-2 text-base">
-              <li>• Start by counting 8 beats for one single step</li>
+              
               <li>• Focus on maintaining balance throughout the entire movement</li>
               <li>• Keep your connection with your partner constant</li>
               <li>• Breathe deeply to help maintain control</li>
