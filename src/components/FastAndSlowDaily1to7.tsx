@@ -171,8 +171,6 @@ const FastAndSlowDaily1to7 = () => {
               "Breathe deeply to help maintain control",
               "Challenge yourself: can you go even slower?"
             ]}
-            bgColor="bg-dusty-rose/20"
-            borderColor="border-dusty-rose/30"
           />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
@@ -197,8 +195,6 @@ const FastAndSlowDaily1to7 = () => {
               "Start with small, quick movements before attempting larger ones",
               "Practice separation - one partner stays while the other moves fast"
             ]}
-            bgColor="bg-terracotta/20"
-            borderColor="border-terracotta/30"
           />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
@@ -252,8 +248,6 @@ const FastAndSlowDaily1to7 = () => {
               "Focus on maintaining the same tempo for the entire movement sequence",
               "Break the habit of natural acceleration - conscious control is key"
             ]}
-            bgColor="bg-dusty-rose/20"
-            borderColor="border-dusty-rose/30"
           />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
