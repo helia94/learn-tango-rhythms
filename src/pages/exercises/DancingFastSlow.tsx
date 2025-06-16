@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
@@ -71,7 +70,7 @@ const DancingFastSlow = () => {
           
           <div className="mb-8">
             <AudioPlayer 
-              title="Carlos Di Sarli - La vida me engañó (16 sec)"
+              title="Typical strong beat 1 and 3"
               audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749836334/SimpleMercato2-16Sec-CarlosDiSarli-La_vida_me_enga%C3%B1o_oxc9vb.mp3"
             />
           </div>
