@@ -200,6 +200,9 @@ const DancingFastSlow = () => {
               <AudioPlayer 
                 title="From 2 beats to 4 beats"
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato_2_to_4_Me_quede_mirandola_widbtv.mp3"
+                colorChanges={[
+                  { timestamp: 7500, color: 'bg-dusty-rose' }
+                ]}
               />
               
               <AudioPlayer 
