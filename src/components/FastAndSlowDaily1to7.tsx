@@ -193,7 +193,6 @@ const FastAndSlowDaily1to7 = () => {
             <ul className="text-gray-600 space-y-2 text-base">
               <li>• Start with small, quick movements before attempting larger ones</li>
               <li>• Practice separation - one partner stays while the other moves fast</li>
-              <li>• Practice separation - one partner stays while the other moves fast</li>
             </ul>
           </div>
 
