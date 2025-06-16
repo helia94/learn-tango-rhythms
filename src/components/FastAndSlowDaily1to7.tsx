@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Lock, CheckCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -161,6 +160,46 @@ const FastAndSlowDaily1to7 = () => {
             />
             <label htmlFor="day-2-task" className="text-gray-700 text-lg font-medium cursor-pointer">
               I practiced identifying solos and slowing down during them
+            </label>
+          </div>
+        </div>
+      );
+    }
+
+    // Day 3 content
+    if (dayNumber === 3) {
+      return (
+        <div className="space-y-6">
+          <p className="text-gray-700 text-lg leading-relaxed">
+            Slow down when the singer is almost talking instead of singing. It does not happen often, so it's even more delicious to catch it when it does.
+          </p>
+          
+          <p className="text-gray-600 text-lg leading-relaxed mb-6">
+            In this example, listen carefully to how the singer transitions from singing to almost talking. This is your cue to slow down and savor these intimate moments in the music.
+          </p>
+
+          <div>
+            <AudioPlayer 
+              title="Fueye - Aníbal Troilo (Talking Singer Example)"
+              audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750085206/Talking-_Fueye_-_An%C3%ADbal_Troilo-_raohxn.mp3"
+            />
+          </div>
+
+          <div className="bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
+            <h4 className="text-lg font-display text-gray-700 mb-3">💡 Listening Tip</h4>
+            <p className="text-gray-600 leading-relaxed">
+              Notice how the singer's voice becomes more conversational and intimate. These moments are rare and precious - they're perfect opportunities to connect deeply with your partner through slower, more deliberate movements.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
+            <Checkbox 
+              id="day-3-task"
+              checked={completedTasks['day-3-task'] || false}
+              onCheckedChange={() => handleTaskComplete('day-3-task')}
+            />
+            <label htmlFor="day-3-task" className="text-gray-700 text-lg font-medium cursor-pointer">
+              I practiced identifying and slowing down during talking singer moments
             </label>
           </div>
         </div>
