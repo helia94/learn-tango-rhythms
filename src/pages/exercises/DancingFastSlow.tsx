@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
@@ -266,6 +267,51 @@ const DancingFastSlow = () => {
                 </label>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Practice Playlist Section */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">Practice Songs</h2>
+          
+          <p className="text-gray-700 text-lg mb-6 text-center">
+            Here are 6 songs to practice speed with music:
+          </p>
+          
+          <div className="rounded-2xl overflow-hidden shadow-2xl mb-8">
+            <iframe 
+              style={{borderRadius: '12px'}} 
+              src="https://open.spotify.com/embed/playlist/1wZ0CPVIgn7Ry41Kmwzh9k?utm_source=generator" 
+              width="100%" 
+              height="352" 
+              frameBorder="0" 
+              allowFullScreen 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+              loading="lazy"
+            />
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-terracotta/20 backdrop-blur-sm rounded-2xl p-6 border border-terracotta/30">
+              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">Songs 1 & 2</h3>
+              <p className="text-gray-600 text-center leading-relaxed">
+                <strong>From Canaro Orquestra</strong> - Music playing 4 similar beats all the time. We can change speed with melody, or whenever you want to change speed, but do it with intention and clearly.
+              </p>
+            </div>
+            
+            <div className="bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
+              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">Songs 3 & 4</h3>
+              <p className="text-gray-600 text-center leading-relaxed">
+                <strong>From early Di Sarli Orquestra</strong> - Music playing 2 strong and 2 weak beats, still very rhythmic compared to the future work of the same artist.
+              </p>
+            </div>
+            
+            <div className="bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-6 border border-dusty-rose/30">
+              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">Songs 5 & 6</h3>
+              <p className="text-gray-600 text-center leading-relaxed">
+                <strong>From Troilo Orquestra</strong> - Music changes between playing 4 similar beats, to strong beats. Many chances to change the speed of the dance.
+              </p>
+            </div>
           </div>
         </div>
 
