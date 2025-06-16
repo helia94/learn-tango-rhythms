@@ -192,9 +192,6 @@ const FastAndSlowDaily1to7 = () => {
           <p className="text-gray-700 text-lg leading-relaxed">
             Go extremely fast; fast is hard to do together. Find some separation, lead something fast for the follower, or do something fast yourself, while the follower almost stays. Explore your limits.
           </p>
-
-          <FastWalkingAvatar />
-
           <div className="bg-terracotta/20 backdrop-blur-sm rounded-2xl p-6 border border-terracotta/30">
             <h4 className="text-lg font-display text-gray-700 mb-4">Extreme Speed Tips:</h4>
             <ul className="text-gray-600 space-y-2 text-base">
