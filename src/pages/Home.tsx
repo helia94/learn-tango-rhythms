@@ -1,153 +1,94 @@
 
-import React from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
-import ProfileSection from "@/components/ProfileSection";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Music, Users, Trophy, Map, LogIn } from "lucide-react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useTranslation } from '@/hooks/useTranslation';
+import { Music, Map, Zap } from 'lucide-react';
+import LanguageSelector from '@/components/LanguageSelector';
 
 const Home = () => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cream via-sandy-beige to-warm-brown">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-terracotta border-t-transparent"></div>
-      </div>
-    );
-  }
+  const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cream via-sandy-beige to-warm-brown p-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12 pt-8">
-          <div className="flex justify-between items-start mb-4">
-            <div className="flex-1"></div>
-            <h1 className="text-5xl md:text-6xl font-display text-warm-brown">
-              Rhythm Journey
-            </h1>
-            <div className="flex-1 flex justify-end">
-              {!user && (
-                <Link to="/auth">
-                  <Button className="bg-terracotta hover:bg-burnt-orange text-white rounded-organic">
-                    <LogIn className="w-4 h-4 mr-2" />
-                    Login
-                  </Button>
-                </Link>
-              )}
+    <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
+      {/* Geometric shapes for abstract design */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-32 right-32 w-16 h-16 bg-paprika transform rotate-45"></div>
+        <div className="absolute bottom-48 left-16 w-20 h-20 bg-sage-green transform rotate-12"></div>
+        <div className="absolute top-1/2 right-16 w-12 h-12 bg-golden-yellow transform -rotate-12"></div>
+        <div className="absolute bottom-32 right-1/3 w-24 h-24 bg-terracotta transform rotate-45"></div>
+      </div>
+
+      <div className="relative z-10 max-w-4xl mx-auto px-4 py-8">
+        {/* Language Selector in top right */}
+        <div className="flex justify-end mb-8">
+          <LanguageSelector />
+        </div>
+        
+        <div className="text-center">
+          {/* Main Title with geometric background */}
+          <div className="relative mb-12">
+            <div className="absolute inset-0 bg-gradient-to-r from-burnt-orange/20 to-terracotta/20 rounded-3xl transform rotate-1"></div>
+            <div className="relative bg-cream/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-warm-brown/20">
+              <h1 className="boho-title text-6xl md:text-8xl mb-4 font-display">
+                5 MIN TANGO
+              </h1>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <Music className="w-12 h-12 text-burnt-orange animate-gentle-bounce" />
+                <div className="w-2 h-2 bg-terracotta rounded-full animate-organic-pulse"></div>
+                <Zap className="w-10 h-10 text-golden-yellow animate-gentle-bounce delay-300" />
+                <div className="w-2 h-2 bg-sage-green rounded-full animate-organic-pulse delay-500"></div>
+                <Map className="w-12 h-12 text-deep-teal animate-gentle-bounce delay-600" />
+              </div>
             </div>
           </div>
-          <p className="text-xl text-mushroom max-w-2xl mx-auto">
-            Discover the art of movement through rhythm, tempo, and musical expression
-          </p>
-        </div>
-
-        {/* Authentication Section */}
-        {user ? (
-          <div className="mb-12">
-            <ProfileSection />
-          </div>
-        ) : (
-          <div className="mb-12 text-center">
-            <Card className="inline-block bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-6">
-              <h2 className="text-2xl font-display text-warm-brown mb-3">
-                Join Our Community
-              </h2>
-              <p className="text-mushroom mb-4">
-                Sign in to track your progress and connect with other dancers
+          
+          {/* Description Panel */}
+          <div className="relative mb-12">
+            <div className="absolute inset-0 bg-gradient-to-bl from-sage-green/20 to-deep-teal/20 rounded-2xl transform -rotate-1"></div>
+            <div className="relative boho-panel p-8">
+              <p className="boho-subtitle text-lg mb-8 leading-relaxed">
+                PRACTICE TANGO MUSICALITY EVERY DAY FOR 5 MINUTES - TRACK AND SHOW YOUR PROGRESS - BUILD CONTRAST ELEMENTS INTO YOUR DANCE - LEARN ABOUT TANGO RHYTHMS
               </p>
-              <Link to="/auth">
-                <Button className="bg-terracotta hover:bg-burnt-orange text-white rounded-organic">
-                  <LogIn className="w-4 h-4 mr-2" />
-                  Sign In / Sign Up
-                </Button>
-              </Link>
-            </Card>
+            </div>
           </div>
-        )}
-
-        {/* Navigation Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <Link to="/exercises/dancing-fast-slow">
-            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-6 h-full hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-terracotta/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-terracotta/30 transition-colors">
-                  <Music className="w-8 h-8 text-terracotta" />
+          
+          {/* Action Buttons with geometric backgrounds */}
+          <div className="flex flex-col sm:flex-row gap-8 justify-center">
+            {/* Road Map Button */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-terracotta to-paprika rounded-xl transform rotate-2 group-hover:rotate-3 transition-transform duration-300"></div>
+              <Link 
+                to="/roadmap" 
+                className="relative block bg-gradient-to-r from-burnt-orange to-terracotta text-cream font-medium text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-warm-brown/20"
+              >
+                <div className="flex items-center justify-center gap-3">
+                  <Map className="w-6 h-6" />
+                  <span className="font-display tracking-wide">ROAD MAP</span>
                 </div>
-                <h3 className="text-xl font-display text-warm-brown mb-2">
-                  Fast & Slow
-                </h3>
-                <p className="text-mushroom text-sm">
-                  Master the art of tempo control and musical dynamics
-                </p>
-              </div>
-            </Card>
-          </Link>
-
-          <Link to="/roadmap">
-            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-6 h-full hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-sage-green/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-sage-green/30 transition-colors">
-                  <Map className="w-8 h-8 text-sage-green" />
+              </Link>
+            </div>
+            
+            {/* Rhythm Lab Button */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-sage-green to-deep-teal rounded-xl transform -rotate-2 group-hover:-rotate-3 transition-transform duration-300"></div>
+              <Link 
+                to="/rhythmlab" 
+                className="relative block bg-gradient-to-r from-sage-green to-deep-teal text-cream font-medium text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-warm-brown/20"
+              >
+                <div className="flex items-center justify-center gap-3">
+                  <Music className="w-6 h-6" />
+                  <span className="font-display tracking-wide">ENTER RHYTHM LAB</span>
                 </div>
-                <h3 className="text-xl font-display text-warm-brown mb-2">
-                  Road Map
-                </h3>
-                <p className="text-mushroom text-sm">
-                  Track your learning journey and unlock new challenges
-                </p>
-              </div>
-            </Card>
-          </Link>
+              </Link>
+            </div>
+          </div>
 
-          <Link to="/rhythmlab">
-            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-6 h-full hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-dusty-rose/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-dusty-rose/30 transition-colors">
-                  <Users className="w-8 h-8 text-dusty-rose" />
-                </div>
-                <h3 className="text-xl font-display text-warm-brown mb-2">
-                  Rhythm Lab
-                </h3>
-                <p className="text-mushroom text-sm">
-                  Experiment with beats and create your own rhythms
-                </p>
-              </div>
-            </Card>
-          </Link>
-
-          <Link to="/rhythmlab/leaderboard">
-            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-6 h-full hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-golden-yellow/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-golden-yellow/30 transition-colors">
-                  <Trophy className="w-8 h-8 text-golden-yellow" />
-                </div>
-                <h3 className="text-xl font-display text-warm-brown mb-2">
-                  Leaderboard
-                </h3>
-                <p className="text-mushroom text-sm">
-                  See how you rank among rhythm masters worldwide
-                </p>
-              </div>
-            </Card>
-          </Link>
-        </div>
-
-        {/* Welcome Message */}
-        <div className="text-center">
-          <Card className="inline-block bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-8 max-w-2xl">
-            <h2 className="text-2xl font-display text-warm-brown mb-4">
-              Welcome to Your Rhythm Journey
-            </h2>
-            <p className="text-mushroom leading-relaxed">
-              Whether you're a beginner learning to feel the beat or an experienced dancer 
-              refining your technique, our interactive exercises will help you develop 
-              a deeper connection with music and movement. Start with any section that 
-              interests you and progress at your own pace.
-            </p>
-          </Card>
+          {/* Decorative Elements */}
+          <div className="mt-16 flex justify-center items-center gap-8 opacity-60">
+            <div className="w-12 h-1 bg-gradient-to-r from-transparent via-warm-brown to-transparent"></div>
+            <div className="w-3 h-3 bg-golden-yellow rounded-full animate-organic-pulse"></div>
+            <div className="w-12 h-1 bg-gradient-to-r from-transparent via-warm-brown to-transparent"></div>
+          </div>
         </div>
       </div>
     </div>
