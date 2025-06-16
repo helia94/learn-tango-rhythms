@@ -23,9 +23,22 @@ const Home = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 pt-8">
-          <h1 className="text-5xl md:text-6xl font-display text-warm-brown mb-4">
-            Rhythm Journey
-          </h1>
+          <div className="flex justify-between items-start mb-4">
+            <div className="flex-1"></div>
+            <h1 className="text-5xl md:text-6xl font-display text-warm-brown">
+              Rhythm Journey
+            </h1>
+            <div className="flex-1 flex justify-end">
+              {!user && (
+                <Link to="/auth">
+                  <Button className="bg-terracotta hover:bg-burnt-orange text-white rounded-organic">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Login
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </div>
           <p className="text-xl text-mushroom max-w-2xl mx-auto">
             Discover the art of movement through rhythm, tempo, and musical expression
           </p>
