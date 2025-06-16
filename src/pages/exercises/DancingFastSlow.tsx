@@ -208,6 +208,9 @@ const DancingFastSlow = () => {
               <AudioPlayer 
                 title="From 4 beats to 2 beats"
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato4_to_2Me_quede_mirandola_n189ki.mp3"
+                colorChanges={[
+                  { timestamp: 6500, color: 'bg-dusty-rose' }
+                ]}
               />
             </div>
           </div>
