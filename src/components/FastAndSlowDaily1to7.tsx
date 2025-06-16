@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { Lock, CheckCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
 import AudioPlayer from '@/components/AudioPlayer';
 import SlowWalkingAvatar from '@/components/SlowWalkingAvatar';
+import FastWalkingAvatar from '@/components/FastWalkingAvatar';
 
 const FastAndSlowDaily1to7 = () => {
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
@@ -192,11 +192,31 @@ const FastAndSlowDaily1to7 = () => {
           <p className="text-gray-700 text-lg leading-relaxed">
             Go extremely fast; fast is hard to do together. Find some separation, lead something fast for the follower, or do something fast yourself, while the follower almost stays. Explore your limits.
           </p>
+          
+          <p className="text-gray-600 text-lg leading-relaxed mb-6">
+            Fast movements in tango require both partners to be aware of their limits and boundaries. Practice creating moments where one partner moves quickly while the other maintains stability.
+          </p>
+
+          <FastWalkingAvatar />
 
           <div className="bg-terracotta/20 backdrop-blur-sm rounded-2xl p-6 border border-terracotta/30">
             <h4 className="text-lg font-display text-gray-700 mb-4">Extreme Speed Tips:</h4>
             <ul className="text-gray-600 space-y-2 text-base">
               <li>• Start with small, quick movements before attempting larger ones</li>
+              <li>• Maintain clear communication with your partner</li>
+              <li>• Practice separation - one partner stays while the other moves fast</li>
+              <li>• Focus on control even at high speeds</li>
+              <li>• Respect both your limits and your partner's comfort zone</li>
+            </ul>
+          </div>
+
+          <div className="bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
+            <h4 className="text-lg font-display text-gray-700 mb-4">Practice Exercises:</h4>
+            <ul className="text-gray-600 space-y-2 text-base">
+              <li>• Quick weight shifts while partner remains grounded</li>
+              <li>• Fast leg movements (boleos, ganchos) with controlled torso</li>
+              <li>• Rapid direction changes with clear lead/follow</li>
+              <li>• Speed bursts followed by complete stillness</li>
             </ul>
           </div>
 
