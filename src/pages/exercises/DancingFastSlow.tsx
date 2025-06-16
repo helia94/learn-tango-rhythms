@@ -281,7 +281,7 @@ const DancingFastSlow = () => {
           <div className="rounded-2xl overflow-hidden shadow-2xl mb-8">
             <iframe 
               style={{borderRadius: '12px'}} 
-              src="https://open.spotify.com/embed/playlist/1wZ0CPVIgn7Ry41Kmwzh9k?utm_source=generator" 
+              src="https://open.spotify.com/embed/playlist/1wZ0CPVIgn7Ry41Kmwzh9k?utm_source=generator&theme=0" 
               width="100%" 
               height="352" 
               frameBorder="0" 
