@@ -3,6 +3,7 @@ import { Lock, CheckCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
 import AudioPlayer from '@/components/AudioPlayer';
+import TipsSection from '@/components/TipsSection';
 
 const FastAndSlowDaily1to7 = () => {
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
@@ -162,16 +163,17 @@ const FastAndSlowDaily1to7 = () => {
             This exercise pushes you to discover the absolute minimum speed of movement while maintaining connection and intention. It's about finding grace in extreme slowness.
           </p>
 
-          <div className="bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-6 border border-dusty-rose/30">
-            <h4 className="text-lg font-display text-gray-700 mb-4">Extreme Slowness Tips:</h4>
-            <ul className="text-gray-600 space-y-2 text-base">
-              
-              <li>• Focus on maintaining balance throughout the entire movement</li>
-              <li>• Keep your connection with your partner constant</li>
-              <li>• Breathe deeply to help maintain control</li>
-              <li>• Challenge yourself: can you go even slower?</li>
-            </ul>
-          </div>
+          <TipsSection 
+            title="Extreme Slowness Tips:"
+            tips={[
+              "Focus on maintaining balance throughout the entire movement",
+              "Keep your connection with your partner constant",
+              "Breathe deeply to help maintain control",
+              "Challenge yourself: can you go even slower?"
+            ]}
+            bgColor="bg-dusty-rose/20"
+            borderColor="border-dusty-rose/30"
+          />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-4-task" checked={completedTasks['day-4-task'] || false} onCheckedChange={() => handleTaskComplete('day-4-task')} />
@@ -188,13 +190,16 @@ const FastAndSlowDaily1to7 = () => {
           <p className="text-gray-700 text-lg leading-relaxed">
             Go extremely fast; fast is hard to do together. Find some separation, lead something fast for the follower, or do something fast yourself, while the follower almost stays. Explore your limits.
           </p>
-          <div className="bg-terracotta/20 backdrop-blur-sm rounded-2xl p-6 border border-terracotta/30">
-            <h4 className="text-lg font-display text-gray-700 mb-4">Extreme Speed Tips:</h4>
-            <ul className="text-gray-600 space-y-2 text-base">
-              <li>• Start with small, quick movements before attempting larger ones</li>
-              <li>• Practice separation - one partner stays while the other moves fast</li>
-            </ul>
-          </div>
+          
+          <TipsSection 
+            title="Extreme Speed Tips:"
+            tips={[
+              "Start with small, quick movements before attempting larger ones",
+              "Practice separation - one partner stays while the other moves fast"
+            ]}
+            bgColor="bg-terracotta/20"
+            borderColor="border-terracotta/30"
+          />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-5-task" checked={completedTasks['day-5-task'] || false} onCheckedChange={() => handleTaskComplete('day-5-task')} />
@@ -212,15 +217,15 @@ const FastAndSlowDaily1to7 = () => {
             Do back ochos in all 3 speeds, without changing the speed in the middle. Like the ocho cortado from Day 7, this challenges your ability to maintain consistent speed throughout the entire movement.
           </p>
           
-          <div className="bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <h4 className="text-lg font-display text-gray-700 mb-4">Back Ocho Speed Challenge Tips:</h4>
-            <ul className="text-gray-600 space-y-2 text-base">
-              <li>• Start with speed 1 (half speed) - focus on smooth, controlled pivots</li>
-              <li>• Progress to speed 2 (normal) - maintain the natural flow without rushing</li>
-              <li>• Challenge yourself at speed 4 (double)</li>
-              <li>• As speed increases, make smaller pivot and smaller step</li>
-            </ul>
-          </div>
+          <TipsSection 
+            title="Back Ocho Speed Challenge Tips:"
+            tips={[
+              "Start with speed 1 (half speed) - focus on smooth, controlled pivots",
+              "Progress to speed 2 (normal) - maintain the natural flow without rushing",
+              "Challenge yourself at speed 4 (double)",
+              "As speed increases, make smaller pivot and smaller step"
+            ]}
+          />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-6-task" checked={completedTasks['day-6-task'] || false} onCheckedChange={() => handleTaskComplete('day-6-task')} />
@@ -238,16 +243,18 @@ const FastAndSlowDaily1to7 = () => {
             Do ocho cortado in all 3 speeds, without changing the speed in the middle. This is much harder than it sounds because we are used to always doing it with an acceleration in the middle.
           </p>
           
-          <div className="bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-6 border border-dusty-rose/30">
-            <h4 className="text-lg font-display text-gray-700 mb-4">Ocho Cortado Challenge Tips:</h4>
-            <ul className="text-gray-600 space-y-2 text-base">
-              <li>• Practice at speed 1 (half speed) first - maintain consistent slowness throughout</li>
-              <li>• Then speed 2 (normal) - resist the urge to accelerate in the middle</li>
-              <li>• Finally speed 4 (double) - keep the energy constant from start to finish</li>
-              <li>• Focus on maintaining the same tempo for the entire movement sequence</li>
-              <li>• Break the habit of natural acceleration - conscious control is key</li>
-            </ul>
-          </div>
+          <TipsSection 
+            title="Ocho Cortado Challenge Tips:"
+            tips={[
+              "Practice at speed 1 (half speed) first - maintain consistent slowness throughout",
+              "Then speed 2 (normal) - resist the urge to accelerate in the middle",
+              "Finally speed 4 (double) - keep the energy constant from start to finish",
+              "Focus on maintaining the same tempo for the entire movement sequence",
+              "Break the habit of natural acceleration - conscious control is key"
+            ]}
+            bgColor="bg-dusty-rose/20"
+            borderColor="border-dusty-rose/30"
+          />
 
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-7-task" checked={completedTasks['day-7-task'] || false} onCheckedChange={() => handleTaskComplete('day-7-task')} />
