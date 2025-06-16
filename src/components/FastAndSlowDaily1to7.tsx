@@ -104,6 +104,69 @@ const FastAndSlowDaily1to7 = () => {
       );
     }
 
+    // Day 2 content
+    if (dayNumber === 2) {
+      return (
+        <div className="space-y-6">
+          <p className="text-gray-700 text-lg leading-relaxed">
+            Identify solo pieces and slow down on them. Soft solos from singer, violin and Bandonion are a good chance to reduce your speed. A solo in tango is when only one instrument is playing the main melody, there could be still a soft contra bass or piano playing the beat.
+          </p>
+          
+          <p className="text-gray-600 text-lg leading-relaxed">
+            There are two tango orchestras who very often have a Solo section in their songs. Let's listen to two bandonion and two violin solos, and finally a singer solo to familiarize the ears, then we can also find them when dancing in the milongas.
+          </p>
+
+          <div className="space-y-4">
+            <h4 className="text-xl font-display text-gray-700 text-center mb-4">Bandonion Solos</h4>
+            
+            <AudioPlayer 
+              title="El Africano - Aníbal Troilo (Bandonion Solo)"
+              audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750083505/SOLO-El_africano-Troilo_jramon.mp3"
+            />
+            
+            <AudioPlayer 
+              title="La Tablada - Aníbal Troilo (Bandonion Solo)"
+              audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750083505/SOLO_La_Tablada_-_An%C3%ADbal_Troilo_pugych.mp3"
+            />
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-xl font-display text-gray-700 text-center mb-4">Violin Solos</h4>
+            
+            <AudioPlayer 
+              title="Tierra Querida - Osvaldo Pugliese (Violin Solo)"
+              audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750083505/SOLO_Tierra_Querida_-_Osvaldo_Pugliese_ccg0ce.mp3"
+            />
+            
+            <AudioPlayer 
+              title="El Arranque - Osvaldo Pugliese (Violin Solo)"
+              audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750083504/SOLO_-_El_Arranque_-_Osvaldo_Pugliese_thpsqh.mp3"
+            />
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-xl font-display text-gray-700 text-center mb-4">Singer Solo</h4>
+            
+            <AudioPlayer 
+              title="Cotorrita de la Suerte (Singer Solo)"
+              audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750083504/SOLO_Cotorrita_de_la_suerte_80706-1_TT_fbfz2t.mp3"
+            />
+          </div>
+
+          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
+            <Checkbox 
+              id="day-2-task"
+              checked={completedTasks['day-2-task'] || false}
+              onCheckedChange={() => handleTaskComplete('day-2-task')}
+            />
+            <label htmlFor="day-2-task" className="text-gray-700 text-lg font-medium cursor-pointer">
+              I practiced identifying solos and slowing down during them
+            </label>
+          </div>
+        </div>
+      );
+    }
+
     // Placeholder content for other days
     return (
       <div className="space-y-6">
