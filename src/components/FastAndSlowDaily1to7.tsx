@@ -3,11 +3,13 @@ import { Lock, CheckCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
 import AudioPlayer from '@/components/AudioPlayer';
+import SlowWalkingAvatar from '@/components/SlowWalkingAvatar';
+
 const FastAndSlowDaily1to7 = () => {
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
 
   // Simulate user progress (0-7 days unlocked)
-  const daysUnlocked = 3; // This would come from user's actual progress later
+  const daysUnlocked = 4; // Updated to show Day 4 is now unlocked
 
   const handleTaskComplete = (taskId: string) => {
     setCompletedTasks(prev => ({
@@ -15,6 +17,7 @@ const FastAndSlowDaily1to7 = () => {
       [taskId]: !prev[taskId]
     }));
   };
+
   const getDayStatus = (dayNumber: number) => {
     if (dayNumber <= daysUnlocked) {
       return 'unlocked';
@@ -24,6 +27,7 @@ const FastAndSlowDaily1to7 = () => {
       return 'locked';
     }
   };
+
   const renderDayContent = (dayNumber: number) => {
     const status = getDayStatus(dayNumber);
     if (status === 'tomorrow') {
@@ -139,12 +143,43 @@ const FastAndSlowDaily1to7 = () => {
             <AudioPlayer title="Fueye - Aníbal Troilo (Talking Singer Example)" audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750085206/Talking-_Fueye_-_An%C3%ADbal_Troilo-_raohxn.mp3" />
           </div>
 
-          
-
           <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
             <Checkbox id="day-3-task" checked={completedTasks['day-3-task'] || false} onCheckedChange={() => handleTaskComplete('day-3-task')} />
             <label htmlFor="day-3-task" className="text-gray-700 text-lg font-medium cursor-pointer">
               I practiced identifying and slowing down during talking singer moments
+            </label>
+          </div>
+        </div>;
+    }
+
+    // Day 4 content - NEW
+    if (dayNumber === 4) {
+      return <div className="space-y-6">
+          <p className="text-gray-700 text-lg leading-relaxed">
+            Go extremely slow. Can you take 8 beats for 1 step? What is your slowest humanly possible? Explore your limits, and explore the limit of your partners.
+          </p>
+          
+          <p className="text-gray-600 text-lg leading-relaxed mb-6">
+            This exercise pushes you to discover the absolute minimum speed of movement while maintaining connection and intention. It's about finding grace in extreme slowness.
+          </p>
+
+          <SlowWalkingAvatar />
+
+          <div className="bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-6 border border-dusty-rose/30">
+            <h4 className="text-lg font-display text-gray-700 mb-4">Extreme Slowness Tips:</h4>
+            <ul className="text-gray-600 space-y-2 text-base">
+              <li>• Start by counting 8 beats for one single step</li>
+              <li>• Focus on maintaining balance throughout the entire movement</li>
+              <li>• Keep your connection with your partner constant</li>
+              <li>• Breathe deeply to help maintain control</li>
+              <li>• Challenge yourself: can you go even slower?</li>
+            </ul>
+          </div>
+
+          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
+            <Checkbox id="day-4-task" checked={completedTasks['day-4-task'] || false} onCheckedChange={() => handleTaskComplete('day-4-task')} />
+            <label htmlFor="day-4-task" className="text-gray-700 text-lg font-medium cursor-pointer">
+              I practiced extremely slow movement, taking 8+ beats per step
             </label>
           </div>
         </div>;
