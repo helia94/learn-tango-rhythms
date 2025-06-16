@@ -164,8 +164,6 @@ const FastAndSlowDaily1to7 = () => {
             This exercise pushes you to discover the absolute minimum speed of movement while maintaining connection and intention. It's about finding grace in extreme slowness.
           </p>
 
-          <SlowWalkingAvatar />
-
           <div className="bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-6 border border-dusty-rose/30">
             <h4 className="text-lg font-display text-gray-700 mb-4">Extreme Slowness Tips:</h4>
             <ul className="text-gray-600 space-y-2 text-base">
