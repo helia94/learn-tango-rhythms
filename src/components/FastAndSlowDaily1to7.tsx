@@ -3,8 +3,6 @@ import { Lock, CheckCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
 import AudioPlayer from '@/components/AudioPlayer';
-import SlowWalkingAvatar from '@/components/SlowWalkingAvatar';
-import FastWalkingAvatar from '@/components/FastWalkingAvatar';
 
 const FastAndSlowDaily1to7 = () => {
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
