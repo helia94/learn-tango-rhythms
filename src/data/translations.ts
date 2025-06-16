@@ -1,3 +1,4 @@
+
 export type TranslationKey = 
   | 'common.backToHome'
   | 'common.backToRoadmap'
@@ -213,7 +214,7 @@ export const translations = {
     },
     instructions: {
       en: "Click the squares to create your rhythm pattern",
-      de: "Klicke auf die Quadrate, um dein Rhythmusmuster zu erstellen"
+      de: "Klick auf die Quadrate, um dein Rhythmusmuster zu erstellen"
     },
     presets: {
       en: "Presets",
@@ -227,7 +228,7 @@ export const translations = {
     },
     complete: {
       en: "Quiz Complete!",
-      de: "Quiz abgeschlossen!"
+      de: "Quiz geschafft!"
     },
     finalScore: {
       en: "Final Score",
@@ -235,7 +236,7 @@ export const translations = {
     },
     complete_percentage: {
       en: "% Complete",
-      de: "% Abgeschlossen"
+      de: "% Geschafft"
     },
     yourName: {
       en: "Your Name",
@@ -269,7 +270,7 @@ export const translations = {
     },
     submitFailed: {
       en: "Failed to submit score",
-      de: "Ergebnis konnte nicht übertragen werden"
+      de: "Übertragung fehlgeschlagen"
     }
   },
   messages: {
@@ -285,11 +286,11 @@ export const translations = {
     },
     message: {
       en: "The page you're looking for doesn't exist.",
-      de: "Die gesuchte Seite existiert nicht."
+      de: "Die gesuchte Seite gibt's leider nicht."
     },
     returnHome: {
       en: "Return Home",
-      de: "Zur Startseite"
+      de: "Zurück nach Hause"
     }
   },
   concepts: {
@@ -410,19 +411,19 @@ export const translations = {
       },
       introText1: {
         en: "Most dancers always dance with the same tempo, but forcing yourself to dance at different speeds is one of the easiest ways to add diversity to your tango life.",
-        de: "Die meisten Tänzer tanzen immer im gleichen Tempo, aber sich zu zwingen in verschiedenen Geschwindigkeiten zu tanzen ist einer der einfachsten Wege, Vielfalt in Ihr Tangoleben zu bringen."
+        de: "Die meisten Tänzer*innen tanzen immer im gleichen Tempo - wie langweilig! Aber sich selbst zu verschiedenen Geschwindigkeiten zu 'zwingen' ist einer der einfachsten Wege, Abwechslung ins Tangoleben zu bringen."
       },
       introText2: {
         en: "Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4].",
-        de: "Gute Anfänger tanzen auf dem Grundschlag [auch als starker Schlag bekannt] [Zahlen 1 und 3, wenn wir bis 4 zählen]."
+        de: "Brave Anfänger*innen tanzen auf dem Grundschlag [auch als starker Schlag bekannt] [Zahlen 1 und 3, wenn wir bis 4 zählen]."
       },
       letStartSimple: {
         en: "Let's start simple",
-        de: "Fangen wir einfach an"
+        de: "Fangen wir mal ganz einfach an"
       },
       simpleText1: {
         en: "That means without a partner. Do the normal walk and step on 1 and 3 in this song.",
-        de: "Das bedeutet ohne Partner. Machen Sie den normalen Gang und treten Sie auf 1 und 3 in diesem Lied."
+        de: "Das heißt ohne Partner*in. Mach deinen normalen Gang und tritt auf 1 und 3 in diesem Lied - erstmal solo üben schadet nie!"
       },
       typicalStrongBeat: {
         en: "Typical strong beat 1 and 3",
@@ -430,7 +431,7 @@ export const translations = {
       },
       couldNotFindBeat: {
         en: "If you could not find the downbeat, use this simple version instead.",
-        de: "Wenn Sie den Grundschlag nicht finden konnten, verwenden Sie stattdessen diese einfache Version."
+        de: "Falls du den Grundschlag nicht finden konntest, nimm einfach diese Version - kein Drama!"
       },
       threeSpeeds: {
         en: "Three Simple Speeds",
@@ -438,23 +439,23 @@ export const translations = {
       },
       threeSpeedsText: {
         en: "Ok, now two simple things you can do:",
-        de: "Ok, jetzt zwei einfache Dinge, die Sie tun können:"
+        de: "Ok, jetzt drei einfache Dinge, die du machen kannst:"
       },
       halfSpeed: {
         en: "Half Speed",
-        de: "Halbe Geschwindigkeit"
+        de: "Halbtempo (für Faultiere)"
       },
       normalSpeed: {
         en: "Normal Speed",
-        de: "Normale Geschwindigkeit"
+        de: "Normales Tempo"
       },
       doubleSpeed: {
         en: "Double Speed",
-        de: "Doppelte Geschwindigkeit"
+        de: "Doppeltes Tempo (für Energiebündel)"
       },
       fullSongText: {
         en: "Do one full song at all three speeds, just walking on your own. Here is a song to do it:",
-        de: "Machen Sie ein ganzes Lied in allen drei Geschwindigkeiten, nur alleine gehend. Hier ist ein Lied dafür:"
+        de: "Mach ein ganzes Lied in allen drei Geschwindigkeiten - einfach alleine gehen. Hier ist ein Lied dafür:"
       },
       practicedWalking: {
         en: "I practiced walking at all three speeds",
@@ -462,11 +463,11 @@ export const translations = {
       },
       musicSpeedChanges: {
         en: "Using Music for Speed Changes",
-        de: "Musik für Geschwindigkeitswechsel verwenden"
+        de: "Die Musik für Tempowechsel nutzen"
       },
       musicSpeedChangesText: {
         en: "Ok, now you can move at three speeds, time to also use the music. Two simple ways to use music for a change of speed:",
-        de: "Ok, jetzt können Sie sich in drei Geschwindigkeiten bewegen, Zeit auch die Musik zu nutzen. Zwei einfache Wege, Musik für einen Geschwindigkeitswechsel zu nutzen:"
+        de: "Ok, jetzt kannst du dich in drei Geschwindigkeiten bewegen - Zeit, auch die Musik ins Spiel zu bringen. Zwei einfache Wege für musikalische Tempowechsel:"
       },
       rhythmChanges: {
         en: "When the rhythm changes",
@@ -474,15 +475,15 @@ export const translations = {
       },
       rhythmChangesText: {
         en: "Sometimes the music changes from playing all beats loud and the same to playing 2 strong beat and 2 weak beats. This is a clear opportunity to adjust your speed.",
-        de: "Manchmal wechselt die Musik von allen Schlägen laut und gleich zu 2 starken Schlägen und 2 schwache Schlägen. Das ist eine klare Gelegenheit, Ihre Geschwindigkeit anzupassen."
+        de: "Manchmal wechselt die Musik von allen Schlägen laut und gleich zu 2 starken und 2 schwachen Schlägen. Das ist eine perfekte Gelegenheit, dein Tempo anzupassen."
       },
       from2To4Beats: {
         en: "From 2 beats to 4 beats",
-        de: "Von 2 Schlägen zu 4 Schlägen"
+        de: "Von 2 zu 4 Schlägen"
       },
       from4To2Beats: {
         en: "From 4 beats to 2 beats",
-        de: "Von 4 Schlägen zu 2 Schlägen"
+        de: "Von 4 zu 2 Schlägen"
       },
       melodyChanges: {
         en: "When the melody changes",
@@ -490,7 +491,7 @@ export const translations = {
       },
       melodyChangesText: {
         en: "Old tango songs mostly have a fixed beat system all the time, so a good option is to change it according to the melody. Legato (melody that sounds like singing) for slower speed and Staccato (rhythmic melody) for higher speed.",
-        de: "Alte Tango-Lieder haben meist die ganze Zeit ein festes Schlagsystem, daher ist eine gute Option, es entsprechend der Melodie zu ändern. Legato (Melodie, die wie Gesang klingt) für langsamere Geschwindigkeit und Staccato (rhythmische Melodie) für höhere Geschwindigkeit."
+        de: "Alte Tango-Lieder haben meist ein festes Schlagsystem, daher ist es clever, nach der Melodie zu wechseln. Legato (Melodie wie Gesang) für langsameres Tempo und Staccato (rhythmische Melodie) für höheres Tempo."
       },
       legatoToStaccato: {
         en: "From Legato to Staccato",
@@ -502,23 +503,23 @@ export const translations = {
       },
       weeklyAssignment: {
         en: "Assignment for the Week",
-        de: "Aufgabe für die Woche"
+        de: "Wochenaufgabe (keine Sorge, ist machbar!)"
       },
       assignment1: {
         en: "Walk alone at speeds 1, 2, and 4, without music, just counting, or use the rhythm lab in the app.",
-        de: "Gehen Sie alleine in den Geschwindigkeiten 1, 2 und 4, ohne Musik, nur zählend, oder verwenden Sie das Rhythmus-Labor in der App."
+        de: "Gehe alleine in den Geschwindigkeiten 1, 2 und 4 - ohne Musik, nur zählend, oder nutze das Rhythmus-Labor in der App."
       },
       assignment2: {
         en: "Walk alone with music.",
-        de: "Gehen Sie alleine mit Musik."
+        de: "Gehe alleine mit Musik (endlich wieder mit Sound!)."
       },
       assignment3: {
         en: "When dancing in milonga or practice, listen to the change in rhythm from 2 to 4 and back, and try to use a different speed.",
-        de: "Beim Tanzen in der Milonga oder beim Üben, hören Sie auf den Rhythmuswechsel von 2 zu 4 und zurück, und versuchen Sie eine andere Geschwindigkeit zu verwenden."
+        de: "Beim Tanzen in der Milonga oder beim Üben höre auf den Rhythmuswechsel von 2 zu 4 und zurück - und probiere verschiedene Geschwindigkeiten aus."
       },
       assignment4: {
         en: "When dancing in milonga or practice, listen to the change in melody from legato to staccato and back, and try to use a different speed.",
-        de: "Beim Tanzen in der Milonga oder beim Üben, hören Sie auf den Melodiewechsel von Legato zu Staccato und zurück, und versuchen Sie eine andere Geschwindigkeit zu verwenden."
+        de: "Beim Tanzen in der Milonga oder beim Üben höre auf den Melodiewechsel von Legato zu Staccato und zurück - und wechsle dein Tempo entsprechend."
       },
       practiceSongs: {
         en: "Practice Songs",
@@ -526,7 +527,7 @@ export const translations = {
       },
       practiceSongsText: {
         en: "Here are 6 songs to practice speed with music:",
-        de: "Hier sind 6 Lieder, um Geschwindigkeit mit Musik zu üben:"
+        de: "Hier sind 6 Lieder zum Üben der Geschwindigkeit mit Musik:"
       },
       songs1And2: {
         en: "Songs 1 & 2",
@@ -534,7 +535,7 @@ export const translations = {
       },
       songs1And2Text: {
         en: "From Canaro Orquestra - Music playing 4 similar beats all the time. We can change speed with melody, or whenever you want to change speed, but do it with intention and clearly.",
-        de: "Von Canaro Orquestra - Musik spielt die ganze Zeit 4 ähnliche Schläge. Wir können die Geschwindigkeit mit der Melodie ändern, oder wann immer Sie die Geschwindigkeit ändern möchten, aber tun Sie es mit Absicht und klar."
+        de: "Von Canaro Orquestra - Musik mit 4 ähnlichen Schlägen die ganze Zeit. Du kannst das Tempo mit der Melodie ändern oder wann immer du willst - aber mach es bewusst und deutlich."
       },
       songs3And4: {
         en: "Songs 3 & 4",
@@ -542,7 +543,7 @@ export const translations = {
       },
       songs3And4Text: {
         en: "From early Di Sarli Orquestra - Music playing 2 strong and 2 weak beats, still very rhythmic compared to the future work of the same artist.",
-        de: "Von frühem Di Sarli Orquestra - Musik spielt 2 starke und 2 schwache Schläge, immer noch sehr rhythmisch im Vergleich zu späteren Arbeiten desselben Künstlers."
+        de: "Von frühem Di Sarli Orquestra - Musik mit 2 starken und 2 schwachen Schlägen, noch sehr rhythmisch im Vergleich zu späteren Werken des Künstlers."
       },
       songs5And6: {
         en: "Songs 5 & 6",
@@ -550,11 +551,11 @@ export const translations = {
       },
       songs5And6Text: {
         en: "From Troilo Orquestra - Music changes between playing 4 similar beats, to strong beats. Many chances to change the speed of the dance.",
-        de: "Von Troilo Orquestra - Musik wechselt zwischen 4 ähnlichen Schlägen und starken Schlägen. Viele Gelegenheiten, die Geschwindigkeit des Tanzes zu ändern."
+        de: "Von Troilo Orquestra - Musik wechselt zwischen 4 ähnlichen Schlägen und starken Schlägen. Viele Gelegenheiten für Tempowechsel - ein Spielplatz für Geschwindigkeitsfreaks!"
       },
       progressNote: {
         en: "At the end of the week, you will be asked how many times you did each assignment. The goal of 5min tango is three things: repeat, repeat, and repeat. More ideas and assignments will unfold on the same topic during the week.",
-        de: "Am Ende der Woche werden Sie gefragt, wie oft Sie jede Aufgabe gemacht haben. Das Ziel von 5min Tango sind drei Dinge: wiederholen, wiederholen und wiederholen. Weitere Ideen und Aufgaben zum gleichen Thema werden während der Woche folgen."
+        de: "Am Ende der Woche wirst du gefragt, wie oft du jede Aufgabe gemacht hast. Das Ziel von 5min Tango sind drei Dinge: wiederholen, wiederholen und... na? Richtig! Weitere Ideen zum Thema folgen während der Woche."
       },
       commentsTitle: {
         en: "Comments & Discussion",
@@ -566,7 +567,7 @@ export const translations = {
       },
       rateTitle: {
         en: "Rate this Exercise",
-        de: "Bewerten Sie diese Übung"
+        de: "Bewerte diese Übung"
       },
       ratePlaceholder: {
         en: "Review system coming soon...",
@@ -581,15 +582,15 @@ export const translations = {
     },
     subtitle: {
       en: "Progress through 7 days of focused practice",
-      de: "Durchlaufe 7 Tage konzentriertes Üben"
+      de: "7 Tage konzentriertes Üben - Schritt für Schritt zum Ziel"
     },
     unlockTomorrow: {
       en: "You can unlock this tomorrow",
-      de: "Du kannst das morgen freischalten"
+      de: "Das kannst du morgen freischalten"
     },
     locked: {
       en: "Locked",
-      de: "Gesperrt"
+      de: "Noch gesperrt"
     },
     availableTomorrow: {
       en: "Available Tomorrow",
@@ -598,7 +599,7 @@ export const translations = {
     day1: {
       content: {
         en: "Make a fixed plan to change your speed every 8 beats. For example, 4,1,2,4 or 2,1,4,1 or whatever you wish, just plan in your head and then dance it. If you do it on your own choose older tango music, if you do it in a milonga do it when music is more monotonous, this way all four speed fit well to all part of the music. Make your change is very clear, and at the end of the phrase.",
-        de: "Mache einen festen Plan, deine Geschwindigkeit alle 8 Schläge zu ändern. Zum Beispiel 4,1,2,4 oder 2,1,4,1 oder was auch immer du möchtest, plane es einfach in deinem Kopf und tanze es dann. Wenn du alleine übst, wähle ältere Tango-Musik, wenn du es in einer Milonga machst, tue es wenn die Musik monotoner ist, so passen alle vier Geschwindigkeiten gut zu allen Teilen der Musik. Mache deine Änderung sehr deutlich und am Ende der Phrase."
+        de: "Mach einen festen Plan, dein Tempo alle 8 Schläge zu ändern. Zum Beispiel 4,1,2,4 oder 2,1,4,1 - oder was auch immer dir gefällt, plane es einfach im Kopf und tanze es dann. Wenn du alleine übst, nimm ältere Tango-Musik. In der Milonga machst du es bei monotonerer Musik - so passen alle Tempi gut zu allen Musikteilen. Mach deine Wechsel schön deutlich und am Ende der Phrase."
       },
       audioTitle: {
         en: "Alma del Bandoneon - Francisco Canaro (30 sec)",
@@ -610,21 +611,21 @@ export const translations = {
       },
       fullSong: {
         en: "Full song:",
-        de: "Ganzes Lied:"
+        de: "Das ganze Lied:"
       },
       task: {
         en: "I practiced fixed speed changes every 8 beats",
-        de: "Ich habe feste Geschwindigkeitsänderungen alle 8 Schläge geübt"
+        de: "Ich habe feste Tempowechsel alle 8 Schläge geübt"
       }
     },
     day2: {
       content: {
         en: "Identify solo pieces and slow down on them. Soft solos from singer, violin and Bandonion are a good chance to reduce your speed. A solo in tango is when only one instrument is playing the main melody, there could be still a soft contra bass or piano playing the beat.",
-        de: "Erkenne Solo-Stücke und verlangsame bei ihnen. Sanfte Solos von Sänger, Violine und Bandoneon sind eine gute Gelegenheit, deine Geschwindigkeit zu reduzieren. Ein Solo im Tango ist, wenn nur ein Instrument die Hauptmelodie spielt, es könnte immer noch einen sanften Kontrabass oder ein Klavier geben, das den Takt spielt."
+        de: "Erkenne Solo-Stücke und werde bei ihnen langsamer. Sanfte Solos von Sänger*in, Violine und Bandoneon sind perfekte Gelegenheiten, das Tempo zu drosseln. Ein Solo im Tango ist, wenn nur ein Instrument die Hauptmelodie spielt - Kontrabass oder Klavier dürfen trotzdem leise mitspielen."
       },
       description: {
         en: "There are two tango orchestras who very often have a Solo section in their songs. Let's listen to two bandonion and two violin solos, and finally a singer solo to familiarize the ears, then we can also find them when dancing in the milongas.",
-        de: "Es gibt zwei Tango-Orchester, die sehr oft einen Solo-Abschnitt in ihren Liedern haben. Hören wir uns zwei Bandoneon- und zwei Violinsolos an und schließlich ein Sängersolo, um die Ohren zu gewöhnen, dann können wir sie auch beim Tanzen in den Milongas finden."
+        de: "Es gibt zwei Tango-Orchester, die sehr oft Solo-Abschnitte in ihren Liedern haben. Hören wir uns zwei Bandoneon- und zwei Violinsolos an, plus ein Sängersolo - damit sich die Ohren daran gewöhnen und wir sie in der Milonga wiedererkennen."
       },
       bandonionSolos: {
         en: "Bandonion Solos",
@@ -640,41 +641,41 @@ export const translations = {
       },
       task: {
         en: "I practiced identifying solos and slowing down during them",
-        de: "Ich habe das Erkennen von Solos und das Verlangsamen dabei geübt"
+        de: "Ich habe das Erkennen von Solos und Verlangsamen dabei geübt"
       }
     },
     day3: {
       content: {
         en: "Slow down when the singer is almost talking instead of singing. It does not happen often, so it's even more delicious to catch it when it does.",
-        de: "Verlangsame, wenn der Sänger fast spricht anstatt zu singen. Es passiert nicht oft, deshalb ist es umso köstlicher, es zu erwischen, wenn es passiert."
+        de: "Werde langsamer, wenn der/die Sänger*in fast spricht statt singt. Passiert nicht oft, also umso köstlicher, wenn du es erwischst!"
       },
       description: {
         en: "In this example, listen carefully to how the singer transitions from singing to almost talking. This is your cue to slow down and savor these intimate moments in the music.",
-        de: "In diesem Beispiel höre sorgfältig zu, wie der Sänger vom Singen zum fast Sprechen übergeht. Das ist dein Zeichen, langsamer zu werden und diese intimen Momente in der Musik zu genießen."
+        de: "In diesem Beispiel höre genau zu, wie der Sänger vom Singen zum fast Sprechen übergeht. Das ist dein Stichwort, langsamer zu werden und diese intimen Momente in der Musik zu genießen."
       },
       task: {
         en: "I practiced identifying and slowing down during talking singer moments",
-        de: "Ich habe das Erkennen und Verlangsamen während sprechender Sängermomente geübt"
+        de: "Ich habe das Erkennen von 'sprechenden' Sängermomenten und Verlangsamen geübt"
       }
     },
     day4: {
       content: {
         en: "Go extremely slow. Can you take 8 beats for 1 step? What is your slowest humanly possible? Explore your limits, and explore the limit of your partners.",
-        de: "Gehe extrem langsam. Kannst du 8 Schläge für 1 Schritt brauchen? Was ist dein langsamster menschlich möglicher Zustand? Erkunde deine Grenzen und erkunde die Grenzen deiner Partner."
+        de: "Gehe extrem langsam. Schaffst du 8 Schläge für 1 Schritt? Was ist dein langsamst mögliches Tempo? Erkunde deine Grenzen und die deiner Tanzpartner*innen - wie langsam ist eigentlich zu langsam?"
       },
       description: {
         en: "This exercise pushes you to discover the absolute minimum speed of movement while maintaining connection and intention. It's about finding grace in extreme slowness.",
-        de: "Diese Übung drängt dich dazu, die absolute Mindestgeschwindigkeit der Bewegung zu entdecken, während du Verbindung und Absicht aufrechterhältst. Es geht darum, Anmut in extremer Langsamkeit zu finden."
+        de: "Diese Übung bringt dich dazu, die absolute Mindestgeschwindigkeit zu entdecken, während du Verbindung und Absicht beibehältst. Es geht darum, Anmut in extremer Langsamkeit zu finden."
       },
       task: {
         en: "I practiced extremely slow movement, taking 8+ beats per step",
-        de: "Ich habe extrem langsame Bewegung geübt und 8+ Schläge pro Schritt gebraucht"
+        de: "Ich habe extrem langsame Bewegung geübt - 8+ Schläge pro Schritt"
       }
     },
     day5: {
       content: {
         en: "Go extremely fast; fast is hard to do together. Find some separation, lead something fast for the follower, or do something fast yourself, while the follower almost stays. Explore your limits.",
-        de: "Gehe extrem schnell; schnell ist schwer zusammen zu machen. Finde etwas Trennung, führe etwas Schnelles für den Follower, oder mache selbst etwas Schnelles, während der Follower fast bleibt. Erkunde deine Grenzen."
+        de: "Gehe extrem schnell - schnell zusammen ist schwer! Finde etwas Trennung, führe etwas Schnelles für den/die Follower*in, oder mach selbst etwas Schnelles, während der/die Partner*in fast stehen bleibt. Erkunde deine Grenzen."
       },
       task: {
         en: "I practiced extremely fast movements",
@@ -684,26 +685,26 @@ export const translations = {
     day6: {
       content: {
         en: "Do back ochos in all 3 speeds, without changing the speed in the middle. Like the ocho cortado from Day 7, this challenges your ability to maintain consistent speed throughout the entire movement.",
-        de: "Mache Rück-Ochos in allen 3 Geschwindigkeiten, ohne die Geschwindigkeit in der Mitte zu ändern. Wie das Ocho Cortado von Tag 7 fordert dies deine Fähigkeit heraus, eine konstante Geschwindigkeit während der gesamten Bewegung aufrechtzuerhalten."
+        de: "Mache Rück-Ochos in allen 3 Geschwindigkeiten, ohne das Tempo mittendrin zu ändern. Wie das Ocho Cortado von Tag 7 fordert das deine Fähigkeit heraus, konstante Geschwindigkeit durch die ganze Bewegung zu halten."
       },
       task: {
         en: "I practiced back ochos at all three speeds without changing speed mid-movement",
-        de: "Ich habe Rück-Ochos in allen drei Geschwindigkeiten geübt, ohne die Geschwindigkeit mitten in der Bewegung zu ändern"
+        de: "Ich habe Rück-Ochos in allen drei Tempi geübt - ohne Tempowechsel mittendrin"
       }
     },
     day7: {
       content: {
         en: "Do ocho cortado in all 3 speeds, without changing the speed in the middle. This is much harder than it sounds because we are used to always doing it with an acceleration in the middle.",
-        de: "Mache Ocho Cortado in allen 3 Geschwindigkeiten, ohne die Geschwindigkeit in der Mitte zu ändern. Das ist viel schwerer als es klingt, weil wir es gewohnt sind, es immer mit einer Beschleunigung in der Mitte zu machen."
+        de: "Mache Ocho Cortado in allen 3 Geschwindigkeiten, ohne das Tempo mittendrin zu ändern. Das ist viel schwerer als es klingt, weil wir es gewohnt sind, immer mit einer Beschleunigung in der Mitte zu machen - alte Gewohnheiten sind hartnäckig!"
       },
       task: {
         en: "I practiced ocho cortado at all three speeds without changing speed mid-movement",
-        de: "Ich habe Ocho Cortado in allen drei Geschwindigkeiten geübt, ohne die Geschwindigkeit mitten in der Bewegung zu ändern"
+        de: "Ich habe Ocho Cortado in allen drei Tempi geübt - ohne Tempowechsel mittendrin"
       }
     },
     placeholder: {
       en: "assignment content will be added here...",
-      de: "Aufgabeninhalt wird hier hinzugefügt..."
+      de: "Aufgabeninhalt kommt hier hin..."
     },
     placeholderTask: {
       en: "practice completed",
@@ -717,11 +718,11 @@ export const translations = {
     },
     extremeSlownessTip1: {
       en: "Focus on maintaining balance throughout the entire movement",
-      de: "Konzentriere dich darauf, das Gleichgewicht während der gesamten Bewegung zu halten"
+      de: "Konzentriere dich aufs Gleichgewicht während der ganzen Bewegung"
     },
     extremeSlownessTip2: {
       en: "Keep your connection with your partner constant",
-      de: "Halte deine Verbindung zu deinem Partner konstant"
+      de: "Halte die Verbindung zu deinem/deiner Partner*in konstant"
     },
     extremeSlownessTip3: {
       en: "Breathe deeply to help maintain control",
@@ -729,7 +730,7 @@ export const translations = {
     },
     extremeSlownessTip4: {
       en: "Challenge yourself: can you go even slower?",
-      de: "Fordere dich heraus: Kannst du noch langsamer gehen?"
+      de: "Fordere dich heraus: Geht's noch langsamer?"
     },
     extremeSpeed: {
       en: "Extreme Speed Tips:",
@@ -741,7 +742,7 @@ export const translations = {
     },
     extremeSpeedTip2: {
       en: "Practice separation - one partner stays while the other moves fast",
-      de: "Übe Trennung - ein Partner bleibt, während der andere sich schnell bewegt"
+      de: "Übe Trennung - eine*r bleibt, während der/die andere schnell bewegt"
     },
     backOchoChallenge: {
       en: "Back Ocho Speed Challenge Tips:",
@@ -749,23 +750,23 @@ export const translations = {
     },
     backOchoChallengeTitle: {
       en: "Back Ocho Speed Challenge Tips:",
-      de: "Tipps für die Rück-Ocho-Geschwindigkeitsherausforderung:"
+      de: "Tipps für die Rück-Ocho-Tempo-Challenge:"
     },
     backOchoChallengeTip1: {
       en: "Start with speed 1 (half speed) - focus on smooth, controlled pivots",
-      de: "Beginne mit Geschwindigkeit 1 (halbe Geschwindigkeit) - konzentriere dich auf sanfte, kontrollierte Drehungen"
+      de: "Beginne mit Tempo 1 (halbes Tempo) - konzentriere dich auf sanfte, kontrollierte Drehungen"
     },
     backOchoChallengeTip2: {
       en: "Progress to speed 2 (normal) - maintain the natural flow without rushing",
-      de: "Gehe zu Geschwindigkeit 2 (normal) über - erhalte den natürlichen Fluss ohne zu hetzen"
+      de: "Gehe zu Tempo 2 (normal) über - behalte den natürlichen Fluss ohne Hetze"
     },
     backOchoChallengeTip3: {
       en: "Challenge yourself at speed 4 (double)",
-      de: "Fordere dich bei Geschwindigkeit 4 (doppelt) heraus"
+      de: "Fordere dich bei Tempo 4 (doppelt) heraus"
     },
     backOchoChallengeTip4: {
       en: "As speed increases, make smaller pivot and smaller step",
-      de: "Wenn die Geschwindigkeit zunimmt, mache kleinere Drehungen und kleinere Schritte"
+      de: "Je schneller, desto kleinere Drehungen und Schritte"
     },
     ochoCortadoChallenge: {
       en: "Ocho Cortado Challenge Tips:",
@@ -773,23 +774,23 @@ export const translations = {
     },
     ochoCortadoChallengeTitle: {
       en: "Ocho Cortado Challenge Tips:",
-      de: "Tipps für die Ocho-Cortado-Herausforderung:"
+      de: "Tipps für die Ocho-Cortado-Challenge:"
     },
     ochoCortadoChallengeTip1: {
       en: "Practice at speed 1 (half speed) first - maintain consistent slowness throughout",
-      de: "Übe zuerst bei Geschwindigkeit 1 (halbe Geschwindigkeit) - halte durchgehend konstante Langsamkeit"
+      de: "Übe zuerst bei Tempo 1 (halbes Tempo) - halte durchgehend konstante Langsamkeit"
     },
     ochoCortadoChallengeTip2: {
       en: "Then speed 2 (normal) - resist the urge to accelerate in the middle",
-      de: "Dann Geschwindigkeit 2 (normal) - widerstehe dem Drang, in der Mitte zu beschleunigen"
+      de: "Dann Tempo 2 (normal) - widerstehe dem Drang, mittendrin zu beschleunigen"
     },
     ochoCortadoChallengeTip3: {
       en: "Finally speed 4 (double) - keep the energy constant from start to finish",
-      de: "Schließlich Geschwindigkeit 4 (doppelt) - halte die Energie vom Anfang bis zum Ende konstant"
+      de: "Schließlich Tempo 4 (doppelt) - halte die Energie von Anfang bis Ende konstant"
     },
     ochoCortadoChallengeTip4: {
       en: "Focus on maintaining the same tempo for the entire movement sequence",
-      de: "Konzentriere dich darauf, das gleiche Tempo für die gesamte Bewegungssequenz beizubehalten"
+      de: "Konzentriere dich darauf, das gleiche Tempo für die ganze Bewegungssequenz zu halten"
     },
     ochoCortadoChallengeTip5: {
       en: "Break the habit of natural acceleration - conscious control is key",
