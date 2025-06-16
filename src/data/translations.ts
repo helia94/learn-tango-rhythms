@@ -1,4 +1,3 @@
-
 export type TranslationKey = 
   | 'common.backToHome'
   | 'common.backToRoadmap'
@@ -57,7 +56,49 @@ export type TranslationKey =
   | 'concepts.danceLikeJellyfish'
   | 'concepts.danceLikeWater'
   | 'concepts.danceLikeSculptures'
-  | 'concepts.danceTheAccents';
+  | 'concepts.danceTheAccents'
+  | 'exercises.dancingFastSlow.title'
+  | 'exercises.dancingFastSlow.introText1'
+  | 'exercises.dancingFastSlow.introText2'
+  | 'exercises.dancingFastSlow.letStartSimple'
+  | 'exercises.dancingFastSlow.simpleText1'
+  | 'exercises.dancingFastSlow.typicalStrongBeat'
+  | 'exercises.dancingFastSlow.couldNotFindBeat'
+  | 'exercises.dancingFastSlow.threeSpeeds'
+  | 'exercises.dancingFastSlow.threeSpeedsText'
+  | 'exercises.dancingFastSlow.halfSpeed'
+  | 'exercises.dancingFastSlow.normalSpeed'
+  | 'exercises.dancingFastSlow.doubleSpeed'
+  | 'exercises.dancingFastSlow.fullSongText'
+  | 'exercises.dancingFastSlow.practicedWalking'
+  | 'exercises.dancingFastSlow.musicSpeedChanges'
+  | 'exercises.dancingFastSlow.musicSpeedChangesText'
+  | 'exercises.dancingFastSlow.rhythmChanges'
+  | 'exercises.dancingFastSlow.rhythmChangesText'
+  | 'exercises.dancingFastSlow.from2To4Beats'
+  | 'exercises.dancingFastSlow.from4To2Beats'
+  | 'exercises.dancingFastSlow.melodyChanges'
+  | 'exercises.dancingFastSlow.melodyChangesText'
+  | 'exercises.dancingFastSlow.legatoToStaccato'
+  | 'exercises.dancingFastSlow.staccatoToLegato'
+  | 'exercises.dancingFastSlow.weeklyAssignment'
+  | 'exercises.dancingFastSlow.assignment1'
+  | 'exercises.dancingFastSlow.assignment2'
+  | 'exercises.dancingFastSlow.assignment3'
+  | 'exercises.dancingFastSlow.assignment4'
+  | 'exercises.dancingFastSlow.practiceSongs'
+  | 'exercises.dancingFastSlow.practiceSongsText'
+  | 'exercises.dancingFastSlow.songs1And2'
+  | 'exercises.dancingFastSlow.songs1And2Text'
+  | 'exercises.dancingFastSlow.songs3And4'
+  | 'exercises.dancingFastSlow.songs3And4Text'
+  | 'exercises.dancingFastSlow.songs5And6'
+  | 'exercises.dancingFastSlow.songs5And6Text'
+  | 'exercises.dancingFastSlow.progressNote'
+  | 'exercises.dancingFastSlow.commentsTitle'
+  | 'exercises.dancingFastSlow.commentsPlaceholder'
+  | 'exercises.dancingFastSlow.rateTitle'
+  | 'exercises.dancingFastSlow.ratePlaceholder';
 
 export const translations = {
   common: {
@@ -308,6 +349,178 @@ export const translations = {
     danceTheAccents: {
       en: "Dance the Accents",
       de: "Die Akzente tanzen"
+    }
+  },
+  exercises: {
+    dancingFastSlow: {
+      title: {
+        en: "Dancing Fast and Slow",
+        de: "Schnell und Langsam Tanzen"
+      },
+      introText1: {
+        en: "Most dancers always dance with the same tempo, but forcing yourself to dance at different speeds is one of the easiest ways to add diversity to your tango life.",
+        de: "Die meisten Tänzer tanzen immer im gleichen Tempo, aber sich zu zwingen in verschiedenen Geschwindigkeiten zu tanzen ist einer der einfachsten Wege, Vielfalt in Ihr Tangoleben zu bringen."
+      },
+      introText2: {
+        en: "Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4].",
+        de: "Gute Anfänger tanzen auf dem Grundschlag [auch als starker Schlag bekannt] [Zahlen 1 und 3, wenn wir bis 4 zählen]."
+      },
+      letStartSimple: {
+        en: "Let's start simple",
+        de: "Fangen wir einfach an"
+      },
+      simpleText1: {
+        en: "That means without a partner. Do the normal walk and step on 1 and 3 in this song.",
+        de: "Das bedeutet ohne Partner. Machen Sie den normalen Gang und treten Sie auf 1 und 3 in diesem Lied."
+      },
+      typicalStrongBeat: {
+        en: "Typical strong beat 1 and 3",
+        de: "Typischer starker Schlag 1 und 3"
+      },
+      couldNotFindBeat: {
+        en: "If you could not find the downbeat, use this simple version instead.",
+        de: "Wenn Sie den Grundschlag nicht finden konnten, verwenden Sie stattdessen diese einfache Version."
+      },
+      threeSpeeds: {
+        en: "Three Simple Speeds",
+        de: "Drei Einfache Geschwindigkeiten"
+      },
+      threeSpeedsText: {
+        en: "Ok, now two simple things you can do:",
+        de: "Ok, jetzt zwei einfache Dinge, die Sie tun können:"
+      },
+      halfSpeed: {
+        en: "Half Speed",
+        de: "Halbe Geschwindigkeit"
+      },
+      normalSpeed: {
+        en: "Normal Speed",
+        de: "Normale Geschwindigkeit"
+      },
+      doubleSpeed: {
+        en: "Double Speed",
+        de: "Doppelte Geschwindigkeit"
+      },
+      fullSongText: {
+        en: "Do one full song at all three speeds, just walking on your own. Here is a song to do it:",
+        de: "Machen Sie ein ganzes Lied in allen drei Geschwindigkeiten, nur alleine gehend. Hier ist ein Lied dafür:"
+      },
+      practicedWalking: {
+        en: "I practiced walking at all three speeds",
+        de: "Ich habe das Gehen in allen drei Geschwindigkeiten geübt"
+      },
+      musicSpeedChanges: {
+        en: "Using Music for Speed Changes",
+        de: "Musik für Geschwindigkeitswechsel verwenden"
+      },
+      musicSpeedChangesText: {
+        en: "Ok, now you can move at three speeds, time to also use the music. Two simple ways to use music for a change of speed:",
+        de: "Ok, jetzt können Sie sich in drei Geschwindigkeiten bewegen, Zeit auch die Musik zu nutzen. Zwei einfache Wege, Musik für einen Geschwindigkeitswechsel zu nutzen:"
+      },
+      rhythmChanges: {
+        en: "When the rhythm changes",
+        de: "Wenn sich der Rhythmus ändert"
+      },
+      rhythmChangesText: {
+        en: "Sometimes the music changes from playing all beats loud and the same to playing 2 strong beat and 2 weak beats. This is a clear opportunity to adjust your speed.",
+        de: "Manchmal wechselt die Musik von allen Schlägen laut und gleich zu 2 starken Schlägen und 2 schwache Schlägen. Das ist eine klare Gelegenheit, Ihre Geschwindigkeit anzupassen."
+      },
+      from2To4Beats: {
+        en: "From 2 beats to 4 beats",
+        de: "Von 2 Schlägen zu 4 Schlägen"
+      },
+      from4To2Beats: {
+        en: "From 4 beats to 2 beats",
+        de: "Von 4 Schlägen zu 2 Schlägen"
+      },
+      melodyChanges: {
+        en: "When the melody changes",
+        de: "Wenn sich die Melodie ändert"
+      },
+      melodyChangesText: {
+        en: "Old tango songs mostly have a fixed beat system all the time, so a good option is to change it according to the melody. Legato (melody that sounds like singing) for slower speed and Staccato (rhythmic melody) for higher speed.",
+        de: "Alte Tango-Lieder haben meist die ganze Zeit ein festes Schlagsystem, daher ist eine gute Option, es entsprechend der Melodie zu ändern. Legato (Melodie, die wie Gesang klingt) für langsamere Geschwindigkeit und Staccato (rhythmische Melodie) für höhere Geschwindigkeit."
+      },
+      legatoToStaccato: {
+        en: "From Legato to Staccato",
+        de: "Von Legato zu Staccato"
+      },
+      staccatoToLegato: {
+        en: "From Staccato to Legato",
+        de: "Von Staccato zu Legato"
+      },
+      weeklyAssignment: {
+        en: "Assignment for the Week",
+        de: "Aufgabe für die Woche"
+      },
+      assignment1: {
+        en: "Walk alone at speeds 1, 2, and 4, without music, just counting, or use the rhythm lab in the app.",
+        de: "Gehen Sie alleine in den Geschwindigkeiten 1, 2 und 4, ohne Musik, nur zählend, oder verwenden Sie das Rhythmus-Labor in der App."
+      },
+      assignment2: {
+        en: "Walk alone with music.",
+        de: "Gehen Sie alleine mit Musik."
+      },
+      assignment3: {
+        en: "When dancing in milonga or practice, listen to the change in rhythm from 2 to 4 and back, and try to use a different speed.",
+        de: "Beim Tanzen in der Milonga oder beim Üben, hören Sie auf den Rhythmuswechsel von 2 zu 4 und zurück, und versuchen Sie eine andere Geschwindigkeit zu verwenden."
+      },
+      assignment4: {
+        en: "When dancing in milonga or practice, listen to the change in melody from legato to staccato and back, and try to use a different speed.",
+        de: "Beim Tanzen in der Milonga oder beim Üben, hören Sie auf den Melodiewechsel von Legato zu Staccato und zurück, und versuchen Sie eine andere Geschwindigkeit zu verwenden."
+      },
+      practiceSongs: {
+        en: "Practice Songs",
+        de: "Übungslieder"
+      },
+      practiceSongsText: {
+        en: "Here are 6 songs to practice speed with music:",
+        de: "Hier sind 6 Lieder, um Geschwindigkeit mit Musik zu üben:"
+      },
+      songs1And2: {
+        en: "Songs 1 & 2",
+        de: "Lieder 1 & 2"
+      },
+      songs1And2Text: {
+        en: "From Canaro Orquestra - Music playing 4 similar beats all the time. We can change speed with melody, or whenever you want to change speed, but do it with intention and clearly.",
+        de: "Von Canaro Orquestra - Musik spielt die ganze Zeit 4 ähnliche Schläge. Wir können die Geschwindigkeit mit der Melodie ändern, oder wann immer Sie die Geschwindigkeit ändern möchten, aber tun Sie es mit Absicht und klar."
+      },
+      songs3And4: {
+        en: "Songs 3 & 4",
+        de: "Lieder 3 & 4"
+      },
+      songs3And4Text: {
+        en: "From early Di Sarli Orquestra - Music playing 2 strong and 2 weak beats, still very rhythmic compared to the future work of the same artist.",
+        de: "Von frühem Di Sarli Orquestra - Musik spielt 2 starke und 2 schwache Schläge, immer noch sehr rhythmisch im Vergleich zu späteren Arbeiten desselben Künstlers."
+      },
+      songs5And6: {
+        en: "Songs 5 & 6",
+        de: "Lieder 5 & 6"
+      },
+      songs5And6Text: {
+        en: "From Troilo Orquestra - Music changes between playing 4 similar beats, to strong beats. Many chances to change the speed of the dance.",
+        de: "Von Troilo Orquestra - Musik wechselt zwischen 4 ähnlichen Schlägen und starken Schlägen. Viele Gelegenheiten, die Geschwindigkeit des Tanzes zu ändern."
+      },
+      progressNote: {
+        en: "At the end of the week, you will be asked how many times you did each assignment. The goal of 5min tango is three things: repeat, repeat, and repeat. More ideas and assignments will unfold on the same topic during the week.",
+        de: "Am Ende der Woche werden Sie gefragt, wie oft Sie jede Aufgabe gemacht haben. Das Ziel von 5min Tango sind drei Dinge: wiederholen, wiederholen und wiederholen. Weitere Ideen und Aufgaben zum gleichen Thema werden während der Woche folgen."
+      },
+      commentsTitle: {
+        en: "Comments & Discussion",
+        de: "Kommentare & Diskussion"
+      },
+      commentsPlaceholder: {
+        en: "Comment section coming soon...",
+        de: "Kommentarbereich kommt bald..."
+      },
+      rateTitle: {
+        en: "Rate this Exercise",
+        de: "Bewerten Sie diese Übung"
+      },
+      ratePlaceholder: {
+        en: "Review system coming soon...",
+        de: "Bewertungssystem kommt bald..."
+      }
     }
   }
 };

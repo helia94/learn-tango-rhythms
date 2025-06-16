@@ -48,37 +48,37 @@ const DancingFastSlow = () => {
         {/* Title Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-display text-gray-700 drop-shadow-2xl tracking-wider mb-4">
-            Dancing Fast and Slow
+            {t('exercises.dancingFastSlow.title')}
           </h1>
         </div>
 
         {/* Introduction Story */}
         <div className="mb-16">
           <p className="text-gray-700 text-xl leading-relaxed mb-6 text-center">
-            Most dancers always dance with the same tempo, but forcing yourself to dance at different speeds is one of the easiest ways to add diversity to your tango life.
+            {t('exercises.dancingFastSlow.introText1')}
           </p>
           <p className="text-gray-600 text-lg leading-relaxed text-center">
-            Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4]. 
+            {t('exercises.dancingFastSlow.introText2')}
           </p>
         </div>
 
         {/* Simple Start Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">Let's start simple</h2>
+          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">{t('exercises.dancingFastSlow.letStartSimple')}</h2>
           
           <p className="text-gray-700 text-lg mb-8 text-center">
-            That means without a partner. Do the normal walk and step on 1 and 3 in this song.
+            {t('exercises.dancingFastSlow.simpleText1')}
           </p>
           
           <div className="mb-8">
             <AudioPlayer 
-              title="Typical strong beat 1 and 3"
+              title={t('exercises.dancingFastSlow.typicalStrongBeat')}
               audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749836334/SimpleMercato2-16Sec-CarlosDiSarli-La_vida_me_enga%C3%B1o_oxc9vb.mp3"
             />
           </div>
 
           <p className="text-gray-600 text-center italic mb-8">
-            If you could not find the downbeat, use this simple version instead.
+            {t('exercises.dancingFastSlow.couldNotFindBeat')}
           </p>
 
           {/* Simple Rhythm Player */}
@@ -92,28 +92,28 @@ const DancingFastSlow = () => {
 
         {/* Three Speeds Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">Three Simple Speeds</h2>
+          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">{t('exercises.dancingFastSlow.threeSpeeds')}</h2>
           
-          <p className="text-gray-700 text-lg mb-8 text-center">Ok, now two simple things you can do:</p>
+          <p className="text-gray-700 text-lg mb-8 text-center">{t('exercises.dancingFastSlow.threeSpeedsText')}</p>
           
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <div className="bg-terracotta/30 backdrop-blur-sm rounded-2xl p-6 text-center border border-terracotta/40">
               <div className="text-4xl font-bold text-gray-700 mb-3">1</div>
-              <div className="text-gray-700 text-lg">Half Speed</div>
+              <div className="text-gray-700 text-lg">{t('exercises.dancingFastSlow.halfSpeed')}</div>
             </div>
             <div className="bg-golden-yellow/30 backdrop-blur-sm rounded-2xl p-6 text-center border border-golden-yellow/40">
               <div className="text-4xl font-bold text-gray-700 mb-3">2</div>
-              <div className="text-gray-700 text-lg">Normal Speed</div>
+              <div className="text-gray-700 text-lg">{t('exercises.dancingFastSlow.normalSpeed')}</div>
             </div>
             <div className="bg-dusty-rose/30 backdrop-blur-sm rounded-2xl p-6 text-center border border-dusty-rose/40">
               <div className="text-4xl font-bold text-gray-700 mb-3">4</div>
-              <div className="text-gray-700 text-lg">Double Speed</div>
+              <div className="text-gray-700 text-lg">{t('exercises.dancingFastSlow.doubleSpeed')}</div>
             </div>
           </div>
 
           <div className="mb-8">
             <p className="text-gray-700 text-lg mb-6 text-center">
-              Do one full song at all three speeds, just walking on your own. Here is a song to do it:
+              {t('exercises.dancingFastSlow.fullSongText')}
             </p>
             <div className="rounded-2xl overflow-hidden shadow-2xl">
               <iframe 
@@ -177,29 +177,29 @@ const DancingFastSlow = () => {
               onCheckedChange={() => handleTaskComplete('task-1')}
             />
             <label htmlFor="task-1" className="text-gray-700 text-lg font-medium cursor-pointer">
-              I practiced walking at all three speeds
+              {t('exercises.dancingFastSlow.practicedWalking')}
             </label>
           </div>
         </div>
 
         {/* Music Speed Changes Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">Using Music for Speed Changes</h2>
+          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">{t('exercises.dancingFastSlow.musicSpeedChanges')}</h2>
           
           <p className="text-gray-700 text-lg mb-12 text-center">
-            Ok, now you can move at three speeds, time to also use the music. Two simple ways to use music for a change of speed:
+            {t('exercises.dancingFastSlow.musicSpeedChangesText')}
           </p>
 
           {/* Rhythm Changes */}
           <div className="mb-12">
-            <h3 className="text-2xl font-display text-gray-700 mb-6 text-center">When the rhythm changes</h3>
+            <h3 className="text-2xl font-display text-gray-700 mb-6 text-center">{t('exercises.dancingFastSlow.rhythmChanges')}</h3>
             <p className="text-gray-600 mb-8 text-center leading-relaxed">
-              Sometimes the music changes from playing all beats loud and the same to playing 2 strong beat and 2 weak beats. This is a clear opportunity to adjust your speed.
+              {t('exercises.dancingFastSlow.rhythmChangesText')}
             </p>
             
             <div className="space-y-4">
               <AudioPlayer 
-                title="From 2 beats to 4 beats"
+                title={t('exercises.dancingFastSlow.from2To4Beats')}
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato_2_to_4_Me_quede_mirandola_widbtv.mp3"
                 colorChanges={[
                   { timestamp: 7500, color: 'bg-dusty-rose' }
@@ -207,7 +207,7 @@ const DancingFastSlow = () => {
               />
               
               <AudioPlayer 
-                title="From 4 beats to 2 beats"
+                title={t('exercises.dancingFastSlow.from4To2Beats')}
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato4_to_2Me_quede_mirandola_n189ki.mp3"
                 colorChanges={[
                   { timestamp: 6500, color: 'bg-dusty-rose' }
@@ -218,14 +218,14 @@ const DancingFastSlow = () => {
 
           {/* Melody Changes */}
           <div className="mb-12">
-            <h3 className="text-2xl font-display text-gray-700 mb-6 text-center">When the melody changes</h3>
+            <h3 className="text-2xl font-display text-gray-700 mb-6 text-center">{t('exercises.dancingFastSlow.melodyChanges')}</h3>
             <p className="text-gray-600 mb-8 text-center leading-relaxed">
-              Old tango songs mostly have a fixed beat system all the time, so a good option is to change it according to the melody. Legato (melody that sounds like singing) for slower speed and Staccato (rhythmic melody) for higher speed.
+              {t('exercises.dancingFastSlow.melodyChangesText')}
             </p>
             
             <div className="space-y-4">
               <AudioPlayer 
-                title="From Legato to Staccato"
+                title={t('exercises.dancingFastSlow.legatoToStaccato')}
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/legato_to_Stacatto_Invierno_-_Francisco_Canaro-_gcc7qs.mp3"
                 colorChanges={[
                   { timestamp: 6500, color: 'bg-dusty-rose' }
@@ -233,7 +233,7 @@ const DancingFastSlow = () => {
               />
               
               <AudioPlayer 
-                title="From Staccato to Legato"
+                title={t('exercises.dancingFastSlow.staccatoToLegato')}
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/Stacatto_to_legato_Invierno_-_Francisco_Canaro-_ho4nwj.mp3"
                 colorChanges={[
                   { timestamp: 6500, color: 'bg-dusty-rose' }
@@ -247,15 +247,15 @@ const DancingFastSlow = () => {
         <div className="mb-16">
           <div className="text-center mb-8">
             <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-            <h2 className="text-3xl font-display text-gray-800">Assignment for the Week</h2>
+            <h2 className="text-3xl font-display text-gray-800">{t('exercises.dancingFastSlow.weeklyAssignment')}</h2>
           </div>
           
           <div className="space-y-6">
             {[
-              "Walk alone at speeds 1, 2, and 4, without music, just counting, or use the rhythm lab in the app.",
-              "Walk alone with music.",
-              "When dancing in milonga or practice, listen to the change in rhythm from 2 to 4 and back, and try to use a different speed.",
-              "When dancing in milonga or practice, listen to the change in melody from legato to staccato and back, and try to use a different speed."
+              t('exercises.dancingFastSlow.assignment1'),
+              t('exercises.dancingFastSlow.assignment2'),
+              t('exercises.dancingFastSlow.assignment3'),
+              t('exercises.dancingFastSlow.assignment4')
             ].map((assignment, index) => (
               <div key={index} className="flex items-start gap-4 bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
                 <Checkbox 
@@ -273,10 +273,10 @@ const DancingFastSlow = () => {
 
         {/* Practice Playlist Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">Practice Songs</h2>
+          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">{t('exercises.dancingFastSlow.practiceSongs')}</h2>
           
           <p className="text-gray-700 text-lg mb-6 text-center">
-            Here are 6 songs to practice speed with music:
+            {t('exercises.dancingFastSlow.practiceSongsText')}
           </p>
           
           <div className="rounded-2xl overflow-hidden shadow-2xl mb-8">
@@ -294,23 +294,23 @@ const DancingFastSlow = () => {
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-terracotta/20 backdrop-blur-sm rounded-2xl p-6 border border-terracotta/30">
-              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">Songs 1 & 2</h3>
+              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">{t('exercises.dancingFastSlow.songs1And2')}</h3>
               <p className="text-gray-600 text-center leading-relaxed">
-                <strong>From Canaro Orquestra</strong> - Music playing 4 similar beats all the time. We can change speed with melody, or whenever you want to change speed, but do it with intention and clearly.
+                <strong>From Canaro Orquestra</strong> - {t('exercises.dancingFastSlow.songs1And2Text')}
               </p>
             </div>
             
             <div className="bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
-              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">Songs 3 & 4</h3>
+              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">{t('exercises.dancingFastSlow.songs3And4')}</h3>
               <p className="text-gray-600 text-center leading-relaxed">
-                <strong>From early Di Sarli Orquestra</strong> - Music playing 2 strong and 2 weak beats, still very rhythmic compared to the future work of the same artist.
+                <strong>From early Di Sarli Orquestra</strong> - {t('exercises.dancingFastSlow.songs3And4Text')}
               </p>
             </div>
             
             <div className="bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-6 border border-dusty-rose/30">
-              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">Songs 5 & 6</h3>
+              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">{t('exercises.dancingFastSlow.songs5And6')}</h3>
               <p className="text-gray-600 text-center leading-relaxed">
-                <strong>From Troilo Orquestra</strong> - Music changes between playing 4 similar beats, to strong beats. Many chances to change the speed of the dance.
+                <strong>From Troilo Orquestra</strong> - {t('exercises.dancingFastSlow.songs5And6Text')}
               </p>
             </div>
           </div>
@@ -319,7 +319,7 @@ const DancingFastSlow = () => {
         {/* Progress Note Section */}
         <div className="mb-16">
           <p className="text-gray-600 text-lg leading-relaxed text-center italic bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-8 border border-dusty-rose/30">
-            At the end of the week, you will be asked how many times you did each assignment. The goal of 5min tango is three things: repeat, repeat, and repeat. More ideas and assignments will unfold on the same topic during the week.
+            {t('exercises.dancingFastSlow.progressNote')}
           </p>
         </div>
 
@@ -328,20 +328,20 @@ const DancingFastSlow = () => {
 
         {/* Comment Section */}
         <div className="mb-16">
-          <h2 className="text-2xl font-display text-gray-800 mb-6 text-center">Comments & Discussion</h2>
+          <h2 className="text-2xl font-display text-gray-800 mb-6 text-center">{t('exercises.dancingFastSlow.commentsTitle')}</h2>
           <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-12 border border-cream/20">
             <p className="text-gray-500 text-center text-lg">
-              Comment section coming soon...
+              {t('exercises.dancingFastSlow.commentsPlaceholder')}
             </p>
           </div>
         </div>
 
         {/* Review Section */}
         <div className="mb-8">
-          <h2 className="text-2xl font-display text-gray-800 mb-6 text-center">Rate this Exercise</h2>
+          <h2 className="text-2xl font-display text-gray-800 mb-6 text-center">{t('exercises.dancingFastSlow.rateTitle')}</h2>
           <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-12 border border-cream/20">
             <p className="text-gray-500 text-center text-lg">
-              Review system coming soon...
+              {t('exercises.dancingFastSlow.ratePlaceholder')}
             </p>
           </div>
         </div>
