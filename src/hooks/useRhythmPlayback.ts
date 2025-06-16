@@ -14,7 +14,9 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel, maxBeats }:
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentBeat, setCurrentBeat] = useState(0);
   const [currentHalfBeat, setCurrentHalfBeat] = useState(0);
+  const [playbackTime, setPlaybackTime] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const startTimeRef = useRef<number>(0);
 
   const togglePlayback = useCallback(() => {
     setIsPlaying(!isPlaying);
@@ -30,10 +32,14 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel, maxBeats }:
 
   useEffect(() => {
     if (isPlaying) {
+      startTimeRef.current = Date.now() - playbackTime;
       const currentBpm = speedLevels[speedLevel].bpm;
       const beatDuration = (60 / currentBpm) * 1000 * 0.5;
 
       intervalRef.current = setInterval(() => {
+        const elapsed = Date.now() - startTimeRef.current;
+        setPlaybackTime(elapsed);
+
         setCurrentHalfBeat(prevHalfBeat => {
           const nextHalfBeat = (prevHalfBeat + 1) % 2;
           
@@ -74,12 +80,22 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel, maxBeats }:
         clearInterval(intervalRef.current);
       }
     };
-  }, [isPlaying, speedLevel, tracks, speedLevels, currentBeat, maxBeats]);
+  }, [isPlaying, speedLevel, tracks, speedLevels, currentBeat, maxBeats, playbackTime]);
+
+  // Reset playback time when stopped
+  useEffect(() => {
+    if (!isPlaying) {
+      setPlaybackTime(0);
+      setCurrentBeat(0);
+      setCurrentHalfBeat(0);
+    }
+  }, [isPlaying]);
 
   return {
     isPlaying,
     currentBeat,
     currentHalfBeat,
+    playbackTime,
     togglePlayback,
     stopPlayback,
     startPlayback

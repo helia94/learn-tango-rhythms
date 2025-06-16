@@ -21,3 +21,13 @@ export interface SpeedLevel {
   name: string;
   bpm: number;
 }
+
+export interface ColorChange {
+  timestamp: number; // in milliseconds
+  color: string;
+}
+
+export interface ColorEvent {
+  timestamp: number; // in milliseconds
+  color: string;
+}
