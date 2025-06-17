@@ -1,10 +1,9 @@
 
 import React from 'react';
-import { Lock, CheckCircle } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import { Assignment as AssignmentType } from '@/data/assignments';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from './Assignment';
-import TextContent from './ui/TextContent';
 
 interface AssignmentMetadata {
   isLocked: boolean;
@@ -38,10 +37,8 @@ const AssignmentList: React.FC<AssignmentListProps> = ({
         const taskId = metadata ? 
           (metadata.dayNumber ? `${metadata.taskIdPrefix}-task` : metadata.taskIdPrefix) :
           `${keyPrefix}-${index}`;
-        
-        const isCompleted = completedTasks[taskId] > 0;
 
-        // Handle locked assignments
+        // Handle locked assignments - simple lock display
         if (metadata?.isLocked) {
           return (
             <div 
@@ -50,47 +47,24 @@ const AssignmentList: React.FC<AssignmentListProps> = ({
             >
               <div className="flex items-center gap-3">
                 <Lock className="w-5 h-5 text-gray-400 flex-shrink-0" />
-                <h3 className="text-xl font-display text-gray-700">
-                  {metadata.dayNumber ? `Day ${metadata.dayNumber}` : t(assignment.content)}
-                  <span className="text-sm text-gray-400 font-medium ml-2">
-                    {t('daily.locked')}
-                  </span>
-                </h3>
+                <span className="text-lg text-gray-400 font-medium">
+                  {t('daily.locked')}
+                </span>
               </div>
             </div>
           );
         }
 
-        // Handle unlocked assignments
+        // Handle unlocked assignments - simple assignment display
         return (
-          <div key={taskId} className="space-y-4">
-            {metadata?.dayNumber && (
-              <div className="flex items-center gap-3 mb-2">
-                {isCompleted ? (
-                  <CheckCircle className="w-5 h-5 text-sage-green flex-shrink-0" />
-                ) : (
-                  <div className="w-5 h-5 rounded-full border-2 border-gray-400 flex-shrink-0" />
-                )}
-                <h3 className="text-xl font-display text-gray-700">
-                  Day {metadata.dayNumber}
-                </h3>
-              </div>
-            )}
-            
-            {metadata?.dayNumber && (
-              <TextContent variant="body" className="mb-4">
-                {t(assignment.content)}
-              </TextContent>
-            )}
-            
-            <Assignment
-              assignment={assignment}
-              taskId={taskId}
-              level={completedTasks[taskId] || 0}
-              onLevelChange={onTaskLevelChange}
-              variant={metadata?.dayNumber ? "sage" : "golden"}
-            />
-          </div>
+          <Assignment
+            key={taskId}
+            assignment={assignment}
+            taskId={taskId}
+            level={completedTasks[taskId] || 0}
+            onLevelChange={onTaskLevelChange}
+            variant="sage"
+          />
         );
       })}
     </div>

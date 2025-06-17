@@ -17,7 +17,6 @@ const DancingFastSlowAssignments = () => {
   const daysUnlocked = 7;
 
   const weeklyAssignments = getWeeklyAssignments();
-  const walkingPracticeAssignment = getAssignment('walking-practice');
 
   const handleTaskLevelChange = (taskId: string, level: number) => {
     setCompletedTasks(prev => ({
@@ -26,41 +25,35 @@ const DancingFastSlowAssignments = () => {
     }));
   };
 
-  // Create all assignments in one array
+  // Create all assignments in one array - DAILY FIRST, then WEEKLY
   const allAssignments: Assignment[] = [
-    ...weeklyAssignments,
-    ...(walkingPracticeAssignment ? [walkingPracticeAssignment] : []),
-    // Add daily assignments
+    // Daily assignments first
     ...Array.from({ length: 7 }, (_, index) => {
       const dayNumber = index + 1;
       return getAssignment(`day${dayNumber}`)!;
-    })
+    }),
+    // Weekly assignments second
+    ...weeklyAssignments
   ];
 
   // Create assignment metadata for locked status
   const assignmentMetadata = [
-    // Weekly assignments (always unlocked)
-    ...weeklyAssignments.map((_, index) => ({ 
-      isLocked: false, 
-      dayNumber: null,
-      taskIdPrefix: 'weekly-assignment'
-    })),
-    // Walking practice (always unlocked)
-    ...(walkingPracticeAssignment ? [{ 
-      isLocked: false, 
-      dayNumber: null,
-      taskIdPrefix: 'walking-practice'
-    }] : []),
-    // Daily assignments (check lock status)
+    // Daily assignments metadata (check lock status)
     ...Array.from({ length: 7 }, (_, index) => {
       const dayNumber = index + 1;
       const status = getDayStatus(dayNumber, daysUnlocked);
       return {
         isLocked: status === 'locked' || status === 'tomorrow',
-        dayNumber,
+        dayNumber: null, // No day number display
         taskIdPrefix: `day${dayNumber}`
       };
-    })
+    }),
+    // Weekly assignments metadata (always unlocked)
+    ...weeklyAssignments.map((_, index) => ({ 
+      isLocked: false, 
+      dayNumber: null,
+      taskIdPrefix: 'weekly-assignment'
+    }))
   ];
 
   return (
@@ -78,7 +71,7 @@ const DancingFastSlowAssignments = () => {
           </TextContent>
         </StorySection>
 
-        {/* All Assignments in One List */}
+        {/* All Assignments in One Simple List */}
         <StorySection title={t('exercises.dancingFastSlow.allAssignments')} variant="assignment">
           <AssignmentList
             assignments={allAssignments}
