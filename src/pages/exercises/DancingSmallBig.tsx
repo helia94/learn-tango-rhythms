@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
@@ -8,9 +8,18 @@ import AudioSection from '@/components/ui/AudioSection';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
+import SmallAndBigDaily1to7 from '@/components/SmallAndBigDaily1to7';
 
 const DancingSmallBig = () => {
   const { t } = useTranslation();
+  const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
+
+  const handleTaskLevelChange = (taskId: string, level: number) => {
+    setCompletedTasks(prev => ({
+      ...prev,
+      [taskId]: level
+    }));
+  };
 
   const tips = [
     "You have to have more control and contact with the floor",
@@ -39,8 +48,19 @@ const DancingSmallBig = () => {
       {/* Topic Action Button */}
       <div className="max-w-4xl mx-auto px-4 mb-8">
         <div className="text-center">
-          <TopicStartButton />
+          <TopicStartButton 
+            topicKey="dancing-small-big"
+            topicIndex={1}
+          />
         </div>
+      </div>
+
+      {/* Daily System */}
+      <div className="max-w-4xl mx-auto px-4 mb-16">
+        <SmallAndBigDaily1to7 
+          completedTasks={completedTasks}
+          onTaskLevelChange={handleTaskLevelChange}
+        />
       </div>
 
       {/* Story Content */}

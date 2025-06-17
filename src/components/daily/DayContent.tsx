@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import LockedDayContent from './LockedDayContent';
+// Fast and Slow imports
 import Day1Content from './fast_and_slow/Day1Content';
 import Day2Content from './fast_and_slow/Day2Content';
 import Day3Content from './fast_and_slow/Day3Content';
@@ -10,6 +11,14 @@ import Day4Content from './fast_and_slow/Day4Content';
 import Day5Content from './fast_and_slow/Day5Content';
 import Day6Content from './fast_and_slow/Day6Content';
 import Day7Content from './fast_and_slow/Day7Content';
+// Small and Big imports
+import SmallBigDay1Content from './small_and_big/Day1Content';
+import SmallBigDay2Content from './small_and_big/Day2Content';
+import SmallBigDay3Content from './small_and_big/Day3Content';
+import SmallBigDay4Content from './small_and_big/Day4Content';
+import SmallBigDay5Content from './small_and_big/Day5Content';
+import SmallBigDay6Content from './small_and_big/Day6Content';
+import SmallBigDay7Content from './small_and_big/Day7Content';
 import { DayStatus } from './DayStatus';
 
 interface DayContentProps {
@@ -36,7 +45,7 @@ const DayContent: React.FC<DayContentProps> = ({
     return <LockedDayContent status={status} />;
   }
 
-  // Render specific day content
+  // Render specific day content based on topic
   const commonProps = { 
     completedTasks, 
     onTaskLevelChange,
@@ -44,6 +53,45 @@ const DayContent: React.FC<DayContentProps> = ({
     topicIndex
   };
 
+  // Route to the correct topic's daily content
+  if (topicName === 'dancing-small-big') {
+    switch (dayNumber) {
+      case 1:
+        return <SmallBigDay1Content {...commonProps} />;
+      case 2:
+        return <SmallBigDay2Content {...commonProps} />;
+      case 3:
+        return <SmallBigDay3Content {...commonProps} />;
+      case 4:
+        return <SmallBigDay4Content {...commonProps} />;
+      case 5:
+        return <SmallBigDay5Content {...commonProps} />;
+      case 6:
+        return <SmallBigDay6Content {...commonProps} />;
+      case 7:
+        return <SmallBigDay7Content {...commonProps} />;
+      default:
+        return (
+          <div className="space-y-6">
+            <p className="text-gray-700 text-lg leading-relaxed">
+              Day {dayNumber} content coming soon...
+            </p>
+            
+            <Assignment
+              assignment={{ content: 'daily.placeholderTask' as any, task: 'daily.placeholderTask' as any }}
+              taskId={`day-${dayNumber}-task`}
+              level={completedTasks[`day-${dayNumber}-task`] || 0}
+              onLevelChange={onTaskLevelChange}
+              variant="sage"
+              topicName={topicName}
+              topicIndex={topicIndex}
+            />
+          </div>
+        );
+    }
+  }
+
+  // Default to fast and slow content
   switch (dayNumber) {
     case 1:
       return <Day1Content {...commonProps} />;
@@ -64,11 +112,11 @@ const DayContent: React.FC<DayContentProps> = ({
       return (
         <div className="space-y-6">
           <p className="text-gray-700 text-lg leading-relaxed">
-            Day {dayNumber} {t('daily.placeholder')}
+            Day {dayNumber} {t('daily.placeholder' as any)}
           </p>
           
           <Assignment
-            assignment={{ content: 'daily.placeholderTask', task: 'daily.placeholderTask' }}
+            assignment={{ content: 'daily.placeholderTask' as any, task: 'daily.placeholderTask' as any }}
             taskId={`day-${dayNumber}-task`}
             level={completedTasks[`day-${dayNumber}-task`] || 0}
             onLevelChange={onTaskLevelChange}

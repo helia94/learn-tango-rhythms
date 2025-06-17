@@ -18,42 +18,42 @@ const DancingSmallBigAssignments = () => {
   const assignments = [
     {
       id: '1',
-      content: 'exercises.dancingSmallBig.assignment1' as const,
-      task: 'exercises.dancingSmallBig.assignment1' as const
+      content: 'exercises.dancingSmallBig.assignment1' as any,
+      task: 'exercises.dancingSmallBig.assignment1' as any
     },
     {
       id: '2',
-      content: 'exercises.dancingSmallBig.assignment2' as const,
-      task: 'exercises.dancingSmallBig.assignment2' as const
+      content: 'exercises.dancingSmallBig.assignment2' as any,
+      task: 'exercises.dancingSmallBig.assignment2' as any
     },
     {
       id: '3',
-      content: 'exercises.dancingSmallBig.assignment3' as const,
-      task: 'exercises.dancingSmallBig.assignment3' as const
+      content: 'exercises.dancingSmallBig.assignment3' as any,
+      task: 'exercises.dancingSmallBig.assignment3' as any
     },
     {
       id: '4',
-      content: 'exercises.dancingSmallBig.assignment4' as const,
-      task: 'exercises.dancingSmallBig.assignment4' as const
+      content: 'exercises.dancingSmallBig.assignment4' as any,
+      task: 'exercises.dancingSmallBig.assignment4' as any
     },
     {
       id: '5',
-      content: 'exercises.dancingSmallBig.assignment5' as const,
-      task: 'exercises.dancingSmallBig.assignment5' as const
+      content: 'exercises.dancingSmallBig.assignment5' as any,
+      task: 'exercises.dancingSmallBig.assignment5' as any
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       <PageHeader 
-        title={t('exercises.dancingSmallBig.allAssignments')} 
+        title={t('exercises.dancingSmallBig.allAssignments' as any)} 
         backRoute="/exercises/dancing-small-big"
       />
       
       <div className="max-w-4xl mx-auto px-4 pb-16">
         <div className="mb-8">
           <p className="text-lg text-warm-brown leading-relaxed">
-            {t('exercises.dancingSmallBig.assignmentsDescription')}
+            {t('exercises.dancingSmallBig.assignmentsDescription' as any)}
           </p>
         </div>
 
