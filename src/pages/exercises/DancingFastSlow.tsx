@@ -1,8 +1,6 @@
-
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
@@ -14,6 +12,7 @@ import SpeedCards from '@/components/ui/SpeedCards';
 import SpotifyEmbed from '@/components/ui/SpotifyEmbed';
 import CommentSection from '@/components/ui/CommentSection';
 import RatingSection from '@/components/ui/RatingSection';
+import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 
 // Audio players list for tracking purposes
@@ -52,7 +51,6 @@ export const audioPlayers = [
 const DancingFastSlow = () => {
   const { t } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
-  const [rhythmSpeed, setRhythmSpeed] = useState<string>('1');
 
   const weeklyAssignments = getWeeklyAssignments();
   const walkingPracticeAssignment = getAssignment('walking-practice');
@@ -62,15 +60,6 @@ const DancingFastSlow = () => {
       ...prev,
       [taskId]: level
     }));
-  };
-
-  const getRhythmPattern = (speed: string) => {
-    switch (speed) {
-      case '1': return [true, false, false, false]; // Beat 1 only
-      case '2': return [true, false, true, false];  // Beats 1 and 3
-      case '4': return [true, true, true, true];    // All beats
-      default: return [true, false, true, false];
-    }
   };
 
   const speedCards = [
@@ -151,45 +140,7 @@ const DancingFastSlow = () => {
           </div>
 
           {/* Interactive Rhythm Player */}
-          <div className="mb-8">
-            <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-6 border border-cream/20">
-              {/* Speed Toggle */}
-              <div className="flex justify-center mb-6">
-                <ToggleGroup 
-                  type="single" 
-                  value={rhythmSpeed} 
-                  onValueChange={(value) => value && setRhythmSpeed(value)}
-                  className="bg-warm-brown/40 rounded-lg p-1"
-                >
-                  <ToggleGroupItem 
-                    value="1" 
-                    className="data-[state=on]:bg-terracotta data-[state=on]:text-cream text-gray-600 hover:text-gray-700"
-                  >
-                    1
-                  </ToggleGroupItem>
-                  <ToggleGroupItem 
-                    value="2" 
-                    className="data-[state=on]:bg-golden-yellow data-[state=on]:text-warm-brown text-gray-600 hover:text-gray-700"
-                  >
-                    2
-                  </ToggleGroupItem>
-                  <ToggleGroupItem 
-                    value="4" 
-                    className="data-[state=on]:bg-dusty-rose data-[state=on]:text-cream text-gray-600 hover:text-gray-700"
-                  >
-                    4
-                  </ToggleGroupItem>
-                </ToggleGroup>
-              </div>
-
-              {/* Rhythm Player */}
-              <SimpleRhythmPlayer 
-                pattern={getRhythmPattern(rhythmSpeed)} 
-                label=""
-                speedLevel={1}
-              />
-            </div>
-          </div>
+          <InteractiveRhythmPlayer />
 
           {walkingPracticeAssignment && (
             <Assignment
