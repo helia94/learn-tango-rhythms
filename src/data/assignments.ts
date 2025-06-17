@@ -66,6 +66,10 @@ export const assignments: Record<string, Assignment> = {
   'weekly-assignment-4': {
     content: 'exercises.dancingFastSlow.assignment4',
     task: 'exercises.dancingFastSlow.assignment4'
+  },
+  'walking-practice': {
+    content: 'exercises.dancingFastSlow.practicedWalking',
+    task: 'exercises.dancingFastSlow.practicedWalking'
   }
 };
 

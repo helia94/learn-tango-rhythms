@@ -1,15 +1,15 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
-import { Checkbox } from '@/components/ui/checkbox';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import LanguageSelector from '@/components/LanguageSelector';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
-import { getWeeklyAssignments } from '@/data/assignments';
+import AssignmentList from '@/components/AssignmentList';
+import Assignment from '@/components/Assignment';
+import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 
 // Audio players list for tracking purposes
 export const audioPlayers = [
@@ -50,6 +50,7 @@ const DancingFastSlow = () => {
   const [rhythmSpeed, setRhythmSpeed] = useState<string>('1');
 
   const weeklyAssignments = getWeeklyAssignments();
+  const walkingPracticeAssignment = getAssignment('walking-practice');
 
   const handleTaskComplete = (taskId: string) => {
     setCompletedTasks(prev => ({
@@ -207,16 +208,15 @@ const DancingFastSlow = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <Checkbox 
-              id="task-1"
-              checked={completedTasks['task-1'] || false}
-              onCheckedChange={() => handleTaskComplete('task-1')}
+          {walkingPracticeAssignment && (
+            <Assignment
+              assignment={walkingPracticeAssignment}
+              taskId="task-1"
+              isCompleted={completedTasks['task-1'] || false}
+              onTaskComplete={handleTaskComplete}
+              variant="sage"
             />
-            <label htmlFor="task-1" className="text-gray-700 text-lg font-medium cursor-pointer">
-              {t('exercises.dancingFastSlow.practicedWalking')}
-            </label>
-          </div>
+          )}
         </div>
 
         {/* Music Speed Changes Section */}
@@ -291,20 +291,12 @@ const DancingFastSlow = () => {
             <h2 className="text-3xl font-display text-gray-800">{t('exercises.dancingFastSlow.weeklyAssignment')}</h2>
           </div>
           
-          <div className="space-y-6">
-            {weeklyAssignments.map((assignment, index) => (
-              <div key={index} className="flex items-start gap-4 bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
-                <Checkbox 
-                  id={`assignment-${index}`}
-                  checked={completedTasks[`assignment-${index}`] || false}
-                  onCheckedChange={() => handleTaskComplete(`assignment-${index}`)}
-                />
-                <label htmlFor={`assignment-${index}`} className="text-gray-700 text-lg cursor-pointer leading-relaxed">
-                  {t(assignment.content)}
-                </label>
-              </div>
-            ))}
-          </div>
+          <AssignmentList
+            assignments={weeklyAssignments}
+            completedTasks={completedTasks}
+            onTaskComplete={handleTaskComplete}
+            keyPrefix="assignment"
+          />
         </div>
 
         {/* Practice Playlist Section */}
