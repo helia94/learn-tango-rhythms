@@ -182,38 +182,59 @@ const GameProfileDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Activity Heatmap */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-white/20">
-        <h3 className="text-lg font-bold text-warm-brown mb-4">Monthly Activity</h3>
-        <div className="grid grid-cols-7 gap-1 mb-4">
-          {Array.from({ length: 30 }, (_, i) => {
-            const date = new Date();
-            date.setDate(date.getDate() - (29 - i));
-            const dateStr = date.toISOString().split('T')[0];
-            const dayData = engagementData.find(d => d.date === dateStr);
-            const hasActivity = dayData && dayData.sessions_count > 0;
-            
-            return (
-              <div
-                key={i}
-                className={`aspect-square rounded-sm transition-all duration-300 ${
-                  hasActivity 
-                    ? 'bg-emerald-500 scale-110' 
-                    : 'bg-gray-200'
-                }`}
-                title={`${date.toLocaleDateString()}: ${dayData?.sessions_count || 0} sessions`}
-              />
-            );
-          })}
-        </div>
-        <div className="flex items-center justify-between text-xs text-mushroom">
-          <span>Less active</span>
-          <div className="flex gap-1">
-            <div className="w-3 h-3 rounded-sm bg-gray-200" />
-            <div className="w-3 h-3 rounded-sm bg-emerald-300" />
-            <div className="w-3 h-3 rounded-sm bg-emerald-500" />
+      {/* Activity Heatmap - Compact Version */}
+      <div className="rounded-2xl p-4">
+        <h3 className="text-lg font-bold text-warm-brown mb-3 text-center">Monthly Activity</h3>
+        <div className="flex justify-center">
+          <div className="grid grid-cols-7 gap-1 max-w-fit">
+            {Array.from({ length: 28 }, (_, i) => {
+              const date = new Date();
+              date.setDate(date.getDate() - (27 - i));
+              const dateStr = date.toISOString().split('T')[0];
+              const dayData = engagementData.find(d => d.date === dateStr);
+              
+              // Activity levels for different colors like in reference image
+              let activityLevel = 0;
+              if (dayData && dayData.sessions_count > 0) {
+                if (dayData.sessions_count >= 3) activityLevel = 4; // darkest
+                else if (dayData.sessions_count >= 2) activityLevel = 3;
+                else if (dayData.sessions_count >= 1) activityLevel = 2;
+                else activityLevel = 1; // lightest
+              }
+              
+              const getActivityColor = (level: number) => {
+                switch (level) {
+                  case 0: return 'bg-sandy-beige/30'; // Very light beige for no activity
+                  case 1: return 'bg-sandy-beige/60'; // Light beige
+                  case 2: return 'bg-caramel/60'; // Light brown
+                  case 3: return 'bg-warm-brown/70'; // Medium brown
+                  case 4: return 'bg-warm-brown'; // Dark brown
+                  default: return 'bg-sandy-beige/30';
+                }
+              };
+              
+              return (
+                <div
+                  key={i}
+                  className={`w-3 h-3 rounded-full ${getActivityColor(activityLevel)} transition-all duration-300`}
+                  title={`${date.toLocaleDateString()}: ${dayData?.sessions_count || 0} sessions`}
+                />
+              );
+            })}
           </div>
-          <span>More active</span>
+        </div>
+        
+        {/* Legend */}
+        <div className="flex items-center justify-center gap-2 mt-3">
+          <span className="text-xs text-warm-brown/70">Less</span>
+          <div className="flex gap-1">
+            <div className="w-2 h-2 rounded-full bg-sandy-beige/30" />
+            <div className="w-2 h-2 rounded-full bg-sandy-beige/60" />
+            <div className="w-2 h-2 rounded-full bg-caramel/60" />
+            <div className="w-2 h-2 rounded-full bg-warm-brown/70" />
+            <div className="w-2 h-2 rounded-full bg-warm-brown" />
+          </div>
+          <span className="text-xs text-warm-brown/70">More</span>
         </div>
       </div>
 
