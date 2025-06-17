@@ -39,7 +39,10 @@ const Assignment: React.FC<AssignmentProps> = ({
   };
 
   return (
-    <div className={`flex items-center gap-4 ${getVariantStyles(variant)} backdrop-blur-sm rounded-2xl p-6 border ${className}`}>
+    <div className={`${getVariantStyles(variant)} backdrop-blur-sm rounded-2xl p-6 border ${className}`}>
+      <label className="text-gray-700 text-lg font-medium cursor-pointer block mb-4">
+        {t(assignment.content)}
+      </label>
       <div className="flex items-center">
         <LevelSelector
           level={level}
@@ -47,9 +50,6 @@ const Assignment: React.FC<AssignmentProps> = ({
         />
         <InfoModal />
       </div>
-      <label className="text-gray-700 text-lg font-medium cursor-pointer flex-1">
-        {t(assignment.content)}
-      </label>
     </div>
   );
 };
