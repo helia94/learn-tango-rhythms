@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
-import { Flame, Calendar, Trophy } from 'lucide-react';
+import { Flame, Calendar } from 'lucide-react';
 import { StreakData } from '@/hooks/useEngagementData';
 
 interface StreakDisplayProps {
@@ -13,60 +12,42 @@ const StreakDisplay: React.FC<StreakDisplayProps> = ({ streakData }) => {
   const weeklyStreak = streakData.find(s => s.streak_type === 'weekly');
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-3">
       {/* Daily Streak */}
-      <Card className="bg-gradient-to-br from-terracotta/10 to-burnt-orange/10 border-terracotta/20 p-6">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-terracotta/20 rounded-full flex items-center justify-center">
-            <Flame className="w-5 h-5 text-terracotta" />
+      <div className="bg-gradient-to-br from-red-500/20 to-orange-500/20 backdrop-blur-sm rounded-2xl p-3 border border-red-200/30">
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-8 h-8 bg-red-500/30 rounded-full flex items-center justify-center">
+            <Flame className="w-4 h-4 text-red-500" />
           </div>
           <div>
-            <h3 className="font-display text-lg text-warm-brown">Daily Streak</h3>
-            <p className="text-sm text-mushroom">Consecutive days of practice</p>
-          </div>
-        </div>
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-mushroom">Current</span>
-            <span className="text-2xl font-bold text-terracotta">
+            <div className="text-lg font-bold text-red-600">
               {dailyStreak?.current_streak || 0}
-            </span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-mushroom">Best</span>
-            <span className="text-lg font-semibold text-warm-brown">
-              {dailyStreak?.longest_streak || 0}
-            </span>
+            </div>
+            <div className="text-xs text-red-700 font-medium -mt-1">Daily Streak</div>
           </div>
         </div>
-      </Card>
+        <div className="text-xs text-red-600/80">
+          Best: {dailyStreak?.longest_streak || 0}
+        </div>
+      </div>
 
       {/* Weekly Streak */}
-      <Card className="bg-gradient-to-br from-sage-green/10 to-deep-teal/10 border-sage-green/20 p-6">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-sage-green/20 rounded-full flex items-center justify-center">
-            <Calendar className="w-5 h-5 text-sage-green" />
+      <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 backdrop-blur-sm rounded-2xl p-3 border border-blue-200/30">
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-8 h-8 bg-blue-500/30 rounded-full flex items-center justify-center">
+            <Calendar className="w-4 h-4 text-blue-500" />
           </div>
           <div>
-            <h3 className="font-display text-lg text-warm-brown">Weekly Streak</h3>
-            <p className="text-sm text-mushroom">Consecutive weeks of practice</p>
-          </div>
-        </div>
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-mushroom">Current</span>
-            <span className="text-2xl font-bold text-sage-green">
+            <div className="text-lg font-bold text-blue-600">
               {weeklyStreak?.current_streak || 0}
-            </span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-mushroom">Best</span>
-            <span className="text-lg font-semibold text-warm-brown">
-              {weeklyStreak?.longest_streak || 0}
-            </span>
+            </div>
+            <div className="text-xs text-blue-700 font-medium -mt-1">Weekly Streak</div>
           </div>
         </div>
-      </Card>
+        <div className="text-xs text-blue-600/80">
+          Best: {weeklyStreak?.longest_streak || 0}
+        </div>
+      </div>
     </div>
   );
 };

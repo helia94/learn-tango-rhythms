@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
 import { Sparkles, Heart, Target } from 'lucide-react';
 import { StreakData, EngagementData } from '@/hooks/useEngagementData';
 
@@ -25,19 +24,19 @@ const MotivationalMessage: React.FC<MotivationalMessageProps> = ({
     if (hasActivityToday) {
       if (currentStreak >= 7) {
         return {
-          message: "You're on fire! Your dedication is truly inspiring. Keep this amazing momentum going!",
+          message: "You're on fire! Your dedication is truly inspiring.",
           icon: Sparkles,
           color: "text-golden-yellow"
         };
       } else if (currentStreak >= 3) {
         return {
-          message: "Great job today! You're building a solid practice habit. Stay consistent!",
+          message: "Great job today! Building solid habits.",
           icon: Heart,
           color: "text-terracotta"
         };
       } else {
         return {
-          message: "Wonderful work today! Every practice session brings you closer to mastery.",
+          message: "Wonderful work! Every step counts.",
           icon: Target,
           color: "text-sage-green"
         };
@@ -45,13 +44,13 @@ const MotivationalMessage: React.FC<MotivationalMessageProps> = ({
     } else {
       if (currentStreak > 0) {
         return {
-          message: "Don't break the streak! A quick practice session today will keep your momentum alive.",
+          message: "Don't break the streak! Quick practice today?",
           icon: Target,
           color: "text-terracotta"
         };
       } else {
         return {
-          message: "Ready to start your tango journey today? Every expert was once a beginner!",
+          message: "Ready to start your tango journey today?",
           icon: Sparkles,
           color: "text-deep-teal"
         };
@@ -62,17 +61,17 @@ const MotivationalMessage: React.FC<MotivationalMessageProps> = ({
   const { message, icon: Icon, color } = getMotivationalMessage();
 
   return (
-    <Card className="bg-gradient-to-r from-cream/80 to-sandy-beige/80 backdrop-blur-sm border-warm-brown/20 shadow-lg rounded-organic p-6">
-      <div className="flex items-center gap-4">
-        <div className={`w-12 h-12 bg-white/50 rounded-full flex items-center justify-center`}>
-          <Icon className={`w-6 h-6 ${color}`} />
+    <div className="bg-gradient-to-r from-cream/60 to-sandy-beige/60 backdrop-blur-sm border border-warm-brown/20 shadow-md rounded-xl p-4">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 bg-white/50 rounded-full flex items-center justify-center">
+          <Icon className={`w-5 h-5 ${color}`} />
         </div>
         <div>
-          <h3 className="font-display text-lg text-warm-brown mb-2">Daily Motivation</h3>
-          <p className="text-mushroom leading-relaxed">{message}</p>
+          <h3 className="text-sm font-bold text-warm-brown mb-1">Daily Motivation</h3>
+          <p className="text-xs text-mushroom leading-relaxed">{message}</p>
         </div>
       </div>
-    </Card>
+    </div>
   );
 };
 

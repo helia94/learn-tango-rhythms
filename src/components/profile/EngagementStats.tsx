@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
 import { Clock, Target, TrendingUp, BookOpen } from 'lucide-react';
 import { EngagementData } from '@/hooks/useEngagementData';
 
@@ -26,50 +25,50 @@ const EngagementStats: React.FC<EngagementStatsProps> = ({ engagementData }) => 
   const stats = [
     {
       icon: Target,
-      label: 'Total Sessions',
+      label: 'Sessions',
       value: totalSessions.toString(),
       color: 'text-terracotta',
-      bgColor: 'bg-terracotta/10'
+      bgColor: 'bg-terracotta/20'
     },
     {
       icon: Clock,
-      label: 'Practice Time',
+      label: 'Time',
       value: formatTime(totalTimeMinutes),
       color: 'text-golden-yellow',
-      bgColor: 'bg-golden-yellow/10'
+      bgColor: 'bg-golden-yellow/20'
     },
     {
       icon: BookOpen,
-      label: 'Assignments Done',
+      label: 'Done',
       value: totalAssignments.toString(),
       color: 'text-sage-green',
-      bgColor: 'bg-sage-green/10'
+      bgColor: 'bg-sage-green/20'
     },
     {
       icon: TrendingUp,
-      label: 'Active Days',
+      label: 'Days',
       value: `${activeDays}/30`,
       color: 'text-deep-teal',
-      bgColor: 'bg-deep-teal/10'
+      bgColor: 'bg-deep-teal/20'
     }
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <Card key={index} className="bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-4">
-            <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 ${stat.bgColor} rounded-full flex items-center justify-center`}>
-                <Icon className={`w-5 h-5 ${stat.color}`} />
+          <div key={index} className="bg-white/80 backdrop-blur-sm rounded-xl p-3 shadow-md border border-white/20">
+            <div className="flex items-center gap-2">
+              <div className={`w-8 h-8 ${stat.bgColor} rounded-full flex items-center justify-center`}>
+                <Icon className={`w-4 h-4 ${stat.color}`} />
               </div>
               <div>
-                <p className="text-sm text-mushroom">{stat.label}</p>
                 <p className={`text-lg font-bold ${stat.color}`}>{stat.value}</p>
+                <p className="text-xs text-mushroom -mt-1">{stat.label}</p>
               </div>
             </div>
-          </Card>
+          </div>
         );
       })}
     </div>

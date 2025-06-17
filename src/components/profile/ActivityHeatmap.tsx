@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
 import { EngagementData } from '@/hooks/useEngagementData';
 
 interface ActivityHeatmapProps {
@@ -8,12 +7,12 @@ interface ActivityHeatmapProps {
 }
 
 const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ engagementData }) => {
-  // Generate last 7 weeks (49 days) for a nice heatmap
+  // Generate last 4 weeks (28 days) for a compact heatmap
   const generateDays = () => {
     const days = [];
     const today = new Date();
     
-    for (let i = 48; i >= 0; i--) {
+    for (let i = 27; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
       days.push(date);
@@ -36,39 +35,39 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ engagementData }) => 
 
   const getActivityColor = (level: number) => {
     switch (level) {
-      case 0: return 'bg-gray-100';
-      case 1: return 'bg-sage-green/30';
-      case 2: return 'bg-sage-green/60';
-      case 3: return 'bg-sage-green';
-      default: return 'bg-gray-100';
+      case 0: return 'bg-sandy-beige/30';
+      case 1: return 'bg-sandy-beige/60';
+      case 2: return 'bg-caramel/60';
+      case 3: return 'bg-warm-brown';
+      default: return 'bg-sandy-beige/30';
     }
   };
 
   const weeks = [];
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 4; i++) {
     weeks.push(days.slice(i * 7, (i + 1) * 7));
   }
 
-  const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-6">
-      <h3 className="font-display text-lg text-warm-brown mb-4">Activity Heatmap</h3>
+    <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-md border border-white/20">
+      <h3 className="text-sm font-bold text-warm-brown mb-3 text-center">4-Week Activity</h3>
       <div className="space-y-1">
         {dayLabels.map((label, dayIndex) => (
           <div key={label} className="flex items-center gap-1">
-            <div className="w-8 text-xs text-mushroom">{label}</div>
+            <div className="w-4 text-xs text-mushroom font-medium">{label}</div>
             <div className="flex gap-1">
               {weeks.map((week, weekIndex) => {
                 const day = week[dayIndex];
-                if (!day) return <div key={weekIndex} className="w-3 h-3" />;
+                if (!day) return <div key={weekIndex} className="w-2.5 h-2.5" />;
                 
                 const level = getActivityLevel(day);
                 return (
                   <div
                     key={weekIndex}
-                    className={`w-3 h-3 rounded-sm ${getActivityColor(level)} border border-gray-200`}
-                    title={`${day.toLocaleDateString()}: ${level} activities`}
+                    className={`w-2.5 h-2.5 rounded-sm ${getActivityColor(level)} transition-all duration-200`}
+                    title={`${day.toLocaleDateString()}: ${level} sessions`}
                   />
                 );
               })}
@@ -76,19 +75,19 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ engagementData }) => 
           </div>
         ))}
       </div>
-      <div className="flex items-center justify-between mt-4 text-xs text-mushroom">
+      <div className="flex items-center justify-between mt-3 text-xs text-mushroom">
         <span>Less</span>
         <div className="flex gap-1">
           {[0, 1, 2, 3].map(level => (
             <div
               key={level}
-              className={`w-3 h-3 rounded-sm ${getActivityColor(level)} border border-gray-200`}
+              className={`w-2 h-2 rounded-sm ${getActivityColor(level)}`}
             />
           ))}
         </div>
         <span>More</span>
       </div>
-    </Card>
+    </div>
   );
 };
 
