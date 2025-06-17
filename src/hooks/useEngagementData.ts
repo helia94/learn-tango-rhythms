@@ -66,7 +66,10 @@ export const useEngagementData = () => {
         .eq('user_id', user.id);
 
       if (streakError) throw streakError;
-      setStreakData(streaks || []);
+      setStreakData((streaks || []).map(streak => ({
+        ...streak,
+        streak_type: streak.streak_type as 'daily' | 'weekly'
+      })));
 
       // Fetch achievements
       const { data: userAchievements, error: achievementError } = await supabase
