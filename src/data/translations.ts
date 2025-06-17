@@ -1,4 +1,3 @@
-
 export type TranslationKey = 
   | 'common.backToHome'
   | 'common.backToRoadmap'
@@ -107,8 +106,6 @@ export type TranslationKey =
   | 'exercises.dancingFastSlow.assignmentsDescription'
   | 'exercises.dancingFastSlow.weeklyAssignments'
   | 'exercises.dancingFastSlow.seeAllAssignments'
-  | 'exercises.dancingFastSlow.startThisTopic'
-  | 'exercises.dancingFastSlow.topicActivated'
   | 'daily.title'
   | 'daily.subtitle'
   | 'daily.unlockDay'
@@ -622,14 +619,6 @@ export const translations = {
       seeAllAssignments: {
         en: "See All Assignments",
         de: "Alle Aufgaben anzeigen"
-      },
-      startThisTopic: {
-        en: "Start this topic",
-        de: "Dieses Thema starten"
-      },
-      topicActivated: {
-        en: "Topic Activated",
-        de: "Thema Aktiviert"
       }
     }
   },
