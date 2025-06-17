@@ -3,13 +3,13 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import LockedDayContent from './LockedDayContent';
-import Day1Content from './Day1Content';
-import Day2Content from './Day2Content';
-import Day3Content from './Day3Content';
-import Day4Content from './Day4Content';
-import Day5Content from './Day5Content';
-import Day6Content from './Day6Content';
-import Day7Content from './Day7Content';
+import Day1Content from './fast_and_slow/Day1Content';
+import Day2Content from './fast_and_slow/Day2Content';
+import Day3Content from './fast_and_slow/Day3Content';
+import Day4Content from './fast_and_slow/Day4Content';
+import Day5Content from './fast_and_slow/Day5Content';
+import Day6Content from './fast_and_slow/Day6Content';
+import Day7Content from './fast_and_slow/Day7Content';
 import { DayStatus } from './DayStatus';
 
 interface DayContentProps {
