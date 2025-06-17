@@ -80,7 +80,7 @@ const FastAndSlowDaily1to7 = () => {
         {[1, 2, 3, 4, 5, 6, 7].map(dayNumber => {
           const isActivated = whichDailiesWereActivated().includes(dayNumber);
           const isNextToActivate = nextDayToActivate === dayNumber;
-          const status = isActivated ? 'available' : isNextToActivate ? 'tomorrow' : 'locked';
+          const status = isActivated ? 'unlocked' : isNextToActivate ? 'tomorrow' : 'locked';
           const isCompleted = completedTasks[`day-${dayNumber}-task`] > 0;
           
           return (
