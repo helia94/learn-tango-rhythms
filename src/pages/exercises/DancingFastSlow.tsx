@@ -133,7 +133,8 @@ const DancingFastSlow = () => {
         <div className="text-center">
           <Button
             onClick={handleTopicAction}
-            className="bg-burnt-orange hover:bg-burnt-orange/90 text-cream px-8 py-3 text-lg font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105"
+            variant="outline"
+            className="bg-sandy-beige/80 hover:bg-sandy-beige border-warm-brown/30 text-warm-brown px-6 py-2 text-base font-medium rounded-lg shadow-sm transition-all duration-200 hover:shadow-md"
           >
             {user ? t('common.startThisTopic') : t('common.loginToStart')}
           </Button>
