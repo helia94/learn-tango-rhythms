@@ -61,62 +61,62 @@ export const smallAndBigTranslations = {
   daily: {
     en: {
       day1: {
-        content: "Now try different variations of small and large within the same phrase, always taking equal time. Try these four variations each multiple times: [big small small small] [small big small small] [small small big small] [small small small big]. How does each of them feel?",
-        task: "Practice the four step size variations within phrases, taking equal time for each step. Notice how each pattern feels different."
+        content: "Today we'll establish your baseline step size. Walk with your partner for 5 minutes in your most comfortable, natural step size. Pay attention to how this feels and what size feels most natural to you.",
+        task: "Walk with your partner for 5 minutes at your natural step size. Note what this size is and how it feels. This is your baseline for the week."
       },
       day2: {
-        content: "Listen to accents in the melody, accents are a beautiful way to show off with a very long step. Listen to some examples of accents in the music.",
-        task: "Practice identifying accents in tango melodies and highlighting them with very long steps. Listen carefully and respond to the musical accents."
+        content: "Today we explore the smallest possible steps. Starting from your natural size, gradually make your steps smaller and smaller until you reach the tiniest steps possible while maintaining connection.",
+        task: "Practice walking from normal size down to the smallest possible steps. Spend 5 minutes walking in tiny steps, focusing on maintaining balance and connection."
       },
       day3: {
-        content: "Listen to syncopations in the rhythm, they are also a good opportunity to highlight it with one large step and small one, or the reverse? How does each feel?",
-        task: "Practice responding to syncopations with contrasting step sizes - try large then small steps, and small then large steps. Notice how each feels."
+        content: "Today we work on larger steps. This requires more control, technique, and floor contact. Remember: push the floor more, go lower, and give your follower extra time.",
+        task: "Practice larger steps for 10 minutes. Focus on: stronger floor contact, lower posture, more control, and giving your follower extra patience."
       },
       day4: {
-        content: "To achieve larger steps in an open embrace is to have more elasticity in the arm and embrace instead of it being rigid, and also having more dissociation and separation from your partner. Look at this video for an example.",
-        task: "Practice larger steps in open embrace, focusing on arm elasticity and body dissociation rather than rigid connection."
+        content: "Today we listen to musical character. Learn to distinguish between staccato (rhythmical, detached) and legato (smooth, connected) musical phrases.",
+        task: "Listen to 3 tango pieces. For each song, identify sections that are staccato vs legato. Practice walking to match: smaller steps for staccato, your choice for legato."
       },
       day5: {
-        content: "Mix and match fast and slow speed with small and big steps, giving you 4 options. Make a 2 by 2 box to demonstrate: Fast+Small, Fast+Big, Slow+Small, Slow+Big.",
-        task: "Practice all four combinations: Fast+Small, Fast+Big, Slow+Small, Slow+Big. Create your own 2x2 practice matrix and explore each combination."
+        content: "Today we practice changing step size based on the music. When the music becomes more rhythmical (staccato), use smaller steps. When it becomes more singing-like (legato), you have more freedom.",
+        task: "Dance to 2 songs, consciously changing your step size based on the musical character. Smaller for staccato sections, varied for legato sections."
       },
       day6: {
-        content: "Normal size step is well… normal. Going big and going small step very slowly can build a good amount of drama in the dance. Slow down as much as you can or the music allows, then make a very small very slow step, try the same with a very big very slow step.",
-        task: "Practice creating drama through extremely slow movement with both very small and very large steps. Focus on building tension and emotion."
+        content: "Today we work on smooth transitions between different step sizes. The challenge is to change size fluidly without losing connection or balance.",
+        task: "Practice transitioning smoothly between tiny, normal, and large steps. Work on this for 10 minutes, focusing on maintaining connection throughout all transitions."
       },
       day7: {
-        content: "Allow follower to do many small steps on the bridges in the music. Bridge is the fun short improvisation that one instrument will play to connect two phrases, let's listen to some examples, always at the end.",
-        task: "Practice identifying musical bridges and allowing your follower to take many small steps during these instrumental improvisations."
+        content: "Today we put it all together: musical interpretation with step size variation. Listen carefully and let the music guide your choice of step size throughout entire songs.",
+        task: "Dance to 3 complete songs, using the full range of step sizes based on musical interpretation. Let the music completely guide your size choices."
       }
     },
     de: {
       day1: {
-        content: "Versuchen Sie nun verschiedene Variationen von klein und groß innerhalb derselben Phrase, wobei Sie immer gleich viel Zeit nehmen. Probieren Sie diese vier Variationen jeweils mehrmals: [groß klein klein klein] [klein groß klein klein] [klein klein groß klein] [klein klein klein groß]. Wie fühlt sich jede davon an?",
-        task: "Üben Sie die vier Schrittgrößenvariationen innerhalb von Phrasen und nehmen Sie sich für jeden Schritt gleich viel Zeit. Bemerken Sie, wie sich jedes Muster anders anfühlt."
+        content: "Heute etablieren wir Ihre Basis-Schrittgröße. Gehen Sie 5 Minuten mit Ihrem Partner in Ihrer bequemsten, natürlichsten Schrittgröße. Achten Sie darauf, wie sich das anfühlt und welche Größe sich am natürlichsten anfühlt.",
+        task: "Gehen Sie 5 Minuten mit Ihrem Partner in Ihrer natürlichen Schrittgröße. Notieren Sie, was diese Größe ist und wie sie sich anfühlt. Das ist Ihre Basis für die Woche."
       },
       day2: {
-        content: "Hören Sie auf Akzente in der Melodie, Akzente sind eine wunderschöne Möglichkeit, mit einem sehr langen Schritt zu glänzen. Hören Sie sich einige Beispiele für Akzente in der Musik an.",
-        task: "Üben Sie das Erkennen von Akzenten in Tango-Melodien und heben Sie sie mit sehr langen Schritten hervor. Hören Sie aufmerksam zu und reagieren Sie auf die musikalischen Akzente."
+        content: "Heute erkunden wir die kleinsten möglichen Schritte. Ausgehend von Ihrer natürlichen Größe, machen Sie Ihre Schritte allmählich kleiner und kleiner, bis Sie die winzigsten möglichen Schritte erreichen, während Sie die Verbindung beibehalten.",
+        task: "Üben Sie das Gehen von normaler Größe bis zu den kleinsten möglichen Schritten. Verbringen Sie 5 Minuten mit winzigen Schritten und konzentrieren Sie sich darauf, Balance und Verbindung zu erhalten."
       },
       day3: {
-        content: "Hören Sie auf Synkopen im Rhythmus, sie sind auch eine gute Gelegenheit, es mit einem großen Schritt und einem kleinen zu betonen, oder umgekehrt? Wie fühlt sich jedes an?",
-        task: "Üben Sie das Reagieren auf Synkopen mit kontrastierenden Schrittgrößen - probieren Sie große dann kleine Schritte und kleine dann große Schritte. Bemerken Sie, wie sich jedes anfühlt."
+        content: "Heute arbeiten wir an größeren Schritten. Das erfordert mehr Kontrolle, Technik und Bodenkontakt. Denken Sie daran: den Boden mehr drücken, tiefer gehen und Ihrem Follower extra Zeit geben.",
+        task: "Üben Sie 10 Minuten größere Schritte. Konzentrieren Sie sich auf: stärkeren Bodenkontakt, tiefere Haltung, mehr Kontrolle und Ihrem Follower extra Geduld geben."
       },
       day4: {
-        content: "Um größere Schritte in einer offenen Umarmung zu erreichen, ist mehr Elastizität im Arm und in der Umarmung erforderlich, anstatt starr zu sein, und auch mehr Dissoziation und Trennung von Ihrem Partner. Schauen Sie sich dieses Video als Beispiel an.",
-        task: "Üben Sie größere Schritte in offener Umarmung und konzentrieren Sie sich auf Arm-Elastizität und Körper-Dissoziation statt starrer Verbindung."
+        content: "Heute hören wir auf den musikalischen Charakter. Lernen Sie, zwischen Staccato (rhythmisch, getrennt) und Legato (glatt, verbunden) musikalischen Phrasen zu unterscheiden.",
+        task: "Hören Sie 3 Tango-Stücke. Identifizieren Sie für jedes Lied Abschnitte, die Staccato vs. Legato sind. Üben Sie das Gehen passend dazu: kleinere Schritte für Staccato, Ihre Wahl für Legato."
       },
       day5: {
-        content: "Mischen und kombinieren Sie schnelle und langsame Geschwindigkeit mit kleinen und großen Schritten, was Ihnen 4 Optionen gibt. Erstellen Sie eine 2x2-Box zur Demonstration: Schnell+Klein, Schnell+Groß, Langsam+Klein, Langsam+Groß.",
-        task: "Üben Sie alle vier Kombinationen: Schnell+Klein, Schnell+Groß, Langsam+Klein, Langsam+Groß. Erstellen Sie Ihre eigene 2x2-Übungsmatrix und erkunden Sie jede Kombination."
+        content: "Heute üben wir das Ändern der Schrittgröße basierend auf der Musik. Wenn die Musik rhythmischer wird (Staccato), verwenden Sie kleinere Schritte. Wenn sie gesangsähnlicher wird (Legato), haben Sie mehr Freiheit.",
+        task: "Tanzen Sie zu 2 Liedern und ändern Sie bewusst Ihre Schrittgröße basierend auf dem musikalischen Charakter. Kleiner für Staccato-Abschnitte, variiert für Legato-Abschnitte."
       },
       day6: {
-        content: "Normale Schrittgröße ist nun... normal. Große und kleine Schritte sehr langsam zu machen kann viel Drama in den Tanz bringen. Verlangsamen Sie so viel Sie können oder die Musik erlaubt, dann machen Sie einen sehr kleinen sehr langsamen Schritt, versuchen Sie dasselbe mit einem sehr großen sehr langsamen Schritt.",
-        task: "Üben Sie das Erzeugen von Drama durch extrem langsame Bewegung mit sowohl sehr kleinen als auch sehr großen Schritten. Konzentrieren Sie sich auf den Aufbau von Spannung und Emotion."
+        content: "Heute arbeiten wir an glatten Übergängen zwischen verschiedenen Schrittgrößen. Die Herausforderung besteht darin, die Größe fließend zu ändern, ohne Verbindung oder Balance zu verlieren.",
+        task: "Üben Sie glatten Übergang zwischen winzigen, normalen und großen Schritten. Arbeiten Sie 10 Minuten daran und konzentrieren Sie sich darauf, die Verbindung während aller Übergänge aufrechtzuerhalten."
       },
       day7: {
-        content: "Erlauben Sie dem Follower, viele kleine Schritte auf den Brücken in der Musik zu machen. Brücke ist die lustige kurze Improvisation, die ein Instrument spielt, um zwei Phrasen zu verbinden, hören wir uns einige Beispiele an, immer am Ende.",
-        task: "Üben Sie das Erkennen musikalischer Brücken und erlauben Sie Ihrem Follower, viele kleine Schritte während dieser instrumentalen Improvisationen zu machen."
+        content: "Heute fügen wir alles zusammen: musikalische Interpretation mit Schrittgrößenvariation. Hören Sie aufmerksam zu und lassen Sie die Musik Ihre Wahl der Schrittgröße während ganzer Lieder leiten.",
+        task: "Tanzen Sie zu 3 vollständigen Liedern und verwenden Sie die gesamte Bandbreite der Schrittgrößen basierend auf musikalischer Interpretation. Lassen Sie die Musik Ihre Größenwahlen vollständig leiten."
       }
     }
   }
