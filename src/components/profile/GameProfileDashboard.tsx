@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useEngagementData } from '@/hooks/useEngagementData';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
@@ -216,7 +215,7 @@ const GameProfileDashboard: React.FC = () => {
               return (
                 <div
                   key={i}
-                  className={`w-3 h-3 rounded-full ${getActivityColor(activityLevel)} transition-all duration-300`}
+                  className={`w-4 h-4 rounded-full ${getActivityColor(activityLevel)} transition-all duration-300`}
                   title={`${date.toLocaleDateString()}: ${dayData?.sessions_count || 0} sessions`}
                 />
               );
@@ -228,11 +227,11 @@ const GameProfileDashboard: React.FC = () => {
         <div className="flex items-center justify-center gap-2 mt-3">
           <span className="text-xs text-warm-brown/70">Less</span>
           <div className="flex gap-1">
-            <div className="w-2 h-2 rounded-full bg-sandy-beige/30" />
-            <div className="w-2 h-2 rounded-full bg-sandy-beige/60" />
-            <div className="w-2 h-2 rounded-full bg-caramel/60" />
-            <div className="w-2 h-2 rounded-full bg-warm-brown/70" />
-            <div className="w-2 h-2 rounded-full bg-warm-brown" />
+            <div className="w-2.5 h-2.5 rounded-full bg-sandy-beige/30" />
+            <div className="w-2.5 h-2.5 rounded-full bg-sandy-beige/60" />
+            <div className="w-2.5 h-2.5 rounded-full bg-caramel/60" />
+            <div className="w-2.5 h-2.5 rounded-full bg-warm-brown/70" />
+            <div className="w-2.5 h-2.5 rounded-full bg-warm-brown" />
           </div>
           <span className="text-xs text-warm-brown/70">More</span>
         </div>
