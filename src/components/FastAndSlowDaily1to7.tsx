@@ -13,10 +13,18 @@ const FastAndSlowDaily1to7 = () => {
   const { user } = useAuth();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
   
-  const { activatedDays, activateDay, isLoading } = useDailyTopicActivation('dancing-fast-slow', 0);
+  const { 
+    activatedDays, 
+    activateDay, 
+    isLoading, 
+    whichDailiesWereActivated,
+    whichDailyIsNextOnActivationOrder,
+    canActivateDay
+  } = useDailyTopicActivation('dancing-fast-slow', 0);
 
   // Calculate days unlocked based on activated days
-  const daysUnlocked = activatedDays.length > 0 ? Math.max(...activatedDays) : 0;
+  const daysUnlocked = Math.max(...whichDailiesWereActivated(), 0);
+  const nextDayToActivate = whichDailyIsNextOnActivationOrder();
 
   const handleTaskLevelChange = (taskId: string, level: number) => {
     setCompletedTasks(prev => ({
@@ -29,6 +37,12 @@ const FastAndSlowDaily1to7 = () => {
     if (!user) return;
     
     try {
+      const canActivate = await canActivateDay(dayNumber);
+      if (!canActivate) {
+        console.log(`Cannot activate day ${dayNumber} yet`);
+        return;
+      }
+      
       await activateDay(dayNumber);
     } catch (error) {
       console.error('Failed to activate day:', error);
@@ -55,11 +69,18 @@ const FastAndSlowDaily1to7 = () => {
         <p className="text-gray-600 mt-2">
           {t('daily.subtitle')} ({daysUnlocked}/7 days unlocked)
         </p>
+        {nextDayToActivate && (
+          <p className="text-sm text-golden-yellow mt-1">
+            Next day to unlock: Day {nextDayToActivate}
+          </p>
+        )}
       </div>
 
       <Accordion type="single" collapsible className="space-y-4">
         {[1, 2, 3, 4, 5, 6, 7].map(dayNumber => {
-          const status = getDayStatus(dayNumber, daysUnlocked);
+          const isActivated = whichDailiesWereActivated().includes(dayNumber);
+          const isNextToActivate = nextDayToActivate === dayNumber;
+          const status = isActivated ? 'available' : isNextToActivate ? 'tomorrow' : 'locked';
           const isCompleted = completedTasks[`day-${dayNumber}-task`] > 0;
           
           return (
@@ -70,7 +91,7 @@ const FastAndSlowDaily1to7 = () => {
               isCompleted={isCompleted}
               completedTasks={completedTasks}
               onTaskLevelChange={handleTaskLevelChange}
-              onDayActivation={user ? () => handleDayActivation(dayNumber) : undefined}
+              onDayActivation={user && isNextToActivate ? () => handleDayActivation(dayNumber) : undefined}
             />
           );
         })}
