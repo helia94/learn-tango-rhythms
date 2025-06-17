@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import AssignmentList from '@/components/AssignmentList';
-import { Assignment } from '@/data/assignments/fastAndSlow';
 
 const DancingSmallBigAssignments = () => {
   const { t } = useTranslation();
@@ -16,7 +15,7 @@ const DancingSmallBigAssignments = () => {
     }));
   };
 
-  const assignments: Assignment[] = [
+  const assignments = [
     {
       id: '1',
       content: "Practice walking with your partner at 3 different step sizes: tiny, normal, and large",
@@ -45,7 +44,7 @@ const DancingSmallBigAssignments = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cream via-sandy-beige to-dusty-rose">
+    <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       <PageHeader 
         title="All Assignments" 
         backRoute="/exercises/dancing-small-big"
