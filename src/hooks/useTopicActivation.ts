@@ -36,8 +36,42 @@ export const useTopicActivation = () => {
     }
   };
 
+  const isTopicActive = async (topicKey: string, topicIndex: number): Promise<boolean> => {
+    if (!user) {
+      return false;
+    }
+
+    try {
+      // Calculate the date 7 days ago
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+      const { data, error } = await supabase
+        .from('topic_activations')
+        .select('activated_at')
+        .eq('user_id', user.id)
+        .eq('topic_key', topicKey)
+        .eq('topic_index', topicIndex)
+        .gte('activated_at', sevenDaysAgo.toISOString())
+        .order('activated_at', { ascending: false })
+        .limit(1);
+
+      if (error) {
+        console.error('Error checking topic activation:', error);
+        return false;
+      }
+
+      // Topic is active if there's at least one activation within the last 7 days
+      return data && data.length > 0;
+    } catch (error) {
+      console.error('Error checking topic activation:', error);
+      return false;
+    }
+  };
+
   return {
     activateTopic,
+    isTopicActive,
     isActivating
   };
 };
