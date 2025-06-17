@@ -4,22 +4,33 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
+import { useTopicActivation } from '@/hooks/useTopicActivation';
 
 interface TopicStartButtonProps {
   className?: string;
+  topicKey?: string;
+  topicIndex?: number;
 }
 
-const TopicStartButton: React.FC<TopicStartButtonProps> = ({ className }) => {
+const TopicStartButton: React.FC<TopicStartButtonProps> = ({ 
+  className, 
+  topicKey = 'dancing-fast-slow',
+  topicIndex = 0 
+}) => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { activateTopic, isActivating } = useTopicActivation();
 
-  const handleTopicAction = () => {
+  const handleTopicAction = async () => {
     if (!user) {
       navigate('/auth');
     } else {
-      // Do nothing for now as requested
-      console.log('Start this topic clicked - no action implemented yet');
+      try {
+        await activateTopic(topicKey, topicIndex);
+      } catch (error) {
+        console.error('Failed to activate topic:', error);
+      }
     }
   };
 
@@ -27,9 +38,15 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({ className }) => {
     <Button
       onClick={handleTopicAction}
       variant="outline"
-      className={`bg-sandy-beige/80 hover:bg-sandy-beige border-warm-brown/30 text-warm-brown px-6 py-2 text-base font-medium rounded-lg shadow-sm transition-all duration-200 hover:shadow-md ${className || ''}`}
+      disabled={isActivating}
+      className={`bg-sandy-beige/80 hover:bg-sandy-beige border-warm-brown/30 text-warm-brown px-6 py-2 text-base font-medium rounded-lg shadow-sm transition-all duration-200 hover:shadow-md disabled:opacity-50 ${className || ''}`}
     >
-      {user ? t('common.startThisTopic') : t('common.loginToStart')}
+      {isActivating 
+        ? t('common.loading') || 'Loading...'
+        : user 
+          ? t('common.startThisTopic') 
+          : t('common.loginToStart')
+      }
     </Button>
   );
 };
