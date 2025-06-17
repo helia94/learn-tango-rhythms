@@ -1,7 +1,8 @@
-
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
+import { Button } from '@/components/ui/button';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
@@ -249,7 +250,14 @@ const DancingFastSlow = () => {
         <StorySection>
           <div className="text-center mb-8">
             <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-            <h2 className="text-3xl font-display text-gray-800">{t('exercises.dancingFastSlow.weeklyAssignment')}</h2>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <h2 className="text-3xl font-display text-gray-800">{t('exercises.dancingFastSlow.weeklyAssignment')}</h2>
+              <Link to="/exercises/dancing-fast-slow/assignments">
+                <Button variant="outline" className="bg-sage-green/20 border-sage-green/30 hover:bg-sage-green/30 text-gray-700">
+                  See All Assignments
+                </Button>
+              </Link>
+            </div>
           </div>
           
           <AssignmentList
