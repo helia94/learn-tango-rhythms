@@ -1,43 +1,25 @@
 
 import React from 'react';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Assignment } from '@/data/assignments';
-import LevelSelector from '@/components/LevelSelector';
 
 interface AssignmentListProps {
   assignments: Assignment[];
-  taskLevels: Record<string, number>;
-  onLevelChange: (taskId: string, level: number) => void;
+  completedTasks: Record<string, boolean>;
+  onTaskComplete: (taskId: string) => void;
   keyPrefix?: string;
   className?: string;
-  variant?: 'default' | 'sage' | 'golden' | 'dusty-rose' | 'terracotta';
 }
 
 const AssignmentList: React.FC<AssignmentListProps> = ({
   assignments,
-  taskLevels,
-  onLevelChange,
+  completedTasks,
+  onTaskComplete,
   keyPrefix = 'assignment',
-  className = '',
-  variant = 'golden'
+  className = ''
 }) => {
   const { t } = useTranslation();
-
-  const getVariantStyles = (variant: string) => {
-    switch (variant) {
-      case 'golden':
-        return 'bg-golden-yellow/20 border-golden-yellow/30';
-      case 'dusty-rose':
-        return 'bg-dusty-rose/20 border-dusty-rose/30';
-      case 'terracotta':
-        return 'bg-terracotta/20 border-terracotta/30';
-      case 'sage':
-        return 'bg-sage-green/20 border-sage-green/30';
-      case 'default':
-      default:
-        return 'bg-warm-brown/20 border-warm-brown/30';
-    }
-  };
 
   return (
     <div className={`space-y-6 ${className}`}>
@@ -47,16 +29,19 @@ const AssignmentList: React.FC<AssignmentListProps> = ({
         return (
           <div 
             key={taskId} 
-            className={`flex items-center gap-4 ${getVariantStyles(variant)} backdrop-blur-sm rounded-2xl p-6 border`}
+            className="flex items-start gap-4 bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30"
           >
-            <LevelSelector
-              level={taskLevels[taskId] || 0}
-              onLevelChange={(level) => onLevelChange(taskId, level)}
-              variant={variant}
+            <Checkbox 
+              id={taskId}
+              checked={completedTasks[taskId] || false}
+              onCheckedChange={() => onTaskComplete(taskId)}
             />
-            <div className="text-gray-700 text-lg leading-relaxed">
+            <label 
+              htmlFor={taskId} 
+              className="text-gray-700 text-lg cursor-pointer leading-relaxed"
+            >
               {t(assignment.content)}
-            </div>
+            </label>
           </div>
         );
       })}
