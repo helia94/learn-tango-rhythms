@@ -1,5 +1,4 @@
-
-import { TranslationKey } from './translations';
+import { TranslationKey } from '../translations';
 
 export interface Assignment {
   content: TranslationKey;
