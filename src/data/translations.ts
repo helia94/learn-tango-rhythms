@@ -108,6 +108,7 @@ export type TranslationKey =
   | 'exercises.dancingFastSlow.seeAllAssignments'
   | 'daily.title'
   | 'daily.subtitle'
+  | 'daily.unlockDay'
   | 'daily.unlockTomorrow'
   | 'daily.locked'
   | 'daily.availableTomorrow'
@@ -629,6 +630,10 @@ export const translations = {
     subtitle: {
       en: "Progress through 7 days of focused practice",
       de: "7 Tage konzentriertes Üben - Schritt für Schritt zum Ziel"
+    },
+    unlockDay: {
+      en: "Unlock Day",
+      de: "Tag freischalten"
     },
     unlockTomorrow: {
       en: "You can unlock this tomorrow",
