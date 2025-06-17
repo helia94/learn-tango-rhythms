@@ -17,7 +17,7 @@ import RatingSection from '@/components/ui/RatingSection';
 import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
 import TextContent from '@/components/ui/TextContent';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
-import { Button } from '@/components/ui/button';
+import TopicStartButton from '@/components/ui/TopicStartButton';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
@@ -131,13 +131,7 @@ const DancingFastSlow = () => {
       {/* Topic Action Button */}
       <div className="max-w-4xl mx-auto px-4 mb-8">
         <div className="text-center">
-          <Button
-            onClick={handleTopicAction}
-            variant="outline"
-            className="bg-sandy-beige/80 hover:bg-sandy-beige border-warm-brown/30 text-warm-brown px-6 py-2 text-base font-medium rounded-lg shadow-sm transition-all duration-200 hover:shadow-md"
-          >
-            {user ? t('common.startThisTopic') : t('common.loginToStart')}
-          </Button>
+          <TopicStartButton />
         </div>
       </div>
 
