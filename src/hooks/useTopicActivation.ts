@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -128,11 +127,55 @@ export const useTopicActivation = () => {
     }
   };
 
+  const getTopicDeadline = async (topicKey: string, topicIndex: number): Promise<Date | null> => {
+    if (!user) {
+      return null;
+    }
+
+    try {
+      // First check if the topic is activated
+      const isActive = await isTopicActive(topicKey, topicIndex);
+      if (!isActive) {
+        return null;
+      }
+
+      // Get the most recent activation for this topic
+      const { data, error } = await supabase
+        .from('topic_activations')
+        .select('activated_at')
+        .eq('user_id', user.id)
+        .eq('topic_key', topicKey)
+        .eq('topic_index', topicIndex)
+        .order('activated_at', { ascending: false })
+        .limit(1);
+
+      if (error) {
+        console.error('Error getting topic deadline:', error);
+        return null;
+      }
+
+      if (!data || data.length === 0) {
+        return null;
+      }
+
+      // Calculate deadline: 7 days from the activation date
+      const activationDate = new Date(data[0].activated_at);
+      const deadline = new Date(activationDate);
+      deadline.setDate(deadline.getDate() + 7);
+
+      return deadline;
+    } catch (error) {
+      console.error('Error calculating topic deadline:', error);
+      return null;
+    }
+  };
+
   return {
     activateTopic,
     isTopicActive,
     hasActiveTopic,
     getActiveTopic,
+    getTopicDeadline,
     isActivating
   };
 };
