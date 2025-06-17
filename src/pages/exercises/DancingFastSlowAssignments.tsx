@@ -13,9 +13,6 @@ const DancingFastSlowAssignments = () => {
   const { t, currentLanguage } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
 
-  // Add console log to debug language switching
-  console.log('Current language in DancingFastSlowAssignments:', currentLanguage);
-
   // Simulate user progress (0-7 days unlocked)
   const daysUnlocked = 7;
 
@@ -60,7 +57,7 @@ const DancingFastSlowAssignments = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
+    <div key={currentLanguage} className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       <PageHeader 
         title={t('exercises.dancingFastSlow.allAssignments')} 
         backRoute="/exercises/dancing-fast-slow"
