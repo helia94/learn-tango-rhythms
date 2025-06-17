@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
@@ -59,9 +60,34 @@ const DancingFastSlow = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
+  const { getAllLatestAssignmentLevelByTopic } = useAssignmentReporting();
 
   const weeklyAssignments = getWeeklyAssignments();
   const walkingPracticeAssignment = getAssignment('walking-practice');
+
+  // Fetch assignment levels on component mount
+  useEffect(() => {
+    const fetchAssignmentLevels = async () => {
+      if (!user) return;
+
+      try {
+        const assignmentLevels = await getAllLatestAssignmentLevelByTopic('dancing-fast-slow', 0);
+        console.log('Fetched assignment levels:', assignmentLevels);
+        
+        // Convert to completedTasks format
+        const tasksMap: Record<string, number> = {};
+        assignmentLevels.forEach(assignment => {
+          tasksMap[assignment.assignment_key] = assignment.level;
+        });
+        
+        setCompletedTasks(tasksMap);
+      } catch (error) {
+        console.error('Error fetching assignment levels:', error);
+      }
+    };
+
+    fetchAssignmentLevels();
+  }, [user, getAllLatestAssignmentLevelByTopic]);
 
   const handleTaskLevelChange = (taskId: string, level: number) => {
     setCompletedTasks(prev => ({
@@ -199,6 +225,8 @@ const DancingFastSlow = () => {
               level={completedTasks['task-1'] || 0}
               onLevelChange={handleTaskLevelChange}
               variant="sage"
+              topicName="dancing-fast-slow"
+              topicIndex={0}
             />
           )}
         </StorySection>
@@ -283,6 +311,8 @@ const DancingFastSlow = () => {
             completedTasks={completedTasks}
             onTaskLevelChange={handleTaskLevelChange}
             keyPrefix="assignment"
+            topicName="dancing-fast-slow"
+            topicIndex={0}
           />
         </StorySection>
 
@@ -302,7 +332,10 @@ const DancingFastSlow = () => {
         </StorySection>
 
         {/* Daily Assignments Section */}
-        <FastAndSlowDaily1to7 />
+        <FastAndSlowDaily1to7 
+          completedTasks={completedTasks}
+          onTaskLevelChange={handleTaskLevelChange}
+        />
 
         {/* Comment Section */}
         <CommentSection 

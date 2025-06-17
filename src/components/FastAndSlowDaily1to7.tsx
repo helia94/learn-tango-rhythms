@@ -8,10 +8,17 @@ import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 import DayItem from '@/components/daily/DayItem';
 import { getDayStatus } from '@/components/daily/DayStatus';
 
-const FastAndSlowDaily1to7 = () => {
+interface FastAndSlowDaily1to7Props {
+  completedTasks: Record<string, number>;
+  onTaskLevelChange: (taskId: string, level: number) => void;
+}
+
+const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
+  completedTasks,
+  onTaskLevelChange
+}) => {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
   
   const { 
     activatedDays, 
@@ -25,13 +32,6 @@ const FastAndSlowDaily1to7 = () => {
   // Calculate days unlocked based on activated days
   const daysUnlocked = Math.max(...whichDailiesWereActivated(), 0);
   const nextDayToActivate = whichDailyIsNextOnActivationOrder();
-
-  const handleTaskLevelChange = (taskId: string, level: number) => {
-    setCompletedTasks(prev => ({
-      ...prev,
-      [taskId]: level
-    }));
-  };
 
   const handleDayActivation = async (dayNumber: number) => {
     if (!user) return;
@@ -90,7 +90,7 @@ const FastAndSlowDaily1to7 = () => {
               status={status}
               isCompleted={isCompleted}
               completedTasks={completedTasks}
-              onTaskLevelChange={handleTaskLevelChange}
+              onTaskLevelChange={onTaskLevelChange}
               onDayActivation={user && isNextToActivate ? () => handleDayActivation(dayNumber) : undefined}
             />
           );
