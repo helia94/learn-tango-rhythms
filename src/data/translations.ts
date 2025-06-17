@@ -102,6 +102,7 @@ export type TranslationKey =
   | 'exercises.dancingFastSlow.allAssignments'
   | 'exercises.dancingFastSlow.assignmentsDescription'
   | 'exercises.dancingFastSlow.weeklyAssignments'
+  | 'exercises.dancingFastSlow.seeAllAssignments'
   | 'daily.title'
   | 'daily.subtitle'
   | 'daily.unlockTomorrow'
@@ -598,6 +599,10 @@ export const translations = {
       ratePlaceholder: {
         en: "Review system coming soon...",
         de: "Bewertungssystem kommt bald..."
+      },
+      seeAllAssignments: {
+        en: "See All Assignments",
+        de: "Alle Aufgaben anzeigen"
       }
     }
   },
