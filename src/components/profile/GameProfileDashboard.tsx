@@ -2,55 +2,76 @@
 import React, { useEffect } from 'react';
 import { useEngagementData } from '@/hooks/useEngagementData';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
-import { Flame, Target, Trophy, Sparkles, TrendingUp } from 'lucide-react';
+import { useTopicActivation } from '@/hooks/useTopicActivation';
+import { Flame, Calendar, TrendingUp, Target } from 'lucide-react';
 
 const GameProfileDashboard: React.FC = () => {
   const {
     engagementData,
     streakData,
-    achievements,
     isLoading,
     updateDailyEngagement
   } = useEngagementData();
 
   const { getAllLatestAssignmentLevelByTopic } = useAssignmentReporting();
-  const [masteryPercentage, setMasteryPercentage] = React.useState(0);
+  const { getActiveTopic } = useTopicActivation();
+  const [topicsMastery, setTopicsMastery] = React.useState<Array<{
+    topicName: string;
+    masteryPercentage: number;
+    totalAssignments: number;
+  }>>([]);
 
   // Update engagement when component mounts
   useEffect(() => {
     updateDailyEngagement(1, 5, 0);
   }, []);
 
-  // Calculate mastery
+  // Calculate mastery for all activated topics
   useEffect(() => {
-    const fetchMastery = async () => {
+    const fetchAllTopicsMastery = async () => {
       try {
-        const assignments = await getAllLatestAssignmentLevelByTopic('dancing-fast-slow', 0);
-        
-        // Fixed calculation: Week one has 12 assignments total
-        const totalAssignments = 12;
-        const totalPossibleLevels = totalAssignments * 4; // 48 points total
-        const totalCurrentLevels = assignments.reduce((sum, a) => sum + a.level, 0);
-        
-        const percentage = totalPossibleLevels > 0 
-          ? Math.round((totalCurrentLevels / totalPossibleLevels) * 100) 
-          : 0;
-        
-        console.log(`Mastery calculation: ${totalCurrentLevels} / ${totalPossibleLevels} = ${percentage}%`);
-        setMasteryPercentage(percentage);
+        // For now, we'll focus on the main topic since that's what's implemented
+        const activeTopic = await getActiveTopic();
+        if (activeTopic) {
+          const assignments = await getAllLatestAssignmentLevelByTopic(activeTopic.topic_key, activeTopic.topic_index);
+          
+          const totalAssignments = 12; // Week one has 12 assignments
+          const totalPossibleLevels = totalAssignments * 4; // 48 points total
+          const totalCurrentLevels = assignments.reduce((sum, a) => sum + a.level, 0);
+          const completedAssignments = assignments.filter(a => a.level > 0).length;
+          
+          const percentage = totalPossibleLevels > 0 
+            ? Math.round((totalCurrentLevels / totalPossibleLevels) * 100) 
+            : 0;
+          
+          setTopicsMastery([{
+            topicName: 'Fast & Slow Dancing',
+            masteryPercentage: percentage,
+            totalAssignments: completedAssignments
+          }]);
+        } else {
+          setTopicsMastery([]);
+        }
       } catch (error) {
-        console.error('Error fetching mastery:', error);
+        console.error('Error fetching topics mastery:', error);
       }
     };
-    fetchMastery();
-  }, [getAllLatestAssignmentLevelByTopic]);
+    fetchAllTopicsMastery();
+  }, [getAllLatestAssignmentLevelByTopic, getActiveTopic]);
 
   // Dynamic color system based on mastery percentage
   const getMasteryColor = (percentage: number) => {
-    if (percentage >= 80) return 'sage-green'; // High mastery - green
-    if (percentage >= 60) return 'golden-yellow'; // Good mastery - yellow
-    if (percentage >= 30) return 'terracotta'; // Medium mastery - orange
-    return 'warm-brown'; // Low mastery - brown
+    if (percentage >= 80) return 'bg-emerald-500'; // High mastery - green
+    if (percentage >= 60) return 'bg-yellow-500'; // Good mastery - yellow
+    if (percentage >= 30) return 'bg-orange-500'; // Medium mastery - orange
+    return 'bg-amber-800'; // Low mastery - brown
+  };
+
+  const getMasteryTextColor = (percentage: number) => {
+    if (percentage >= 80) return 'text-emerald-600';
+    if (percentage >= 60) return 'text-yellow-600';
+    if (percentage >= 30) return 'text-orange-600';
+    return 'text-amber-800';
   };
 
   if (isLoading) {
@@ -62,155 +83,112 @@ const GameProfileDashboard: React.FC = () => {
   }
 
   const dailyStreak = streakData.find(s => s.streak_type === 'daily');
-  const totalSessions = engagementData.reduce((sum, day) => sum + day.sessions_count, 0);
-  const todayActivity = engagementData.find(d => 
-    d.date === new Date().toISOString().split('T')[0]
-  );
-
-  // Top 5 most relevant things to show
-  const topItems = [
-    {
-      type: 'streak',
-      value: dailyStreak?.current_streak || 0,
-      icon: Flame,
-      color: 'terracotta',
-      label: 'Day Streak',
-      isMain: true
-    },
-    {
-      type: 'mastery',
-      value: masteryPercentage,
-      icon: Target,
-      color: getMasteryColor(masteryPercentage),
-      label: 'Mastery',
-      isMain: true
-    },
-    {
-      type: 'sessions',
-      value: totalSessions,
-      icon: TrendingUp,
-      color: 'golden-yellow',
-      label: 'Sessions',
-      isMain: false
-    },
-    {
-      type: 'achievements',
-      value: achievements.length,
-      icon: Trophy,
-      color: 'deep-teal',
-      label: 'Badges',
-      isMain: false
-    }
-  ];
-
-  const getMotivationalEmoji = () => {
-    const streak = dailyStreak?.current_streak || 0;
-    if (streak >= 7) return '🔥';
-    if (streak >= 3) return '⭐';
-    if (todayActivity?.sessions_count > 0) return '🎯';
-    return '🚀';
-  };
+  const weeklyStreak = streakData.find(s => s.streak_type === 'weekly');
+  const totalAssignments = topicsMastery.reduce((sum, topic) => sum + topic.totalAssignments, 0);
 
   return (
-    <div className="space-y-8">
-      {/* Main Hero Visual */}
-      <div className="relative">
-        <div className="bg-gradient-to-br from-terracotta/20 via-golden-yellow/10 to-sage-green/20 rounded-3xl p-8 backdrop-blur-sm border border-warm-brown/10">
-          <div className="flex items-center justify-center mb-6">
-            <div className="text-6xl animate-organic-pulse">
-              {getMotivationalEmoji()}
-            </div>
-          </div>
-          
-          {/* Main Stats Circle */}
-          <div className="flex justify-center items-center gap-8">
-            {topItems.filter(item => item.isMain).map((item) => {
-              const Icon = item.icon;
-              const circumference = 2 * Math.PI * 35;
-              const strokeDasharray = item.type === 'mastery' 
-                ? `${(item.value / 100) * circumference} ${circumference}`
-                : `${Math.min(item.value / 30, 1) * circumference} ${circumference}`;
-              
-              return (
-                <div key={item.type} className="relative">
-                  <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 80 80">
-                    <circle
-                      cx="40"
-                      cy="40"
-                      r="35"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      fill="none"
-                      className="text-gray-200"
-                    />
-                    <circle
-                      cx="40"
-                      cy="40"
-                      r="35"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      fill="none"
-                      strokeDasharray={strokeDasharray}
-                      className={`text-${item.color} transition-all duration-1000`}
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <Icon className={`w-6 h-6 text-${item.color} mb-1`} />
-                    <span className={`text-xl font-bold text-${item.color}`}>
-                      {item.value}{item.type === 'mastery' ? '%' : ''}
-                    </span>
-                  </div>
-                  <div className="text-center mt-2">
-                    <span className="text-xs text-mushroom font-medium">{item.label}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+    <div className="space-y-6 px-4 py-6">
+      {/* Mastery Progress - Stacked Bar Chart Style */}
+      <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-white/20">
+        <div className="flex items-center gap-3 mb-6">
+          <Target className="w-6 h-6 text-terracotta" />
+          <h3 className="text-xl font-bold text-warm-brown">Topic Mastery</h3>
         </div>
-      </div>
-
-      {/* Secondary Stats */}
-      <div className="grid grid-cols-2 gap-4">
-        {topItems.filter(item => !item.isMain).map((item) => {
-          const Icon = item.icon;
-          return (
-            <div key={item.type} className="bg-white/40 backdrop-blur-sm rounded-2xl p-4 border border-warm-brown/10">
-              <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 bg-${item.color}/20 rounded-full flex items-center justify-center`}>
-                  <Icon className={`w-5 h-5 text-${item.color}`} />
-                </div>
-                <div>
-                  <div className={`text-2xl font-bold text-${item.color}`}>{item.value}</div>
-                  <div className="text-xs text-mushroom">{item.label}</div>
-                </div>
+        
+        <div className="space-y-4">
+          {topicsMastery.map((topic, index) => (
+            <div key={index} className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium text-warm-brown">{topic.topicName}</span>
+                <span className={`text-2xl font-bold ${getMasteryTextColor(topic.masteryPercentage)}`}>
+                  {topic.masteryPercentage}%
+                </span>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                <div 
+                  className={`h-full ${getMasteryColor(topic.masteryPercentage)} transition-all duration-1000 ease-out rounded-full`}
+                  style={{ width: `${topic.masteryPercentage}%` }}
+                />
+              </div>
+              
+              <div className="text-xs text-mushroom text-right">
+                {topic.totalAssignments} assignments completed
               </div>
             </div>
-          );
-        })}
+          ))}
+          
+          {topicsMastery.length === 0 && (
+            <div className="text-center py-8 text-mushroom">
+              <Target className="w-12 h-12 mx-auto mb-3 opacity-50" />
+              <p>No topics activated yet</p>
+              <p className="text-xs">Start learning to see your progress!</p>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Recent Achievement Badge */}
-      {achievements.length > 0 && (
-        <div className="flex justify-center">
-          <div className="bg-gradient-to-r from-golden-yellow/20 to-terracotta/20 rounded-full px-6 py-3 border border-golden-yellow/30">
-            <div className="flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-golden-yellow" />
-              <span className="text-warm-brown font-medium">
-                Latest: {achievements[0].achievement_name}
-              </span>
-              <Sparkles className="w-4 h-4 text-terracotta" />
+      {/* Streaks Row */}
+      <div className="grid grid-cols-2 gap-4">
+        {/* Daily Streak */}
+        <div className="bg-gradient-to-br from-red-500/20 to-orange-500/20 backdrop-blur-sm rounded-2xl p-4 border border-red-200/30">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center">
+              <Flame className="w-6 h-6 text-red-500" />
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-red-600">
+                {dailyStreak?.current_streak || 0}
+              </div>
+              <div className="text-xs text-red-700 font-medium">Daily Streak</div>
+              <div className="text-xs text-red-600/80">
+                Best: {dailyStreak?.longest_streak || 0}
+              </div>
             </div>
           </div>
         </div>
-      )}
 
-      {/* Quick Activity Dots */}
-      <div className="flex justify-center">
-        <div className="flex gap-1">
-          {Array.from({ length: 7 }, (_, i) => {
+        {/* Weekly Streak */}
+        <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 backdrop-blur-sm rounded-2xl p-4 border border-blue-200/30">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
+              <Calendar className="w-6 h-6 text-blue-500" />
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-blue-600">
+                {weeklyStreak?.current_streak || 0}
+              </div>
+              <div className="text-xs text-blue-700 font-medium">Weekly Streak</div>
+              <div className="text-xs text-blue-600/80">
+                Best: {weeklyStreak?.longest_streak || 0}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Total Assignments Completed */}
+      <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm rounded-2xl p-4 border border-purple-200/30">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center">
+            <TrendingUp className="w-6 h-6 text-purple-500" />
+          </div>
+          <div>
+            <div className="text-2xl font-bold text-purple-600">{totalAssignments}</div>
+            <div className="text-sm text-purple-700 font-medium">Assignments Completed</div>
+            <div className="text-xs text-purple-600/80">Any progress counts!</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Activity Heatmap */}
+      <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-white/20">
+        <h3 className="text-lg font-bold text-warm-brown mb-4">Monthly Activity</h3>
+        <div className="grid grid-cols-7 gap-1 mb-4">
+          {Array.from({ length: 30 }, (_, i) => {
             const date = new Date();
-            date.setDate(date.getDate() - (6 - i));
+            date.setDate(date.getDate() - (29 - i));
             const dateStr = date.toISOString().split('T')[0];
             const dayData = engagementData.find(d => d.date === dateStr);
             const hasActivity = dayData && dayData.sessions_count > 0;
@@ -218,15 +196,32 @@ const GameProfileDashboard: React.FC = () => {
             return (
               <div
                 key={i}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`aspect-square rounded-sm transition-all duration-300 ${
                   hasActivity 
-                    ? 'bg-sage-green scale-110 shadow-lg' 
+                    ? 'bg-emerald-500 scale-110' 
                     : 'bg-gray-200'
                 }`}
-                title={date.toLocaleDateString()}
+                title={`${date.toLocaleDateString()}: ${dayData?.sessions_count || 0} sessions`}
               />
             );
           })}
+        </div>
+        <div className="flex items-center justify-between text-xs text-mushroom">
+          <span>Less active</span>
+          <div className="flex gap-1">
+            <div className="w-3 h-3 rounded-sm bg-gray-200" />
+            <div className="w-3 h-3 rounded-sm bg-emerald-300" />
+            <div className="w-3 h-3 rounded-sm bg-emerald-500" />
+          </div>
+          <span>More active</span>
+        </div>
+      </div>
+
+      {/* Motivational Footer */}
+      <div className="text-center py-4">
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-terracotta/20 to-golden-yellow/20 rounded-full px-6 py-3 border border-terracotta/30">
+          <span className="text-2xl">🎯</span>
+          <span className="text-warm-brown font-medium">Keep going! Every step counts.</span>
         </div>
       </div>
     </div>
