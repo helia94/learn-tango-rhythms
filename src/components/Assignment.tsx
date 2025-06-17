@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
-import { Assignment as AssignmentType } from '@/data/assignments';
+import { Assignment as AssignmentType } from '@/data/assignments/fastAndSlow';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
 import LevelSelector from './LevelSelector';
 import InfoModal from './InfoModal';

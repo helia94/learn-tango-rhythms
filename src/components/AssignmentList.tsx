@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Lock } from 'lucide-react';
-import { Assignment as AssignmentType } from '@/data/assignments';
+import { Assignment as AssignmentType } from '@/data/assignments/fastAndSlow';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from './Assignment';
 

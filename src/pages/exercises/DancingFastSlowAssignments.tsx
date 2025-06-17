@@ -1,13 +1,12 @@
-
 import React, { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
 import AssignmentList from '@/components/AssignmentList';
 import TextContent from '@/components/ui/TextContent';
-import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
+import { getWeeklyAssignments, getAssignment } from '@/data/assignments/fastAndSlow';
 import { getDayStatus } from '@/components/daily/DayStatus';
-import { Assignment } from '@/data/assignments';
+import { Assignment } from '@/data/assignments/fastAndSlow';
 
 const DancingFastSlowAssignments = () => {
   const { t, currentLanguage } = useTranslation();

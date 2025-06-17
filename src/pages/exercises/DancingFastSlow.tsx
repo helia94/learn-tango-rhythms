@@ -19,7 +19,7 @@ import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
 import TextContent from '@/components/ui/TextContent';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TopicStartButton from '@/components/ui/TopicStartButton';
-import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
+import { getWeeklyAssignments, getAssignment } from '@/data/assignments/fastAndSlow';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
 // Audio players list for tracking purposes
