@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
@@ -58,10 +60,59 @@ const DancingFastSlow = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { getLatestAssignmentLevel } = useAssignmentReporting();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
+  const [isLoadingAssignments, setIsLoadingAssignments] = useState(false);
 
   const weeklyAssignments = getWeeklyAssignments();
   const walkingPracticeAssignment = getAssignment('walking-practice');
+
+  // Load user's latest assignment levels when component mounts
+  useEffect(() => {
+    const loadAssignmentLevels = async () => {
+      if (!user) return;
+
+      setIsLoadingAssignments(true);
+      try {
+        const topicName = 'dancing-fast-slow';
+        const topicIndex = 0;
+
+        // Load levels for all weekly assignments
+        const weeklyLevels: Record<string, number> = {};
+        for (let i = 0; i < weeklyAssignments.length; i++) {
+          const assignmentKey = `assignment-${i}`;
+          const level = await getLatestAssignmentLevel(topicName, topicIndex, assignmentKey);
+          if (level > 0) {
+            weeklyLevels[assignmentKey] = level;
+          }
+        }
+
+        // Load level for walking practice task
+        if (walkingPracticeAssignment) {
+          const walkingLevel = await getLatestAssignmentLevel(topicName, topicIndex, 'task-1');
+          if (walkingLevel > 0) {
+            weeklyLevels['task-1'] = walkingLevel;
+          }
+        }
+
+        // Load levels for audio player tasks
+        for (const audioPlayer of audioPlayers) {
+          const level = await getLatestAssignmentLevel(topicName, topicIndex, audioPlayer.key);
+          if (level > 0) {
+            weeklyLevels[audioPlayer.key] = level;
+          }
+        }
+
+        setCompletedTasks(weeklyLevels);
+      } catch (error) {
+        console.error('Failed to load assignment levels:', error);
+      } finally {
+        setIsLoadingAssignments(false);
+      }
+    };
+
+    loadAssignmentLevels();
+  }, [user, getLatestAssignmentLevel, weeklyAssignments, walkingPracticeAssignment]);
 
   const handleTaskLevelChange = (taskId: string, level: number) => {
     setCompletedTasks(prev => ({
@@ -123,6 +174,17 @@ const DancingFastSlow = () => {
       }
     ]
   };
+
+  if (isLoadingAssignments) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
+        <PageHeader title={t('exercises.dancingFastSlow.title')} />
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <p className="text-gray-600">{t('common.loading')}...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
@@ -199,6 +261,8 @@ const DancingFastSlow = () => {
               level={completedTasks['task-1'] || 0}
               onLevelChange={handleTaskLevelChange}
               variant="sage"
+              topicName="dancing-fast-slow"
+              topicIndex={0}
             />
           )}
         </StorySection>
@@ -283,6 +347,8 @@ const DancingFastSlow = () => {
             completedTasks={completedTasks}
             onTaskLevelChange={handleTaskLevelChange}
             keyPrefix="assignment"
+            topicName="dancing-fast-slow"
+            topicIndex={0}
           />
         </StorySection>
 
