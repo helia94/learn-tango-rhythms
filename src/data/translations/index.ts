@@ -28,36 +28,16 @@ export const translations = {
   tips: tipsTranslations
 };
 
-// Helper type to generate all possible nested keys from an object
-type NestedKeys<T> = T extends object ? {
-  [K in keyof T]: K extends string 
-    ? T[K] extends object 
-      ? `${K}.${NestedKeys<T[K]>}` | K
-      : K
-    : never
-}[keyof T] : never;
-
-// Export all translation keys - now properly includes all nested keys
+// Export all translation keys
 export type TranslationKey = 
-  | NestedKeys<typeof commonTranslations>
-  | `common.${NestedKeys<typeof commonTranslations>}`
-  | NestedKeys<typeof progressTranslations>
-  | `progress.${NestedKeys<typeof progressTranslations>}`
-  | NestedKeys<typeof roadmapTranslations>
-  | `roadmap.${NestedKeys<typeof roadmapTranslations>}`
-  | NestedKeys<typeof leaderboardTranslations>
-  | `leaderboard.${NestedKeys<typeof leaderboardTranslations>}`
-  | NestedKeys<typeof rhythmTranslations>
-  | `rhythm.${NestedKeys<typeof rhythmTranslations>}`
-  | NestedKeys<typeof quizTranslations>
-  | `quiz.${NestedKeys<typeof quizTranslations>}`
-  | NestedKeys<typeof notFoundTranslations>
-  | `notFound.${NestedKeys<typeof notFoundTranslations>}`
-  | NestedKeys<typeof conceptsTranslations>
-  | `concepts.${NestedKeys<typeof conceptsTranslations>}`
-  | NestedKeys<typeof fastAndSlowTranslations>
-  | `exercises.dancingFastSlow.${NestedKeys<typeof fastAndSlowTranslations>}`
-  | NestedKeys<typeof dailyTranslations>
-  | `daily.${NestedKeys<typeof dailyTranslations>}`
-  | NestedKeys<typeof tipsTranslations>
-  | `tips.${NestedKeys<typeof tipsTranslations>}`;
+  | `common.${keyof typeof commonTranslations}`
+  | `progress.${keyof typeof progressTranslations}`
+  | `roadmap.${keyof typeof roadmapTranslations}`
+  | `leaderboard.${keyof typeof leaderboardTranslations}`
+  | `rhythm.${keyof typeof rhythmTranslations}`
+  | `quiz.${keyof typeof quizTranslations}`
+  | `notFound.${keyof typeof notFoundTranslations}`
+  | `concepts.${keyof typeof conceptsTranslations}`
+  | `exercises.dancingFastSlow.${keyof typeof fastAndSlowTranslations}`
+  | `daily.${keyof typeof dailyTranslations}`
+  | `tips.${keyof typeof tipsTranslations}`;
