@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useEngagementData } from '@/hooks/useEngagementData';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
@@ -26,11 +25,17 @@ const GameProfileDashboard: React.FC = () => {
     const fetchMastery = async () => {
       try {
         const assignments = await getAllLatestAssignmentLevelByTopic('dancing-fast-slow', 0);
-        const totalPossibleLevels = assignments.length * 4;
+        
+        // Fixed calculation: Week one has 12 assignments total
+        const totalAssignments = 12;
+        const totalPossibleLevels = totalAssignments * 4; // 48 points total
         const totalCurrentLevels = assignments.reduce((sum, a) => sum + a.level, 0);
+        
         const percentage = totalPossibleLevels > 0 
           ? Math.round((totalCurrentLevels / totalPossibleLevels) * 100) 
           : 0;
+        
+        console.log(`Mastery calculation: ${totalCurrentLevels} / ${totalPossibleLevels} = ${percentage}%`);
         setMasteryPercentage(percentage);
       } catch (error) {
         console.error('Error fetching mastery:', error);
