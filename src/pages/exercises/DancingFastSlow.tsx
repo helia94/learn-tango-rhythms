@@ -1,14 +1,19 @@
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import LanguageSelector from '@/components/LanguageSelector';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
 import AssignmentList from '@/components/AssignmentList';
 import Assignment from '@/components/Assignment';
+import PageHeader from '@/components/ui/PageHeader';
+import StorySection from '@/components/ui/StorySection';
+import SpeedCards from '@/components/ui/SpeedCards';
+import SpotifyEmbed from '@/components/ui/SpotifyEmbed';
+import CommentSection from '@/components/ui/CommentSection';
+import RatingSection from '@/components/ui/RatingSection';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 
 // Audio players list for tracking purposes
@@ -68,41 +73,45 @@ const DancingFastSlow = () => {
     }
   };
 
+  const speedCards = [
+    {
+      number: '1',
+      label: t('exercises.dancingFastSlow.halfSpeed'),
+      bgColor: 'bg-terracotta/30',
+      borderColor: 'border-terracotta/40'
+    },
+    {
+      number: '2',
+      label: t('exercises.dancingFastSlow.normalSpeed'),
+      bgColor: 'bg-golden-yellow/30',
+      borderColor: 'border-golden-yellow/40'
+    },
+    {
+      number: '4',
+      label: t('exercises.dancingFastSlow.doubleSpeed'),
+      bgColor: 'bg-dusty-rose/30',
+      borderColor: 'border-dusty-rose/40'
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
-      {/* Navigation */}
-      <div className="relative z-10 p-4 flex justify-between items-center">
-        <Link to="/roadmap" className="inline-flex items-center gap-2 text-cream bg-warm-brown/80 px-4 py-2 rounded-full hover:bg-warm-brown transition-all duration-300 shadow-lg backdrop-blur-sm">
-          <ArrowLeft className="w-4 h-4" />
-          {t('common.backToRoadmap')}
-        </Link>
-        
-        <LanguageSelector />
-      </div>
+      <PageHeader title={t('exercises.dancingFastSlow.title')} />
 
       {/* Story Content */}
       <div className="max-w-4xl mx-auto px-4 pb-8">
-        {/* Title Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-display text-gray-700 drop-shadow-2xl tracking-wider mb-4">
-            {t('exercises.dancingFastSlow.title')}
-          </h1>
-        </div>
-
         {/* Introduction Story */}
-        <div className="mb-16">
+        <StorySection>
           <p className="text-gray-700 text-xl leading-relaxed mb-6 text-center">
             {t('exercises.dancingFastSlow.introText1')}
           </p>
           <p className="text-gray-600 text-lg leading-relaxed text-center">
             {t('exercises.dancingFastSlow.introText2')}
           </p>
-        </div>
+        </StorySection>
 
         {/* Simple Start Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">{t('exercises.dancingFastSlow.letStartSimple')}</h2>
-          
+        <StorySection title={t('exercises.dancingFastSlow.letStartSimple')}>
           <p className="text-gray-700 text-lg mb-8 text-center">
             {t('exercises.dancingFastSlow.simpleText1')}
           </p>
@@ -126,45 +135,19 @@ const DancingFastSlow = () => {
               label=""
             />
           </div>
-        </div>
+        </StorySection>
 
         {/* Three Speeds Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">{t('exercises.dancingFastSlow.threeSpeeds')}</h2>
-          
+        <StorySection title={t('exercises.dancingFastSlow.threeSpeeds')}>
           <p className="text-gray-700 text-lg mb-8 text-center">{t('exercises.dancingFastSlow.threeSpeedsText')}</p>
           
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-terracotta/30 backdrop-blur-sm rounded-2xl p-6 text-center border border-terracotta/40">
-              <div className="text-4xl font-bold text-gray-700 mb-3">1</div>
-              <div className="text-gray-700 text-lg">{t('exercises.dancingFastSlow.halfSpeed')}</div>
-            </div>
-            <div className="bg-golden-yellow/30 backdrop-blur-sm rounded-2xl p-6 text-center border border-golden-yellow/40">
-              <div className="text-4xl font-bold text-gray-700 mb-3">2</div>
-              <div className="text-gray-700 text-lg">{t('exercises.dancingFastSlow.normalSpeed')}</div>
-            </div>
-            <div className="bg-dusty-rose/30 backdrop-blur-sm rounded-2xl p-6 text-center border border-dusty-rose/40">
-              <div className="text-4xl font-bold text-gray-700 mb-3">4</div>
-              <div className="text-gray-700 text-lg">{t('exercises.dancingFastSlow.doubleSpeed')}</div>
-            </div>
-          </div>
+          <SpeedCards cards={speedCards} />
 
           <div className="mb-8">
             <p className="text-gray-700 text-lg mb-6 text-center">
               {t('exercises.dancingFastSlow.fullSongText')}
             </p>
-            <div className="rounded-2xl overflow-hidden shadow-2xl">
-              <iframe 
-                style={{borderRadius: '16px'}} 
-                src="https://open.spotify.com/embed/track/4FMWYCgSUTyLXCoX3GK8We?utm_source=generator&theme=0" 
-                width="100%" 
-                height="352" 
-                frameBorder="0" 
-                allowFullScreen 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                loading="lazy"
-              />
-            </div>
+            <SpotifyEmbed src="https://open.spotify.com/embed/track/4FMWYCgSUTyLXCoX3GK8We?utm_source=generator&theme=0" />
           </div>
 
           {/* Interactive Rhythm Player */}
@@ -217,12 +200,10 @@ const DancingFastSlow = () => {
               variant="sage"
             />
           )}
-        </div>
+        </StorySection>
 
         {/* Music Speed Changes Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">{t('exercises.dancingFastSlow.musicSpeedChanges')}</h2>
-          
+        <StorySection title={t('exercises.dancingFastSlow.musicSpeedChanges')}>
           <p className="text-gray-700 text-lg mb-12 text-center">
             {t('exercises.dancingFastSlow.musicSpeedChangesText')}
           </p>
@@ -282,10 +263,10 @@ const DancingFastSlow = () => {
               />
             </div>
           </div>
-        </div>
+        </StorySection>
 
         {/* Weekly Assignment Section */}
-        <div className="mb-16">
+        <StorySection>
           <div className="text-center mb-8">
             <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
             <h2 className="text-3xl font-display text-gray-800">{t('exercises.dancingFastSlow.weeklyAssignment')}</h2>
@@ -297,28 +278,18 @@ const DancingFastSlow = () => {
             onTaskLevelChange={handleTaskLevelChange}
             keyPrefix="assignment"
           />
-        </div>
+        </StorySection>
 
         {/* Practice Playlist Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-display text-gray-800 mb-8 text-center">{t('exercises.dancingFastSlow.practiceSongs')}</h2>
-          
+        <StorySection title={t('exercises.dancingFastSlow.practiceSongs')}>
           <p className="text-gray-700 text-lg mb-6 text-center">
             {t('exercises.dancingFastSlow.practiceSongsText')}
           </p>
           
-          <div className="rounded-2xl overflow-hidden shadow-2xl mb-8">
-            <iframe 
-              style={{borderRadius: '12px'}} 
-              src="https://open.spotify.com/embed/playlist/1wZ0CPVIgn7Ry41Kmwzh9k?utm_source=generator&theme=0" 
-              width="100%" 
-              height="352" 
-              frameBorder="0" 
-              allowFullScreen 
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-              loading="lazy"
-            />
-          </div>
+          <SpotifyEmbed 
+            src="https://open.spotify.com/embed/playlist/1wZ0CPVIgn7Ry41Kmwzh9k?utm_source=generator&theme=0"
+            className="rounded-2xl overflow-hidden shadow-2xl mb-8"
+          />
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-terracotta/20 backdrop-blur-sm rounded-2xl p-6 border border-terracotta/30">
@@ -342,37 +313,29 @@ const DancingFastSlow = () => {
               </p>
             </div>
           </div>
-        </div>
+        </StorySection>
 
         {/* Progress Note Section */}
-        <div className="mb-16">
+        <StorySection>
           <p className="text-gray-600 text-lg leading-relaxed text-center italic bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-8 border border-dusty-rose/30">
             {t('exercises.dancingFastSlow.progressNote')}
           </p>
-        </div>
+        </StorySection>
 
         {/* Daily Assignments Section */}
         <FastAndSlowDaily1to7 />
 
         {/* Comment Section */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-display text-gray-800 mb-6 text-center">{t('exercises.dancingFastSlow.commentsTitle')}</h2>
-          <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-12 border border-cream/20">
-            <p className="text-gray-500 text-center text-lg">
-              {t('exercises.dancingFastSlow.commentsPlaceholder')}
-            </p>
-          </div>
-        </div>
+        <CommentSection 
+          title={t('exercises.dancingFastSlow.commentsTitle')}
+          placeholder={t('exercises.dancingFastSlow.commentsPlaceholder')}
+        />
 
         {/* Review Section */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-display text-gray-800 mb-6 text-center">{t('exercises.dancingFastSlow.rateTitle')}</h2>
-          <div className="bg-warm-brown/20 backdrop-blur-sm rounded-2xl p-12 border border-cream/20">
-            <p className="text-gray-500 text-center text-lg">
-              {t('exercises.dancingFastSlow.ratePlaceholder')}
-            </p>
-          </div>
-        </div>
+        <RatingSection 
+          title={t('exercises.dancingFastSlow.rateTitle')}
+          placeholder={t('exercises.dancingFastSlow.ratePlaceholder')}
+        />
       </div>
     </div>
   );
