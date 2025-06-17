@@ -1,9 +1,6 @@
-
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
-import { Button } from '@/components/ui/button';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
@@ -17,6 +14,7 @@ import CommentSection from '@/components/ui/CommentSection';
 import RatingSection from '@/components/ui/RatingSection';
 import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
 import TextContent from '@/components/ui/TextContent';
+import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
@@ -253,16 +251,9 @@ const DancingFastSlow = () => {
             <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
             <h2 className="text-3xl font-display text-gray-800 mb-6">{t('exercises.dancingFastSlow.weeklyAssignment')}</h2>
             
-            {/* Prominent "See All Assignments" Button */}
+            {/* Prominent "See All Assignments" Button - Now using reusable component */}
             <div className="mb-6">
-              <Link to="/exercises/dancing-fast-slow/assignments">
-                <Button 
-                  size="lg" 
-                  className="bg-golden-yellow hover:bg-golden-yellow/90 text-warm-brown font-semibold text-lg px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200"
-                >
-                  See All Assignments
-                </Button>
-              </Link>
+              <SeeAllAssignmentsButton to="/exercises/dancing-fast-slow/assignments" />
             </div>
           </div>
           
