@@ -87,19 +87,15 @@ const GameProfileDashboard: React.FC = () => {
   return (
     <div className="space-y-4 px-2">
       {/* Topic Mastery */}
-      <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-warm-brown/10 overflow-hidden">
-        {/* Organic geometric shapes */}
-        <div className="absolute -top-2 -right-3 w-16 h-16 bg-terracotta/10 rounded-full transform rotate-12" />
-        <div className="absolute -bottom-2 -left-2 w-10 h-10 bg-golden-yellow/10 rounded-full" />
-        
-        <div className="relative flex items-center gap-3 mb-4">
+      <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-warm-brown/10">
+        <div className="flex items-center gap-3 mb-4">
           <div className="w-10 h-10 bg-terracotta/20 rounded-full flex items-center justify-center">
             <Target className="w-5 h-5 text-terracotta" />
           </div>
           <h3 className="text-lg font-bold text-warm-brown">Topic Mastery</h3>
         </div>
         
-        <div className="relative space-y-3">
+        <div className="space-y-3">
           {topicsMastery.map((topic, index) => (
             <div key={index} className="space-y-2">
               <div className="flex justify-between items-center">
@@ -134,11 +130,8 @@ const GameProfileDashboard: React.FC = () => {
       {/* Streaks */}
       <div className="grid grid-cols-2 gap-3">
         {/* Daily Streak */}
-        <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-terracotta/15 overflow-hidden">
-          <div className="absolute -top-2 -right-2 w-12 h-12 bg-terracotta/10 rounded-full transform rotate-45" />
-          <div className="absolute -bottom-1 -left-1 w-6 h-6 bg-paprika/10 rounded-full" />
-          
-          <div className="relative flex items-center gap-3">
+        <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-terracotta/15">
+          <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-terracotta/15 rounded-full flex items-center justify-center">
               <Flame className="w-5 h-5 text-terracotta" />
             </div>
@@ -155,11 +148,8 @@ const GameProfileDashboard: React.FC = () => {
         </div>
 
         {/* Weekly Streak */}
-        <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-deep-teal/15 overflow-hidden">
-          <div className="absolute -top-1 -right-2 w-10 h-10 bg-deep-teal/10 rounded-full transform -rotate-12" />
-          <div className="absolute -bottom-2 -left-1 w-8 h-8 bg-sage-green/10 rounded-full" />
-          
-          <div className="relative flex items-center gap-3">
+        <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-deep-teal/15">
+          <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-deep-teal/15 rounded-full flex items-center justify-center">
               <Calendar className="w-5 h-5 text-deep-teal" />
             </div>
@@ -177,11 +167,8 @@ const GameProfileDashboard: React.FC = () => {
       </div>
 
       {/* Total Assignments */}
-      <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-warm-brown/15 overflow-hidden">
-        <div className="absolute -top-2 -right-1 w-14 h-14 bg-warm-brown/8 rounded-full transform rotate-30" />
-        <div className="absolute -bottom-1 -left-2 w-8 h-8 bg-caramel/10 rounded-full" />
-        
-        <div className="relative flex items-center gap-3">
+      <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-warm-brown/15">
+        <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-warm-brown/15 rounded-full flex items-center justify-center">
             <TrendingUp className="w-5 h-5 text-warm-brown" />
           </div>
@@ -194,12 +181,9 @@ const GameProfileDashboard: React.FC = () => {
       </div>
 
       {/* Activity Heatmap */}
-      <div className="relative bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-sandy-beige/20 overflow-hidden">
-        <div className="absolute -top-3 -right-2 w-12 h-12 bg-sandy-beige/15 rounded-full" />
-        <div className="absolute -bottom-2 -left-3 w-10 h-10 bg-cream/15 rounded-full" />
-        
-        <h3 className="relative text-sm font-bold text-warm-brown mb-3 text-center">Monthly Activity</h3>
-        <div className="relative flex justify-center">
+      <div className="relative bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-sandy-beige/20">
+        <h3 className="text-sm font-bold text-warm-brown mb-3 text-center">Monthly Activity</h3>
+        <div className="flex justify-center">
           <div className="grid grid-cols-7 gap-1.5 max-w-fit">
             {Array.from({ length: 28 }, (_, i) => {
               const date = new Date();
@@ -229,7 +213,7 @@ const GameProfileDashboard: React.FC = () => {
               return (
                 <div
                   key={i}
-                  className={`w-5 h-5 rounded-full ${getActivityColor(activityLevel)} transition-all duration-300`}
+                  className={`w-6 h-6 rounded-full ${getActivityColor(activityLevel)} transition-all duration-300`}
                   title={`${date.toLocaleDateString()}: ${dayData?.sessions_count || 0} sessions`}
                 />
               );
@@ -237,7 +221,7 @@ const GameProfileDashboard: React.FC = () => {
           </div>
         </div>
         
-        <div className="relative flex items-center justify-center gap-2 mt-3">
+        <div className="flex items-center justify-center gap-2 mt-3">
           <span className="text-xs text-mushroom">Less</span>
           <div className="flex gap-1">
             <div className="w-3 h-3 rounded-full bg-sandy-beige/20" />
