@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Lock, CheckCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -81,7 +80,7 @@ const FastAndSlowDaily1to7 = () => {
           </div>
 
           <Assignment
-            assignment={{ content: 'daily.day1.task' }}
+            assignment={{ content: 'daily.day1.task', task: 'daily.day1.task' }}
             taskId="day-1-task"
             level={completedTasks['day-1-task'] || 0}
             onLevelChange={handleTaskLevelChange}
@@ -124,7 +123,7 @@ const FastAndSlowDaily1to7 = () => {
           </div>
 
           <Assignment
-            assignment={{ content: 'daily.day2.task' }}
+            assignment={{ content: 'daily.day2.task', task: 'daily.day2.task' }}
             taskId="day-2-task"
             level={completedTasks['day-2-task'] || 0}
             onLevelChange={handleTaskLevelChange}
@@ -149,7 +148,7 @@ const FastAndSlowDaily1to7 = () => {
           </div>
 
           <Assignment
-            assignment={{ content: 'daily.day3.task' }}
+            assignment={{ content: 'daily.day3.task', task: 'daily.day3.task' }}
             taskId="day-3-task"
             level={completedTasks['day-3-task'] || 0}
             onLevelChange={handleTaskLevelChange}
@@ -180,7 +179,7 @@ const FastAndSlowDaily1to7 = () => {
           />
 
           <Assignment
-            assignment={{ content: 'daily.day4.task' }}
+            assignment={{ content: 'daily.day4.task', task: 'daily.day4.task' }}
             taskId="day-4-task"
             level={completedTasks['day-4-task'] || 0}
             onLevelChange={handleTaskLevelChange}
@@ -205,7 +204,7 @@ const FastAndSlowDaily1to7 = () => {
           />
 
           <Assignment
-            assignment={{ content: 'daily.day5.task' }}
+            assignment={{ content: 'daily.day5.task', task: 'daily.day5.task' }}
             taskId="day-5-task"
             level={completedTasks['day-5-task'] || 0}
             onLevelChange={handleTaskLevelChange}
@@ -232,7 +231,7 @@ const FastAndSlowDaily1to7 = () => {
           />
 
           <Assignment
-            assignment={{ content: 'daily.day6.task' }}
+            assignment={{ content: 'daily.day6.task', task: 'daily.day6.task' }}
             taskId="day-6-task"
             level={completedTasks['day-6-task'] || 0}
             onLevelChange={handleTaskLevelChange}
@@ -260,7 +259,7 @@ const FastAndSlowDaily1to7 = () => {
           />
 
           <Assignment
-            assignment={{ content: 'daily.day7.task' }}
+            assignment={{ content: 'daily.day7.task', task: 'daily.day7.task' }}
             taskId="day-7-task"
             level={completedTasks['day-7-task'] || 0}
             onLevelChange={handleTaskLevelChange}
@@ -276,7 +275,7 @@ const FastAndSlowDaily1to7 = () => {
         </p>
         
         <Assignment
-          assignment={{ content: 'daily.placeholderTask' }}
+          assignment={{ content: 'daily.placeholderTask', task: 'daily.placeholderTask' }}
           taskId={`day-${dayNumber}-task`}
           level={completedTasks[`day-${dayNumber}-task`] || 0}
           onLevelChange={handleTaskLevelChange}
