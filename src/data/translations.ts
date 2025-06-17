@@ -8,6 +8,8 @@ export type TranslationKey =
   | 'common.error'
   | 'common.success'
   | 'common.skip'
+  | 'common.startThisTopic'
+  | 'common.loginToStart'
   | 'roadmap.title'
   | 'leaderboard.viewLeaderboard'
   | 'rhythm.title'
@@ -204,6 +206,14 @@ export const translations = {
     skip: {
       en: "Skip",
       de: "Überspringen"
+    },
+    startThisTopic: {
+      en: "Start this topic",
+      de: "Dieses Thema starten"
+    },
+    loginToStart: {
+      en: "Login to start",
+      de: "Einloggen zum Starten"
     }
   },
   roadmap: {
