@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useEngagementData } from '@/hooks/useEngagementData';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
@@ -44,6 +45,14 @@ const GameProfileDashboard: React.FC = () => {
     fetchMastery();
   }, [getAllLatestAssignmentLevelByTopic]);
 
+  // Dynamic color system based on mastery percentage
+  const getMasteryColor = (percentage: number) => {
+    if (percentage >= 80) return 'sage-green'; // High mastery - green
+    if (percentage >= 60) return 'golden-yellow'; // Good mastery - yellow
+    if (percentage >= 30) return 'terracotta'; // Medium mastery - orange
+    return 'warm-brown'; // Low mastery - brown
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -72,7 +81,7 @@ const GameProfileDashboard: React.FC = () => {
       type: 'mastery',
       value: masteryPercentage,
       icon: Target,
-      color: 'sage-green',
+      color: getMasteryColor(masteryPercentage),
       label: 'Mastery',
       isMain: true
     },
