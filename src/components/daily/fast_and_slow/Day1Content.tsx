@@ -7,9 +7,16 @@ import Assignment from '@/components/Assignment';
 interface Day1ContentProps {
   completedTasks: Record<string, number>;
   onTaskLevelChange: (taskId: string, level: number) => void;
+  topicName?: string;
+  topicIndex?: number;
 }
 
-const Day1Content: React.FC<Day1ContentProps> = ({ completedTasks, onTaskLevelChange }) => {
+const Day1Content: React.FC<Day1ContentProps> = ({ 
+  completedTasks, 
+  onTaskLevelChange,
+  topicName = 'dancing-fast-slow',
+  topicIndex = 0
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -53,6 +60,8 @@ const Day1Content: React.FC<Day1ContentProps> = ({ completedTasks, onTaskLevelCh
         level={completedTasks['day-1-task'] || 0}
         onLevelChange={onTaskLevelChange}
         variant="sage"
+        topicName={topicName}
+        topicIndex={topicIndex}
       />
     </div>
   );
