@@ -69,9 +69,70 @@ export const useTopicActivation = () => {
     }
   };
 
+  const hasActiveTopic = async (): Promise<boolean> => {
+    if (!user) {
+      return false;
+    }
+
+    try {
+      // Calculate the date 7 days ago
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+      const { data, error } = await supabase
+        .from('topic_activations')
+        .select('id')
+        .eq('user_id', user.id)
+        .gte('activated_at', sevenDaysAgo.toISOString())
+        .limit(1);
+
+      if (error) {
+        console.error('Error checking for active topics:', error);
+        return false;
+      }
+
+      return data && data.length > 0;
+    } catch (error) {
+      console.error('Error checking for active topics:', error);
+      return false;
+    }
+  };
+
+  const getActiveTopic = async (): Promise<{ topic_key: string; topic_index: number; activated_at: string } | null> => {
+    if (!user) {
+      return null;
+    }
+
+    try {
+      // Calculate the date 7 days ago
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+      const { data, error } = await supabase
+        .from('topic_activations')
+        .select('topic_key, topic_index, activated_at')
+        .eq('user_id', user.id)
+        .gte('activated_at', sevenDaysAgo.toISOString())
+        .order('activated_at', { ascending: false })
+        .limit(1);
+
+      if (error) {
+        console.error('Error getting active topic:', error);
+        return null;
+      }
+
+      return data && data.length > 0 ? data[0] : null;
+    } catch (error) {
+      console.error('Error getting active topic:', error);
+      return null;
+    }
+  };
+
   return {
     activateTopic,
     isTopicActive,
+    hasActiveTopic,
+    getActiveTopic,
     isActivating
   };
 };
