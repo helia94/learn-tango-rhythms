@@ -8,7 +8,7 @@ import { useTopicActivation } from '@/hooks/useTopicActivation';
 const TopicStartButton: React.FC = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { checkTopicStatus, activateTopic } = useTopicActivation();
+  const { isTopicActive, activateTopic } = useTopicActivation();
   
   const [isActivated, setIsActivated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +18,7 @@ const TopicStartButton: React.FC = () => {
     if (!user || hasInitialized) return;
     
     try {
-      const status = await checkTopicStatus('dancing-fast-slow', 0);
+      const status = await isTopicActive('dancing-fast-slow', 0);
       setIsActivated(status);
       setHasInitialized(true);
     } catch (error) {
@@ -28,7 +28,7 @@ const TopicStartButton: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [user, checkTopicStatus, hasInitialized]);
+  }, [user, isTopicActive, hasInitialized]);
 
   useEffect(() => {
     checkStatus();
