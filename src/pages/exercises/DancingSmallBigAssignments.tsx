@@ -18,42 +18,42 @@ const DancingSmallBigAssignments = () => {
   const assignments = [
     {
       id: '1',
-      content: "Practice walking with your partner at 3 different step sizes: tiny, normal, and large",
-      task: "Practice walking with your partner at 3 different step sizes: tiny, normal, and large"
+      content: t('exercises.dancingSmallBig.assignment1'),
+      task: t('exercises.dancingSmallBig.assignment1')
     },
     {
       id: '2',
-      content: "Listen to 3 songs and identify staccato vs legato sections",
-      task: "Listen to 3 songs and identify staccato vs legato sections"
+      content: t('exercises.dancingSmallBig.assignment2'),
+      task: t('exercises.dancingSmallBig.assignment2')
     },
     {
       id: '3',
-      content: "Dance to 3 songs, changing step size based on musical character",
-      task: "Dance to 3 songs, changing step size based on musical character"
+      content: t('exercises.dancingSmallBig.assignment3'),
+      task: t('exercises.dancingSmallBig.assignment3')
     },
     {
       id: '4',
-      content: "Practice controlling large steps with proper floor contact and posture",
-      task: "Practice controlling large steps with proper floor contact and posture"
+      content: t('exercises.dancingSmallBig.assignment4'),
+      task: t('exercises.dancingSmallBig.assignment4')
     },
     {
       id: '5',
-      content: "Work on follower patience and connection during size transitions",
-      task: "Work on follower patience and connection during size transitions"
+      content: t('exercises.dancingSmallBig.assignment5'),
+      task: t('exercises.dancingSmallBig.assignment5')
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       <PageHeader 
-        title="All Assignments" 
+        title={t('exercises.dancingSmallBig.allAssignments')} 
         backRoute="/exercises/dancing-small-big"
       />
       
       <div className="max-w-4xl mx-auto px-4 pb-16">
         <div className="mb-8">
           <p className="text-lg text-warm-brown leading-relaxed">
-            Complete these assignments to master dancing with different step sizes. Work through them at your own pace.
+            {t('exercises.dancingSmallBig.assignmentsDescription')}
           </p>
         </div>
 
