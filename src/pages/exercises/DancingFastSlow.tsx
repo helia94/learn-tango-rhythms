@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -13,6 +14,7 @@ import SpotifyEmbed from '@/components/ui/SpotifyEmbed';
 import CommentSection from '@/components/ui/CommentSection';
 import RatingSection from '@/components/ui/RatingSection';
 import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
+import TextContent from '@/components/ui/TextContent';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
@@ -116,19 +118,19 @@ const DancingFastSlow = () => {
       <div className="max-w-4xl mx-auto px-4 pb-8">
         {/* Introduction Story */}
         <StorySection>
-          <p className="text-gray-700 text-xl leading-relaxed mb-6 text-center">
+          <TextContent variant="lead" align="center" className="mb-6">
             {t('exercises.dancingFastSlow.introText1')}
-          </p>
-          <p className="text-gray-600 text-lg leading-relaxed text-center">
+          </TextContent>
+          <TextContent variant="body" align="center">
             {t('exercises.dancingFastSlow.introText2')}
-          </p>
+          </TextContent>
         </StorySection>
 
         {/* Simple Start Section */}
         <StorySection title={t('exercises.dancingFastSlow.letStartSimple')}>
-          <p className="text-gray-700 text-lg mb-8 text-center">
+          <TextContent variant="body" align="center" className="mb-8">
             {t('exercises.dancingFastSlow.simpleText1')}
-          </p>
+          </TextContent>
           
           <div className="mb-8">
             <AudioPlayer 
@@ -138,9 +140,9 @@ const DancingFastSlow = () => {
             />
           </div>
 
-          <p className="text-gray-600 text-center italic mb-8">
+          <TextContent variant="body" align="center" className="mb-8 italic">
             {t('exercises.dancingFastSlow.couldNotFindBeat')}
-          </p>
+          </TextContent>
 
           {/* Simple Rhythm Player */}
           <div className="mb-8">
@@ -153,14 +155,16 @@ const DancingFastSlow = () => {
 
         {/* Three Speeds Section */}
         <StorySection title={t('exercises.dancingFastSlow.threeSpeeds')}>
-          <p className="text-gray-700 text-lg mb-8 text-center">{t('exercises.dancingFastSlow.threeSpeedsText')}</p>
+          <TextContent variant="body" align="center" className="mb-8">
+            {t('exercises.dancingFastSlow.threeSpeedsText')}
+          </TextContent>
           
           <SpeedCards cards={speedCards} />
 
           <div className="mb-8">
-            <p className="text-gray-700 text-lg mb-6 text-center">
+            <TextContent variant="body" align="center" className="mb-6">
               {t('exercises.dancingFastSlow.fullSongText')}
-            </p>
+            </TextContent>
             <SpotifyEmbed src="https://open.spotify.com/embed/track/4FMWYCgSUTyLXCoX3GK8We?utm_source=generator&theme=0" />
           </div>
 
@@ -180,16 +184,16 @@ const DancingFastSlow = () => {
 
         {/* Music Speed Changes Section */}
         <StorySection title={t('exercises.dancingFastSlow.musicSpeedChanges')}>
-          <p className="text-gray-700 text-lg mb-12 text-center">
+          <TextContent variant="body" align="center" className="mb-12">
             {t('exercises.dancingFastSlow.musicSpeedChangesText')}
-          </p>
+          </TextContent>
 
           {/* Rhythm Changes */}
           <div className="mb-12">
             <h3 className="text-2xl font-display text-gray-700 mb-6 text-center">{t('exercises.dancingFastSlow.rhythmChanges')}</h3>
-            <p className="text-gray-600 mb-8 text-center leading-relaxed">
+            <TextContent variant="body" align="center" className="mb-8">
               {t('exercises.dancingFastSlow.rhythmChangesText')}
-            </p>
+            </TextContent>
             
             <div className="space-y-4">
               <AudioPlayer 
@@ -215,9 +219,9 @@ const DancingFastSlow = () => {
           {/* Melody Changes */}
           <div className="mb-12">
             <h3 className="text-2xl font-display text-gray-700 mb-6 text-center">{t('exercises.dancingFastSlow.melodyChanges')}</h3>
-            <p className="text-gray-600 mb-8 text-center leading-relaxed">
+            <TextContent variant="body" align="center" className="mb-8">
               {t('exercises.dancingFastSlow.melodyChangesText')}
-            </p>
+            </TextContent>
             
             <div className="space-y-4">
               <AudioPlayer 
@@ -266,9 +270,9 @@ const DancingFastSlow = () => {
 
         {/* Progress Note Section */}
         <StorySection variant="note">
-          <p className="text-gray-600 text-lg leading-relaxed text-center">
+          <TextContent variant="body" align="center">
             {t('exercises.dancingFastSlow.progressNote')}
-          </p>
+          </TextContent>
         </StorySection>
 
         {/* Daily Assignments Section */}

@@ -2,6 +2,7 @@
 import React from 'react';
 import AudioPlayer from '@/components/AudioPlayer';
 import StorySection from './StorySection';
+import TextContent from './TextContent';
 import { ColorChange, ColorEvent } from '@/types/rhythm';
 
 interface AudioTrack {
@@ -38,9 +39,9 @@ const AudioSection: React.FC<AudioSectionProps> = ({
   const content = (
     <>
       {description && (
-        <p className="text-gray-600 mb-8 text-center leading-relaxed">
+        <TextContent variant="body" align="center" className="mb-8">
           {description}
-        </p>
+        </TextContent>
       )}
       
       <div className={spacingClasses[spacing]}>

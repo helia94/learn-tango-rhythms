@@ -3,6 +3,7 @@ import React from 'react';
 import SpotifyEmbed from './SpotifyEmbed';
 import StorySection from './StorySection';
 import InfoBoxSection from './InfoBoxSection';
+import TextContent from './TextContent';
 import { type ThemeVariant } from '@/utils/themeSystem';
 
 interface InfoBox {
@@ -29,9 +30,9 @@ const PracticePlaylistSection: React.FC<PracticePlaylistSectionProps> = ({
 }) => {
   return (
     <StorySection title={title} className={className}>
-      <p className="text-gray-700 text-lg mb-6 text-center">
+      <TextContent variant="body" align="center" className="mb-6">
         {description}
-      </p>
+      </TextContent>
       
       <SpotifyEmbed 
         src={spotifySrc}
