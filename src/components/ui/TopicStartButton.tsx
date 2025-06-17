@@ -1,163 +1,96 @@
 
-import React, { useEffect, useState, useCallback } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from '@/hooks/useTranslation';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useAuth } from '@/contexts/AuthContext';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
 
-interface TopicStartButtonProps {
-  className?: string;
-  topicKey?: string;
-  topicIndex?: number;
-}
-
-const TopicStartButton: React.FC<TopicStartButtonProps> = ({ 
-  className, 
-  topicKey = 'dancing-fast-slow',
-  topicIndex = 0 
-}) => {
+const TopicStartButton: React.FC = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const navigate = useNavigate();
-  const { activateTopic, isActivating, isTopicActive, getTopicDeadline } = useTopicActivation();
-  const [isActive, setIsActive] = useState(false);
-  const [deadline, setDeadline] = useState<Date | null>(null);
-  const [isCheckingStatus, setIsCheckingStatus] = useState(false);
-  const [hasCheckedStatus, setHasCheckedStatus] = useState(false);
+  const { checkTopicStatus, activateTopic } = useTopicActivation();
+  
+  const [isActivated, setIsActivated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasInitialized, setHasInitialized] = useState(false);
 
-  // Memoize the status check function to prevent unnecessary re-renders
-  const checkTopicStatus = useCallback(async () => {
-    console.log('TopicStartButton: Checking topic status...', { user: !!user, topicKey, topicIndex });
-    
-    if (!user) {
-      console.log('TopicStartButton: No user, setting inactive');
-      setIsActive(false);
-      setDeadline(null);
-      setHasCheckedStatus(true);
-      return;
-    }
-
-    // Only show loading if we haven't checked status yet
-    if (!hasCheckedStatus) {
-      setIsCheckingStatus(true);
-    }
+  const checkStatus = useCallback(async () => {
+    if (!user || hasInitialized) return;
     
     try {
-      console.log('TopicStartButton: Calling isTopicActive...');
-      const active = await isTopicActive(topicKey, topicIndex);
-      console.log('TopicStartButton: Topic active status:', active);
-      setIsActive(active);
-      
-      if (active) {
-        console.log('TopicStartButton: Topic is active, getting deadline...');
-        const topicDeadline = await getTopicDeadline(topicKey, topicIndex);
-        console.log('TopicStartButton: Topic deadline:', topicDeadline);
-        setDeadline(topicDeadline);
-      } else {
-        console.log('TopicStartButton: Topic is not active');
-        setDeadline(null);
-      }
+      const status = await checkTopicStatus('dancing-fast-slow', 0);
+      setIsActivated(status);
+      setHasInitialized(true);
     } catch (error) {
-      console.error('TopicStartButton: Error checking topic status:', error);
-      setIsActive(false);
-      setDeadline(null);
+      console.error('Error checking topic status:', error);
+      setIsActivated(false);
+      setHasInitialized(true);
     } finally {
-      setIsCheckingStatus(false);
-      setHasCheckedStatus(true);
-      console.log('TopicStartButton: Finished checking status');
+      setIsLoading(false);
     }
-  }, [user, topicKey, topicIndex, isTopicActive, getTopicDeadline, hasCheckedStatus]);
+  }, [user, checkTopicStatus, hasInitialized]);
 
-  // Check if topic is active when component mounts or user changes
   useEffect(() => {
-    checkTopicStatus();
-  }, [checkTopicStatus]);
+    checkStatus();
+  }, [checkStatus]);
 
-  const handleTopicAction = async () => {
-    console.log('TopicStartButton: Handle topic action clicked', { user: !!user, isActive });
+  const handleActivation = async () => {
+    if (!user || isActivated) return;
     
-    if (!user) {
-      console.log('TopicStartButton: No user, navigating to auth');
-      navigate('/auth');
-    } else if (!isActive) {
-      try {
-        console.log('TopicStartButton: Activating topic...');
-        await activateTopic(topicKey, topicIndex);
-        console.log('TopicStartButton: Topic activated, refreshing status...');
-        
-        // Reset the check status flag and refresh
-        setHasCheckedStatus(false);
-        await checkTopicStatus();
-      } catch (error) {
-        console.error('TopicStartButton: Failed to activate topic:', error);
-      }
-    } else {
-      console.log('TopicStartButton: Topic already active, no action needed');
+    setIsLoading(true);
+    try {
+      await activateTopic('dancing-fast-slow', 0);
+      setIsActivated(true);
+    } catch (error) {
+      console.error('Error activating topic:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const formatDeadline = (date: Date) => {
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
+  if (!user) {
+    return (
+      <Button 
+        size="lg"
+        className="bg-golden-yellow hover:bg-golden-yellow/90 text-warm-brown font-semibold text-lg px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200"
+        onClick={() => {/* Navigate to auth if needed */}}
+      >
+        {t('exercises.dancingFastSlow.startThisTopic')}
+      </Button>
+    );
+  }
 
-  const getButtonText = () => {
-    console.log('TopicStartButton: Getting button text...', { 
-      isCheckingStatus, 
-      isActivating, 
-      user: !!user, 
-      isActive, 
-      deadline: !!deadline,
-      hasCheckedStatus
-    });
-    
-    if (isCheckingStatus || isActivating) {
-      const loadingText = t('common.loading') || 'Loading...';
-      console.log('TopicStartButton: Returning loading text:', loadingText);
-      return loadingText;
-    }
-    
-    if (!user) {
-      const loginText = t('common.loginToStart');
-      console.log('TopicStartButton: Returning login text:', loginText);
-      return loginText;
-    }
-    
-    if (isActive && deadline) {
-      const activeText = `Topic Active Until ${formatDeadline(deadline)}`;
-      console.log('TopicStartButton: Returning active text:', activeText);
-      return activeText;
-    }
-    
-    const startText = t('common.startThisTopic');
-    console.log('TopicStartButton: Returning start text:', startText);
-    return startText;
-  };
+  if (isLoading) {
+    return (
+      <Button 
+        size="lg"
+        disabled
+        className="bg-golden-yellow/50 text-warm-brown font-semibold text-lg px-8 py-3 rounded-full"
+      >
+        {t('common.loading')}...
+      </Button>
+    );
+  }
 
-  const isButtonDisabled = isCheckingStatus || isActivating || isActive;
-  
-  console.log('TopicStartButton: Render state:', {
-    isCheckingStatus,
-    isActivating,
-    isActive,
-    deadline: !!deadline,
-    isButtonDisabled,
-    hasCheckedStatus,
-    buttonText: getButtonText()
-  });
+  if (isActivated) {
+    return (
+      <Button 
+        size="lg"
+        disabled
+        className="bg-sage-green text-white font-semibold text-lg px-8 py-3 rounded-full"
+      >
+        ✓ {t('exercises.dancingFastSlow.topicActivated')}
+      </Button>
+    );
+  }
 
   return (
-    <Button
-      onClick={handleTopicAction}
-      variant="outline"
-      disabled={isButtonDisabled}
-      className={`bg-sandy-beige/80 hover:bg-sandy-beige border-warm-brown/30 text-warm-brown px-6 py-2 text-base font-medium rounded-lg shadow-sm transition-all duration-200 hover:shadow-md disabled:opacity-50 ${className || ''}`}
+    <Button 
+      size="lg"
+      onClick={handleActivation}
+      className="bg-golden-yellow hover:bg-golden-yellow/90 text-warm-brown font-semibold text-lg px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200"
     >
-      {getButtonText()}
+      {t('exercises.dancingFastSlow.startThisTopic')}
     </Button>
   );
 };
