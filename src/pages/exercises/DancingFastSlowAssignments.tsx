@@ -25,19 +25,25 @@ const DancingFastSlowAssignments = () => {
     }));
   };
 
-  // Create all assignments in one array - DAILY FIRST, then WEEKLY
+  // Create all assignments in one array - WEEKLY FIRST, then DAILY
   const allAssignments: Assignment[] = [
-    // Daily assignments first
+    // Weekly assignments first (same order as main page)
+    ...weeklyAssignments,
+    // Daily assignments second (logical order Day 1-7)
     ...Array.from({ length: 7 }, (_, index) => {
       const dayNumber = index + 1;
       return getAssignment(`day${dayNumber}`)!;
-    }),
-    // Weekly assignments second
-    ...weeklyAssignments
+    })
   ];
 
   // Create assignment metadata for locked status
   const assignmentMetadata = [
+    // Weekly assignments metadata (always unlocked)
+    ...weeklyAssignments.map((_, index) => ({ 
+      isLocked: false, 
+      dayNumber: null,
+      taskIdPrefix: `weekly-assignment-${index + 1}`
+    })),
     // Daily assignments metadata (check lock status)
     ...Array.from({ length: 7 }, (_, index) => {
       const dayNumber = index + 1;
@@ -47,13 +53,7 @@ const DancingFastSlowAssignments = () => {
         dayNumber: null, // No day number display
         taskIdPrefix: `day${dayNumber}`
       };
-    }),
-    // Weekly assignments metadata (always unlocked)
-    ...weeklyAssignments.map((_, index) => ({ 
-      isLocked: false, 
-      dayNumber: null,
-      taskIdPrefix: 'weekly-assignment'
-    }))
+    })
   ];
 
   return (
