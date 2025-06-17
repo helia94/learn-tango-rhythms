@@ -33,6 +33,8 @@ export type TranslationKey =
   | 'common.english'
   | 'common.german'
   | 'common.selectLanguage'
+  | 'common.success'
+  | 'common.skip'
   | 'home.title'
   | 'home.subtitle'
   | 'home.description'
@@ -92,6 +94,15 @@ export type TranslationKey =
   | 'quiz.hard'
   | 'quiz.congratulations'
   | 'quiz.tryAgain'
+  | 'quiz.complete'
+  | 'quiz.finalScore'
+  | 'quiz.complete_percentage'
+  | 'quiz.yourName'
+  | 'quiz.enterName'
+  | 'quiz.city'
+  | 'quiz.enterCity'
+  | 'quiz.submitting'
+  | 'quiz.submitScore'
   | 'leaderboard.title'
   | 'leaderboard.subtitle'
   | 'leaderboard.rank'
@@ -105,6 +116,7 @@ export type TranslationKey =
   | 'leaderboard.submitting'
   | 'leaderboard.success'
   | 'leaderboard.error'
+  | 'leaderboard.viewLeaderboard'
   | 'exercises.dancingFastSlow.title'
   | 'exercises.dancingFastSlow.introText1'
   | 'exercises.dancingFastSlow.introText2'
@@ -166,7 +178,64 @@ export type TranslationKey =
   | 'daily.completeDay'
   | 'daily.markComplete'
   | 'daily.nextDay'
-  | 'daily.backToDays';
+  | 'daily.backToDays'
+  | 'daily.day1.content'
+  | 'daily.day1.audioDescription'
+  | 'daily.day1.audioTitle'
+  | 'daily.day1.fullSong'
+  | 'daily.day1.task'
+  | 'daily.day2.content'
+  | 'daily.day2.description'
+  | 'daily.day2.bandonionSolos'
+  | 'daily.day2.violinSolos'
+  | 'daily.day2.singerSolo'
+  | 'daily.day2.task'
+  | 'daily.day3.content'
+  | 'daily.day3.description'
+  | 'daily.day3.task'
+  | 'daily.day4.content'
+  | 'daily.day4.description'
+  | 'daily.day4.task'
+  | 'daily.day5.content'
+  | 'daily.day5.task'
+  | 'daily.day6.content'
+  | 'daily.day6.task'
+  | 'daily.day7.content'
+  | 'daily.day7.task'
+  | 'progress.levelInfo'
+  | 'progress.trackingTitle'
+  | 'progress.notStarted'
+  | 'progress.notStartedDesc'
+  | 'progress.firstAttempt'
+  | 'progress.firstAttemptDesc'
+  | 'progress.practiceMode'
+  | 'progress.practiceModeDesc'
+  | 'progress.gettingThere'
+  | 'progress.gettingThereDesc'
+  | 'progress.mastered'
+  | 'progress.masteredDesc'
+  | 'errors.enterName'
+  | 'errors.submitFailed'
+  | 'messages.scoreSubmitted'
+  | 'tips.extremeSpeed'
+  | 'tips.extremeSpeedTip1'
+  | 'tips.extremeSpeedTip2'
+  | 'tips.extremeSlowness'
+  | 'tips.extremeSlownessTip1'
+  | 'tips.extremeSlownessTip2'
+  | 'tips.extremeSlownessTip3'
+  | 'tips.extremeSlownessTip4'
+  | 'tips.backOchoChallengeTitle'
+  | 'tips.backOchoChallengeTip1'
+  | 'tips.backOchoChallengeTip2'
+  | 'tips.backOchoChallengeTip3'
+  | 'tips.backOchoChallengeTip4'
+  | 'tips.ochoCortadoChallengeTitle'
+  | 'tips.ochoCortadoChallengeTip1'
+  | 'tips.ochoCortadoChallengeTip2'
+  | 'tips.ochoCortadoChallengeTip3'
+  | 'tips.ochoCortadoChallengeTip4'
+  | 'tips.ochoCortadoChallengeTip5';
 
 export const translations = {
   common: {
@@ -278,7 +347,7 @@ export const translations = {
       en: "Confirm",
       de: "Bestätigen"
     },
-   language: {
+    language: {
       en: "Language",
       de: "Sprache"
     },
@@ -290,7 +359,7 @@ export const translations = {
       en: "German",
       de: "Deutsch"
     },
-     selectLanguage: {
+    selectLanguage: {
       en: "Select Language",
       de: "Sprache auswählen"
     },
@@ -473,7 +542,7 @@ export const translations = {
       de: "Verwende die Voreinstellungen, um schnell gängige Rhythmusmuster zu laden."
     }
   },
-   quiz: {
+  quiz: {
     title: {
       en: "Rhythm Quiz",
       de: "Rhythmus-Quiz"
@@ -537,6 +606,42 @@ export const translations = {
     tryAgain: {
       en: "Try Again",
       de: "Nochmal versuchen"
+    },
+    complete: {
+      en: "Complete",
+      de: "Abgeschlossen"
+    },
+    finalScore: {
+      en: "Final Score",
+      de: "Endpunktzahl"
+    },
+    complete_percentage: {
+      en: "Complete %",
+      de: "Abgeschlossen %"
+    },
+    yourName: {
+      en: "Your Name",
+      de: "Dein Name"
+    },
+    enterName: {
+      en: "Enter your name",
+      de: "Deinen Namen eingeben"
+    },
+    city: {
+      en: "Your City",
+      de: "Deine Stadt"
+    },
+    enterCity: {
+      en: "Enter your city",
+      de: "Deine Stadt eingeben"
+    },
+    submitting: {
+      en: "Submitting...",
+      de: "Wird eingereicht..."
+    },
+    submitScore: {
+      en: "Submit Your Score",
+      de: "Punktzahl einreichen"
     }
   },
   leaderboard: {
@@ -591,6 +696,10 @@ export const translations = {
     error: {
       en: "Failed to submit score. Please try again.",
       de: "Punktzahl konnte nicht eingereicht werden. Bitte versuche es erneut."
+    },
+    viewLeaderboard: {
+      en: "View Leaderboard",
+      de: "Bestenliste ansehen"
     }
   },
   exercises: {
@@ -851,6 +960,256 @@ export const translations = {
     backToDays: {
       en: "Back to All Days",
       de: "Zurück zu allen Tagen"
+    },
+    day1: {
+      content: {
+        en: "Day 1",
+        de: "Tag 1"
+      },
+      audioDescription: {
+        en: "Listen to the audio and follow the instructions.",
+        de: "Höre den Audio und folge den Anweisungen."
+      },
+      audioTitle: {
+        en: "Audio",
+        de: "Audio"
+      },
+      fullSong: {
+        en: "Full Song",
+        de: "Ganzes Lied"
+      },
+      task: {
+        en: "Task",
+        de: "Aufgabe"
+      }
+    },
+    day2: {
+      content: {
+        en: "Day 2",
+        de: "Tag 2"
+      },
+      description: {
+        en: "Listen to the audio and follow the instructions.",
+        de: "Höre den Audio und folge den Anweisungen."
+      },
+      banandonionSolos: {
+        en: "Bandonion Solos",
+        de: "Bandonion Solo"
+      },
+      violinSolos: {
+        en: "Violin Solos",
+        de: "Violin Solo"
+      },
+      singerSolo: {
+        en: "Singer Solo",
+        de: "Singer Solo"
+      },
+      task: {
+        en: "Task",
+        de: "Aufgabe"
+      }
+    },
+    day3: {
+      content: {
+        en: "Day 3",
+        de: "Tag 3"
+      },
+      description: {
+        en: "Listen to the audio and follow the instructions.",
+        de: "Höre den Audio und folge den Anweisungen."
+      },
+      task: {
+        en: "Task",
+        de: "Aufgabe"
+      }
+    },
+    day4: {
+      content: {
+        en: "Day 4",
+        de: "Tag 4"
+      },
+      description: {
+        en: "Listen to the audio and follow the instructions.",
+        de: "Höre den Audio und folge den Anweisungen."
+      },
+      task: {
+        en: "Task",
+        de: "Aufgabe"
+      }
+    },
+    day5: {
+      content: {
+        en: "Day 5",
+        de: "Tag 5"
+      },
+      task: {
+        en: "Task",
+        de: "Aufgabe"
+      }
+    },
+    day6: {
+      content: {
+        en: "Day 6",
+        de: "Tag 6"
+      },
+      task: {
+        en: "Task",
+        de: "Aufgabe"
+      }
+    },
+    day7: {
+      content: {
+        en: "Day 7",
+        de: "Tag 7"
+      },
+      task: {
+        en: "Task",
+        de: "Aufgabe"
+      }
+    }
+  },
+  progress: {
+    levelInfo: {
+      en: "Level Info",
+      de: "Level-Info"
+    },
+    trackingTitle: {
+      en: "Progress Tracking",
+      de: "Fortschrittstracking"
+    },
+    notStarted: {
+      en: "Not Started",
+      de: "Nicht gestartet"
+    },
+    notStartedDesc: {
+      en: "You haven't started this level yet.",
+      de: "Du hast dieses Level noch nicht gestartet."
+    },
+    firstAttempt: {
+      en: "First Attempt",
+      de: "Erster Versuch"
+    },
+    firstAttemptDesc: {
+      en: "You've started this level once.",
+      de: "Du hast dieses Level einmal gestartet."
+    },
+    practiceMode: {
+      en: "Practice Mode",
+      de: "Übungsmodus"
+    },
+    practiceModeDesc: {
+      en: "You're practicing this level.",
+      de: "Du prüfst dieses Level."
+    },
+    gettingThere: {
+      en: "Getting There",
+      de: "Bist du da?"
+    },
+    gettingThereDesc: {
+      en: "You're making progress.",
+      de: "Du machst Fortschritt."
+    },
+    mastered: {
+      en: "Mastered",
+      de: "Meistert"
+    },
+    masteredDesc: {
+      en: "You've mastered this level.",
+      de: "Du hast dieses Level meistert."
+    }
+  },
+  errors: {
+    enterName: {
+      en: "Please enter your name",
+      de: "Bitte gib deinen Namen ein"
+    },
+    submitFailed: {
+      en: "Failed to submit. Please try again.",
+      de: "Fehler beim Absenden. Bitte versuche es erneut."
+    }
+  },
+  messages: {
+    scoreSubmitted: {
+      en: "Score submitted successfully!",
+      de: "Punktzahl erfolgreich eingereicht!"
+    }
+  },
+  tips: {
+    extremeSpeed: {
+      en: "Extreme Speed",
+      de: "Extremer Tempo"
+    },
+    extremeSpeedTip1: {
+      en: "Try to keep up with the fast tempo.",
+      de: "Versuche, mit dem schnellen Tempo zu verfolgen."
+    },
+    extremeSpeedTip2: {
+      en: "Be careful not to get too tired.",
+      de: "Beachte, dass du nicht zu müde bist."
+    },
+    extremeSlowness: {
+      en: "Extreme Slowness",
+      de: "Extremer Tempo"
+    },
+    extremeSlownessTip1: {
+      en: "Try to keep up with the slow tempo.",
+      de: "Versuche, mit dem langsamen Tempo zu verfolgen."
+    },
+    extremeSlownessTip2: {
+      en: "Be careful not to get too tired.",
+      de: "Beachte, dass du nicht zu müde bist."
+    },
+    extremeSlownessTip3: {
+      en: "Try to keep up with the slow tempo.",
+      de: "Versuche, mit dem langsamen Tempo zu verfolgen."
+    },
+    extremeSlownessTip4: {
+      en: "Be careful not to get too tired.",
+      de: "Beachte, dass du nicht zu müde bist."
+    },
+    backOchoChallengeTitle: {
+      en: "Back Ocho Challenge",
+      de: "Back Ocho Herausforderung"
+    },
+    backOchoChallengeTip1: {
+      en: "Try to keep up with the fast tempo.",
+      de: "Versuche, mit dem schnellen Tempo zu verfolgen."
+    },
+    backOchoChallengeTip2: {
+      en: "Be careful not to get too tired.",
+      de: "Beachte, dass du nicht zu müde bist."
+    },
+    backOchoChallengeTip3: {
+      en: "Try to keep up with the fast tempo.",
+      de: "Versuche, mit dem schnellen Tempo zu verfolgen."
+    },
+    backOchoChallengeTip4: {
+      en: "Be careful not to get too tired.",
+      de: "Beachte, dass du nicht zu müde bist."
+    },
+    ochoCortadoChallengeTitle: {
+      en: "Ocho Cortado Challenge",
+      de: "Ocho Cortado Herausforderung"
+    },
+    ochoCortadoChallengeTip1: {
+      en: "Try to keep up with the fast tempo.",
+      de: "Versuche, mit dem schnellen Tempo zu verfolgen."
+    },
+    ochoCortadoChallengeTip2: {
+      en: "Be careful not to get too tired.",
+      de: "Beachte, dass du nicht zu müde bist."
+    },
+    ochoCortadoChallengeTip3: {
+      en: "Try to keep up with the fast tempo.",
+      de: "Versuche, mit dem schnellen Tempo zu verfolgen."
+    },
+    ochoCortadoChallengeTip4: {
+      en: "Be careful not to get too tired.",
+      de: "Beachte, dass du nicht zu müde bist."
+    },
+    ochoCortadoChallengeTip5: {
+      en: "Try to keep up with the fast tempo.",
+      de: "Versuche, mit dem schnellen Tempo zu verfolgen."
     }
   }
 };
