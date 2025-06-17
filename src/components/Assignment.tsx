@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Assignment as AssignmentType } from '@/data/assignments';
+import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
 import LevelSelector from './LevelSelector';
 import InfoModal from './InfoModal';
 
@@ -12,6 +13,8 @@ interface AssignmentProps {
   onLevelChange: (taskId: string, level: number) => void;
   className?: string;
   variant?: 'default' | 'sage' | 'golden' | 'dusty-rose' | 'terracotta';
+  topicName?: string;
+  topicIndex?: number;
 }
 
 const Assignment: React.FC<AssignmentProps> = ({
@@ -20,14 +23,25 @@ const Assignment: React.FC<AssignmentProps> = ({
   level,
   onLevelChange,
   className = '',
-  variant = 'sage'
+  variant = 'sage',
+  topicName = 'dancing-fast-slow',
+  topicIndex = 0
 }) => {
   const { t, currentLanguage } = useTranslation();
+  const { reportAssignmentLevel, isLoading } = useAssignmentReporting();
 
-  // Add debugging to see what's happening with translations
-  console.log('Assignment component - Current language:', currentLanguage);
-  console.log('Assignment content key:', assignment.content);
-  console.log('Translated content:', t(assignment.content));
+  const handleLevelChange = async (newLevel: number) => {
+    // Update local state immediately for responsiveness
+    onLevelChange(taskId, newLevel);
+    
+    // Report to database
+    try {
+      await reportAssignmentLevel(topicName, topicIndex, taskId, newLevel);
+    } catch (error) {
+      console.error('Failed to report assignment level:', error);
+      // You could add a toast notification here if needed
+    }
+  };
 
   const getVariantStyles = (variant: string) => {
     switch (variant) {
@@ -51,9 +65,12 @@ const Assignment: React.FC<AssignmentProps> = ({
       <div className="flex items-center">
         <LevelSelector
           level={level}
-          onLevelChange={(newLevel) => onLevelChange(taskId, newLevel)}
+          onLevelChange={handleLevelChange}
         />
         <InfoModal />
+        {isLoading && (
+          <span className="ml-2 text-sm text-gray-500">Saving...</span>
+        )}
       </div>
     </div>
   );

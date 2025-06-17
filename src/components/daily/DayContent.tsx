@@ -17,13 +17,17 @@ interface DayContentProps {
   status: DayStatus;
   completedTasks: Record<string, number>;
   onTaskLevelChange: (taskId: string, level: number) => void;
+  topicName?: string;
+  topicIndex?: number;
 }
 
 const DayContent: React.FC<DayContentProps> = ({
   dayNumber,
   status,
   completedTasks,
-  onTaskLevelChange
+  onTaskLevelChange,
+  topicName = 'dancing-fast-slow',
+  topicIndex = 0
 }) => {
   const { t } = useTranslation();
 
@@ -33,7 +37,12 @@ const DayContent: React.FC<DayContentProps> = ({
   }
 
   // Render specific day content
-  const commonProps = { completedTasks, onTaskLevelChange };
+  const commonProps = { 
+    completedTasks, 
+    onTaskLevelChange,
+    topicName,
+    topicIndex
+  };
 
   switch (dayNumber) {
     case 1:
@@ -64,6 +73,8 @@ const DayContent: React.FC<DayContentProps> = ({
             level={completedTasks[`day-${dayNumber}-task`] || 0}
             onLevelChange={onTaskLevelChange}
             variant="sage"
+            topicName={topicName}
+            topicIndex={topicIndex}
           />
         </div>
       );

@@ -18,6 +18,8 @@ interface AssignmentListProps {
   onTaskLevelChange: (taskId: string, level: number) => void;
   keyPrefix?: string;
   className?: string;
+  topicName?: string;
+  topicIndex?: number;
 }
 
 const AssignmentList: React.FC<AssignmentListProps> = ({
@@ -26,7 +28,9 @@ const AssignmentList: React.FC<AssignmentListProps> = ({
   completedTasks,
   onTaskLevelChange,
   keyPrefix = 'assignment',
-  className = ''
+  className = '',
+  topicName = 'dancing-fast-slow',
+  topicIndex = 0
 }) => {
   const { t } = useTranslation();
 
@@ -64,6 +68,8 @@ const AssignmentList: React.FC<AssignmentListProps> = ({
             level={completedTasks[taskId] || 0}
             onLevelChange={onTaskLevelChange}
             variant="sage"
+            topicName={topicName}
+            topicIndex={topicIndex}
           />
         );
       })}

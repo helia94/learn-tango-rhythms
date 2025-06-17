@@ -79,6 +79,8 @@ const DancingFastSlowAssignments = () => {
             completedTasks={completedTasks}
             onTaskLevelChange={handleTaskLevelChange}
             keyPrefix="assignment"
+            topicName="dancing-fast-slow"
+            topicIndex={0}
           />
         </StorySection>
       </div>
