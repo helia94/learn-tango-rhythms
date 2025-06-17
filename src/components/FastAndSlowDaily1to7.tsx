@@ -5,17 +5,10 @@ import { Accordion } from '@/components/ui/accordion';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
-import { AssignmentLevelSummary } from '@/hooks/useAssignmentReporting';
 import DayItem from '@/components/daily/DayItem';
 import { getDayStatus } from '@/components/daily/DayStatus';
 
-interface FastAndSlowDaily1to7Props {
-  assignmentLevels?: AssignmentLevelSummary[];
-}
-
-const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({ 
-  assignmentLevels = [] 
-}) => {
+const FastAndSlowDaily1to7 = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
@@ -68,8 +61,6 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
     );
   }
 
-  console.log('FastAndSlowDaily1to7: Received assignment levels:', assignmentLevels);
-
   return (
     <div className="mb-16">
       <div className="text-center mb-8">
@@ -81,11 +72,6 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
         {nextDayToActivate && (
           <p className="text-sm text-golden-yellow mt-1">
             Next day to unlock: Day {nextDayToActivate}
-          </p>
-        )}
-        {assignmentLevels.length > 0 && (
-          <p className="text-sm text-blue-600 mt-1">
-            Assignment levels loaded: {assignmentLevels.length} items
           </p>
         )}
       </div>
