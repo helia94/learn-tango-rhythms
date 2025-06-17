@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useAssignmentReporting, AssignmentLevelSummary } from '@/hooks/useAssignmentReporting';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
@@ -58,10 +60,30 @@ const DancingFastSlow = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { getAllLatestAssignmentLevelByTopic } = useAssignmentReporting();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
+  const [assignmentLevels, setAssignmentLevels] = useState<AssignmentLevelSummary[]>([]);
 
   const weeklyAssignments = getWeeklyAssignments();
   const walkingPracticeAssignment = getAssignment('walking-practice');
+
+  // Fetch assignment levels on page load
+  useEffect(() => {
+    const fetchAssignmentLevels = async () => {
+      if (!user) return;
+      
+      console.log('DancingFastSlow: Fetching assignment levels...');
+      try {
+        const levels = await getAllLatestAssignmentLevelByTopic('dancing-fast-slow', 0);
+        console.log('DancingFastSlow: Assignment levels fetched:', levels);
+        setAssignmentLevels(levels);
+      } catch (error) {
+        console.error('DancingFastSlow: Error fetching assignment levels:', error);
+      }
+    };
+
+    fetchAssignmentLevels();
+  }, [user, getAllLatestAssignmentLevelByTopic]);
 
   const handleTaskLevelChange = (taskId: string, level: number) => {
     setCompletedTasks(prev => ({
@@ -137,6 +159,20 @@ const DancingFastSlow = () => {
 
       {/* Story Content */}
       <div className="max-w-4xl mx-auto px-4 pb-8">
+        {/* Assignment Levels Debug Display */}
+        {assignmentLevels.length > 0 && (
+          <div className="mb-8 p-4 bg-white/20 rounded-lg">
+            <h3 className="text-lg font-semibold mb-2">Assignment Levels (Debug):</h3>
+            <ul className="text-sm">
+              {assignmentLevels.map(level => (
+                <li key={level.assignment_key}>
+                  {level.assignment_key}: Level {level.level} (Last updated: {new Date(level.last_updated).toLocaleDateString()})
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* Introduction Story */}
         <StorySection>
           <TextContent variant="lead" align="center" className="mb-6">
@@ -301,8 +337,8 @@ const DancingFastSlow = () => {
           </TextContent>
         </StorySection>
 
-        {/* Daily Assignments Section */}
-        <FastAndSlowDaily1to7 />
+        {/* Daily Assignments Section - Now passing assignment levels */}
+        <FastAndSlowDaily1to7 assignmentLevels={assignmentLevels} />
 
         {/* Comment Section */}
         <CommentSection 
