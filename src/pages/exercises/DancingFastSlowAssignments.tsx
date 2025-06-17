@@ -1,15 +1,13 @@
 
 import React, { useState } from 'react';
-import { Lock, CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
 import AssignmentList from '@/components/AssignmentList';
-import Assignment from '@/components/Assignment';
 import TextContent from '@/components/ui/TextContent';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 import { getDayStatus } from '@/components/daily/DayStatus';
-import { TranslationKey } from '@/data/translations';
+import { Assignment } from '@/data/assignments';
 
 const DancingFastSlowAssignments = () => {
   const { t } = useTranslation();
@@ -28,15 +26,41 @@ const DancingFastSlowAssignments = () => {
     }));
   };
 
-  // Daily assignments data with proper typing
-  const dailyAssignments = [
-    { key: 'day1', translationKey: 'daily.day1.content' as TranslationKey, taskKey: 'daily.day1.task' as TranslationKey },
-    { key: 'day2', translationKey: 'daily.day2.content' as TranslationKey, taskKey: 'daily.day2.task' as TranslationKey },
-    { key: 'day3', translationKey: 'daily.day3.content' as TranslationKey, taskKey: 'daily.day3.task' as TranslationKey },
-    { key: 'day4', translationKey: 'daily.day4.content' as TranslationKey, taskKey: 'daily.day4.task' as TranslationKey },
-    { key: 'day5', translationKey: 'daily.day5.content' as TranslationKey, taskKey: 'daily.day5.task' as TranslationKey },
-    { key: 'day6', translationKey: 'daily.day6.content' as TranslationKey, taskKey: 'daily.day6.task' as TranslationKey },
-    { key: 'day7', translationKey: 'daily.day7.content' as TranslationKey, taskKey: 'daily.day7.task' as TranslationKey }
+  // Create all assignments in one array
+  const allAssignments: Assignment[] = [
+    ...weeklyAssignments,
+    ...(walkingPracticeAssignment ? [walkingPracticeAssignment] : []),
+    // Add daily assignments
+    ...Array.from({ length: 7 }, (_, index) => {
+      const dayNumber = index + 1;
+      return getAssignment(`day${dayNumber}`)!;
+    })
+  ];
+
+  // Create assignment metadata for locked status
+  const assignmentMetadata = [
+    // Weekly assignments (always unlocked)
+    ...weeklyAssignments.map((_, index) => ({ 
+      isLocked: false, 
+      dayNumber: null,
+      taskIdPrefix: 'weekly-assignment'
+    })),
+    // Walking practice (always unlocked)
+    ...(walkingPracticeAssignment ? [{ 
+      isLocked: false, 
+      dayNumber: null,
+      taskIdPrefix: 'walking-practice'
+    }] : []),
+    // Daily assignments (check lock status)
+    ...Array.from({ length: 7 }, (_, index) => {
+      const dayNumber = index + 1;
+      const status = getDayStatus(dayNumber, daysUnlocked);
+      return {
+        isLocked: status === 'locked' || status === 'tomorrow',
+        dayNumber,
+        taskIdPrefix: `day${dayNumber}`
+      };
+    })
   ];
 
   return (
@@ -54,106 +78,16 @@ const DancingFastSlowAssignments = () => {
           </TextContent>
         </StorySection>
 
-        {/* Weekly Assignments */}
-        <StorySection title={t('exercises.dancingFastSlow.weeklyAssignments')} variant="assignment">
+        {/* All Assignments in One List */}
+        <StorySection title={t('exercises.dancingFastSlow.allAssignments')} variant="assignment">
           <AssignmentList
-            assignments={weeklyAssignments}
+            assignments={allAssignments}
+            assignmentMetadata={assignmentMetadata}
             completedTasks={completedTasks}
             onTaskLevelChange={handleTaskLevelChange}
-            keyPrefix="weekly-assignment"
+            keyPrefix="assignment"
           />
-
-          {walkingPracticeAssignment && (
-            <div className="mt-6">
-              <Assignment
-                assignment={walkingPracticeAssignment}
-                taskId="walking-practice"
-                level={completedTasks['walking-practice'] || 0}
-                onLevelChange={handleTaskLevelChange}
-                variant="golden"
-              />
-            </div>
-          )}
         </StorySection>
-
-        {/* Daily Assignments - Simple List */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-display text-gray-700 mb-6">
-            {t('daily.title')} ({daysUnlocked}/7 days unlocked)
-          </h2>
-
-          {dailyAssignments.map((day, index) => {
-            const dayNumber = index + 1;
-            const status = getDayStatus(dayNumber, daysUnlocked);
-            const taskId = `${day.key}-task`;
-            const isCompleted = completedTasks[taskId] > 0;
-            const isLocked = status === 'locked' || status === 'tomorrow';
-
-            if (isLocked) {
-              return (
-                <div 
-                  key={day.key}
-                  className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 p-6 opacity-60"
-                >
-                  <div className="flex items-center gap-3">
-                    <Lock className={`w-5 h-5 ${status === 'tomorrow' ? 'text-golden-yellow' : 'text-gray-400'} flex-shrink-0`} />
-                    <h3 className="text-xl font-display text-gray-700">
-                      Day {dayNumber}
-                      {status === 'tomorrow' && (
-                        <span className="text-sm text-golden-yellow font-medium ml-2">
-                          {t('daily.availableTomorrow')}
-                        </span>
-                      )}
-                      {status === 'locked' && (
-                        <span className="text-sm text-gray-400 font-medium ml-2">
-                          {t('daily.locked')}
-                        </span>
-                      )}
-                    </h3>
-                  </div>
-                </div>
-              );
-            }
-
-            return (
-              <div 
-                key={day.key}
-                className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 p-6"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center gap-3 min-w-0 flex-1">
-                    {isCompleted ? (
-                      <CheckCircle className="w-5 h-5 text-sage-green flex-shrink-0" />
-                    ) : (
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-400 flex-shrink-0" />
-                    )}
-                    
-                    <div className="min-w-0 flex-1">
-                      <h3 className="text-xl font-display text-gray-700 mb-2">
-                        Day {dayNumber}
-                      </h3>
-                      
-                      <TextContent variant="body" className="mb-4">
-                        {t(day.translationKey)}
-                      </TextContent>
-
-                      <Assignment
-                        assignment={{ 
-                          content: day.translationKey, 
-                          task: day.taskKey 
-                        }}
-                        taskId={taskId}
-                        level={completedTasks[taskId] || 0}
-                        onLevelChange={handleTaskLevelChange}
-                        variant="sage"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
       </div>
     </div>
   );
