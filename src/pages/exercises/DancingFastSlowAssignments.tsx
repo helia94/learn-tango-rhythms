@@ -9,6 +9,7 @@ import Assignment from '@/components/Assignment';
 import TextContent from '@/components/ui/TextContent';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 import { getDayStatus } from '@/components/daily/DayStatus';
+import { TranslationKey } from '@/data/translations';
 
 const DancingFastSlowAssignments = () => {
   const { t } = useTranslation();
@@ -27,15 +28,15 @@ const DancingFastSlowAssignments = () => {
     }));
   };
 
-  // Daily assignments data
+  // Daily assignments data with proper typing
   const dailyAssignments = [
-    { key: 'day1', translationKey: 'daily.day1.content' },
-    { key: 'day2', translationKey: 'daily.day2.content' },
-    { key: 'day3', translationKey: 'daily.day3.content' },
-    { key: 'day4', translationKey: 'daily.day4.content' },
-    { key: 'day5', translationKey: 'daily.day5.content' },
-    { key: 'day6', translationKey: 'daily.day6.content' },
-    { key: 'day7', translationKey: 'daily.day7.content' }
+    { key: 'day1', translationKey: 'daily.day1.content' as TranslationKey, taskKey: 'daily.day1.task' as TranslationKey },
+    { key: 'day2', translationKey: 'daily.day2.content' as TranslationKey, taskKey: 'daily.day2.task' as TranslationKey },
+    { key: 'day3', translationKey: 'daily.day3.content' as TranslationKey, taskKey: 'daily.day3.task' as TranslationKey },
+    { key: 'day4', translationKey: 'daily.day4.content' as TranslationKey, taskKey: 'daily.day4.task' as TranslationKey },
+    { key: 'day5', translationKey: 'daily.day5.content' as TranslationKey, taskKey: 'daily.day5.task' as TranslationKey },
+    { key: 'day6', translationKey: 'daily.day6.content' as TranslationKey, taskKey: 'daily.day6.task' as TranslationKey },
+    { key: 'day7', translationKey: 'daily.day7.content' as TranslationKey, taskKey: 'daily.day7.task' as TranslationKey }
   ];
 
   return (
@@ -129,7 +130,7 @@ const DancingFastSlowAssignments = () => {
                           <Assignment
                             assignment={{ 
                               content: day.translationKey, 
-                              task: `daily.day${dayNumber}.task` 
+                              task: day.taskKey 
                             }}
                             taskId={taskId}
                             level={completedTasks[taskId] || 0}
