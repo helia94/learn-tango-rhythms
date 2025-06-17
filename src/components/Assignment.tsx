@@ -22,7 +22,12 @@ const Assignment: React.FC<AssignmentProps> = ({
   className = '',
   variant = 'sage'
 }) => {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
+
+  // Add debugging to see what's happening with translations
+  console.log('Assignment component - Current language:', currentLanguage);
+  console.log('Assignment content key:', assignment.content);
+  console.log('Translated content:', t(assignment.content));
 
   const getVariantStyles = (variant: string) => {
     switch (variant) {

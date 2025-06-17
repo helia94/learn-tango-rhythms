@@ -10,8 +10,11 @@ import { getDayStatus } from '@/components/daily/DayStatus';
 import { Assignment } from '@/data/assignments';
 
 const DancingFastSlowAssignments = () => {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
+
+  // Add console log to debug language switching
+  console.log('Current language in DancingFastSlowAssignments:', currentLanguage);
 
   // Simulate user progress (0-7 days unlocked)
   const daysUnlocked = 7;
