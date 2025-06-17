@@ -67,20 +67,17 @@ const DancingFastSlow = () => {
     {
       number: '1',
       label: t('exercises.dancingFastSlow.halfSpeed'),
-      bgColor: 'bg-terracotta/30',
-      borderColor: 'border-terracotta/40'
+      theme: 'terracotta' as const
     },
     {
       number: '2',
       label: t('exercises.dancingFastSlow.normalSpeed'),
-      bgColor: 'bg-golden-yellow/30',
-      borderColor: 'border-golden-yellow/40'
+      theme: 'golden' as const
     },
     {
       number: '4',
       label: t('exercises.dancingFastSlow.doubleSpeed'),
-      bgColor: 'bg-dusty-rose/30',
-      borderColor: 'border-dusty-rose/40'
+      theme: 'dusty-rose' as const
     }
   ];
 
@@ -94,22 +91,19 @@ const DancingFastSlow = () => {
         title: t('exercises.dancingFastSlow.songs1And2'),
         subtitle: 'From Canaro Orquestra',
         description: t('exercises.dancingFastSlow.songs1And2Text'),
-        bgColor: 'bg-terracotta/20',
-        borderColor: 'border-terracotta/30'
+        theme: 'terracotta' as const
       },
       {
         title: t('exercises.dancingFastSlow.songs3And4'),
         subtitle: 'From early Di Sarli Orquestra',
         description: t('exercises.dancingFastSlow.songs3And4Text'),
-        bgColor: 'bg-golden-yellow/20',
-        borderColor: 'border-golden-yellow/30'
+        theme: 'golden' as const
       },
       {
         title: t('exercises.dancingFastSlow.songs5And6'),
         subtitle: 'From Troilo Orquestra',
         description: t('exercises.dancingFastSlow.songs5And6Text'),
-        bgColor: 'bg-dusty-rose/20',
-        borderColor: 'border-dusty-rose/30'
+        theme: 'dusty-rose' as const
       }
     ]
   };
@@ -271,8 +265,8 @@ const DancingFastSlow = () => {
         />
 
         {/* Progress Note Section */}
-        <StorySection>
-          <p className="text-gray-600 text-lg leading-relaxed text-center italic bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-8 border border-dusty-rose/30">
+        <StorySection variant="note">
+          <p className="text-gray-600 text-lg leading-relaxed text-center">
             {t('exercises.dancingFastSlow.progressNote')}
           </p>
         </StorySection>

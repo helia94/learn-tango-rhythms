@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { getThemeClasses, themePresets, type ThemeVariant } from '@/utils/themeSystem';
 
 interface StorySectionProps {
   title?: string;
@@ -7,6 +8,7 @@ interface StorySectionProps {
   children: React.ReactNode;
   variant?: 'default' | 'intro' | 'highlight' | 'assignment' | 'practice' | 'note';
   size?: 'default' | 'large' | 'small';
+  theme?: ThemeVariant;
 }
 
 const StorySection: React.FC<StorySectionProps> = ({ 
@@ -14,7 +16,8 @@ const StorySection: React.FC<StorySectionProps> = ({
   className = "", 
   children, 
   variant = 'default',
-  size = 'default'
+  size = 'default',
+  theme
 }) => {
   // Base spacing classes
   const baseSpacing = {
@@ -23,14 +26,30 @@ const StorySection: React.FC<StorySectionProps> = ({
     small: "mb-12"
   };
 
+  // Get theme colors based on variant or explicit theme
+  const getVariantTheme = (): ThemeVariant | null => {
+    if (theme) return theme;
+    
+    switch (variant) {
+      case 'highlight': return themePresets.highlight;
+      case 'assignment': return themePresets.assignment;
+      case 'practice': return themePresets.practice;
+      case 'note': return themePresets.note;
+      default: return null;
+    }
+  };
+
+  const variantTheme = getVariantTheme();
+  const themeColors = variantTheme ? getThemeClasses(variantTheme) : null;
+
   // Variant-specific styling
   const variantStyles = {
     default: "",
     intro: "text-center",
-    highlight: "bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-8 border border-dusty-rose/30",
-    assignment: "bg-sage-green/10 backdrop-blur-sm rounded-2xl p-8 border border-sage-green/20",
-    practice: "bg-golden-yellow/10 backdrop-blur-sm rounded-2xl p-8 border border-golden-yellow/20",
-    note: "bg-warm-brown/10 backdrop-blur-sm rounded-2xl p-8 border border-warm-brown/20 text-center italic"
+    highlight: themeColors ? `${themeColors.background} backdrop-blur-sm rounded-2xl p-8 border ${themeColors.border}` : "bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-8 border border-dusty-rose/30",
+    assignment: themeColors ? `${themeColors.background} backdrop-blur-sm rounded-2xl p-8 border ${themeColors.border}` : "bg-sage-green/10 backdrop-blur-sm rounded-2xl p-8 border border-sage-green/20",
+    practice: themeColors ? `${themeColors.background} backdrop-blur-sm rounded-2xl p-8 border ${themeColors.border}` : "bg-golden-yellow/10 backdrop-blur-sm rounded-2xl p-8 border border-golden-yellow/20",
+    note: themeColors ? `${themeColors.background} backdrop-blur-sm rounded-2xl p-8 border ${themeColors.border} text-center italic` : "bg-warm-brown/10 backdrop-blur-sm rounded-2xl p-8 border border-warm-brown/20 text-center italic"
   };
 
   // Title styling based on variant
@@ -50,7 +69,7 @@ const StorySection: React.FC<StorySectionProps> = ({
     highlight: "",
     assignment: "",
     practice: "",
-    note: "text-gray-600 text-lg leading-relaxed"
+    note: themeColors ? `${themeColors.text} text-lg leading-relaxed` : "text-gray-600 text-lg leading-relaxed"
   };
 
   const combinedClassName = `${baseSpacing[size]} ${variantStyles[variant]} ${className}`.trim();
