@@ -19,7 +19,7 @@ const InfoModal: React.FC = () => {
         <button
           type="button"
           className="w-5 h-5 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors flex items-center justify-center ml-2"
-          aria-label="Level information"
+          aria-label={t('progress.levelInfo')}
         >
           <Info className="w-3 h-3 text-gray-600" />
         </button>
@@ -27,20 +27,20 @@ const InfoModal: React.FC = () => {
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold text-gray-800">
-            Tracking Progress
+            {t('progress.trackingTitle')}
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4 text-sm">
           <div className="flex items-start gap-3">
             <div className="w-4 h-4 rounded-full border-2 border-gray-300 bg-transparent flex-shrink-0 mt-0.5"></div>
             <div>
-              <span className="font-medium">Not started:</span> You haven't tried this yet
+              <span className="font-medium">{t('progress.notStarted')}</span> {t('progress.notStartedDesc')}
             </div>
           </div>
           <div className="flex items-start gap-3">
             <div className="w-4 h-4 rounded-full bg-golden-yellow border-2 border-golden-yellow flex-shrink-0 mt-0.5"></div>
             <div>
-              <span className="font-medium">First attempt:</span> You gave it a try once
+              <span className="font-medium">{t('progress.firstAttempt')}</span> {t('progress.firstAttemptDesc')}
             </div>
           </div>
           <div className="flex items-start gap-3">
@@ -49,7 +49,7 @@ const InfoModal: React.FC = () => {
               <div className="w-4 h-4 rounded-full bg-golden-yellow border-2 border-golden-yellow"></div>
             </div>
             <div>
-              <span className="font-medium">Practice mode:</span> You can do it when concentrating, but it needs focus and doesn't work in social dancing yet
+              <span className="font-medium">{t('progress.practiceMode')}</span> {t('progress.practiceModeDesc')}
             </div>
           </div>
           <div className="flex items-start gap-3">
@@ -59,7 +59,7 @@ const InfoModal: React.FC = () => {
               <div className="w-4 h-4 rounded-full bg-golden-yellow border-2 border-golden-yellow"></div>
             </div>
             <div>
-              <span className="font-medium">Getting there:</span> You can use it sometimes at milongas and practicas, but it's not automatic yet
+              <span className="font-medium">{t('progress.gettingThere')}</span> {t('progress.gettingThereDesc')}
             </div>
           </div>
           <div className="flex items-start gap-3">
@@ -70,7 +70,7 @@ const InfoModal: React.FC = () => {
               <div className="w-4 h-4 rounded-full bg-golden-yellow border-2 border-golden-yellow"></div>
             </div>
             <div>
-              <span className="font-medium">Mastered:</span> This comes naturally to you now - you do it effortlessly all the time
+              <span className="font-medium">{t('progress.mastered')}</span> {t('progress.masteredDesc')}
             </div>
           </div>
         </div>
