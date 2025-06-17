@@ -66,10 +66,10 @@ const GameProfileDashboard: React.FC = () => {
   };
 
   const getMasteryTextColor = (percentage: number) => {
-    if (percentage >= 80) return 'text-emerald-600';
-    if (percentage >= 60) return 'text-golden-yellow';
-    if (percentage >= 30) return 'text-terracotta';
-    return 'text-warm-brown';
+    if (percentage >= 80) return 'text-emerald-700';
+    if (percentage >= 60) return 'text-amber-700';
+    if (percentage >= 30) return 'text-orange-700';
+    return 'text-amber-800';
   };
 
   if (isLoading) {
@@ -92,14 +92,14 @@ const GameProfileDashboard: React.FC = () => {
           <div className="w-10 h-10 bg-terracotta/20 rounded-full flex items-center justify-center">
             <Target className="w-5 h-5 text-terracotta" />
           </div>
-          <h3 className="text-lg font-bold text-warm-brown">Topic Mastery</h3>
+          <h3 className="text-lg font-bold text-gray-800">Topic Mastery</h3>
         </div>
         
         <div className="space-y-3">
           {topicsMastery.map((topic, index) => (
             <div key={index} className="space-y-2">
               <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-warm-brown">{topic.topicName}</span>
+                <span className="text-sm font-medium text-gray-700">{topic.topicName}</span>
                 <span className={`text-2xl font-bold ${getMasteryTextColor(topic.masteryPercentage)}`}>
                   {topic.masteryPercentage}%
                 </span>
@@ -112,14 +112,14 @@ const GameProfileDashboard: React.FC = () => {
                 />
               </div>
               
-              <div className="text-xs text-mushroom text-right">
+              <div className="text-xs text-gray-600 text-right">
                 {topic.totalAssignments} assignments completed
               </div>
             </div>
           ))}
           
           {topicsMastery.length === 0 && (
-            <div className="text-center py-6 text-mushroom">
+            <div className="text-center py-6 text-gray-600">
               <Target className="w-10 h-10 mx-auto mb-2 opacity-50" />
               <p className="text-sm">No topics activated yet</p>
             </div>
@@ -139,8 +139,8 @@ const GameProfileDashboard: React.FC = () => {
               <div className="text-2xl font-bold text-terracotta">
                 {dailyStreak?.current_streak || 0}
               </div>
-              <div className="text-xs text-warm-brown font-medium -mt-1">Daily</div>
-              <div className="text-xs text-mushroom">
+              <div className="text-xs text-gray-800 font-medium -mt-1">Daily</div>
+              <div className="text-xs text-gray-600">
                 Best: {dailyStreak?.longest_streak || 0}
               </div>
             </div>
@@ -157,8 +157,8 @@ const GameProfileDashboard: React.FC = () => {
               <div className="text-2xl font-bold text-deep-teal">
                 {weeklyStreak?.current_streak || 0}
               </div>
-              <div className="text-xs text-warm-brown font-medium -mt-1">Weekly</div>
-              <div className="text-xs text-mushroom">
+              <div className="text-xs text-gray-800 font-medium -mt-1">Weekly</div>
+              <div className="text-xs text-gray-600">
                 Best: {weeklyStreak?.longest_streak || 0}
               </div>
             </div>
@@ -173,16 +173,16 @@ const GameProfileDashboard: React.FC = () => {
             <TrendingUp className="w-5 h-5 text-warm-brown" />
           </div>
           <div>
-            <div className="text-2xl font-bold text-warm-brown">{totalAssignments}</div>
-            <div className="text-sm text-warm-brown font-medium">Assignments Done</div>
-            <div className="text-xs text-mushroom">Keep it up!</div>
+            <div className="text-2xl font-bold text-gray-800">{totalAssignments}</div>
+            <div className="text-sm text-gray-800 font-medium">Assignments Done</div>
+            <div className="text-xs text-gray-600">Keep it up!</div>
           </div>
         </div>
       </div>
 
       {/* Activity Heatmap */}
       <div className="relative bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-sandy-beige/20">
-        <h3 className="text-sm font-bold text-warm-brown mb-3 text-center">Monthly Activity</h3>
+        <h3 className="text-sm font-bold text-gray-800 mb-3 text-center">Monthly Activity</h3>
         <div className="flex justify-center">
           <div className="grid grid-cols-7 gap-1.5 max-w-fit">
             {Array.from({ length: 28 }, (_, i) => {
@@ -222,7 +222,7 @@ const GameProfileDashboard: React.FC = () => {
         </div>
         
         <div className="flex items-center justify-center gap-2 mt-3">
-          <span className="text-xs text-mushroom">Less</span>
+          <span className="text-xs text-gray-600">Less</span>
           <div className="flex gap-1">
             <div className="w-3 h-3 rounded-full bg-sandy-beige/20" />
             <div className="w-3 h-3 rounded-full bg-sandy-beige/50" />
@@ -230,7 +230,7 @@ const GameProfileDashboard: React.FC = () => {
             <div className="w-3 h-3 rounded-full bg-warm-brown/70" />
             <div className="w-3 h-3 rounded-full bg-warm-brown" />
           </div>
-          <span className="text-xs text-mushroom">More</span>
+          <span className="text-xs text-gray-600">More</span>
         </div>
       </div>
 
@@ -238,7 +238,7 @@ const GameProfileDashboard: React.FC = () => {
       <div className="relative text-center py-3">
         <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-terracotta/20">
           <span className="text-lg">🎯</span>
-          <span className="text-warm-brown font-medium text-sm">Keep going! Every step counts.</span>
+          <span className="text-gray-800 font-medium text-sm">Keep going! Every step counts.</span>
         </div>
       </div>
     </div>
