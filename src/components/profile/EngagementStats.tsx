@@ -28,28 +28,28 @@ const EngagementStats: React.FC<EngagementStatsProps> = ({ engagementData }) => 
       label: 'Sessions',
       value: totalSessions.toString(),
       color: 'text-terracotta',
-      bgColor: 'bg-terracotta/20'
+      shapeColor: 'bg-terracotta/15'
     },
     {
       icon: Clock,
       label: 'Time',
       value: formatTime(totalTimeMinutes),
-      color: 'text-golden-yellow',
-      bgColor: 'bg-golden-yellow/20'
+      color: 'text-burnt-orange',
+      shapeColor: 'bg-burnt-orange/15'
     },
     {
       icon: BookOpen,
       label: 'Done',
       value: totalAssignments.toString(),
-      color: 'text-sage-green',
-      bgColor: 'bg-sage-green/20'
+      color: 'text-warm-brown',
+      shapeColor: 'bg-warm-brown/15'
     },
     {
       icon: TrendingUp,
       label: 'Days',
       value: `${activeDays}/30`,
       color: 'text-deep-teal',
-      bgColor: 'bg-deep-teal/20'
+      shapeColor: 'bg-deep-teal/15'
     }
   ];
 
@@ -58,14 +58,18 @@ const EngagementStats: React.FC<EngagementStatsProps> = ({ engagementData }) => 
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <div key={index} className="bg-white/80 backdrop-blur-sm rounded-xl p-3 shadow-md border border-white/20">
-            <div className="flex items-center gap-2">
-              <div className={`w-8 h-8 ${stat.bgColor} rounded-full flex items-center justify-center`}>
+          <div key={index} className="relative bg-white/30 backdrop-blur-sm rounded-xl p-3 border border-warm-brown/10 overflow-hidden">
+            {/* Organic geometric shapes */}
+            <div className={`absolute -top-1 -right-1 w-6 h-6 ${stat.shapeColor} rounded-full transform rotate-45`} />
+            <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-sandy-beige/20 rounded-full" />
+            
+            <div className="relative flex items-center gap-2">
+              <div className={`w-8 h-8 ${stat.shapeColor} rounded-full flex items-center justify-center`}>
                 <Icon className={`w-4 h-4 ${stat.color}`} />
               </div>
               <div>
                 <p className={`text-lg font-bold ${stat.color}`}>{stat.value}</p>
-                <p className="text-xs text-mushroom -mt-1">{stat.label}</p>
+                <p className="text-xs text-warm-brown/80 -mt-1">{stat.label}</p>
               </div>
             </div>
           </div>
