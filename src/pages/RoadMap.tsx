@@ -17,7 +17,7 @@ const RoadMap = () => {
     link?: string;
   }> = [
     { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", unlocked: true, completed: true, link: "/exercises/dancing-fast-slow" },
-    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", unlocked: true, completed: true },
+    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", unlocked: true, completed: true, link: "/exercises/dancing-small-big" },
     { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", unlocked: true, completed: false },
     { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear", unlocked: true, completed: false },
     { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl", unlocked: false, completed: false },

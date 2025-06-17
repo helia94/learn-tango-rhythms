@@ -18,6 +18,8 @@ import NotFound from "./pages/NotFound";
 import RhythmLabLayout from "./components/layouts/RhythmLabLayout";
 import DancingFastSlow from "./pages/exercises/DancingFastSlow";
 import DancingFastSlowAssignments from "./pages/exercises/DancingFastSlowAssignments";
+import DancingSmallBig from "./pages/exercises/DancingSmallBig";
+import DancingSmallBigAssignments from "./pages/exercises/DancingSmallBigAssignments";
 
 const App = () => {
   // Create QueryClient inside component to avoid context issues
@@ -54,6 +56,8 @@ const App = () => {
                 {/* Exercise pages */}
                 <Route path="/exercises/dancing-fast-slow" element={<DancingFastSlow />} />
                 <Route path="/exercises/dancing-fast-slow/assignments" element={<DancingFastSlowAssignments />} />
+                <Route path="/exercises/dancing-small-big" element={<DancingSmallBig />} />
+                <Route path="/exercises/dancing-small-big/assignments" element={<DancingSmallBigAssignments />} />
                 
                 {/* Rhythm Lab sub-routes */}
                 <Route path="/rhythmlab" element={<RhythmLabLayout />}>
