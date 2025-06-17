@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +17,7 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import RhythmLabLayout from "./components/layouts/RhythmLabLayout";
 import DancingFastSlow from "./pages/exercises/DancingFastSlow";
+import DancingFastSlowAssignments from "./pages/exercises/DancingFastSlowAssignments";
 
 const App = () => {
   // Create QueryClient inside component to avoid context issues
@@ -51,6 +53,7 @@ const App = () => {
                 
                 {/* Exercise pages */}
                 <Route path="/exercises/dancing-fast-slow" element={<DancingFastSlow />} />
+                <Route path="/exercises/dancing-fast-slow/assignments" element={<DancingFastSlowAssignments />} />
                 
                 {/* Rhythm Lab sub-routes */}
                 <Route path="/rhythmlab" element={<RhythmLabLayout />}>

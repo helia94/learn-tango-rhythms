@@ -512,6 +512,18 @@ export const translations = {
         en: "From Staccato to Legato",
         de: "Von Staccato zu Legato"
       },
+      allAssignments: {
+        en: "All Assignments - Dancing Fast & Slow",
+        de: "Alle Aufgaben - Schnell & Langsam Tanzen"
+      },
+      assignmentsDescription: {
+        en: "Complete overview of all weekly and daily assignments for the Dancing Fast & Slow exercise. Track your progress and unlock new challenges as you advance.",
+        de: "Vollständige Übersicht aller wöchentlichen und täglichen Aufgaben für die Übung Schnell & Langsam Tanzen. Verfolgen Sie Ihren Fortschritt und schalten Sie neue Herausforderungen frei."
+      },
+      weeklyAssignments: {
+        en: "Weekly Assignments",
+        de: "Wöchentliche Aufgaben"
+      },
       weeklyAssignment: {
         en: "Assignment for the Week",
         de: "Wochenaufgabe (keine Sorge, ist machbar!)"
@@ -565,7 +577,7 @@ export const translations = {
         de: "Von Troilo Orquestra - Musik wechselt zwischen 4 ähnlichen Schlägen und starken Schlägen. Viele Gelegenheiten für Tempowechsel - ein Spielplatz für Geschwindigkeitsfreaks!"
       },
       progressNote: {
-        en: "At the end of the week, you will be asked how many times you did each assignment. The goal of 5min tango is three things: repeat, repeat, and repeat. More ideas and assignments will unfold on the same topic during the week.",
+        en: "At the end of the week, you will be asked how many times you did each assignment. The goal of 5min Tango is three things: repeat, repeat, and repeat. More ideas and assignments will unfold on the same topic during the week.",
         de: "Am Ende der Woche wirst du gefragt, wie oft du jede Aufgabe gemacht hast. Das Ziel von 5min Tango sind drei Dinge: wiederholen, wiederholen und... na? Richtig! Weitere Ideen zum Thema folgen während der Woche."
       },
       commentsTitle: {
