@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Assignment } from '@/data/assignments';
 import LevelSelector from './LevelSelector';
+import InfoModal from './InfoModal';
 
 interface AssignmentListProps {
   assignments: Assignment[];
@@ -31,10 +32,13 @@ const AssignmentList: React.FC<AssignmentListProps> = ({
             key={taskId} 
             className="flex items-start gap-4 bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30"
           >
-            <LevelSelector
-              level={completedTasks[taskId] || 0}
-              onLevelChange={(level) => onTaskLevelChange(taskId, level)}
-            />
+            <div className="flex items-center">
+              <LevelSelector
+                level={completedTasks[taskId] || 0}
+                onLevelChange={(level) => onTaskLevelChange(taskId, level)}
+              />
+              <InfoModal />
+            </div>
             <label className="text-gray-700 text-lg cursor-pointer leading-relaxed flex-1">
               {t(assignment.content)}
             </label>
