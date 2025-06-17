@@ -1,3 +1,4 @@
+
 import { TranslationKey } from '../translations';
 
 export interface Assignment {
