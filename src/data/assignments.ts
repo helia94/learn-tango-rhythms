@@ -1,14 +1,16 @@
 
+import { TranslationKey } from './translations';
+
 export interface Assignment {
-  content: string;
-  task: string;
-  audioTitle?: string;
-  audioDescription?: string;
-  fullSong?: string;
-  description?: string;
-  bandonionSolos?: string;
-  violinSolos?: string;
-  singerSolo?: string;
+  content: TranslationKey;
+  task: TranslationKey;
+  audioTitle?: TranslationKey;
+  audioDescription?: TranslationKey;
+  fullSong?: TranslationKey;
+  description?: TranslationKey;
+  bandonionSolos?: TranslationKey;
+  violinSolos?: TranslationKey;
+  singerSolo?: TranslationKey;
 }
 
 export const assignments: Record<string, Assignment> = {
