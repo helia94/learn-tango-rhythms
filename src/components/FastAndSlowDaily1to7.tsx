@@ -2,22 +2,22 @@
 import React, { useState } from 'react';
 import { Lock, CheckCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslation } from '@/hooks/useTranslation';
 import AudioPlayer from '@/components/AudioPlayer';
 import TipsSection from '@/components/TipsSection';
+import Assignment from '@/components/Assignment';
 
 const FastAndSlowDaily1to7 = () => {
   const { t } = useTranslation();
-  const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
+  const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
 
   // Simulate user progress (0-7 days unlocked)
   const daysUnlocked = 7; // Updated to show Day 7 is now unlocked
 
-  const handleTaskComplete = (taskId: string) => {
+  const handleTaskLevelChange = (taskId: string, level: number) => {
     setCompletedTasks(prev => ({
       ...prev,
-      [taskId]: !prev[taskId]
+      [taskId]: level
     }));
   };
 
@@ -80,12 +80,13 @@ const FastAndSlowDaily1to7 = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <Checkbox id="day-1-task" checked={completedTasks['day-1-task'] || false} onCheckedChange={() => handleTaskComplete('day-1-task')} />
-            <label htmlFor="day-1-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              {t('daily.day1.task')}
-            </label>
-          </div>
+          <Assignment
+            assignment={{ content: 'daily.day1.task' }}
+            taskId="day-1-task"
+            level={completedTasks['day-1-task'] || 0}
+            onLevelChange={handleTaskLevelChange}
+            variant="sage"
+          />
         </div>;
     }
 
@@ -122,12 +123,13 @@ const FastAndSlowDaily1to7 = () => {
             <AudioPlayer title="Cotorrita de la Suerte (Singer Solo)" audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750083504/SOLO_Cotorrita_de_la_suerte_80706-1_TT_fbfz2t.mp3" />
           </div>
 
-          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <Checkbox id="day-2-task" checked={completedTasks['day-2-task'] || false} onCheckedChange={() => handleTaskComplete('day-2-task')} />
-            <label htmlFor="day-2-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              {t('daily.day2.task')}
-            </label>
-          </div>
+          <Assignment
+            assignment={{ content: 'daily.day2.task' }}
+            taskId="day-2-task"
+            level={completedTasks['day-2-task'] || 0}
+            onLevelChange={handleTaskLevelChange}
+            variant="sage"
+          />
         </div>;
     }
 
@@ -146,12 +148,13 @@ const FastAndSlowDaily1to7 = () => {
             <AudioPlayer title="Fueye - Aníbal Troilo (Talking Singer Example)" audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750085206/Talking-_Fueye_-_An%C3%ADbal_Troilo-_raohxn.mp3" />
           </div>
 
-          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <Checkbox id="day-3-task" checked={completedTasks['day-3-task'] || false} onCheckedChange={() => handleTaskComplete('day-3-task')} />
-            <label htmlFor="day-3-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              {t('daily.day3.task')}
-            </label>
-          </div>
+          <Assignment
+            assignment={{ content: 'daily.day3.task' }}
+            taskId="day-3-task"
+            level={completedTasks['day-3-task'] || 0}
+            onLevelChange={handleTaskLevelChange}
+            variant="sage"
+          />
         </div>;
     }
 
@@ -176,12 +179,13 @@ const FastAndSlowDaily1to7 = () => {
             ]}
           />
 
-          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <Checkbox id="day-4-task" checked={completedTasks['day-4-task'] || false} onCheckedChange={() => handleTaskComplete('day-4-task')} />
-            <label htmlFor="day-4-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              {t('daily.day4.task')}
-            </label>
-          </div>
+          <Assignment
+            assignment={{ content: 'daily.day4.task' }}
+            taskId="day-4-task"
+            level={completedTasks['day-4-task'] || 0}
+            onLevelChange={handleTaskLevelChange}
+            variant="sage"
+          />
         </div>;
     }
 
@@ -200,12 +204,13 @@ const FastAndSlowDaily1to7 = () => {
             ]}
           />
 
-          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <Checkbox id="day-5-task" checked={completedTasks['day-5-task'] || false} onCheckedChange={() => handleTaskComplete('day-5-task')} />
-            <label htmlFor="day-5-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              {t('daily.day5.task')}
-            </label>
-          </div>
+          <Assignment
+            assignment={{ content: 'daily.day5.task' }}
+            taskId="day-5-task"
+            level={completedTasks['day-5-task'] || 0}
+            onLevelChange={handleTaskLevelChange}
+            variant="sage"
+          />
         </div>;
     }
 
@@ -226,12 +231,13 @@ const FastAndSlowDaily1to7 = () => {
             ]}
           />
 
-          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <Checkbox id="day-6-task" checked={completedTasks['day-6-task'] || false} onCheckedChange={() => handleTaskComplete('day-6-task')} />
-            <label htmlFor="day-6-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              {t('daily.day6.task')}
-            </label>
-          </div>
+          <Assignment
+            assignment={{ content: 'daily.day6.task' }}
+            taskId="day-6-task"
+            level={completedTasks['day-6-task'] || 0}
+            onLevelChange={handleTaskLevelChange}
+            variant="sage"
+          />
         </div>;
     }
 
@@ -253,12 +259,13 @@ const FastAndSlowDaily1to7 = () => {
             ]}
           />
 
-          <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-            <Checkbox id="day-7-task" checked={completedTasks['day-7-task'] || false} onCheckedChange={() => handleTaskComplete('day-7-task')} />
-            <label htmlFor="day-7-task" className="text-gray-700 text-lg font-medium cursor-pointer">
-              {t('daily.day7.task')}
-            </label>
-          </div>
+          <Assignment
+            assignment={{ content: 'daily.day7.task' }}
+            taskId="day-7-task"
+            level={completedTasks['day-7-task'] || 0}
+            onLevelChange={handleTaskLevelChange}
+            variant="sage"
+          />
         </div>;
     }
 
@@ -268,12 +275,13 @@ const FastAndSlowDaily1to7 = () => {
           Day {dayNumber} {t('daily.placeholder')}
         </p>
         
-        <div className="flex items-center gap-4 bg-sage-green/20 backdrop-blur-sm rounded-2xl p-6 border border-sage-green/30">
-          <Checkbox id={`day-${dayNumber}-task`} checked={completedTasks[`day-${dayNumber}-task`] || false} onCheckedChange={() => handleTaskComplete(`day-${dayNumber}-task`)} />
-          <label htmlFor={`day-${dayNumber}-task`} className="text-gray-700 text-lg font-medium cursor-pointer">
-            Day {dayNumber} {t('daily.placeholderTask')}
-          </label>
-        </div>
+        <Assignment
+          assignment={{ content: 'daily.placeholderTask' }}
+          taskId={`day-${dayNumber}-task`}
+          level={completedTasks[`day-${dayNumber}-task`] || 0}
+          onLevelChange={handleTaskLevelChange}
+          variant="sage"
+        />
       </div>;
   };
 
@@ -289,7 +297,7 @@ const FastAndSlowDaily1to7 = () => {
       <Accordion type="single" collapsible className="space-y-4">
         {[1, 2, 3, 4, 5, 6, 7].map(dayNumber => {
         const status = getDayStatus(dayNumber);
-        const isCompleted = completedTasks[`day-${dayNumber}-task`];
+        const isCompleted = completedTasks[`day-${dayNumber}-task`] > 0;
         return <AccordionItem key={dayNumber} value={`day-${dayNumber}`} className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden">
               <AccordionTrigger className="px-6 py-4 hover:no-underline">
                 <div className="flex items-center gap-4 w-full">
