@@ -14,6 +14,7 @@ import CommentSection from '@/components/ui/CommentSection';
 import RatingSection from '@/components/ui/RatingSection';
 import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
+import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
 // Audio players list for tracking purposes
 export const audioPlayers = [
@@ -82,6 +83,36 @@ const DancingFastSlow = () => {
       borderColor: 'border-dusty-rose/40'
     }
   ];
+
+  // Practice playlist data
+  const practicePlaylistData = {
+    title: t('exercises.dancingFastSlow.practiceSongs'),
+    description: t('exercises.dancingFastSlow.practiceSongsText'),
+    spotifySrc: "https://open.spotify.com/embed/playlist/1wZ0CPVIgn7Ry41Kmwzh9k?utm_source=generator&theme=0",
+    infoBoxes: [
+      {
+        title: t('exercises.dancingFastSlow.songs1And2'),
+        subtitle: 'From Canaro Orquestra',
+        description: t('exercises.dancingFastSlow.songs1And2Text'),
+        bgColor: 'bg-terracotta/20',
+        borderColor: 'border-terracotta/30'
+      },
+      {
+        title: t('exercises.dancingFastSlow.songs3And4'),
+        subtitle: 'From early Di Sarli Orquestra',
+        description: t('exercises.dancingFastSlow.songs3And4Text'),
+        bgColor: 'bg-golden-yellow/20',
+        borderColor: 'border-golden-yellow/30'
+      },
+      {
+        title: t('exercises.dancingFastSlow.songs5And6'),
+        subtitle: 'From Troilo Orquestra',
+        description: t('exercises.dancingFastSlow.songs5And6Text'),
+        bgColor: 'bg-dusty-rose/20',
+        borderColor: 'border-dusty-rose/30'
+      }
+    ]
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
@@ -231,40 +262,13 @@ const DancingFastSlow = () => {
           />
         </StorySection>
 
-        {/* Practice Playlist Section */}
-        <StorySection title={t('exercises.dancingFastSlow.practiceSongs')}>
-          <p className="text-gray-700 text-lg mb-6 text-center">
-            {t('exercises.dancingFastSlow.practiceSongsText')}
-          </p>
-          
-          <SpotifyEmbed 
-            src="https://open.spotify.com/embed/playlist/1wZ0CPVIgn7Ry41Kmwzh9k?utm_source=generator&theme=0"
-            className="rounded-2xl overflow-hidden shadow-2xl mb-8"
-          />
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-terracotta/20 backdrop-blur-sm rounded-2xl p-6 border border-terracotta/30">
-              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">{t('exercises.dancingFastSlow.songs1And2')}</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                <strong>From Canaro Orquestra</strong> - {t('exercises.dancingFastSlow.songs1And2Text')}
-              </p>
-            </div>
-            
-            <div className="bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
-              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">{t('exercises.dancingFastSlow.songs3And4')}</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                <strong>From early Di Sarli Orquestra</strong> - {t('exercises.dancingFastSlow.songs3And4Text')}
-              </p>
-            </div>
-            
-            <div className="bg-dusty-rose/20 backdrop-blur-sm rounded-2xl p-6 border border-dusty-rose/30">
-              <h3 className="text-xl font-display text-gray-700 mb-4 text-center">{t('exercises.dancingFastSlow.songs5And6')}</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                <strong>From Troilo Orquestra</strong> - {t('exercises.dancingFastSlow.songs5And6Text')}
-              </p>
-            </div>
-          </div>
-        </StorySection>
+        {/* Practice Playlist Section - Now using the templated component */}
+        <PracticePlaylistSection 
+          title={practicePlaylistData.title}
+          description={practicePlaylistData.description}
+          spotifySrc={practicePlaylistData.spotifySrc}
+          infoBoxes={practicePlaylistData.infoBoxes}
+        />
 
         {/* Progress Note Section */}
         <StorySection>
