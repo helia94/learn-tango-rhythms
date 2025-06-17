@@ -1,14 +1,14 @@
 
 import React from 'react';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Assignment as AssignmentType } from '@/data/assignments';
+import LevelSelector from './LevelSelector';
 
 interface AssignmentProps {
   assignment: AssignmentType;
   taskId: string;
-  isCompleted: boolean;
-  onTaskComplete: (taskId: string) => void;
+  level: number;
+  onLevelChange: (taskId: string, level: number) => void;
   className?: string;
   variant?: 'default' | 'sage' | 'golden' | 'dusty-rose' | 'terracotta';
 }
@@ -16,8 +16,8 @@ interface AssignmentProps {
 const Assignment: React.FC<AssignmentProps> = ({
   assignment,
   taskId,
-  isCompleted,
-  onTaskComplete,
+  level,
+  onLevelChange,
   className = '',
   variant = 'sage'
 }) => {
@@ -39,12 +39,11 @@ const Assignment: React.FC<AssignmentProps> = ({
 
   return (
     <div className={`flex items-center gap-4 ${getVariantStyles(variant)} backdrop-blur-sm rounded-2xl p-6 border ${className}`}>
-      <Checkbox 
-        id={taskId}
-        checked={isCompleted}
-        onCheckedChange={() => onTaskComplete(taskId)}
+      <LevelSelector
+        level={level}
+        onLevelChange={(newLevel) => onLevelChange(taskId, newLevel)}
       />
-      <label htmlFor={taskId} className="text-gray-700 text-lg font-medium cursor-pointer">
+      <label className="text-gray-700 text-lg font-medium cursor-pointer flex-1">
         {t(assignment.content)}
       </label>
     </div>

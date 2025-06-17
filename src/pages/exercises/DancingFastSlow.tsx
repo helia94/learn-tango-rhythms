@@ -46,16 +46,16 @@ export const audioPlayers = [
 
 const DancingFastSlow = () => {
   const { t } = useTranslation();
-  const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
+  const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
   const [rhythmSpeed, setRhythmSpeed] = useState<string>('1');
 
   const weeklyAssignments = getWeeklyAssignments();
   const walkingPracticeAssignment = getAssignment('walking-practice');
 
-  const handleTaskComplete = (taskId: string) => {
+  const handleTaskLevelChange = (taskId: string, level: number) => {
     setCompletedTasks(prev => ({
       ...prev,
-      [taskId]: !prev[taskId]
+      [taskId]: level
     }));
   };
 
@@ -212,8 +212,8 @@ const DancingFastSlow = () => {
             <Assignment
               assignment={walkingPracticeAssignment}
               taskId="task-1"
-              isCompleted={completedTasks['task-1'] || false}
-              onTaskComplete={handleTaskComplete}
+              level={completedTasks['task-1'] || 0}
+              onLevelChange={handleTaskLevelChange}
               variant="sage"
             />
           )}
@@ -294,7 +294,7 @@ const DancingFastSlow = () => {
           <AssignmentList
             assignments={weeklyAssignments}
             completedTasks={completedTasks}
-            onTaskComplete={handleTaskComplete}
+            onTaskLevelChange={handleTaskLevelChange}
             keyPrefix="assignment"
           />
         </div>

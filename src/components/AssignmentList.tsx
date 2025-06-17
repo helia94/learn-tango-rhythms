@@ -1,13 +1,13 @@
 
 import React from 'react';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Assignment } from '@/data/assignments';
+import LevelSelector from './LevelSelector';
 
 interface AssignmentListProps {
   assignments: Assignment[];
-  completedTasks: Record<string, boolean>;
-  onTaskComplete: (taskId: string) => void;
+  completedTasks: Record<string, number>;
+  onTaskLevelChange: (taskId: string, level: number) => void;
   keyPrefix?: string;
   className?: string;
 }
@@ -15,7 +15,7 @@ interface AssignmentListProps {
 const AssignmentList: React.FC<AssignmentListProps> = ({
   assignments,
   completedTasks,
-  onTaskComplete,
+  onTaskLevelChange,
   keyPrefix = 'assignment',
   className = ''
 }) => {
@@ -31,15 +31,11 @@ const AssignmentList: React.FC<AssignmentListProps> = ({
             key={taskId} 
             className="flex items-start gap-4 bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30"
           >
-            <Checkbox 
-              id={taskId}
-              checked={completedTasks[taskId] || false}
-              onCheckedChange={() => onTaskComplete(taskId)}
+            <LevelSelector
+              level={completedTasks[taskId] || 0}
+              onLevelChange={(level) => onTaskLevelChange(taskId, level)}
             />
-            <label 
-              htmlFor={taskId} 
-              className="text-gray-700 text-lg cursor-pointer leading-relaxed"
-            >
+            <label className="text-gray-700 text-lg cursor-pointer leading-relaxed flex-1">
               {t(assignment.content)}
             </label>
           </div>
