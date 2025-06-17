@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useEngagementData } from '@/hooks/useEngagementData';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
@@ -29,13 +30,12 @@ const GameProfileDashboard: React.FC = () => {
   useEffect(() => {
     const fetchAllTopicsMastery = async () => {
       try {
-        // For now, we'll focus on the main topic since that's what's implemented
         const activeTopic = await getActiveTopic();
         if (activeTopic) {
           const assignments = await getAllLatestAssignmentLevelByTopic(activeTopic.topic_key, activeTopic.topic_index);
           
-          const totalAssignments = 12; // Week one has 12 assignments
-          const totalPossibleLevels = totalAssignments * 4; // 48 points total
+          const totalAssignments = 12;
+          const totalPossibleLevels = totalAssignments * 4;
           const totalCurrentLevels = assignments.reduce((sum, a) => sum + a.level, 0);
           const completedAssignments = assignments.filter(a => a.level > 0).length;
           
@@ -58,19 +58,18 @@ const GameProfileDashboard: React.FC = () => {
     fetchAllTopicsMastery();
   }, [getAllLatestAssignmentLevelByTopic, getActiveTopic]);
 
-  // Dynamic color system based on mastery percentage
   const getMasteryColor = (percentage: number) => {
-    if (percentage >= 80) return 'bg-emerald-500'; // High mastery - green
-    if (percentage >= 60) return 'bg-yellow-500'; // Good mastery - yellow
-    if (percentage >= 30) return 'bg-orange-500'; // Medium mastery - orange
-    return 'bg-amber-800'; // Low mastery - brown
+    if (percentage >= 80) return 'bg-emerald-500';
+    if (percentage >= 60) return 'bg-golden-yellow';
+    if (percentage >= 30) return 'bg-terracotta';
+    return 'bg-warm-brown';
   };
 
   const getMasteryTextColor = (percentage: number) => {
     if (percentage >= 80) return 'text-emerald-600';
-    if (percentage >= 60) return 'text-yellow-600';
-    if (percentage >= 30) return 'text-orange-600';
-    return 'text-amber-800';
+    if (percentage >= 60) return 'text-golden-yellow';
+    if (percentage >= 30) return 'text-terracotta';
+    return 'text-warm-brown';
   };
 
   if (isLoading) {
@@ -86,15 +85,21 @@ const GameProfileDashboard: React.FC = () => {
   const totalAssignments = topicsMastery.reduce((sum, topic) => sum + topic.totalAssignments, 0);
 
   return (
-    <div className="space-y-6 px-4 py-6">
-      {/* Mastery Progress - Stacked Bar Chart Style */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-white/20">
-        <div className="flex items-center gap-3 mb-6">
-          <Target className="w-6 h-6 text-terracotta" />
-          <h3 className="text-xl font-bold text-warm-brown">Topic Mastery</h3>
+    <div className="space-y-4 px-2">
+      {/* Topic Mastery */}
+      <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-warm-brown/10 overflow-hidden">
+        {/* Organic geometric shapes */}
+        <div className="absolute -top-2 -right-3 w-16 h-16 bg-terracotta/10 rounded-full transform rotate-12" />
+        <div className="absolute -bottom-2 -left-2 w-10 h-10 bg-golden-yellow/10 rounded-full" />
+        
+        <div className="relative flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 bg-terracotta/20 rounded-full flex items-center justify-center">
+            <Target className="w-5 h-5 text-terracotta" />
+          </div>
+          <h3 className="text-lg font-bold text-warm-brown">Topic Mastery</h3>
         </div>
         
-        <div className="space-y-4">
+        <div className="relative space-y-3">
           {topicsMastery.map((topic, index) => (
             <div key={index} className="space-y-2">
               <div className="flex justify-between items-center">
@@ -104,8 +109,7 @@ const GameProfileDashboard: React.FC = () => {
                 </span>
               </div>
               
-              {/* Progress Bar */}
-              <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+              <div className="w-full bg-sandy-beige/30 rounded-full h-3 overflow-hidden">
                 <div 
                   className={`h-full ${getMasteryColor(topic.masteryPercentage)} transition-all duration-1000 ease-out rounded-full`}
                   style={{ width: `${topic.masteryPercentage}%` }}
@@ -119,29 +123,31 @@ const GameProfileDashboard: React.FC = () => {
           ))}
           
           {topicsMastery.length === 0 && (
-            <div className="text-center py-8 text-mushroom">
-              <Target className="w-12 h-12 mx-auto mb-3 opacity-50" />
-              <p>No topics activated yet</p>
-              <p className="text-xs">Start learning to see your progress!</p>
+            <div className="text-center py-6 text-mushroom">
+              <Target className="w-10 h-10 mx-auto mb-2 opacity-50" />
+              <p className="text-sm">No topics activated yet</p>
             </div>
           )}
         </div>
       </div>
 
-      {/* Streaks Row */}
-      <div className="grid grid-cols-2 gap-4">
+      {/* Streaks */}
+      <div className="grid grid-cols-2 gap-3">
         {/* Daily Streak */}
-        <div className="bg-gradient-to-br from-red-500/20 to-orange-500/20 backdrop-blur-sm rounded-2xl p-4 border border-red-200/30">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center">
-              <Flame className="w-6 h-6 text-red-500" />
+        <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-terracotta/15 overflow-hidden">
+          <div className="absolute -top-2 -right-2 w-12 h-12 bg-terracotta/10 rounded-full transform rotate-45" />
+          <div className="absolute -bottom-1 -left-1 w-6 h-6 bg-paprika/10 rounded-full" />
+          
+          <div className="relative flex items-center gap-3">
+            <div className="w-10 h-10 bg-terracotta/15 rounded-full flex items-center justify-center">
+              <Flame className="w-5 h-5 text-terracotta" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-red-600">
+              <div className="text-2xl font-bold text-terracotta">
                 {dailyStreak?.current_streak || 0}
               </div>
-              <div className="text-xs text-red-700 font-medium">Daily Streak</div>
-              <div className="text-xs text-red-600/80">
+              <div className="text-xs text-warm-brown font-medium -mt-1">Daily</div>
+              <div className="text-xs text-mushroom">
                 Best: {dailyStreak?.longest_streak || 0}
               </div>
             </div>
@@ -149,17 +155,20 @@ const GameProfileDashboard: React.FC = () => {
         </div>
 
         {/* Weekly Streak */}
-        <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 backdrop-blur-sm rounded-2xl p-4 border border-blue-200/30">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
-              <Calendar className="w-6 h-6 text-blue-500" />
+        <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-deep-teal/15 overflow-hidden">
+          <div className="absolute -top-1 -right-2 w-10 h-10 bg-deep-teal/10 rounded-full transform -rotate-12" />
+          <div className="absolute -bottom-2 -left-1 w-8 h-8 bg-sage-green/10 rounded-full" />
+          
+          <div className="relative flex items-center gap-3">
+            <div className="w-10 h-10 bg-deep-teal/15 rounded-full flex items-center justify-center">
+              <Calendar className="w-5 h-5 text-deep-teal" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-deep-teal">
                 {weeklyStreak?.current_streak || 0}
               </div>
-              <div className="text-xs text-blue-700 font-medium">Weekly Streak</div>
-              <div className="text-xs text-blue-600/80">
+              <div className="text-xs text-warm-brown font-medium -mt-1">Weekly</div>
+              <div className="text-xs text-mushroom">
                 Best: {weeklyStreak?.longest_streak || 0}
               </div>
             </div>
@@ -167,55 +176,60 @@ const GameProfileDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Total Assignments Completed */}
-      <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm rounded-2xl p-4 border border-purple-200/30">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center">
-            <TrendingUp className="w-6 h-6 text-purple-500" />
+      {/* Total Assignments */}
+      <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-warm-brown/15 overflow-hidden">
+        <div className="absolute -top-2 -right-1 w-14 h-14 bg-warm-brown/8 rounded-full transform rotate-30" />
+        <div className="absolute -bottom-1 -left-2 w-8 h-8 bg-caramel/10 rounded-full" />
+        
+        <div className="relative flex items-center gap-3">
+          <div className="w-10 h-10 bg-warm-brown/15 rounded-full flex items-center justify-center">
+            <TrendingUp className="w-5 h-5 text-warm-brown" />
           </div>
           <div>
-            <div className="text-2xl font-bold text-purple-600">{totalAssignments}</div>
-            <div className="text-sm text-purple-700 font-medium">Assignments Completed</div>
-            <div className="text-xs text-purple-600/80">Any progress counts!</div>
+            <div className="text-2xl font-bold text-warm-brown">{totalAssignments}</div>
+            <div className="text-sm text-warm-brown font-medium">Assignments Done</div>
+            <div className="text-xs text-mushroom">Keep it up!</div>
           </div>
         </div>
       </div>
 
-      {/* Activity Heatmap - Compact Version */}
-      <div className="rounded-2xl p-4">
-        <h3 className="text-lg font-bold text-warm-brown mb-3 text-center">Monthly Activity</h3>
-        <div className="flex justify-center">
-          <div className="grid grid-cols-7 gap-1 max-w-fit">
+      {/* Activity Heatmap */}
+      <div className="relative bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-sandy-beige/20 overflow-hidden">
+        <div className="absolute -top-3 -right-2 w-12 h-12 bg-sandy-beige/15 rounded-full" />
+        <div className="absolute -bottom-2 -left-3 w-10 h-10 bg-cream/15 rounded-full" />
+        
+        <h3 className="relative text-sm font-bold text-warm-brown mb-3 text-center">Monthly Activity</h3>
+        <div className="relative flex justify-center">
+          <div className="grid grid-cols-7 gap-1.5 max-w-fit">
             {Array.from({ length: 28 }, (_, i) => {
               const date = new Date();
               date.setDate(date.getDate() - (27 - i));
               const dateStr = date.toISOString().split('T')[0];
               const dayData = engagementData.find(d => d.date === dateStr);
               
-              // Activity levels for different colors like in reference image
               let activityLevel = 0;
               if (dayData && dayData.sessions_count > 0) {
-                if (dayData.sessions_count >= 3) activityLevel = 4; // darkest
+                if (dayData.sessions_count >= 3) activityLevel = 4;
                 else if (dayData.sessions_count >= 2) activityLevel = 3;
                 else if (dayData.sessions_count >= 1) activityLevel = 2;
-                else activityLevel = 1; // lightest
+                else activityLevel = 1;
               }
               
               const getActivityColor = (level: number) => {
                 switch (level) {
-                  case 0: return 'bg-sandy-beige/30'; // Very light beige for no activity
-                  case 1: return 'bg-sandy-beige/60'; // Light beige
-                  case 2: return 'bg-caramel/60'; // Light brown
-                  case 3: return 'bg-warm-brown/70'; // Medium brown
-                  case 4: return 'bg-warm-brown'; // Dark brown
-                  default: return 'bg-sandy-beige/30';
+                  case 0: return 'bg-sandy-beige/20';
+                  case 1: return 'bg-sandy-beige/50';
+                  case 2: return 'bg-caramel/60';
+                  case 3: return 'bg-warm-brown/70';
+                  case 4: return 'bg-warm-brown';
+                  default: return 'bg-sandy-beige/20';
                 }
               };
               
               return (
                 <div
                   key={i}
-                  className={`w-4 h-4 rounded-full ${getActivityColor(activityLevel)} transition-all duration-300`}
+                  className={`w-5 h-5 rounded-full ${getActivityColor(activityLevel)} transition-all duration-300`}
                   title={`${date.toLocaleDateString()}: ${dayData?.sessions_count || 0} sessions`}
                 />
               );
@@ -223,25 +237,24 @@ const GameProfileDashboard: React.FC = () => {
           </div>
         </div>
         
-        {/* Legend */}
-        <div className="flex items-center justify-center gap-2 mt-3">
-          <span className="text-xs text-warm-brown/70">Less</span>
+        <div className="relative flex items-center justify-center gap-2 mt-3">
+          <span className="text-xs text-mushroom">Less</span>
           <div className="flex gap-1">
-            <div className="w-2.5 h-2.5 rounded-full bg-sandy-beige/30" />
-            <div className="w-2.5 h-2.5 rounded-full bg-sandy-beige/60" />
-            <div className="w-2.5 h-2.5 rounded-full bg-caramel/60" />
-            <div className="w-2.5 h-2.5 rounded-full bg-warm-brown/70" />
-            <div className="w-2.5 h-2.5 rounded-full bg-warm-brown" />
+            <div className="w-3 h-3 rounded-full bg-sandy-beige/20" />
+            <div className="w-3 h-3 rounded-full bg-sandy-beige/50" />
+            <div className="w-3 h-3 rounded-full bg-caramel/60" />
+            <div className="w-3 h-3 rounded-full bg-warm-brown/70" />
+            <div className="w-3 h-3 rounded-full bg-warm-brown" />
           </div>
-          <span className="text-xs text-warm-brown/70">More</span>
+          <span className="text-xs text-mushroom">More</span>
         </div>
       </div>
 
       {/* Motivational Footer */}
-      <div className="text-center py-4">
-        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-terracotta/20 to-golden-yellow/20 rounded-full px-6 py-3 border border-terracotta/30">
-          <span className="text-2xl">🎯</span>
-          <span className="text-warm-brown font-medium">Keep going! Every step counts.</span>
+      <div className="relative text-center py-3">
+        <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-terracotta/20">
+          <span className="text-lg">🎯</span>
+          <span className="text-warm-brown font-medium text-sm">Keep going! Every step counts.</span>
         </div>
       </div>
     </div>
