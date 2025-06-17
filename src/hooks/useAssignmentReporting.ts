@@ -13,6 +13,12 @@ export interface AssignmentReport {
   created_at: string;
 }
 
+export interface AssignmentLevelSummary {
+  assignment_key: string;
+  level: number;
+  last_updated: string;
+}
+
 export const useAssignmentReporting = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
@@ -129,10 +135,60 @@ export const useAssignmentReporting = () => {
     }
   };
 
+  const getAllLatestAssignmentLevelByTopic = async (
+    topicName: string,
+    topicIndex: number
+  ): Promise<AssignmentLevelSummary[]> => {
+    if (!user) {
+      return [];
+    }
+
+    try {
+      // Get all assignment reports for the topic, ordered by creation date (latest first)
+      const { data, error } = await supabase
+        .from('assignment_reports')
+        .select('assignment_key, level, created_at')
+        .eq('user_id', user.id)
+        .eq('topic_name', topicName)
+        .eq('topic_index', topicIndex)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data || data.length === 0) {
+        return [];
+      }
+
+      // Group by assignment_key and get the latest level for each
+      const latestLevels = new Map<string, AssignmentLevelSummary>();
+      
+      data.forEach(report => {
+        if (!latestLevels.has(report.assignment_key)) {
+          latestLevels.set(report.assignment_key, {
+            assignment_key: report.assignment_key,
+            level: report.level,
+            last_updated: report.created_at
+          });
+        }
+      });
+
+      // Convert map to array and sort by assignment_key for consistent ordering
+      return Array.from(latestLevels.values()).sort((a, b) => 
+        a.assignment_key.localeCompare(b.assignment_key)
+      );
+    } catch (error) {
+      console.error('Error fetching all latest assignment levels by topic:', error);
+      return [];
+    }
+  };
+
   return {
     reportAssignmentLevel,
     getAssignmentReports,
     getLatestAssignmentLevel,
+    getAllLatestAssignmentLevelByTopic,
     isLoading
   };
 };
