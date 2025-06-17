@@ -76,76 +76,84 @@ const DancingFastSlowAssignments = () => {
           )}
         </StorySection>
 
-        {/* Daily Assignments */}
-        <StorySection title={t('daily.title')} variant="practice">
-          <TextContent variant="body" align="center" className="mb-8">
-            {t('daily.subtitle')} ({daysUnlocked}/7 days unlocked)
-          </TextContent>
+        {/* Daily Assignments - Simple List */}
+        <div className="space-y-4">
+          <h2 className="text-2xl font-display text-gray-700 mb-6">
+            {t('daily.title')} ({daysUnlocked}/7 days unlocked)
+          </h2>
 
-          <div className="space-y-4">
-            {dailyAssignments.map((day, index) => {
-              const dayNumber = index + 1;
-              const status = getDayStatus(dayNumber, daysUnlocked);
-              const taskId = `${day.key}-task`;
-              const isCompleted = completedTasks[taskId] > 0;
-              const isLocked = status === 'locked' || status === 'tomorrow';
+          {dailyAssignments.map((day, index) => {
+            const dayNumber = index + 1;
+            const status = getDayStatus(dayNumber, daysUnlocked);
+            const taskId = `${day.key}-task`;
+            const isCompleted = completedTasks[taskId] > 0;
+            const isLocked = status === 'locked' || status === 'tomorrow';
 
+            if (isLocked) {
               return (
                 <div 
                   key={day.key}
-                  className={`bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 p-6 ${
-                    isLocked ? 'opacity-60' : ''
-                  }`}
+                  className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 p-6 opacity-60"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="flex items-center gap-3 min-w-0 flex-1">
-                      {isLocked ? (
-                        <Lock className={`w-5 h-5 ${status === 'tomorrow' ? 'text-golden-yellow' : 'text-gray-400'} flex-shrink-0`} />
-                      ) : isCompleted ? (
-                        <CheckCircle className="w-5 h-5 text-sage-green flex-shrink-0" />
-                      ) : (
-                        <div className="w-5 h-5 rounded-full border-2 border-gray-400 flex-shrink-0" />
+                  <div className="flex items-center gap-3">
+                    <Lock className={`w-5 h-5 ${status === 'tomorrow' ? 'text-golden-yellow' : 'text-gray-400'} flex-shrink-0`} />
+                    <h3 className="text-xl font-display text-gray-700">
+                      Day {dayNumber}
+                      {status === 'tomorrow' && (
+                        <span className="text-sm text-golden-yellow font-medium ml-2">
+                          {t('daily.availableTomorrow')}
+                        </span>
                       )}
-                      
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-xl font-display text-gray-700 mb-2">
-                          Day {dayNumber}
-                          {status === 'tomorrow' && (
-                            <span className="text-sm text-golden-yellow font-medium ml-2">
-                              {t('daily.availableTomorrow')}
-                            </span>
-                          )}
-                          {status === 'locked' && (
-                            <span className="text-sm text-gray-400 font-medium ml-2">
-                              {t('daily.locked')}
-                            </span>
-                          )}
-                        </h3>
-                        
-                        <TextContent variant="body" className="mb-4">
-                          {t(day.translationKey)}
-                        </TextContent>
-
-                        {!isLocked && (
-                          <Assignment
-                            assignment={{ 
-                              content: day.translationKey, 
-                              task: day.taskKey 
-                            }}
-                            taskId={taskId}
-                            level={completedTasks[taskId] || 0}
-                            onLevelChange={handleTaskLevelChange}
-                            variant="sage"
-                          />
-                        )}
-                      </div>
-                    </div>
+                      {status === 'locked' && (
+                        <span className="text-sm text-gray-400 font-medium ml-2">
+                          {t('daily.locked')}
+                        </span>
+                      )}
+                    </h3>
                   </div>
                 </div>
               );
-            })}
-          </div>
-        </StorySection>
+            }
+
+            return (
+              <div 
+                key={day.key}
+                className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 p-6"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    {isCompleted ? (
+                      <CheckCircle className="w-5 h-5 text-sage-green flex-shrink-0" />
+                    ) : (
+                      <div className="w-5 h-5 rounded-full border-2 border-gray-400 flex-shrink-0" />
+                    )}
+                    
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-xl font-display text-gray-700 mb-2">
+                        Day {dayNumber}
+                      </h3>
+                      
+                      <TextContent variant="body" className="mb-4">
+                        {t(day.translationKey)}
+                      </TextContent>
+
+                      <Assignment
+                        assignment={{ 
+                          content: day.translationKey, 
+                          task: day.taskKey 
+                        }}
+                        taskId={taskId}
+                        level={completedTasks[taskId] || 0}
+                        onLevelChange={handleTaskLevelChange}
+                        variant="sage"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
