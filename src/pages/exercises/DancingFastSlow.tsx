@@ -9,11 +9,14 @@ import LanguageSelector from '@/components/LanguageSelector';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
+import { getWeeklyAssignments } from '@/data/assignments';
 
 const DancingFastSlow = () => {
   const { t } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
   const [rhythmSpeed, setRhythmSpeed] = useState<string>('1');
+
+  const weeklyAssignments = getWeeklyAssignments();
 
   const handleTaskComplete = (taskId: string) => {
     setCompletedTasks(prev => ({
@@ -251,12 +254,7 @@ const DancingFastSlow = () => {
           </div>
           
           <div className="space-y-6">
-            {[
-              t('exercises.dancingFastSlow.assignment1'),
-              t('exercises.dancingFastSlow.assignment2'),
-              t('exercises.dancingFastSlow.assignment3'),
-              t('exercises.dancingFastSlow.assignment4')
-            ].map((assignment, index) => (
+            {weeklyAssignments.map((assignment, index) => (
               <div key={index} className="flex items-start gap-4 bg-golden-yellow/20 backdrop-blur-sm rounded-2xl p-6 border border-golden-yellow/30">
                 <Checkbox 
                   id={`assignment-${index}`}
@@ -264,7 +262,7 @@ const DancingFastSlow = () => {
                   onCheckedChange={() => handleTaskComplete(`assignment-${index}`)}
                 />
                 <label htmlFor={`assignment-${index}`} className="text-gray-700 text-lg cursor-pointer leading-relaxed">
-                  {assignment}
+                  {t(assignment.content)}
                 </label>
               </div>
             ))}
