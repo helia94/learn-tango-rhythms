@@ -11,6 +11,39 @@ import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
 import { getWeeklyAssignments } from '@/data/assignments';
 
+// Audio players list for tracking purposes
+export const audioPlayers = [
+  {
+    key: 'typical-strong-beat',
+    title: 'exercises.dancingFastSlow.typicalStrongBeat',
+    audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749836334/SimpleMercato2-16Sec-CarlosDiSarli-La_vida_me_enga%C3%B1o_oxc9vb.mp3'
+  },
+  {
+    key: 'from-2-to-4-beats',
+    title: 'exercises.dancingFastSlow.from2To4Beats',
+    audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato_2_to_4_Me_quede_mirandola_widbtv.mp3',
+    colorChanges: [{ timestamp: 7500, color: 'bg-dusty-rose' }]
+  },
+  {
+    key: 'from-4-to-2-beats',
+    title: 'exercises.dancingFastSlow.from4To2Beats',
+    audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato4_to_2Me_quede_mirandola_n189ki.mp3',
+    colorChanges: [{ timestamp: 6500, color: 'bg-dusty-rose' }]
+  },
+  {
+    key: 'legato-to-staccato',
+    title: 'exercises.dancingFastSlow.legatoToStaccato',
+    audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/legato_to_Stacatto_Invierno_-_Francisco_Canaro-_gcc7qs.mp3',
+    colorChanges: [{ timestamp: 6500, color: 'bg-dusty-rose' }]
+  },
+  {
+    key: 'staccato-to-legato',
+    title: 'exercises.dancingFastSlow.staccatoToLegato',
+    audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/Stacatto_to_legato_Invierno_-_Francisco_Canaro-_ho4nwj.mp3',
+    colorChanges: [{ timestamp: 6500, color: 'bg-dusty-rose' }]
+  }
+];
+
 const DancingFastSlow = () => {
   const { t } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({});
@@ -75,6 +108,7 @@ const DancingFastSlow = () => {
           
           <div className="mb-8">
             <AudioPlayer 
+              key="typical-strong-beat"
               title={t('exercises.dancingFastSlow.typicalStrongBeat')}
               audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749836334/SimpleMercato2-16Sec-CarlosDiSarli-La_vida_me_enga%C3%B1o_oxc9vb.mp3"
             />
@@ -202,6 +236,7 @@ const DancingFastSlow = () => {
             
             <div className="space-y-4">
               <AudioPlayer 
+                key="from-2-to-4-beats"
                 title={t('exercises.dancingFastSlow.from2To4Beats')}
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato_2_to_4_Me_quede_mirandola_widbtv.mp3"
                 colorChanges={[
@@ -210,6 +245,7 @@ const DancingFastSlow = () => {
               />
               
               <AudioPlayer 
+                key="from-4-to-2-beats"
                 title={t('exercises.dancingFastSlow.from4To2Beats')}
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/mercato4_to_2Me_quede_mirandola_n189ki.mp3"
                 colorChanges={[
@@ -228,6 +264,7 @@ const DancingFastSlow = () => {
             
             <div className="space-y-4">
               <AudioPlayer 
+                key="legato-to-staccato"
                 title={t('exercises.dancingFastSlow.legatoToStaccato')}
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/legato_to_Stacatto_Invierno_-_Francisco_Canaro-_gcc7qs.mp3"
                 colorChanges={[
@@ -236,6 +273,7 @@ const DancingFastSlow = () => {
               />
               
               <AudioPlayer 
+                key="staccato-to-legato"
                 title={t('exercises.dancingFastSlow.staccatoToLegato')}
                 audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/Stacatto_to_legato_Invierno_-_Francisco_Canaro-_ho4nwj.mp3"
                 colorChanges={[
