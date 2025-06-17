@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import SimpleRhythmPlayer from '@/components/SimpleRhythmPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import FastAndSlowDaily1to7 from '@/components/FastAndSlowDaily1to7';
@@ -15,6 +17,7 @@ import RatingSection from '@/components/ui/RatingSection';
 import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
 import TextContent from '@/components/ui/TextContent';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
+import { Button } from '@/components/ui/button';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
@@ -53,6 +56,8 @@ export const audioPlayers = [
 
 const DancingFastSlow = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
 
   const weeklyAssignments = getWeeklyAssignments();
@@ -63,6 +68,15 @@ const DancingFastSlow = () => {
       ...prev,
       [taskId]: level
     }));
+  };
+
+  const handleTopicAction = () => {
+    if (!user) {
+      navigate('/auth');
+    } else {
+      // Do nothing for now as requested
+      console.log('Start this topic clicked - no action implemented yet');
+    }
   };
 
   const speedCards = [
@@ -113,6 +127,18 @@ const DancingFastSlow = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       <PageHeader title={t('exercises.dancingFastSlow.title')} />
+
+      {/* Topic Action Button */}
+      <div className="max-w-4xl mx-auto px-4 mb-8">
+        <div className="text-center">
+          <Button
+            onClick={handleTopicAction}
+            className="bg-burnt-orange hover:bg-burnt-orange/90 text-cream px-8 py-3 text-lg font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105"
+          >
+            {user ? t('common.startThisTopic') : t('common.loginToStart')}
+          </Button>
+        </div>
+      </div>
 
       {/* Story Content */}
       <div className="max-w-4xl mx-auto px-4 pb-8">
