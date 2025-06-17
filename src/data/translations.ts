@@ -1,62 +1,110 @@
+import { en } from './translations/en';
+import { de } from './translations/de';
+
 export type TranslationKey = 
-  | 'common.backToHome'
+  | 'common.title'
+  | 'common.subtitle'
   | 'common.backToRoadmap'
-  | 'common.play'
-  | 'common.pause'
-  | 'common.clear'
-  | 'common.speed'
+  | 'common.loading'
   | 'common.error'
-  | 'common.success'
-  | 'common.skip'
-  | 'roadmap.title'
-  | 'leaderboard.viewLeaderboard'
-  | 'rhythm.title'
-  | 'rhythm.subtitle'
-  | 'rhythm.instructions'
-  | 'rhythm.presets'
-  | 'quiz.takeQuiz'
-  | 'quiz.complete'
-  | 'quiz.finalScore'
-  | 'quiz.complete_percentage'
-  | 'quiz.yourName'
-  | 'quiz.enterName'
-  | 'quiz.city'
-  | 'quiz.enterCity'
-  | 'quiz.submitting'
-  | 'quiz.submitScore'
-  | 'errors.enterName'
-  | 'errors.submitFailed'
-  | 'messages.scoreSubmitted'
-  | 'notFound.title'
-  | 'notFound.message'
-  | 'notFound.returnHome'
-  | 'concepts.dancingFastVsSlow'
-  | 'concepts.dancingSmallVsBig'
-  | 'concepts.dancingHighVsLow'
-  | 'concepts.dancingCircularVsLinear'
-  | 'concepts.withControlVsWithoutControl'
-  | 'concepts.fullWeightTransferVsRebounds'
-  | 'concepts.expandingVsShrinking'
-  | 'concepts.highBodyTensionVsLowBodyTension'
-  | 'concepts.feetAlwaysOnFloorVsFeetOffFloor'
-  | 'concepts.pushingFloorVsNotPushingFloor'
-  | 'concepts.leadingEveryStepVsNotLeadingEveryStep'
-  | 'concepts.sameStepsVsDifferentSteps'
-  | 'concepts.fewStepsVsManySteps'
-  | 'concepts.dancingRhythmVsDancingMelody'
-  | 'concepts.facingPartnerVsTurningAway'
-  | 'concepts.acceleratingVsDecelerating'
-  | 'concepts.dancingRubato'
-  | 'concepts.marcatoIn2VsIn4'
-  | 'concepts.normalSyncopa'
-  | 'concepts.doubleSyncopa'
-  | 'concepts.dragSyncopa'
-  | 'concepts.dance4To1'
-  | 'concepts.danceTriplets'
-  | 'concepts.danceLikeJellyfish'
-  | 'concepts.danceLikeWater'
-  | 'concepts.danceLikeSculptures'
-  | 'concepts.danceTheAccents'
+  | 'common.yes'
+  | 'common.no'
+  | 'common.cancel'
+  | 'common.save'
+  | 'common.edit'
+  | 'common.delete'
+  | 'common.close'
+  | 'common.back'
+  | 'common.next'
+  | 'common.previous'
+  | 'common.search'
+  | 'common.filter'
+  | 'common.sort'
+  | 'common.view'
+  | 'common.add'
+  | 'common.remove'
+  | 'common.update'
+  | 'common.create'
+  | 'common.submit'
+  | 'common.reset'
+  | 'common.clear'
+  | 'common.confirm'
+  | 'common.language'
+  | 'common.english'
+  | 'common.german'
+  | 'common.selectLanguage'
+  | 'home.title'
+  | 'home.subtitle'
+  | 'home.description'
+  | 'home.startLearning'
+  | 'home.howItWorks'
+  | 'home.step1Title'
+  | 'home.step1Description'
+  | 'home.step2Title'
+  | 'home.step2Description'
+  | 'home.step3Title'
+  | 'home.step3Description'
+  | 'home.features'
+  | 'home.feature1Title'
+  | 'home.feature1Description'
+  | 'home.feature2Title'
+  | 'home.feature2Description'
+  | 'home.feature3Title'
+  | 'home.feature3Description'
+  | 'home.getStarted'
+  | 'home.viewRoadmap'
+  | 'home.tryRhythmLab'
+  | 'navigation.home'
+  | 'navigation.roadmap'
+  | 'navigation.rhythmlab'
+  | 'navigation.profile'
+  | 'navigation.logout'
+  | 'rhythmlab.title'
+  | 'rhythmlab.subtitle'
+  | 'rhythmlab.playButton'
+  | 'rhythmlab.stopButton'
+  | 'rhythmlab.resetButton'
+  | 'rhythmlab.clearButton'
+  | 'rhythmlab.tempo'
+  | 'rhythmlab.bpm'
+  | 'rhythmlab.volume'
+  | 'rhythmlab.presets'
+  | 'rhythmlab.customPattern'
+  | 'rhythmlab.instructions'
+  | 'rhythmlab.instructionsText'
+  | 'rhythmlab.tips'
+  | 'rhythmlab.tip1'
+  | 'rhythmlab.tip2'
+  | 'rhythmlab.tip3'
+  | 'quiz.title'
+  | 'quiz.subtitle'
+  | 'quiz.question'
+  | 'quiz.startButton'
+  | 'quiz.nextButton'
+  | 'quiz.submitButton'
+  | 'quiz.playAgainButton'
+  | 'quiz.score'
+  | 'quiz.correctAnswers'
+  | 'quiz.timeElapsed'
+  | 'quiz.difficulty'
+  | 'quiz.easy'
+  | 'quiz.medium'
+  | 'quiz.hard'
+  | 'quiz.congratulations'
+  | 'quiz.tryAgain'
+  | 'leaderboard.title'
+  | 'leaderboard.subtitle'
+  | 'leaderboard.rank'
+  | 'leaderboard.player'
+  | 'leaderboard.score'
+  | 'leaderboard.city'
+  | 'leaderboard.submitScore'
+  | 'leaderboard.playerName'
+  | 'leaderboard.playerCity'
+  | 'leaderboard.submit'
+  | 'leaderboard.submitting'
+  | 'leaderboard.success'
+  | 'leaderboard.error'
   | 'exercises.dancingFastSlow.title'
   | 'exercises.dancingFastSlow.introText1'
   | 'exercises.dancingFastSlow.introText2'
@@ -70,7 +118,6 @@ export type TranslationKey =
   | 'exercises.dancingFastSlow.normalSpeed'
   | 'exercises.dancingFastSlow.doubleSpeed'
   | 'exercises.dancingFastSlow.fullSongText'
-  | 'exercises.dancingFastSlow.practicedWalking'
   | 'exercises.dancingFastSlow.musicSpeedChanges'
   | 'exercises.dancingFastSlow.musicSpeedChangesText'
   | 'exercises.dancingFastSlow.rhythmChanges'
@@ -82,10 +129,6 @@ export type TranslationKey =
   | 'exercises.dancingFastSlow.legatoToStaccato'
   | 'exercises.dancingFastSlow.staccatoToLegato'
   | 'exercises.dancingFastSlow.weeklyAssignment'
-  | 'exercises.dancingFastSlow.assignment1'
-  | 'exercises.dancingFastSlow.assignment2'
-  | 'exercises.dancingFastSlow.assignment3'
-  | 'exercises.dancingFastSlow.assignment4'
   | 'exercises.dancingFastSlow.practiceSongs'
   | 'exercises.dancingFastSlow.practiceSongsText'
   | 'exercises.dancingFastSlow.songs1And2'
@@ -103,779 +146,711 @@ export type TranslationKey =
   | 'exercises.dancingFastSlow.assignmentsDescription'
   | 'exercises.dancingFastSlow.weeklyAssignments'
   | 'exercises.dancingFastSlow.seeAllAssignments'
+  | 'topic.loginToStart'
+  | 'topic.startTopic'
+  | 'topic.activating'
+  | 'topic.activationSuccess'
+  | 'topic.activationError'
+  | 'topic.alreadyActivated'
   | 'daily.title'
   | 'daily.subtitle'
   | 'daily.unlockTomorrow'
+  | 'daily.dayNumber'
+  | 'daily.completed'
   | 'daily.locked'
-  | 'daily.availableTomorrow'
-  | 'daily.day1.content'
-  | 'daily.day1.audioTitle'
-  | 'daily.day1.audioDescription'
-  | 'daily.day1.fullSong'
-  | 'daily.day1.task'
-  | 'daily.day2.content'
-  | 'daily.day2.description'
-  | 'daily.day2.bandonionSolos'
-  | 'daily.day2.violinSolos'
-  | 'daily.day2.singerSolo'
-  | 'daily.day2.task'
-  | 'daily.day3.content'
-  | 'daily.day3.description'
-  | 'daily.day3.task'
-  | 'daily.day4.content'
-  | 'daily.day4.description'
-  | 'daily.day4.task'
-  | 'daily.day5.content'
-  | 'daily.day5.task'
-  | 'daily.day6.content'
-  | 'daily.day6.task'
-  | 'daily.day7.content'
-  | 'daily.day7.task'
-  | 'daily.placeholder'
-  | 'daily.placeholderTask'
-  | 'tips.extremeSlowness'
-  | 'tips.extremeSlownessTip1'
-  | 'tips.extremeSlownessTip2'
-  | 'tips.extremeSlownessTip3'
-  | 'tips.extremeSlownessTip4'
-  | 'tips.extremeSpeed'
-  | 'tips.extremeSpeedTip1'
-  | 'tips.extremeSpeedTip2'
-  | 'tips.backOchoChallenge'
-  | 'tips.backOchoChallengeTitle'
-  | 'tips.backOchoChallengeTip1'
-  | 'tips.backOchoChallengeTip2'
-  | 'tips.backOchoChallengeTip3'
-  | 'tips.backOchoChallengeTip4'
-  | 'tips.ochoCortadoChallenge'
-  | 'tips.ochoCortadoChallengeTitle'
-  | 'tips.ochoCortadoChallengeTip1'
-  | 'tips.ochoCortadoChallengeTip2'
-  | 'tips.ochoCortadoChallengeTip3'
-  | 'tips.ochoCortadoChallengeTip4'
-  | 'tips.ochoCortadoChallengeTip5'
-  | 'progress.trackingTitle'
-  | 'progress.levelInfo'
-  | 'progress.notStarted'
-  | 'progress.notStartedDesc'
-  | 'progress.firstAttempt'
-  | 'progress.firstAttemptDesc'
-  | 'progress.practiceMode'
-  | 'progress.practiceModeDesc'
-  | 'progress.gettingThere'
-  | 'progress.gettingThereDesc'
-  | 'progress.mastered'
-  | 'progress.masteredDesc';
+  | 'daily.current'
+  | 'daily.description'
+  | 'daily.objectives'
+  | 'daily.tips'
+  | 'daily.practice'
+  | 'daily.completeDay'
+  | 'daily.markComplete'
+  | 'daily.nextDay'
+  | 'daily.backToDays';
 
 export const translations = {
   common: {
-    backToHome: {
-      en: "Back to Home",
-      de: "Zurück zur Startseite"
-    },
-    backToRoadmap: {
-      en: "Back to Roadmap",
-      de: "Zurück zur Roadmap"
-    },
-    play: {
-      en: "Play",
-      de: "Abspielen"
-    },
-    pause: {
-      en: "Pause",
-      de: "Pause"
-    },
-    clear: {
-      en: "Clear",
-      de: "Löschen"
-    },
-    speed: {
-      en: "Speed",
-      de: "Geschwindigkeit"
-    },
-    error: {
-      en: "Error",
-      de: "Fehler"
-    },
-    success: {
-      en: "Success",
-      de: "Erfolg"
-    },
-    skip: {
-      en: "Skip",
-      de: "Überspringen"
-    }
-  },
-  roadmap: {
-    title: {
-      en: "ROAD MAP",
-      de: "ROAD MAP"
-    }
-  },
-  leaderboard: {
-    viewLeaderboard: {
-      en: "View Leaderboard",
-      de: "Bestenliste anzeigen"
-    }
-  },
-  rhythm: {
     title: {
       en: "Rhythm Lab",
       de: "Rhythmus Labor"
     },
     subtitle: {
-      en: "Practice your rhythm",
-      de: "Übe deinen Rhythmus"
+      en: "Explore and create rhythms",
+      de: "Erkunde und kreiere Rhythmen"
     },
-    instructions: {
-      en: "Click the squares to create your rhythm pattern",
-      de: "Klick auf die Quadrate, um dein Rhythmusmuster zu erstellen"
+    backToRoadmap: {
+      en: "Back to Roadmap",
+      de: "Zurück zur Roadmap"
+    },
+    loading: {
+      en: "Loading...",
+      de: "Laden..."
+    },
+    error: {
+      en: "Error",
+      de: "Fehler"
+    },
+    yes: {
+      en: "Yes",
+      de: "Ja"
+    },
+    no: {
+      en: "No",
+      de: "Nein"
+    },
+    cancel: {
+      en: "Cancel",
+      de: "Abbrechen"
+    },
+    save: {
+      en: "Save",
+      de: "Speichern"
+    },
+    edit: {
+      en: "Edit",
+      de: "Bearbeiten"
+    },
+    delete: {
+      en: "Delete",
+      de: "Löschen"
+    },
+    close: {
+      en: "Close",
+      de: "Schließen"
+    },
+    back: {
+      en: "Back",
+      de: "Zurück"
+    },
+    next: {
+      en: "Next",
+      de: "Weiter"
+    },
+    previous: {
+      en: "Previous",
+      de: "Vorherige"
+    },
+    search: {
+      en: "Search",
+      de: "Suchen"
+    },
+    filter: {
+      en: "Filter",
+      de: "Filtern"
+    },
+    sort: {
+      en: "Sort",
+      de: "Sortieren"
+    },
+    view: {
+      en: "View",
+      de: "Anzeigen"
+    },
+    add: {
+      en: "Add",
+      de: "Hinzufügen"
+    },
+    remove: {
+      en: "Remove",
+      de: "Entfernen"
+    },
+    update: {
+      en: "Update",
+      de: "Aktualisieren"
+    },
+    create: {
+      en: "Create",
+      de: "Erstellen"
+    },
+    submit: {
+      en: "Submit",
+      de: "Absenden"
+    },
+    reset: {
+      en: "Reset",
+      de: "Zurücksetzen"
+    },
+    clear: {
+      en: "Clear",
+      de: "Leeren"
+    },
+    confirm: {
+      en: "Confirm",
+      de: "Bestätigen"
+    },
+   language: {
+      en: "Language",
+      de: "Sprache"
+    },
+    english: {
+      en: "English",
+      de: "Englisch"
+    },
+    german: {
+      en: "German",
+      de: "Deutsch"
+    },
+     selectLanguage: {
+      en: "Select Language",
+      de: "Sprache auswählen"
+    },
+  },
+  home: {
+    title: {
+      en: "Welcome to Rhythm Village",
+      de: "Willkommen im Rhythmus-Dorf"
+    },
+    subtitle: {
+      en: "Your journey to rhythm mastery starts here.",
+      de: "Deine Reise zur Rhythmus-Meisterschaft beginnt hier."
+    },
+    description: {
+      en: "Explore our roadmap, practice in the Rhythm Lab, and challenge yourself with quizzes.",
+      de: "Erkunde unsere Roadmap, übe im Rhythmus-Labor und fordere dich mit Quizzen heraus."
+    },
+    startLearning: {
+      en: "Start Learning",
+      de: "Starte das Lernen"
+    },
+    howItWorks: {
+      en: "How it Works",
+      de: "Wie es funktioniert"
+    },
+    step1Title: {
+      en: "Explore the Roadmap",
+      de: "Erkunde die Roadmap"
+    },
+    step1Description: {
+      en: "Follow our structured learning path to understand rhythm concepts step by step.",
+      de: "Folge unserem strukturierten Lernpfad, um Rhythmuskonzepte Schritt für Schritt zu verstehen."
+    },
+    step2Title: {
+      en: "Practice in the Rhythm Lab",
+      de: "Übe im Rhythmus-Labor"
+    },
+    step2Description: {
+      en: "Experiment with different sounds and patterns to create your own rhythms.",
+      de: "Experimentiere mit verschiedenen Klängen und Mustern, um deine eigenen Rhythmen zu erstellen."
+    },
+    step3Title: {
+      en: "Challenge Yourself",
+      de: "Fordere dich selbst heraus"
+    },
+    step3Description: {
+      en: "Test your knowledge with quizzes and climb the leaderboard.",
+      de: "Teste dein Wissen mit Quizzen und erklimme die Bestenliste."
+    },
+    features: {
+      en: "Key Features",
+      de: "Hauptmerkmale"
+    },
+    feature1Title: {
+      en: "Structured Roadmap",
+      de: "Strukturierte Roadmap"
+    },
+    feature1Description: {
+      en: "A clear learning path to guide you from beginner to expert.",
+      de: "Ein klarer Lernpfad, der dich vom Anfänger zum Experten führt."
+    },
+    feature2Title: {
+      en: "Interactive Rhythm Lab",
+      de: "Interaktives Rhythmus-Labor"
+    },
+    feature2Description: {
+      en: "A sandbox environment to create and experiment with rhythms.",
+      de: "Eine Sandbox-Umgebung zum Erstellen und Experimentieren mit Rhythmen."
+    },
+    feature3Title: {
+      en: "Engaging Quizzes",
+      de: "Fesselnde Quizze"
+    },
+    feature3Description: {
+      en: "Test your knowledge and compete with others on the leaderboard.",
+      de: "Teste dein Wissen und konkurriere mit anderen auf der Bestenliste."
+    },
+    getStarted: {
+      en: "Get Started",
+      de: "Loslegen"
+    },
+    viewRoadmap: {
+      en: "View Roadmap",
+      de: "Roadmap ansehen"
+    },
+    tryRhythmLab: {
+      en: "Try Rhythm Lab",
+      de: "Rhythmus-Labor ausprobieren"
+    }
+  },
+  navigation: {
+    home: {
+      en: "Home",
+      de: "Startseite"
+    },
+    roadmap: {
+      en: "Roadmap",
+      de: "Roadmap"
+    },
+    rhythmlab: {
+      en: "Rhythm Lab",
+      de: "Rhythmus-Labor"
+    },
+    profile: {
+      en: "Profile",
+      de: "Profil"
+    },
+    logout: {
+      en: "Logout",
+      de: "Abmelden"
+    }
+  },
+  rhythmlab: {
+    title: {
+      en: "Rhythm Lab",
+      de: "Rhythmuslabor"
+    },
+    subtitle: {
+      en: "Create and explore rhythms",
+      de: "Erstelle und erkunde Rhythmen"
+    },
+    playButton: {
+      en: "Play",
+      de: "Abspielen"
+    },
+    stopButton: {
+      en: "Stop",
+      de: "Stopp"
+    },
+    resetButton: {
+      en: "Reset",
+      de: "Zurücksetzen"
+    },
+    clearButton: {
+      en: "Clear",
+      de: "Leeren"
+    },
+    tempo: {
+      en: "Tempo",
+      de: "Tempo"
+    },
+    bpm: {
+      en: "BPM",
+      de: "BPM"
+    },
+    volume: {
+      en: "Volume",
+      de: "Lautstärke"
     },
     presets: {
       en: "Presets",
       de: "Voreinstellungen"
+    },
+    customPattern: {
+      en: "Custom Pattern",
+      de: "Eigenes Muster"
+    },
+    instructions: {
+      en: "Instructions",
+      de: "Anleitung"
+    },
+    instructionsText: {
+      en: "Click on the grid to create your own rhythm pattern. Adjust the tempo and volume to your liking.",
+      de: "Klicke auf das Raster, um dein eigenes Rhythmusmuster zu erstellen. Passe das Tempo und die Lautstärke nach deinen Wünschen an."
+    },
+    tips: {
+      en: "Tips",
+      de: "Tipps"
+    },
+    tip1: {
+      en: "Try different combinations of sounds to create unique rhythms.",
+      de: "Probiere verschiedene Klangkombinationen aus, um einzigartige Rhythmen zu erstellen."
+    },
+    tip2: {
+      en: "Adjust the tempo to change the speed of the rhythm.",
+      de: "Passe das Tempo an, um die Geschwindigkeit des Rhythmus zu ändern."
+    },
+    tip3: {
+      en: "Use the presets to quickly load common rhythm patterns.",
+      de: "Verwende die Voreinstellungen, um schnell gängige Rhythmusmuster zu laden."
     }
   },
-  quiz: {
-    takeQuiz: {
-      en: "Take Quiz",
-      de: "Quiz machen"
+   quiz: {
+    title: {
+      en: "Rhythm Quiz",
+      de: "Rhythmus-Quiz"
     },
-    complete: {
-      en: "Quiz Complete!",
-      de: "Quiz geschafft!"
+    subtitle: {
+      en: "Test your rhythm knowledge",
+      de: "Teste dein Rhythmuswissen"
     },
-    finalScore: {
-      en: "Final Score",
-      de: "Endergebnis"
+    question: {
+      en: "Question",
+      de: "Frage"
     },
-    complete_percentage: {
-      en: "% Complete",
-      de: "% Geschafft"
+    startButton: {
+      en: "Start Quiz",
+      de: "Quiz starten"
     },
-    yourName: {
-      en: "Your Name",
-      de: "Dein Name"
+    nextButton: {
+      en: "Next",
+      de: "Weiter"
     },
-    enterName: {
-      en: "Enter your name",
-      de: "Gib deinen Namen ein"
+    submitButton: {
+      en: "Submit",
+      de: "Absenden"
+    },
+    playAgainButton: {
+      en: "Play Again",
+      de: "Nochmal spielen"
+    },
+    score: {
+      en: "Score",
+      de: "Punktzahl"
+    },
+    correctAnswers: {
+      en: "Correct Answers",
+      de: "Richtige Antworten"
+    },
+    timeElapsed: {
+      en: "Time Elapsed",
+      de: "Verstrichene Zeit"
+    },
+    difficulty: {
+      en: "Difficulty",
+      de: "Schwierigkeit"
+    },
+    easy: {
+      en: "Easy",
+      de: "Leicht"
+    },
+    medium: {
+      en: "Medium",
+      de: "Mittel"
+    },
+    hard: {
+      en: "Hard",
+      de: "Schwer"
+    },
+    congratulations: {
+      en: "Congratulations!",
+      de: "Herzlichen Glückwunsch!"
+    },
+    tryAgain: {
+      en: "Try Again",
+      de: "Nochmal versuchen"
+    }
+  },
+  leaderboard: {
+    title: {
+      en: "Leaderboard",
+      de: "Bestenliste"
+    },
+    subtitle: {
+      en: "Top rhythm masters",
+      de: "Top Rhythmus-Meister"
+    },
+    rank: {
+      en: "Rank",
+      de: "Rang"
+    },
+    player: {
+      en: "Player",
+      de: "Spieler"
+    },
+    score: {
+      en: "Score",
+      de: "Punktzahl"
     },
     city: {
       en: "City",
       de: "Stadt"
     },
-    enterCity: {
-      en: "Enter your city",
-      de: "Gib deine Stadt ein"
+    submitScore: {
+      en: "Submit Your Score",
+      de: "Punktzahl einreichen"
+    },
+    playerName: {
+      en: "Your Name",
+      de: "Dein Name"
+    },
+    playerCity: {
+      en: "Your City",
+      de: "Deine Stadt"
+    },
+    submit: {
+      en: "Submit",
+      de: "Einreichen"
     },
     submitting: {
       en: "Submitting...",
-      de: "Übertrage..."
+      de: "Wird eingereicht..."
     },
-    submitScore: {
-      en: "Submit Score",
-      de: "Ergebnis übertragen"
-    }
-  },
-  errors: {
-    enterName: {
-      en: "Please enter your name",
-      de: "Bitte gib deinen Namen ein"
-    },
-    submitFailed: {
-      en: "Failed to submit score",
-      de: "Übertragung fehlgeschlagen"
-    }
-  },
-  messages: {
-    scoreSubmitted: {
+    success: {
       en: "Score submitted successfully!",
-      de: "Ergebnis erfolgreich übertragen!"
-    }
-  },
-  notFound: {
-    title: {
-      en: "Page Not Found",
-      de: "Seite nicht gefunden"
+      de: "Punktzahl erfolgreich eingereicht!"
     },
-    message: {
-      en: "The page you're looking for doesn't exist.",
-      de: "Die gesuchte Seite gibt's leider nicht."
-    },
-    returnHome: {
-      en: "Return Home",
-      de: "Zurück nach Hause"
-    }
-  },
-  concepts: {
-    dancingFastVsSlow: {
-      en: "Dancing Fast vs Slow",
-      de: "Schnell vs Langsam tanzen"
-    },
-    dancingSmallVsBig: {
-      en: "Dancing Small vs Big",
-      de: "Klein vs Groß tanzen"
-    },
-    dancingHighVsLow: {
-      en: "Dancing High vs Low",
-      de: "Hoch vs Tief tanzen"
-    },
-    dancingCircularVsLinear: {
-      en: "Dancing Circular vs Linear",
-      de: "Kreisförmig vs Linear tanzen"
-    },
-    withControlVsWithoutControl: {
-      en: "With Control vs Without Control",
-      de: "Mit Kontrolle vs Ohne Kontrolle"
-    },
-    fullWeightTransferVsRebounds: {
-      en: "Full Weight Transfer vs Rebounds",
-      de: "Vollständige Gewichtsverlagerung vs Rebounds"
-    },
-    expandingVsShrinking: {
-      en: "Expanding vs Shrinking",
-      de: "Ausweiten vs Zusammenziehen"
-    },
-    highBodyTensionVsLowBodyTension: {
-      en: "High Body Tension vs Low Body Tension",
-      de: "Hohe vs Niedrige Körperspannung"
-    },
-    feetAlwaysOnFloorVsFeetOffFloor: {
-      en: "Feet Always on Floor vs Feet Off Floor",
-      de: "Füße immer am Boden vs Füße vom Boden"
-    },
-    pushingFloorVsNotPushingFloor: {
-      en: "Pushing Floor vs Not Pushing Floor",
-      de: "Boden drücken vs Nicht drücken"
-    },
-    leadingEveryStepVsNotLeadingEveryStep: {
-      en: "Leading Every Step vs Not Leading Every Step",
-      de: "Jeden Schritt führen vs Nicht jeden Schritt führen"
-    },
-    sameStepsVsDifferentSteps: {
-      en: "Same Steps vs Different Steps",
-      de: "Gleiche vs Verschiedene Schritte"
-    },
-    fewStepsVsManySteps: {
-      en: "Few Steps vs Many Steps",
-      de: "Wenige vs Viele Schritte"
-    },
-    dancingRhythmVsDancingMelody: {
-      en: "Dancing Rhythm vs Dancing Melody",
-      de: "Rhythmus vs Melodie tanzen"
-    },
-    facingPartnerVsTurningAway: {
-      en: "Facing Partner vs Turning Away",
-      de: "Partner zugewandt vs Abwenden"
-    },
-    acceleratingVsDecelerating: {
-      en: "Accelerating vs Decelerating",
-      de: "Beschleunigen vs Verlangsamen"
-    },
-    dancingRubato: {
-      en: "Dancing Rubato",
-      de: "Rubato tanzen"
-    },
-    marcatoIn2VsIn4: {
-      en: "Marcato in 2 vs in 4",
-      de: "Marcato in 2 vs in 4"
-    },
-    normalSyncopa: {
-      en: "Normal Syncopa",
-      de: "Normale Synkope"
-    },
-    doubleSyncopa: {
-      en: "Double Syncopa",
-      de: "Doppelte Synkope"
-    },
-    dragSyncopa: {
-      en: "Drag Syncopa",
-      de: "Drag Synkope"
-    },
-    dance4To1: {
-      en: "Dance 4 to 1",
-      de: "Tanze 4 zu 1"
-    },
-    danceTriplets: {
-      en: "Dance Triplets",
-      de: "Triolen tanzen"
-    },
-    danceLikeJellyfish: {
-      en: "Dance Like Jellyfish",
-      de: "Wie Quallen tanzen"
-    },
-    danceLikeWater: {
-      en: "Dance Like Water",
-      de: "Wie Wasser tanzen"
-    },
-    danceLikeSculptures: {
-      en: "Dance Like Sculptures",
-      de: "Wie Skulpturen tanzen"
-    },
-    danceTheAccents: {
-      en: "Dance the Accents",
-      de: "Die Akzente tanzen"
+    error: {
+      en: "Failed to submit score. Please try again.",
+      de: "Punktzahl konnte nicht eingereicht werden. Bitte versuche es erneut."
     }
   },
   exercises: {
     dancingFastSlow: {
       title: {
         en: "Dancing Fast and Slow",
-        de: "Schnell und Langsam Tanzen"
+        de: "Schnell und langsam tanzen"
       },
       introText1: {
-        en: "Most dancers always dance with the same tempo, but forcing yourself to dance at different speeds is one of the easiest ways to add diversity to your tango life.",
-        de: "Die meisten Tänzer*innen tanzen immer im gleichen Tempo - wie langweilig! Aber sich selbst zu verschiedenen Geschwindigkeiten zu 'zwingen' ist einer der einfachsten Wege, Abwechslung ins Tangoleben zu bringen."
+        en: "In tango, the music is not always constant. It changes speed, going from fast to slow and back again.",
+        de: "Im Tango ist die Musik nicht immer gleichbleibend. Sie ändert die Geschwindigkeit, indem sie von schnell zu langsam und wieder zurück wechselt."
       },
       introText2: {
-        en: "Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4].",
-        de: "Brave Anfänger*innen tanzen auf dem Grundschlag [auch als starker Schlag bekannt] [Zahlen 1 und 3, wenn wir bis 4 zählen]."
+        en: "This exercise will help you recognize these changes and adjust your dancing accordingly.",
+        de: "Diese Übung hilft dir, diese Veränderungen zu erkennen und dein Tanzen entsprechend anzupassen."
       },
       letStartSimple: {
         en: "Let's start simple",
-        de: "Fangen wir mal ganz einfach an"
+        de: "Fangen wir einfach an"
       },
       simpleText1: {
-        en: "That means without a partner. Do the normal walk and step on 1 and 3 in this song.",
-        de: "Das heißt ohne Partner*in. Mach deinen normalen Gang und tritt auf 1 und 3 in diesem Lied - erstmal solo üben schadet nie!"
+        en: "Let's start by listening to a typical tango with a strong beat. Can you hear the beat?",
+        de: "Beginnen wir mit dem Anhören eines typischen Tangos mit einem starken Beat. Kannst du den Beat hören?"
       },
       typicalStrongBeat: {
-        en: "Typical strong beat 1 and 3",
-        de: "Typischer starker Schlag 1 und 3"
+        en: "Typical tango with a strong beat",
+        de: "Typischer Tango mit einem starken Beat"
       },
       couldNotFindBeat: {
-        en: "If you could not find the downbeat, use this simple version instead.",
-        de: "Falls du den Grundschlag nicht finden konntest, nimm einfach diese Version - kein Drama!"
+        en: "If you couldn't find the beat, don't worry. Here's a simple rhythm player to help you.",
+        de: "Wenn du den Beat nicht finden konntest, keine Sorge. Hier ist ein einfacher Rhythmus-Player, der dir hilft."
       },
       threeSpeeds: {
-        en: "Three Simple Speeds",
-        de: "Drei Einfache Geschwindigkeiten"
+        en: "Three Speeds",
+        de: "Drei Geschwindigkeiten"
       },
       threeSpeedsText: {
-        en: "Ok, now two simple things you can do:",
-        de: "Ok, jetzt drei einfache Dinge, die du machen kannst:"
+        en: "In tango, there are three common speeds: half speed, normal speed, and double speed. Let's listen to a song that uses all three speeds.",
+        de: "Im Tango gibt es drei gängige Geschwindigkeiten: halbe Geschwindigkeit, normale Geschwindigkeit und doppelte Geschwindigkeit. Hören wir uns ein Lied an, das alle drei Geschwindigkeiten verwendet."
       },
       halfSpeed: {
         en: "Half Speed",
-        de: "Halbtempo (für Faultiere)"
+        de: "Halbe Geschwindigkeit"
       },
       normalSpeed: {
         en: "Normal Speed",
-        de: "Normales Tempo"
+        de: "Normale Geschwindigkeit"
       },
       doubleSpeed: {
         en: "Double Speed",
-        de: "Doppeltes Tempo (für Energiebündel)"
+        de: "Doppelte Geschwindigkeit"
       },
       fullSongText: {
-        en: "Do one full song at all three speeds, just walking on your own. Here is a song to do it:",
-        de: "Mach ein ganzes Lied in allen drei Geschwindigkeiten - einfach alleine gehen. Hier ist ein Lied dafür:"
-      },
-      practicedWalking: {
-        en: "I practiced walking at all three speeds",
-        de: "Ich habe das Gehen in allen drei Geschwindigkeiten geübt"
+        en: "Here's a full song that uses all three speeds. Try to identify when the music changes speed.",
+        de: "Hier ist ein ganzes Lied, das alle drei Geschwindigkeiten verwendet. Versuche zu erkennen, wann die Musik die Geschwindigkeit ändert."
       },
       musicSpeedChanges: {
-        en: "Using Music for Speed Changes",
-        de: "Die Musik für Tempowechsel nutzen"
+        en: "Music Speed Changes",
+        de: "Änderungen der Musikgeschwindigkeit"
       },
       musicSpeedChangesText: {
-        en: "Ok, now you can move at three speeds, time to also use the music. Two simple ways to use music for a change of speed:",
-        de: "Ok, jetzt kannst du dich in drei Geschwindigkeiten bewegen - Zeit, auch die Musik ins Spiel zu bringen. Zwei einfache Wege für musikalische Tempowechsel:"
+        en: "In tango, the music doesn't just change speed, it also changes rhythm and melody. Let's explore these changes.",
+        de: "Im Tango ändert die Musik nicht nur die Geschwindigkeit, sondern auch den Rhythmus und die Melodie. Lass uns diese Änderungen erforschen."
       },
       rhythmChanges: {
-        en: "When the rhythm changes",
-        de: "Wenn sich der Rhythmus ändert"
+        en: "Rhythm Changes",
+        de: "Rhythmusänderungen"
       },
       rhythmChangesText: {
-        en: "Sometimes the music changes from playing all beats loud and the same to playing 2 strong beat and 2 weak beats. This is a clear opportunity to adjust your speed.",
-        de: "Manchmal wechselt die Musik von allen Schlägen laut und gleich zu 2 starken und 2 schwachen Schlägen. Das ist eine perfekte Gelegenheit, dein Tempo anzupassen."
+        en: "Sometimes the music will change from 2 beats to 4 beats, or from 4 beats to 2 beats. This can be a subtle change, but it's important to recognize.",
+        de: "Manchmal wechselt die Musik von 2 Takten zu 4 Takten oder von 4 Takten zu 2 Takten. Dies kann eine subtile Änderung sein, aber es ist wichtig, sie zu erkennen."
       },
       from2To4Beats: {
-        en: "From 2 beats to 4 beats",
-        de: "Von 2 zu 4 Schlägen"
+        en: "From 2 to 4 Beats",
+        de: "Von 2 zu 4 Takten"
       },
       from4To2Beats: {
-        en: "From 4 beats to 2 beats",
-        de: "Von 4 zu 2 Schlägen"
+        en: "From 4 to 2 Beats",
+        de: "Von 4 zu 2 Takten"
       },
       melodyChanges: {
-        en: "When the melody changes",
-        de: "Wenn sich die Melodie ändert"
+        en: "Melody Changes",
+        de: "Melodieänderungen"
       },
       melodyChangesText: {
-        en: "Old tango songs mostly have a fixed beat system all the time, so a good option is to change it according to the melody. Legato (melody that sounds like singing) for slower speed and Staccato (rhythmic melody) for higher speed.",
-        de: "Alte Tango-Lieder haben meist ein festes Schlagsystem, daher ist es clever, nach der Melodie zu wechseln. Legato (Melodie wie Gesang) für langsameres Tempo und Staccato (rhythmische Melodie) für höheres Tempo."
+        en: "The melody can also change, going from legato (smooth) to staccato (short and detached) and back again.",
+        de: "Die Melodie kann sich auch ändern und von Legato (weich) zu Staccato (kurz und getrennt) und wieder zurück wechseln."
       },
       legatoToStaccato: {
-        en: "From Legato to Staccato",
-        de: "Von Legato zu Staccato"
+        en: "Legato to Staccato",
+        de: "Legato zu Staccato"
       },
       staccatoToLegato: {
-        en: "From Staccato to Legato",
-        de: "Von Staccato zu Legato"
-      },
-      allAssignments: {
-        en: "All Assignments - Dancing Fast & Slow",
-        de: "Alle Aufgaben - Schnell & Langsam Tanzen"
-      },
-      assignmentsDescription: {
-        en: "Complete overview of all weekly and daily assignments for the Dancing Fast & Slow exercise. Track your progress and unlock new challenges as you advance.",
-        de: "Vollständige Übersicht aller wöchentlichen und täglichen Aufgaben für die Übung Schnell & Langsam Tanzen. Verfolgen Sie Ihren Fortschritt und schalten Sie neue Herausforderungen frei."
-      },
-      weeklyAssignments: {
-        en: "Weekly Assignments",
-        de: "Wöchentliche Aufgaben"
+        en: "Staccato to Legato",
+        de: "Staccato zu Legato"
       },
       weeklyAssignment: {
-        en: "Assignment for the Week",
-        de: "Wochenaufgabe (keine Sorge, ist machbar!)"
-      },
-      assignment1: {
-        en: "Walk alone at speeds 1, 2, and 4, without music, just counting, or use the rhythm lab in the app.",
-        de: "Gehe alleine in den Geschwindigkeiten 1, 2 und 4 - ohne Musik, nur zählend, oder nutze das Rhythmus-Labor in der App."
-      },
-      assignment2: {
-        en: "Walk alone with music.",
-        de: "Gehe alleine mit Musik (endlich wieder mit Sound!)."
-      },
-      assignment3: {
-        en: "When dancing in milonga or practice, listen to the change in rhythm from 2 to 4 and back, and try to use a different speed.",
-        de: "Beim Tanzen in der Milonga oder beim Üben höre auf den Rhythmuswechsel von 2 zu 4 und zurück - und probiere verschiedene Geschwindigkeiten aus."
-      },
-      assignment4: {
-        en: "When dancing in milonga or practice, listen to the change in melody from legato to staccato and back, and try to use a different speed.",
-        de: "Beim Tanzen in der Milonga oder beim Üben höre auf den Melodiewechsel von Legato zu Staccato und zurück - und wechsle dein Tempo entsprechend."
+        en: "Weekly Assignment",
+        de: "Wöchentliche Aufgabe"
       },
       practiceSongs: {
         en: "Practice Songs",
         de: "Übungslieder"
       },
       practiceSongsText: {
-        en: "Here are 6 songs to practice speed with music:",
-        de: "Hier sind 6 Lieder zum Üben der Geschwindigkeit mit Musik:"
+        en: "Here are some songs to practice with. Try to identify the speed changes, rhythm changes, and melody changes.",
+        de: "Hier sind einige Lieder zum Üben. Versuche, die Geschwindigkeitsänderungen, Rhythmusänderungen und Melodieänderungen zu erkennen."
       },
       songs1And2: {
-        en: "Songs 1 & 2",
-        de: "Lieder 1 & 2"
+        en: "Songs 1 and 2",
+        de: "Lieder 1 und 2"
       },
       songs1And2Text: {
-        en: "From Canaro Orquestra - Music playing 4 similar beats all the time. We can change speed with melody, or whenever you want to change speed, but do it with intention and clearly.",
-        de: "Von Canaro Orquestra - Musik mit 4 ähnlichen Schlägen die ganze Zeit. Du kannst das Tempo mit der Melodie ändern oder wann immer du willst - aber mach es bewusst und deutlich."
+        en: "These songs have a clear and consistent beat, making them good for practicing the basic steps.",
+        de: "Diese Lieder haben einen klaren und gleichmäßigen Beat, wodurch sie sich gut zum Üben der grundlegenden Schritte eignen."
       },
       songs3And4: {
-        en: "Songs 3 & 4",
-        de: "Lieder 3 & 4"
+        en: "Songs 3 and 4",
+        de: "Lieder 3 und 4"
       },
       songs3And4Text: {
-        en: "From early Di Sarli Orquestra - Music playing 2 strong and 2 weak beats, still very rhythmic compared to the future work of the same artist.",
-        de: "Von frühem Di Sarli Orquestra - Musik mit 2 starken und 2 schwachen Schlägen, noch sehr rhythmisch im Vergleich zu späteren Werken des Künstlers."
+        en: "These songs have more complex rhythms, making them good for practicing the rhythm changes.",
+        de: "Diese Lieder haben komplexere Rhythmen, wodurch sie sich gut zum Üben der Rhythmusänderungen eignen."
       },
       songs5And6: {
-        en: "Songs 5 & 6",
-        de: "Lieder 5 & 6"
+        en: "Songs 5 and 6",
+        de: "Lieder 5 und 6"
       },
       songs5And6Text: {
-        en: "From Troilo Orquestra - Music changes between playing 4 similar beats, to strong beats. Many chances to change the speed of the dance.",
-        de: "Von Troilo Orquestra - Musik wechselt zwischen 4 ähnlichen Schlägen und starken Schlägen. Viele Gelegenheiten für Tempowechsel - ein Spielplatz für Geschwindigkeitsfreaks!"
+        en: "These songs have more complex melodies, making them good for practicing the melody changes.",
+        de: "Diese Lieder haben komplexere Melodien, wodurch sie sich gut zum Üben der Melodieänderungen eignen."
       },
       progressNote: {
-        en: "At the end of the week, you will be asked how many times you did each assignment. The goal of 5min Tango is three things: repeat, repeat, and repeat. More ideas and assignments will unfold on the same topic during the week.",
-        de: "Am Ende der Woche wirst du gefragt, wie oft du jede Aufgabe gemacht hast. Das Ziel von 5min Tango sind drei Dinge: wiederholen, wiederholen und... na? Richtig! Weitere Ideen zum Thema folgen während der Woche."
+        en: "As you progress, try to identify the speed changes, rhythm changes, and melody changes in other tango songs.",
+        de: "Versuche im Laufe der Zeit, die Geschwindigkeitsänderungen, Rhythmusänderungen und Melodieänderungen in anderen Tangoliedern zu erkennen."
       },
       commentsTitle: {
-        en: "Comments & Discussion",
-        de: "Kommentare & Diskussion"
+        en: "Comments",
+        de: "Kommentare"
       },
       commentsPlaceholder: {
-        en: "Comment section coming soon...",
-        de: "Kommentarbereich kommt bald..."
+        en: "Share your thoughts on this exercise",
+        de: "Teile deine Gedanken zu dieser Übung"
       },
       rateTitle: {
-        en: "Rate this Exercise",
+        en: "Rate this exercise",
         de: "Bewerte diese Übung"
       },
       ratePlaceholder: {
-        en: "Review system coming soon...",
-        de: "Bewertungssystem kommt bald..."
+        en: "How would you rate this exercise?",
+        de: "Wie würdest du diese Übung bewerten?"
+      },
+      allAssignments: {
+        en: "All Assignments",
+        de: "Alle Aufgaben"
+      },
+      assignmentsDescription: {
+        en: "Here you'll find a comprehensive list of assignments to deepen your understanding and skills.",
+        de: "Hier findest du eine umfassende Liste von Aufgaben, um dein Verständnis und deine Fähigkeiten zu vertiefen."
+      },
+      weeklyAssignments: {
+        en: "Weekly Assignments",
+        de: "Wöchentliche Aufgaben"
       },
       seeAllAssignments: {
         en: "See All Assignments",
-        de: "Alle Aufgaben anzeigen"
-      }
+        de: "Alle Aufgaben ansehen"
+      },
+      fullSongText: {
+        en: "Here's a full song that uses all three speeds. Try to identify when the music changes speed.",
+        de: "Hier ist ein ganzes Lied, das alle drei Geschwindigkeiten verwendet. Versuche zu erkennen, wann die Musik die Geschwindigkeit ändert."
+      },
+    }
+  },
+  topic: {
+    loginToStart: {
+      en: "Login to start",
+      de: "Anmelden zum Starten"
+    },
+    startTopic: {
+      en: "Start this topic",
+      de: "Dieses Thema starten"
+    },
+    activating: {
+      en: "Starting...",
+      de: "Wird gestartet..."
+    },
+    activationSuccess: {
+      en: "Topic started successfully!",
+      de: "Thema erfolgreich gestartet!"
+    },
+    activationError: {
+      en: "Failed to start topic. Please try again.",
+      de: "Thema konnte nicht gestartet werden. Bitte versuchen Sie es erneut."
+    },
+    alreadyActivated: {
+      en: "You have already started this topic!",
+      de: "Sie haben dieses Thema bereits gestartet!"
     }
   },
   daily: {
     title: {
-      en: "Daily Assignments",
-      de: "Tägliche Aufgaben"
+      en: "Daily Practice",
+      de: "Tägliche Übung"
     },
     subtitle: {
-      en: "Progress through 7 days of focused practice",
-      de: "7 Tage konzentriertes Üben - Schritt für Schritt zum Ziel"
+      en: "A new practice routine every day",
+      de: "Jeden Tag eine neue Übungsroutine"
     },
     unlockTomorrow: {
-      en: "You can unlock this tomorrow",
-      de: "Das kannst du morgen freischalten"
+      en: "Unlock tomorrow's practice",
+      de: "Schalte die morgige Übung frei"
+    },
+    dayNumber: {
+      en: "Day {day}",
+      de: "Tag {day}"
+    },
+    completed: {
+      en: "Completed",
+      de: "Abgeschlossen"
     },
     locked: {
       en: "Locked",
-      de: "Noch gesperrt"
+      de: "Gesperrt"
     },
-    availableTomorrow: {
-      en: "Available Tomorrow",
-      de: "Morgen verfügbar"
+    current: {
+      en: "Current",
+      de: "Aktuell"
     },
-    day1: {
-      content: {
-        en: "Make a fixed plan to change your speed every 8 beats. For example, 4,1,2,4 or 2,1,4,1 or whatever you wish, just plan in your head and then dance it. If you do it on your own choose older tango music, if you do it in a milonga do it when music is more monotonous, this way all four speed fit well to all part of the music. Make your change is very clear, and at the end of the phrase.",
-        de: "Mach einen festen Plan, dein Tempo alle 8 Schläge zu ändern. Zum Beispiel 4,1,2,4 oder 2,1,4,1 - oder was auch immer dir gefällt, plane es einfach im Kopf und tanze es dann. Wenn du alleine übst, nimm ältere Tango-Musik. In der Milonga machst du es bei monotonerer Musik - so passen alle Tempi gut zu allen Musikteilen. Mach deine Wechsel schön deutlich und am Ende der Phrase."
-      },
-      audioTitle: {
-        en: "Alma del Bandoneon - Francisco Canaro (30 sec)",
-        de: "Alma del Bandoneon - Francisco Canaro (30 Sek)"
-      },
-      audioDescription: {
-        en: "Here is an example with 4 sections:",
-        de: "Hier ist ein Beispiel mit 4 Abschnitten:"
-      },
-      fullSong: {
-        en: "Full song:",
-        de: "Das ganze Lied:"
-      },
-      task: {
-        en: "I practiced fixed speed changes every 8 beats",
-        de: "Ich habe feste Tempowechsel alle 8 Schläge geübt"
-      }
+    description: {
+      en: "Today's practice will focus on {focus}.",
+      de: "Die heutige Übung konzentriert sich auf {focus}."
     },
-    day2: {
-      content: {
-        en: "Identify solo pieces and slow down on them. Soft solos from singer, violin and Bandonion are a good chance to reduce your speed. A solo in tango is when only one instrument is playing the main melody, there could be still a soft contra bass or piano playing the beat.",
-        de: "Erkenne Solo-Stücke und werde bei ihnen langsamer. Sanfte Solos von Sänger*in, Violine und Bandoneon sind perfekte Gelegenheiten, das Tempo zu drosseln. Ein Solo im Tango ist, wenn nur ein Instrument die Hauptmelodie spielt - Kontrabass oder Klavier dürfen trotzdem leise mitspielen."
-      },
-      description: {
-        en: "There are two tango orchestras who very often have a Solo section in their songs. Let's listen to two bandonion and two violin solos, and finally a singer solo to familiarize the ears, then we can also find them when dancing in the milongas.",
-        de: "Es gibt zwei Tango-Orchester, die sehr oft Solo-Abschnitte in ihren Liedern haben. Hören wir uns zwei Bandoneon- und zwei Violinsolos an, plus ein Sängersolo - damit sich die Ohren daran gewöhnen und wir sie in der Milonga wiedererkennen."
-      },
-      bandonionSolos: {
-        en: "Bandonion Solos",
-        de: "Bandoneon-Solos"
-      },
-      violinSolos: {
-        en: "Violin Solos",
-        de: "Violinsolos"
-      },
-      singerSolo: {
-        en: "Singer Solo",
-        de: "Sängersolo"
-      },
-      task: {
-        en: "I practiced identifying solos and slowing down during them",
-        de: "Ich habe das Erkennen von Solos und Verlangsamen dabei geübt"
-      }
+    objectives: {
+      en: "Objectives",
+      de: "Ziele"
     },
-    day3: {
-      content: {
-        en: "Slow down when the singer is almost talking instead of singing. It does not happen often, so it's even more delicious to catch it when it does.",
-        de: "Werde langsamer, wenn der/die Sänger*in fast spricht statt singt. Passiert nicht oft, also umso köstlicher, wenn du es erwischst!"
-      },
-      description: {
-        en: "In this example, listen carefully to how the singer transitions from singing to almost talking. This is your cue to slow down and savor these intimate moments in the music.",
-        de: "In diesem Beispiel höre genau zu, wie der Sänger vom Singen zum fast Sprechen übergeht. Das ist dein Stichwort, langsamer zu werden und diese intimen Momente in der Musik zu genießen."
-      },
-      task: {
-        en: "I practiced identifying and slowing down during talking singer moments",
-        de: "Ich habe das Erkennen von 'sprechenden' Sängermomenten und Verlangsamen geübt"
-      }
+    tips: {
+      en: "Tips",
+      de: "Tipps"
     },
-    day4: {
-      content: {
-        en: "Go extremely slow. Can you take 8 beats for 1 step? What is your slowest humanly possible? Explore your limits, and explore the limit of your partners.",
-        de: "Gehe extrem langsam. Schaffst du 8 Schläge für 1 Schritt? Was ist dein langsamst mögliches Tempo? Erkunde deine Grenzen und die deiner Tanzpartner*innen - wie langsam ist eigentlich zu langsam?"
-      },
-      description: {
-        en: "This exercise pushes you to discover the absolute minimum speed of movement while maintaining connection and intention. It's about finding grace in extreme slowness.",
-        de: "Diese Übung bringt dich dazu, die absolute Mindestgeschwindigkeit zu entdecken, während du Verbindung und Absicht beibehältst. Es geht darum, Anmut in extremer Langsamkeit zu finden."
-      },
-      task: {
-        en: "I practiced extremely slow movement, taking 8+ beats per step",
-        de: "Ich habe extrem langsame Bewegung geübt - 8+ Schläge pro Schritt"
-      }
+    practice: {
+      en: "Practice",
+      de: "Üben"
     },
-    day5: {
-      content: {
-        en: "Go extremely fast; fast is hard to do together. Find some separation, lead something fast for the follower, or do something fast yourself, while the follower almost stays. Explore your limits.",
-        de: "Gehe extrem schnell - schnell zusammen ist schwer! Finde etwas Trennung, führe etwas Schnelles für den/die Follower*in, oder mach selbst etwas Schnelles, während der/die Partner*in fast stehen bleibt. Erkunde deine Grenzen."
-      },
-      task: {
-        en: "I practiced extremely fast movements",
-        de: "Ich habe extrem schnelle Bewegungen geübt"
-      }
+    completeDay: {
+      en: "Complete Day {day}",
+      de: "Schließe Tag {day} ab"
     },
-    day6: {
-      content: {
-        en: "Do back ochos in all 3 speeds, without changing the speed in the middle. Like the ocho cortado from Day 7, this challenges your ability to maintain consistent speed throughout the entire movement.",
-        de: "Mache Rück-Ochos in allen 3 Geschwindigkeiten, ohne das Tempo mittendrin zu ändern. Wie das Ocho Cortado von Tag 7 fordert das deine Fähigkeit heraus, konstante Geschwindigkeit durch die ganze Bewegung zu halten."
-      },
-      task: {
-        en: "I practiced back ochos at all three speeds without changing speed mid-movement",
-        de: "Ich habe Rück-Ochos in allen drei Tempi geübt - ohne Tempowechsel mittendrin"
-      }
+    markComplete: {
+      en: "Mark as Complete",
+      de: "Als abgeschlossen markieren"
     },
-    day7: {
-      content: {
-        en: "Do ocho cortado in all 3 speeds, without changing the speed in the middle. This is much harder than it sounds because we are used to always doing it with an acceleration in the middle.",
-        de: "Mache Ocho Cortado in allen 3 Geschwindigkeiten, ohne das Tempo mittendrin zu ändern. Das ist viel schwerer als es klingt, weil wir es gewohnt sind, immer mit einer Beschleunigung in der Mitte zu machen - alte Gewohnheiten sind hartnäckig!"
-      },
-      task: {
-        en: "I practiced ocho cortado at all three speeds without changing speed mid-movement",
-        de: "Ich habe Ocho Cortado in allen drei Tempi geübt - ohne Tempowechsel mittendrin"
-      }
+    nextDay: {
+      en: "Next Day",
+      de: "Nächster Tag"
     },
-    placeholder: {
-      en: "assignment content will be added here...",
-      de: "Aufgabeninhalt kommt hier hin..."
-    },
-    placeholderTask: {
-      en: "practice completed",
-      de: "Übung abgeschlossen"
-    }
-  },
-  tips: {
-    extremeSlowness: {
-      en: "Extreme Slowness Tips:",
-      de: "Tipps für extreme Langsamkeit:"
-    },
-    extremeSlownessTip1: {
-      en: "Focus on maintaining balance throughout the entire movement",
-      de: "Konzentriere dich aufs Gleichgewicht während der ganzen Bewegung"
-    },
-    extremeSlownessTip2: {
-      en: "Keep your connection with your partner constant",
-      de: "Halte die Verbindung zu deinem/deiner Partner*in konstant"
-    },
-    extremeSlownessTip3: {
-      en: "Breathe deeply to help maintain control",
-      de: "Atme tief, um die Kontrolle zu behalten"
-    },
-    extremeSlownessTip4: {
-      en: "Challenge yourself: can you go even slower?",
-      de: "Fordere dich heraus: Geht's noch langsamer?"
-    },
-    extremeSpeed: {
-      en: "Extreme Speed Tips:",
-      de: "Tipps für extreme Geschwindigkeit:"
-    },
-    extremeSpeedTip1: {
-      en: "Start with small, quick movements before attempting larger ones",
-      de: "Beginne mit kleinen, schnellen Bewegungen, bevor du größere versuchst"
-    },
-    extremeSpeedTip2: {
-      en: "Practice separation - one partner stays while the other moves fast",
-      de: "Übe Trennung - eine*r bleibt, während der/die andere schnell bewegt"
-    },
-    backOchoChallenge: {
-      en: "Back Ocho Speed Challenge Tips:",
-      de: "Tipps für die Rück-Ocho-Geschwindigkeitsherausforderung:"
-    },
-    backOchoChallengeTitle: {
-      en: "Back Ocho Speed Challenge Tips:",
-      de: "Tipps für die Rück-Ocho-Tempo-Challenge:"
-    },
-    backOchoChallengeTip1: {
-      en: "Start with speed 1 (half speed) - focus on smooth, controlled pivots",
-      de: "Beginne mit Tempo 1 (halbes Tempo) - konzentriere dich auf sanfte, kontrollierte Drehungen"
-    },
-    backOchoChallengeTip2: {
-      en: "Progress to speed 2 (normal) - maintain the natural flow without rushing",
-      de: "Gehe zu Tempo 2 (normal) über - behalte den natürlichen Fluss ohne Hetze"
-    },
-    backOchoChallengeTip3: {
-      en: "Challenge yourself at speed 4 (double)",
-      de: "Fordere dich bei Tempo 4 (doppelt) heraus"
-    },
-    backOchoChallengeTip4: {
-      en: "As speed increases, make smaller pivot and smaller step",
-      de: "Je schneller, desto kleinere Drehungen und Schritte"
-    },
-    ochoCortadoChallenge: {
-      en: "Ocho Cortado Challenge Tips:",
-      de: "Tipps für die Ocho-Cortado-Herausforderung:"
-    },
-    ochoCortadoChallengeTitle: {
-      en: "Ocho Cortado Challenge Tips:",
-      de: "Tipps für die Ocho-Cortado-Challenge:"
-    },
-    ochoCortadoChallengeTip1: {
-      en: "Practice at speed 1 (half speed) first - maintain consistent slowness throughout",
-      de: "Übe zuerst bei Tempo 1 (halbes Tempo) - halte durchgehend konstante Langsamkeit"
-    },
-    ochoCortadoChallengeTip2: {
-      en: "Then speed 2 (normal) - resist the urge to accelerate in the middle",
-      de: "Dann Tempo 2 (normal) - widerstehe dem Drang, mittendrin zu beschleunigen"
-    },
-    ochoCortadoChallengeTip3: {
-      en: "Finally speed 4 (double) - keep the energy constant from start to finish",
-      de: "Schließlich Tempo 4 (doppelt) - halte die Energie von Anfang bis Ende konstant"
-    },
-    ochoCortadoChallengeTip4: {
-      en: "Focus on maintaining the same tempo for the entire movement sequence",
-      de: "Konzentriere dich darauf, das gleiche Tempo für die ganze Bewegungssequenz zu halten"
-    },
-    ochoCortadoChallengeTip5: {
-      en: "Break the habit of natural acceleration - conscious control is key",
-      de: "Durchbrich die Gewohnheit der natürlichen Beschleunigung - bewusste Kontrolle ist der Schlüssel"
-    }
-  },
-  progress: {
-    trackingTitle: {
-      en: "Tracking Progress",
-      de: "Fortschritt verfolgen"
-    },
-    levelInfo: {
-      en: "Level information",
-      de: "Level-Informationen"
-    },
-    notStarted: {
-      en: "Not started:",
-      de: "Noch nicht begonnen:"
-    },
-    notStartedDesc: {
-      en: "You haven't tried this yet",
-      de: "Das hast du noch nicht versucht"
-    },
-    firstAttempt: {
-      en: "First attempt:",
-      de: "Erster Versuch:"
-    },
-    firstAttemptDesc: {
-      en: "You gave it a try once",
-      de: "Du hast es einmal versucht"
-    },
-    practiceMode: {
-      en: "Practice mode:",
-      de: "Übungsmodus:"
-    },
-    practiceModeDesc: {
-      en: "You can do it when concentrating, but it needs focus and doesn't work in social dancing yet",
-      de: "Du schaffst es beim Konzentrieren, aber es braucht Fokus und klappt beim Socialdancing noch nicht"
-    },
-    gettingThere: {
-      en: "Getting there:",
-      de: "Wird langsam:"
-    },
-    gettingThereDesc: {
-      en: "You can use it sometimes at milongas and practicas, but it's not automatic yet",
-      de: "Du kannst es manchmal in Milongas und Practicas nutzen, aber es ist noch nicht automatisch"
-    },
-    mastered: {
-      en: "Mastered:",
-      de: "Beherrscht:"
-    },
-    masteredDesc: {
-      en: "This comes naturally to you now - you do it effortlessly all the time",
-      de: "Das kommt dir jetzt natürlich - du machst es mühelos die ganze Zeit"
+    backToDays: {
+      en: "Back to All Days",
+      de: "Zurück zu allen Tagen"
     }
   }
 };
