@@ -1,13 +1,5 @@
 
 export const smallAndBigTranslations = {
-  concepts: {
-    en: {
-      dancingSmallVsBig: "Dancing Small vs Big"
-    },
-    de: {
-      dancingSmallVsBig: "Klein vs Groß Tanzen"
-    }
-  },
   exercises: {
     en: {
       dancingSmallBig: {

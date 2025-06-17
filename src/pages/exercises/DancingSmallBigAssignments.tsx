@@ -18,35 +18,35 @@ const DancingSmallBigAssignments = () => {
   const assignments = [
     {
       id: '1',
-      content: 'exercises.dancingSmallBig.assignment1' as const,
-      task: 'exercises.dancingSmallBig.assignment1' as const
+      content: t('exercises.dancingSmallBig.assignment1'),
+      task: t('exercises.dancingSmallBig.assignment1')
     },
     {
       id: '2',
-      content: 'exercises.dancingSmallBig.assignment2' as const,
-      task: 'exercises.dancingSmallBig.assignment2' as const
+      content: t('exercises.dancingSmallBig.assignment2'),
+      task: t('exercises.dancingSmallBig.assignment2')
     },
     {
       id: '3',
-      content: 'exercises.dancingSmallBig.assignment3' as const,
-      task: 'exercises.dancingSmallBig.assignment3' as const
+      content: t('exercises.dancingSmallBig.assignment3'),
+      task: t('exercises.dancingSmallBig.assignment3')
     },
     {
       id: '4',
-      content: 'exercises.dancingSmallBig.assignment4' as const,
-      task: 'exercises.dancingSmallBig.assignment4' as const
+      content: t('exercises.dancingSmallBig.assignment4'),
+      task: t('exercises.dancingSmallBig.assignment4')
     },
     {
       id: '5',
-      content: 'exercises.dancingSmallBig.assignment5' as const,
-      task: 'exercises.dancingSmallBig.assignment5' as const
+      content: t('exercises.dancingSmallBig.assignment5'),
+      task: t('exercises.dancingSmallBig.assignment5')
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       <PageHeader 
-        title={t('exercises.dancingSmallBig.title')} 
+        title={t('exercises.dancingSmallBig.allAssignments')} 
         backRoute="/exercises/dancing-small-big"
       />
       
