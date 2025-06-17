@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -24,47 +24,55 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
   const [isActive, setIsActive] = useState(false);
   const [deadline, setDeadline] = useState<Date | null>(null);
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
+  const [hasCheckedStatus, setHasCheckedStatus] = useState(false);
+
+  // Memoize the status check function to prevent unnecessary re-renders
+  const checkTopicStatus = useCallback(async () => {
+    console.log('TopicStartButton: Checking topic status...', { user: !!user, topicKey, topicIndex });
+    
+    if (!user) {
+      console.log('TopicStartButton: No user, setting inactive');
+      setIsActive(false);
+      setDeadline(null);
+      setHasCheckedStatus(true);
+      return;
+    }
+
+    // Only show loading if we haven't checked status yet
+    if (!hasCheckedStatus) {
+      setIsCheckingStatus(true);
+    }
+    
+    try {
+      console.log('TopicStartButton: Calling isTopicActive...');
+      const active = await isTopicActive(topicKey, topicIndex);
+      console.log('TopicStartButton: Topic active status:', active);
+      setIsActive(active);
+      
+      if (active) {
+        console.log('TopicStartButton: Topic is active, getting deadline...');
+        const topicDeadline = await getTopicDeadline(topicKey, topicIndex);
+        console.log('TopicStartButton: Topic deadline:', topicDeadline);
+        setDeadline(topicDeadline);
+      } else {
+        console.log('TopicStartButton: Topic is not active');
+        setDeadline(null);
+      }
+    } catch (error) {
+      console.error('TopicStartButton: Error checking topic status:', error);
+      setIsActive(false);
+      setDeadline(null);
+    } finally {
+      setIsCheckingStatus(false);
+      setHasCheckedStatus(true);
+      console.log('TopicStartButton: Finished checking status');
+    }
+  }, [user, topicKey, topicIndex, isTopicActive, getTopicDeadline, hasCheckedStatus]);
 
   // Check if topic is active when component mounts or user changes
   useEffect(() => {
-    const checkTopicStatus = async () => {
-      console.log('TopicStartButton: Checking topic status...', { user: !!user, topicKey, topicIndex });
-      
-      if (!user) {
-        console.log('TopicStartButton: No user, setting inactive');
-        setIsActive(false);
-        setDeadline(null);
-        return;
-      }
-
-      setIsCheckingStatus(true);
-      try {
-        console.log('TopicStartButton: Calling isTopicActive...');
-        const active = await isTopicActive(topicKey, topicIndex);
-        console.log('TopicStartButton: Topic active status:', active);
-        setIsActive(active);
-        
-        if (active) {
-          console.log('TopicStartButton: Topic is active, getting deadline...');
-          const topicDeadline = await getTopicDeadline(topicKey, topicIndex);
-          console.log('TopicStartButton: Topic deadline:', topicDeadline);
-          setDeadline(topicDeadline);
-        } else {
-          console.log('TopicStartButton: Topic is not active');
-          setDeadline(null);
-        }
-      } catch (error) {
-        console.error('TopicStartButton: Error checking topic status:', error);
-        setIsActive(false);
-        setDeadline(null);
-      } finally {
-        setIsCheckingStatus(false);
-        console.log('TopicStartButton: Finished checking status');
-      }
-    };
-
     checkTopicStatus();
-  }, [user, topicKey, topicIndex, isTopicActive, getTopicDeadline]);
+  }, [checkTopicStatus]);
 
   const handleTopicAction = async () => {
     console.log('TopicStartButton: Handle topic action clicked', { user: !!user, isActive });
@@ -78,16 +86,9 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
         await activateTopic(topicKey, topicIndex);
         console.log('TopicStartButton: Topic activated, refreshing status...');
         
-        // Refresh the status after activation
-        const active = await isTopicActive(topicKey, topicIndex);
-        console.log('TopicStartButton: New active status after activation:', active);
-        setIsActive(active);
-        
-        if (active) {
-          const topicDeadline = await getTopicDeadline(topicKey, topicIndex);
-          console.log('TopicStartButton: New deadline after activation:', topicDeadline);
-          setDeadline(topicDeadline);
-        }
+        // Reset the check status flag and refresh
+        setHasCheckedStatus(false);
+        await checkTopicStatus();
       } catch (error) {
         console.error('TopicStartButton: Failed to activate topic:', error);
       }
@@ -110,7 +111,8 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
       isActivating, 
       user: !!user, 
       isActive, 
-      deadline: !!deadline 
+      deadline: !!deadline,
+      hasCheckedStatus
     });
     
     if (isCheckingStatus || isActivating) {
@@ -144,6 +146,7 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
     isActive,
     deadline: !!deadline,
     isButtonDisabled,
+    hasCheckedStatus,
     buttonText: getButtonText()
   });
 
