@@ -153,12 +153,148 @@ export type Database = {
         }
         Relationships: []
       }
+      user_achievements: {
+        Row: {
+          achievement_description: string | null
+          achievement_key: string
+          achievement_name: string
+          earned_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          achievement_description?: string | null
+          achievement_key: string
+          achievement_name: string
+          earned_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          achievement_description?: string | null
+          achievement_key?: string
+          achievement_name?: string
+          earned_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_engagement: {
+        Row: {
+          assignments_completed: number
+          created_at: string
+          date: string
+          id: string
+          sessions_count: number
+          time_spent_minutes: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          assignments_completed?: number
+          created_at?: string
+          date: string
+          id?: string
+          sessions_count?: number
+          time_spent_minutes?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          assignments_completed?: number
+          created_at?: string
+          date?: string
+          id?: string
+          sessions_count?: number
+          time_spent_minutes?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_sessions: {
+        Row: {
+          assignments_completed: number | null
+          duration_minutes: number | null
+          id: string
+          page_views: number | null
+          session_end: string | null
+          session_start: string
+          user_id: string
+        }
+        Insert: {
+          assignments_completed?: number | null
+          duration_minutes?: number | null
+          id?: string
+          page_views?: number | null
+          session_end?: string | null
+          session_start?: string
+          user_id: string
+        }
+        Update: {
+          assignments_completed?: number | null
+          duration_minutes?: number | null
+          id?: string
+          page_views?: number | null
+          session_end?: string | null
+          session_start?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_streaks: {
+        Row: {
+          created_at: string
+          current_streak: number
+          id: string
+          last_activity_date: string
+          longest_streak: number
+          streak_type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_streak?: number
+          id?: string
+          last_activity_date: string
+          longest_streak?: number
+          streak_type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_streak?: number
+          id?: string
+          last_activity_date?: string
+          longest_streak?: number
+          streak_type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      update_daily_engagement: {
+        Args: {
+          _user_id: string
+          _date?: string
+          _session_increment?: number
+          _time_increment?: number
+          _assignments_increment?: number
+        }
+        Returns: undefined
+      }
+      update_user_streaks: {
+        Args: { _user_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

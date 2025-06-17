@@ -4,6 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import ProfileSection from '@/components/ProfileSection';
+import ProfileDashboard from '@/components/profile/ProfileDashboard';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 const Profile = () => {
@@ -20,7 +21,7 @@ const Profile = () => {
           <div className="absolute bottom-32 right-1/3 w-24 h-24 bg-terracotta transform rotate-45"></div>
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 py-8">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
           {/* Back to Home Button */}
           <div className="mb-8">
             <Link 
@@ -41,15 +42,20 @@ const Profile = () => {
                   YOUR PROFILE
                 </h1>
                 <p className="boho-subtitle text-lg text-mushroom">
-                  Manage your account settings and track your tango journey
+                  Track your tango journey and celebrate your progress
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Profile Section */}
-          <div className="max-w-2xl mx-auto">
+          {/* Profile Information */}
+          <div className="mb-8">
             <ProfileSection />
+          </div>
+
+          {/* Habit Building Dashboard */}
+          <div className="mb-8">
+            <ProfileDashboard />
           </div>
 
           {/* Quick Actions */}
