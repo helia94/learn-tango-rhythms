@@ -9,6 +9,36 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      daily_topic_activations: {
+        Row: {
+          activated_at: string
+          created_at: string
+          day_index: number
+          id: string
+          topic_index: number
+          topic_key: string
+          user_id: string
+        }
+        Insert: {
+          activated_at?: string
+          created_at?: string
+          day_index: number
+          id?: string
+          topic_index: number
+          topic_key: string
+          user_id: string
+        }
+        Update: {
+          activated_at?: string
+          created_at?: string
+          day_index?: number
+          id?: string
+          topic_index?: number
+          topic_key?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       leaderboard: {
         Row: {
           city: string | null

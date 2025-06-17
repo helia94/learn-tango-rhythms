@@ -1,8 +1,9 @@
 
 import React from 'react';
-import { Lock, CheckCircle } from 'lucide-react';
+import { Lock, CheckCircle, Play } from 'lucide-react';
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useTranslation } from '@/hooks/useTranslation';
+import { Button } from '@/components/ui/button';
 import DayContent from './DayContent';
 import { DayStatus } from './DayStatus';
 
@@ -12,6 +13,7 @@ interface DayItemProps {
   isCompleted: boolean;
   completedTasks: Record<string, number>;
   onTaskLevelChange: (taskId: string, level: number) => void;
+  onDayActivation?: () => void;
 }
 
 const DayItem: React.FC<DayItemProps> = ({
@@ -19,7 +21,8 @@ const DayItem: React.FC<DayItemProps> = ({
   status,
   isCompleted,
   completedTasks,
-  onTaskLevelChange
+  onTaskLevelChange,
+  onDayActivation
 }) => {
   const { t } = useTranslation();
 
@@ -43,7 +46,22 @@ const DayItem: React.FC<DayItemProps> = ({
             </span>
           </div>
           
-          {status === 'tomorrow' && (
+          {status === 'tomorrow' && onDayActivation && (
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                onDayActivation();
+              }}
+              size="sm"
+              variant="outline"
+              className="ml-auto mr-4 bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-golden-yellow"
+            >
+              <Play className="w-4 h-4 mr-1" />
+              {t('daily.unlockDay')}
+            </Button>
+          )}
+          
+          {status === 'tomorrow' && !onDayActivation && (
             <span className="text-sm text-golden-yellow font-medium ml-auto mr-4">
               {t('daily.availableTomorrow')}
             </span>
