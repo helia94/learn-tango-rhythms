@@ -6,8 +6,6 @@ import StorySection from '@/components/ui/StorySection';
 import TipsInfoBox from '@/components/ui/TipsInfoBox';
 import AudioSection from '@/components/ui/AudioSection';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
-import CommentSection from '@/components/ui/CommentSection';
-import RatingSection from '@/components/ui/RatingSection';
 import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
 
@@ -96,18 +94,6 @@ const DancingSmallBig = () => {
             All Assignments
           </SeeAllAssignmentsButton>
         </div>
-
-        {/* Comments Section */}
-        <CommentSection
-          title="Share Your Experience"
-          placeholder="How are you finding the step size exercises? Share your insights..."
-        />
-
-        {/* Rating Section */}
-        <RatingSection
-          title="Rate This Exercise"
-          placeholder="Rate your experience and leave feedback..."
-        />
       </div>
     </div>
   );
