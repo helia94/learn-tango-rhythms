@@ -66,33 +66,6 @@ export type Database = {
         }
         Relationships: []
       }
-      topic_activations: {
-        Row: {
-          activated_at: string
-          created_at: string
-          id: string
-          topic_index: number
-          topic_key: string
-          user_id: string
-        }
-        Insert: {
-          activated_at?: string
-          created_at?: string
-          id?: string
-          topic_index: number
-          topic_key: string
-          user_id: string
-        }
-        Update: {
-          activated_at?: string
-          created_at?: string
-          id?: string
-          topic_index?: number
-          topic_key?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
     }
     Views: {
       [_ in never]: never

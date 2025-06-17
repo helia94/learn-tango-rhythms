@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -16,7 +15,6 @@ import RatingSection from '@/components/ui/RatingSection';
 import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
 import TextContent from '@/components/ui/TextContent';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
-import TopicStartButton from '@/components/ui/TopicStartButton';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
@@ -115,17 +113,6 @@ const DancingFastSlow = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       <PageHeader title={t('exercises.dancingFastSlow.title')} />
-
-      {/* Topic Start Button Section */}
-      <div className="max-w-4xl mx-auto px-4 mb-8">
-        <div className="text-center">
-          <TopicStartButton 
-            topicIndex={1}
-            topicKey="dancing-fast-slow"
-            className="mb-4"
-          />
-        </div>
-      </div>
 
       {/* Story Content */}
       <div className="max-w-4xl mx-auto px-4 pb-8">
