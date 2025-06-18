@@ -25,25 +25,25 @@ const Day3Content: React.FC<Day3ContentProps> = ({
       title: 'Don Juan - Carlos Di Sarli',
       description: 'Classic syncopation, easy to listen to, in the beginning of the song.',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277191/SYNCOPA_2_-_Don_Juan_-_Carlos_Di_Sarli-_AudioTrimmer.com_tnqc5f.mp3',
-      colorEvents: [3595, 7648, 11296]
+      colorEvents: [3400, 7648, 11296]
     },
     {
       title: 'Seguime, Si Podes - Osvaldo Pugliese',
       description: 'Strong syncopation, typical for Pugliese.',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277190/SYNCOPA_4_-_Seguime_Si_Podes_-_Osvaldo_Pugliese-_AudioTrimmer.com_hnx50k.mp3',
-      colorEvents: [4256]
+      colorEvents: [3900]
     },
     {
       title: 'La Rayuela - Osvaldo Pugliese Orquesta',
       description: 'Single strong syncopation in Pugliese style.',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277189/SYNCOPA_5_-_La_Rayuela_-_Osvaldo_Pugliese-_AudioTrimmer.com_xvpc2s.mp3',
-      colorEvents: [7605]
+      colorEvents: [7000]
     },
     {
       title: 'Torrente - Aníbal Troilo',
       description: 'A series of syncopations.',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277189/SYNCOPA_7_-_Torrente_-_An%C3%ADbal_Troilo-_AudioTrimmer.com_uxkgv0.mp3',
-      colorEvents: [7500, 8500, 9600, 11500, 13500, 16000]
+      colorEvents: [7500, , 9600, 11500, 13500, 16000]
     },
     {
       title: 'Tres amigos - Aníbal Troilo',
