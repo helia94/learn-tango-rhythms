@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import AssignmentList from '@/components/AssignmentList';
-import { getWeeklyAssignments } from '@/data/assignments/smallAndBig';
+import { getWeeklyAssignments, assignments } from '@/data/assignments/smallAndBig';
 
 const DancingSmallBigAssignments = () => {
   const { t } = useTranslation();
@@ -16,13 +16,23 @@ const DancingSmallBigAssignments = () => {
     }));
   };
 
-  const weeklyAssignments = getWeeklyAssignments();
+  // Get daily assignments (Day 1-7)
+  const dailyAssignments = [1, 2, 3, 4, 5, 6, 7].map(dayNumber => ({
+    id: `day${dayNumber}`,
+    content: assignments[`day${dayNumber}`].content,
+    task: assignments[`day${dayNumber}`].task
+  }));
 
-  const assignments = weeklyAssignments.map((assignment, index) => ({
-    id: (index + 1).toString(),
+  // Get weekly assignments
+  const weeklyAssignments = getWeeklyAssignments();
+  const weeklyAssignmentsList = weeklyAssignments.map((assignment, index) => ({
+    id: `weekly-assignment-${index + 1}`,
     content: assignment.content,
     task: assignment.task
   }));
+
+  // Combine all assignments
+  const allAssignments = [...dailyAssignments, ...weeklyAssignmentsList];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
@@ -38,14 +48,31 @@ const DancingSmallBigAssignments = () => {
           </p>
         </div>
 
-        <AssignmentList 
-          assignments={assignments}
-          completedTasks={completedTasks}
-          onTaskLevelChange={handleTaskLevelChange}
-          keyPrefix="dancing-small-big"
-          topicName="dancing-small-big"
-          topicIndex={1}
-        />
+        {/* Daily Assignments Section */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-display text-gray-700 mb-6">Daily Assignments (Day 1-7)</h2>
+          <AssignmentList 
+            assignments={dailyAssignments}
+            completedTasks={completedTasks}
+            onTaskLevelChange={handleTaskLevelChange}
+            keyPrefix="dancing-small-big-daily"
+            topicName="dancing-small-big"
+            topicIndex={1}
+          />
+        </div>
+
+        {/* Weekly Assignments Section */}
+        <div>
+          <h2 className="text-2xl font-display text-gray-700 mb-6">Weekly Assignments</h2>
+          <AssignmentList 
+            assignments={weeklyAssignmentsList}
+            completedTasks={completedTasks}
+            onTaskLevelChange={handleTaskLevelChange}
+            keyPrefix="dancing-small-big-weekly"
+            topicName="dancing-small-big"
+            topicIndex={1}
+          />
+        </div>
       </div>
     </div>
   );
