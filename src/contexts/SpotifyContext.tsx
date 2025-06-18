@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { SpotifyUser, SpotifyTokens, SpotifyPlayer, SpotifyPlayerState } from '@/types/spotify';
 import { useAuth } from '@/contexts/AuthContext';
@@ -94,7 +95,6 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       } else {
         setAccessToken(connection.access_token);
         setIsConnected(true);
-        await fetchSpotifyUser(connection.access_token);
         initializeSpotifyPlayer(connection.access_token);
       }
     } catch (error) {
@@ -114,28 +114,10 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
       setAccessToken(data.access_token);
       setIsConnected(true);
-      await fetchSpotifyUser(data.access_token);
       initializeSpotifyPlayer(data.access_token);
     } catch (error) {
       console.error('Error refreshing Spotify token:', error);
       setIsConnected(false);
-    }
-  };
-
-  const fetchSpotifyUser = async (token: string) => {
-    try {
-      const response = await fetch('https://api.spotify.com/v1/me', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        const userData = await response.json();
-        setSpotifyUser(userData);
-      }
-    } catch (error) {
-      console.error('Error fetching Spotify user:', error);
     }
   };
 

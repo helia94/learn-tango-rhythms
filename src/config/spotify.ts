@@ -1,15 +1,10 @@
-
 import { supabase } from '@/integrations/supabase/client';
 
 export const SPOTIFY_CONFIG = {
   CLIENT_ID: '', // Will be loaded dynamically from Supabase
   SCOPES: [
     'streaming',
-    'user-read-email',
-    'user-read-private',
-    'user-read-playback-state',
-    'user-modify-playback-state',
-    'user-read-currently-playing'
+    'user-modify-playback-state'
   ].join(' '),
   SDK_URL: 'https://sdk.scdn.co/spotify-player.js',
   API_BASE_URL: 'https://api.spotify.com/v1',

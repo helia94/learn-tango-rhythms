@@ -3,12 +3,11 @@ import React from 'react';
 import { useSpotify } from '@/contexts/SpotifyContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Music, User, Loader2 } from 'lucide-react';
+import { Music, Check, Loader2 } from 'lucide-react';
 
 const SpotifyConnection = () => {
   const { 
     isConnected, 
-    spotifyUser, 
     loading, 
     connectSpotify, 
     disconnectSpotify 
@@ -34,20 +33,15 @@ const SpotifyConnection = () => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {isConnected && spotifyUser ? (
+        {isConnected ? (
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              {spotifyUser.images?.[0]?.url && (
-                <img 
-                  src={spotifyUser.images[0].url} 
-                  alt="Spotify Profile"
-                  className="w-12 h-12 rounded-full"
-                />
-              )}
+              <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                <Check className="w-6 h-6 text-white" />
+              </div>
               <div>
-                <p className="font-medium">{spotifyUser.display_name}</p>
-                <p className="text-sm text-gray-600">{spotifyUser.email}</p>
-                <p className="text-xs text-green-600 capitalize">{spotifyUser.product} Account</p>
+                <p className="font-medium text-green-700">Spotify Connected</p>
+                <p className="text-sm text-gray-600">Full playback enabled</p>
               </div>
             </div>
             <Button 
@@ -61,11 +55,11 @@ const SpotifyConnection = () => {
         ) : (
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-gray-600">
-              <User className="w-4 h-4" />
+              <Music className="w-4 h-4" />
               <span>Not connected to Spotify</span>
             </div>
             <p className="text-sm text-gray-500">
-              Connect your Spotify account to access premium music features and enhance your learning experience.
+              Connect your Spotify Premium account to enable full music playback. We only request permission to control music playback - no access to your personal data or listening history.
             </p>
             <Button 
               onClick={connectSpotify}
