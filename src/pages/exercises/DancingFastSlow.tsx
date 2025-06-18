@@ -19,6 +19,7 @@ import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
 import TextContent from '@/components/ui/TextContent';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TopicStartButton from '@/components/ui/TopicStartButton';
+import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments/fastAndSlow';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
@@ -272,25 +273,7 @@ const DancingFastSlow = () => {
               {t('exercises.dancingFastSlow.melodyChangesText')}
             </TextContent>
             
-            <div className="space-y-4">
-              <AudioPlayer 
-                key="legato-to-staccato"
-                title={t('exercises.dancingFastSlow.legatoToStaccato')}
-                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/legato_to_Stacatto_Invierno_-_Francisco_Canaro-_gcc7qs.mp3"
-                colorChanges={[
-                  { timestamp: 6500, color: 'bg-dusty-rose' }
-                ]}
-              />
-              
-              <AudioPlayer 
-                key="staccato-to-legato"
-                title={t('exercises.dancingFastSlow.staccatoToLegato')}
-                audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1749839311/Stacatto_to_legato_Invierno_-_Francisco_Canaro-_ho4nwj.mp3"
-                colorChanges={[
-                  { timestamp: 6500, color: 'bg-dusty-rose' }
-                ]}
-              />
-            </div>
+            <LegatoStaccatoSamples />
           </div>
         </StorySection>
 
