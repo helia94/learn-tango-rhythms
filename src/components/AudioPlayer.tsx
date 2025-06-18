@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, Zap } from 'lucide-react';
@@ -156,7 +157,7 @@ const AudioPlayer = ({
       <div className="w-full relative">
         <Progress 
           value={progress} 
-          className="h-6 bg-cream/20"
+          className="h-4 bg-cream/20"
         />
         
         {/* Event markers on progress bar */}
@@ -168,13 +169,12 @@ const AudioPlayer = ({
               style={{ left: `${marker.position}%`, transform: 'translateX(-50%)' }}
             >
               <Zap 
-                className={`${
+                className={`w-3 h-3 ${
                   marker.isActive 
-                    ? 'w-8 h-8 text-yellow-400 drop-shadow-2xl scale-[2] animate-pulse' 
-                    : 'w-6 h-6 text-orange-600'
-                } transition-all duration-200 font-black stroke-[3]`}
+                    ? 'text-orange-500 drop-shadow-lg scale-150' 
+                    : 'text-terracotta/60'
+                } transition-all duration-200`}
                 fill="currentColor"
-                strokeWidth={3}
               />
             </div>
           ))}
