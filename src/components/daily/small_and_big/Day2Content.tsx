@@ -24,7 +24,7 @@ const Day2Content: React.FC<Day2ContentProps> = ({
     {
       description: t('exercises.dancingSmallBig.daily.day2.accent1Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT-1-_Recuerdo_-_Instrumental_-_Osvaldo_Pugliese_zmwbbr.mp3',
-      colorEvents: [0]
+      colorEvents: [3000]
     },
     {
       description: t('exercises.dancingSmallBig.daily.day2.accent2Description' as any),
