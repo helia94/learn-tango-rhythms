@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
-import { TranslationKey } from '@/data/translations';
+import { TranslationKey } from '@/data/translations/index';
 import LanguageSelector from '@/components/LanguageSelector';
 
 const RoadMap = () => {
