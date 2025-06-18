@@ -93,10 +93,9 @@ const Day2Content: React.FC<Day2ContentProps> = ({
         {accentExamples.map((example, index) => (
           <div key={index} className="space-y-3">
             <div className="bg-warm-brown/10 rounded-lg p-4">
-              <h4 className="font-medium text-gray-800 mb-2">{example.title}</h4>
               <p className="text-gray-600 text-sm mb-3">{example.description}</p>
               <AudioPlayer
-                title={example.title}
+                title={`Audio Example ${index + 1}`}
                 audioUrl={example.audioUrl}
                 colorEvents={example.colorEvents}
                 className="w-full"
