@@ -18,16 +18,21 @@ const Day1Content: React.FC<Day1ContentProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  console.log('Day1Content (small_and_big) - Component rendered with props:', {
+    topicName,
+    topicIndex
+  });
+
   return (
     <div className="space-y-6">
       <p className="text-gray-700 text-lg leading-relaxed">
-        {t('daily.day1.content' as any)}
+        {t('exercises.dancingSmallBig.daily.day1.content' as any)}
       </p>
       
       <Assignment
         assignment={{ 
-          content: 'daily.day1.task' as any, 
-          task: 'daily.day1.task' as any 
+          content: 'exercises.dancingSmallBig.daily.day1.task' as any, 
+          task: 'exercises.dancingSmallBig.daily.day1.task' as any 
         }}
         taskId="day-1-task"
         level={completedTasks['day-1-task'] || 0}

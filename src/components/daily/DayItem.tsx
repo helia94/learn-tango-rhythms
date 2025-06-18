@@ -14,6 +14,8 @@ interface DayItemProps {
   completedTasks: Record<string, number>;
   onTaskLevelChange: (taskId: string, level: number) => void;
   onDayActivation?: () => void;
+  topicName?: string;
+  topicIndex?: number;
 }
 
 const DayItem: React.FC<DayItemProps> = ({
@@ -22,9 +24,17 @@ const DayItem: React.FC<DayItemProps> = ({
   isCompleted,
   completedTasks,
   onTaskLevelChange,
-  onDayActivation
+  onDayActivation,
+  topicName = 'dancing-fast-slow',
+  topicIndex = 0
 }) => {
   const { t } = useTranslation();
+
+  console.log(`DayItem - Day ${dayNumber} received props:`, {
+    topicName,
+    topicIndex,
+    status
+  });
 
   return (
     <AccordionItem 
@@ -81,6 +91,8 @@ const DayItem: React.FC<DayItemProps> = ({
           status={status}
           completedTasks={completedTasks}
           onTaskLevelChange={onTaskLevelChange}
+          topicName={topicName}
+          topicIndex={topicIndex}
         />
       </AccordionContent>
     </AccordionItem>

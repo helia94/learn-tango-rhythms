@@ -40,6 +40,13 @@ const DayContent: React.FC<DayContentProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  console.log(`DayContent - Day ${dayNumber} routing:`, {
+    topicName,
+    topicIndex,
+    status,
+    willRouteToSmallBig: topicName === 'dancing-small-big'
+  });
+
   // Show locked content for locked/tomorrow days
   if (status === 'locked' || status === 'tomorrow') {
     return <LockedDayContent status={status} />;
@@ -55,6 +62,7 @@ const DayContent: React.FC<DayContentProps> = ({
 
   // Route to the correct topic's daily content
   if (topicName === 'dancing-small-big') {
+    console.log(`DayContent - Routing to small-big Day ${dayNumber}`);
     switch (dayNumber) {
       case 1:
         return <SmallBigDay1Content {...commonProps} />;
@@ -92,6 +100,7 @@ const DayContent: React.FC<DayContentProps> = ({
   }
 
   // Default to fast and slow content
+  console.log(`DayContent - Routing to fast-slow Day ${dayNumber} (default)`);
   switch (dayNumber) {
     case 1:
       return <Day1Content {...commonProps} />;

@@ -1,12 +1,14 @@
 import { otherTranslations } from './other';
 import { profileTranslations } from './profile';
 import { translations as legacyTranslations } from './translations';
+import { smallAndBigTranslations } from './small_and_big';
 
 // Combine all translations
 export const translations = {
   ...otherTranslations,
   ...profileTranslations,
-  ...legacyTranslations
+  ...legacyTranslations,
+  ...smallAndBigTranslations
 };
 
 // Manual type definition that includes all possible translation keys
