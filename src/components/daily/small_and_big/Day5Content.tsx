@@ -21,7 +21,7 @@ const Day5Content: React.FC<Day5ContentProps> = ({
   return (
     <div className="space-y-6">
       <p className="text-gray-700 text-lg leading-relaxed">
-        {t('daily.day5.content' as any)}
+        {t('exercises.dancingSmallBig.daily.day5.content' as any)}
       </p>
       
       <div className="bg-warm-brown/10 backdrop-blur-sm rounded-xl border border-cream/20 p-6 my-6">
@@ -48,8 +48,8 @@ const Day5Content: React.FC<Day5ContentProps> = ({
       
       <Assignment
         assignment={{ 
-          content: 'daily.day5.task' as any, 
-          task: 'daily.day5.task' as any 
+          content: 'exercises.dancingSmallBig.daily.day5.task' as any, 
+          task: 'exercises.dancingSmallBig.daily.day5.task' as any 
         }}
         taskId="day-5-task"
         level={completedTasks['day-5-task'] || 0}

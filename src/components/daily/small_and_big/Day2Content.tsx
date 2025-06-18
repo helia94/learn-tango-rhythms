@@ -21,13 +21,13 @@ const Day2Content: React.FC<Day2ContentProps> = ({
   return (
     <div className="space-y-6">
       <p className="text-gray-700 text-lg leading-relaxed">
-        {t('daily.day2.content' as any)}
+        {t('exercises.dancingSmallBig.daily.day2.content' as any)}
       </p>
       
       <Assignment
         assignment={{ 
-          content: 'daily.day2.task' as any, 
-          task: 'daily.day2.task' as any 
+          content: 'exercises.dancingSmallBig.daily.day2.task' as any, 
+          task: 'exercises.dancingSmallBig.daily.day2.task' as any 
         }}
         taskId="day-2-task"
         level={completedTasks['day-2-task'] || 0}
