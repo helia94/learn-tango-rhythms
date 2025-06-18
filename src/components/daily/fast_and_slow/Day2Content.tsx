@@ -22,15 +22,15 @@ const Day2Content: React.FC<Day2ContentProps> = ({
   return (
     <div className="space-y-6">
       <p className="text-gray-700 text-lg leading-relaxed">
-        {t('daily.day2.content')}
+        {t('exercises.dancingFastSlow.daily.day2.content')}
       </p>
       
       <p className="text-gray-600 text-lg leading-relaxed">
-        {t('daily.day2.description')}
+        {t('exercises.dancingFastSlow.daily.day2.description')}
       </p>
 
       <div className="space-y-4">
-        <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('daily.day2.bandonionSolos')}</h4>
+        <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('exercises.dancingFastSlow.daily.day2.bandonionSolos')}</h4>
         
         <AudioPlayer 
           title="El Africano - Aníbal Troilo (Bandonion Solo)" 
@@ -44,7 +44,7 @@ const Day2Content: React.FC<Day2ContentProps> = ({
       </div>
 
       <div className="space-y-4">
-        <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('daily.day2.violinSolos')}</h4>
+        <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('exercises.dancingFastSlow.daily.day2.violinSolos')}</h4>
         
         <AudioPlayer 
           title="Tierra Querida - Osvaldo Pugliese (Violin Solo)" 
@@ -58,7 +58,7 @@ const Day2Content: React.FC<Day2ContentProps> = ({
       </div>
 
       <div className="space-y-4">
-        <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('daily.day2.singerSolo')}</h4>
+        <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('exercises.dancingFastSlow.daily.day2.singerSolo')}</h4>
         
         <AudioPlayer 
           title="Cotorrita de la Suerte (Singer Solo)" 
@@ -67,7 +67,7 @@ const Day2Content: React.FC<Day2ContentProps> = ({
       </div>
 
       <Assignment
-        assignment={{ content: 'daily.day2.task', task: 'daily.day2.task' }}
+        assignment={{ content: 'exercises.dancingFastSlow.daily.day2.task', task: 'exercises.dancingFastSlow.daily.day2.task' }}
         taskId="day-2-task"
         level={completedTasks['day-2-task'] || 0}
         onLevelChange={onTaskLevelChange}

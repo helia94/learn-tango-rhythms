@@ -22,21 +22,21 @@ const Day6Content: React.FC<Day6ContentProps> = ({
   return (
     <div className="space-y-6">
       <p className="text-gray-700 text-lg leading-relaxed">
-        {t('daily.day6.content')}
+        {t('exercises.dancingFastSlow.daily.day6.content')}
       </p>
       
       <TipsSection 
-        title={t('tips.backOchoChallengeTitle')}
+        title={t('exercises.dancingFastSlow.tips.backOchoChallengeTitle')}
         tips={[
-          t('tips.backOchoChallengeTip1'),
-          t('tips.backOchoChallengeTip2'),
-          t('tips.backOchoChallengeTip3'),
-          t('tips.backOchoChallengeTip4')
+          t('exercises.dancingFastSlow.tips.backOchoChallengeTip1'),
+          t('exercises.dancingFastSlow.tips.backOchoChallengeTip2'),
+          t('exercises.dancingFastSlow.tips.backOchoChallengeTip3'),
+          t('exercises.dancingFastSlow.tips.backOchoChallengeTip4')
         ]}
       />
 
       <Assignment
-        assignment={{ content: 'daily.day6.task', task: 'daily.day6.task' }}
+        assignment={{ content: 'exercises.dancingFastSlow.daily.day6.task', task: 'exercises.dancingFastSlow.daily.day6.task' }}
         taskId="day-6-task"
         level={completedTasks['day-6-task'] || 0}
         onLevelChange={onTaskLevelChange}

@@ -22,13 +22,13 @@ const Day1Content: React.FC<Day1ContentProps> = ({
   return (
     <div className="space-y-6">
       <p className="text-gray-700 text-lg leading-relaxed">
-        {t('daily.day1.content')}
+        {t('exercises.dancingFastSlow.daily.day1.content')}
       </p>
       
       <div>
-        <p className="text-gray-600 mb-4 text-center">{t('daily.day1.audioDescription')}</p>
+        <p className="text-gray-600 mb-4 text-center">{t('exercises.dancingFastSlow.daily.day1.audioDescription')}</p>
         <AudioPlayer 
-          title={t('daily.day1.audioTitle')} 
+          title={t('exercises.dancingFastSlow.daily.day1.audioTitle')} 
           audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750080593/ALMA_DEL_BANDONEON_ORQUESTA_TIPICA_FRANCISCO_CANARO-30_sec_nrc3lj.mp3" 
           colorChanges={[
             { timestamp: 7000, color: 'bg-dusty-rose' },
@@ -39,7 +39,7 @@ const Day1Content: React.FC<Day1ContentProps> = ({
       </div>
 
       <div>
-        <p className="text-gray-600 mb-4 text-center">{t('daily.day1.fullSong')}</p>
+        <p className="text-gray-600 mb-4 text-center">{t('exercises.dancingFastSlow.daily.day1.fullSong')}</p>
         <div className="rounded-2xl overflow-hidden shadow-2xl">
           <iframe 
             style={{ borderRadius: '12px' }} 
@@ -55,7 +55,7 @@ const Day1Content: React.FC<Day1ContentProps> = ({
       </div>
 
       <Assignment
-        assignment={{ content: 'daily.day1.task', task: 'daily.day1.task' }}
+        assignment={{ content: 'exercises.dancingFastSlow.daily.day1.task', task: 'exercises.dancingFastSlow.daily.day1.task' }}
         taskId="day-1-task"
         level={completedTasks['day-1-task'] || 0}
         onLevelChange={onTaskLevelChange}

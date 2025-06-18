@@ -54,7 +54,7 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
       <div className="mb-16">
         <div className="text-center mb-8">
           <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-          <h2 className="text-3xl font-display text-gray-800">{t('daily.title')}</h2>
+          <h2 className="text-3xl font-display text-gray-800">{t('exercises.dancingFastSlow.daily.title')}</h2>
           <p className="text-gray-600 mt-2">{t('common.loading')}...</p>
         </div>
       </div>
@@ -65,9 +65,9 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
     <div className="mb-16">
       <div className="text-center mb-8">
         <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-        <h2 className="text-3xl font-display text-gray-800">{t('daily.title')}</h2>
+        <h2 className="text-3xl font-display text-gray-800">{t('exercises.dancingFastSlow.daily.title')}</h2>
         <p className="text-gray-600 mt-2">
-          {t('daily.subtitle')} ({daysUnlocked}/7 days unlocked)
+          {t('exercises.dancingFastSlow.daily.subtitle')} ({daysUnlocked}/7 days unlocked)
         </p>
         {nextDayToActivate && (
           <p className="text-sm text-golden-yellow mt-1">

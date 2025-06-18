@@ -22,22 +22,22 @@ const Day7Content: React.FC<Day7ContentProps> = ({
   return (
     <div className="space-y-6">
       <p className="text-gray-700 text-lg leading-relaxed">
-        {t('daily.day7.content')}
+        {t('exercises.dancingFastSlow.daily.day7.content')}
       </p>
       
       <TipsSection 
-        title={t('tips.ochoCortadoChallengeTitle')}
+        title={t('exercises.dancingFastSlow.tips.ochoCortadoChallengeTitle')}
         tips={[
-          t('tips.ochoCortadoChallengeTip1'),
-          t('tips.ochoCortadoChallengeTip2'),
-          t('tips.ochoCortadoChallengeTip3'),
-          t('tips.ochoCortadoChallengeTip4'),
-          t('tips.ochoCortadoChallengeTip5')
+          t('exercises.dancingFastSlow.tips.ochoCortadoChallengeTip1'),
+          t('exercises.dancingFastSlow.tips.ochoCortadoChallengeTip2'),
+          t('exercises.dancingFastSlow.tips.ochoCortadoChallengeTip3'),
+          t('exercises.dancingFastSlow.tips.ochoCortadoChallengeTip4'),
+          t('exercises.dancingFastSlow.tips.ochoCortadoChallengeTip5')
         ]}
       />
 
       <Assignment
-        assignment={{ content: 'daily.day7.task', task: 'daily.day7.task' }}
+        assignment={{ content: 'exercises.dancingFastSlow.daily.day7.task', task: 'exercises.dancingFastSlow.daily.day7.task' }}
         taskId="day-7-task"
         level={completedTasks['day-7-task'] || 0}
         onLevelChange={onTaskLevelChange}
