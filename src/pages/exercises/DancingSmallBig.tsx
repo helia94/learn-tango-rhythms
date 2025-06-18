@@ -72,10 +72,6 @@ const DancingSmallBig = () => {
           <TextContent variant="body" align="center">
             Now try with your partner to walk in your usual size. Then try going smaller and smaller to the tiniest walking step possible.
           </TextContent>
-        </StorySection>
-
-        {/* Simple Start Section */}
-        <StorySection title="Let's Start Simple">
           <TextContent variant="body" align="center" className="mb-8">
             Then reset, start from your normal step and try making it bigger. If you have just started with tango, larger steps might not work at all - they need more control, technique and experience.
           </TextContent>
