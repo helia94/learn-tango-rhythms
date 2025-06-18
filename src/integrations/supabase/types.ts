@@ -326,6 +326,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_assignment_progress_timeline: {
+        Args: { _user_id: string; _start_date?: string }
+        Returns: {
+          date: string
+          daily_completed: number
+          cumulative_total: number
+        }[]
+      }
       update_daily_engagement: {
         Args: {
           _user_id: string

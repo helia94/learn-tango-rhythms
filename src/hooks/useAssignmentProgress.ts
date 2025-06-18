@@ -23,7 +23,7 @@ export const useAssignmentProgress = () => {
       }
 
       try {
-        // Use a SQL query to aggregate assignments by date and calculate cumulative totals
+        // Use the new SQL function to get assignment progress timeline
         const { data, error } = await supabase.rpc('get_assignment_progress_timeline', {
           _user_id: user.id,
           _start_date: profile.created_at.split('T')[0] // Use membership start date

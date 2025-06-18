@@ -2,7 +2,7 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { TrendingUp } from 'lucide-react';
-import { useAssignmentProgress } from '@/hooks/useAssignmentProgress';
+import { useAssignmentProgress, AssignmentProgressData } from '@/hooks/useAssignmentProgress';
 
 const AssignmentProgressChart: React.FC = () => {
   const { progressData, isLoading } = useAssignmentProgress();
