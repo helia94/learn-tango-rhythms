@@ -109,6 +109,50 @@ export const smallAndBigTranslations = {
           task: {
             en: "Listen to some examples of accents in the music and practice highlighting them with larger steps.",
             de: "Höre dir einige Beispiele von Akzenten in der Musik an und übe, sie mit größeren Schritten hervorzuheben."
+          },
+          audioExamplesTitle: {
+            en: "Musical Accent Examples",
+            de: "Musikalische Akzent-Beispiele"
+          },
+          accent1Title: {
+            en: "Single Powerful Accent - Recuerdo",
+            de: "Einzelner kraftvoller Akzent - Recuerdo"
+          },
+          accent1Description: {
+            en: "A single powerful accent before the start of the phrase",
+            de: "Ein einzelner kraftvoller Akzent vor dem Beginn der Phrase"
+          },
+          accent2Title: {
+            en: "Seven Melodical Accents - Recuerdo",
+            de: "Sieben melodische Akzente - Recuerdo"
+          },
+          accent2Description: {
+            en: "Same song, 7 melodical accents that look like a conversation between instruments",
+            de: "Dasselbe Lied, 7 melodische Akzente, die wie ein Gespräch zwischen Instrumenten aussehen"
+          },
+          accent3Title: {
+            en: "First Beat Accent - D'Arienzo",
+            de: "Erster Schlag Akzent - D'Arienzo"
+          },
+          accent3Description: {
+            en: "A typical and easy place to put the accent is on the first beat, listen to it in D'Arienzo Orchestra",
+            de: "Ein typischer und einfacher Ort für den Akzent ist auf dem ersten Schlag, höre es im D'Arienzo Orchester"
+          },
+          accent4Title: {
+            en: "First Beat Accent - Pedro Laurenz",
+            de: "Erster Schlag Akzent - Pedro Laurenz"
+          },
+          accent4Description: {
+            en: "Also in the first beat from Pedro Laurenz Orchestra",
+            de: "Auch auf dem ersten Schlag vom Pedro Laurenz Orchester"
+          },
+          accent5Title: {
+            en: "First Beat Accent - Canaro",
+            de: "Erster Schlag Akzent - Canaro"
+          },
+          accent5Description: {
+            en: "Again in the first beat from Canaro Orchestra",
+            de: "Wieder auf dem ersten Schlag vom Canaro Orchester"
           }
         },
         day3: {
