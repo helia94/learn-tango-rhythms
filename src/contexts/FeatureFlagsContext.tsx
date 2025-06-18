@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface FeatureFlags {
@@ -16,7 +15,7 @@ const FeatureFlagsContext = createContext<FeatureFlagsContextValue | undefined>(
 // Default configuration from environment variables
 const getDefaultFlags = (): FeatureFlags => {
   return {
-    unlockAll: import.meta.env.VITE_UNLOCK_ALL === 'true' || false,
+    unlockAll: import.meta.env.VITE_UNLOCK_ALL === 'true' || true, // Temporarily enabled for development
   };
 };
 
