@@ -92,8 +92,6 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
               completedTasks={completedTasks}
               onTaskLevelChange={onTaskLevelChange}
               onDayActivation={user && isNextToActivate ? () => handleDayActivation(dayNumber) : undefined}
-              topicName="dancing-small-big"
-              topicIndex={1}
             />
           );
         })}
