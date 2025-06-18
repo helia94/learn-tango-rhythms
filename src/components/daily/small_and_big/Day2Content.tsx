@@ -3,7 +3,6 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import AudioPlayer from '@/components/AudioPlayer';
-import { ColorEvent } from '@/types/rhythm';
 
 interface Day2ContentProps {
   completedTasks: Record<string, number>;
@@ -20,61 +19,32 @@ const Day2Content: React.FC<Day2ContentProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  // Define accent examples with their event colors
+  // Define accent examples with their event timestamps (in milliseconds)
   const accentExamples = [
     {
-      title: t('exercises.dancingSmallBig.daily.day2.accent1Title' as any),
       description: t('exercises.dancingSmallBig.daily.day2.accent1Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT-1-_Recuerdo_-_Instrumental_-_Osvaldo_Pugliese_zmwbbr.mp3',
-      colorEvents: [{ timestamp: 0, color: 'bg-terracotta' }] as ColorEvent[]
+      colorEvents: [0]
     },
     {
-      title: t('exercises.dancingSmallBig.daily.day2.accent2Title' as any),
       description: t('exercises.dancingSmallBig.daily.day2.accent2Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT-2-_Recuerdo_-_Instrumental_-_Osvaldo_Pugliese_wiznii.mp3',
-      colorEvents: [
-        { timestamp: 0, color: 'bg-terracotta' },
-        { timestamp: 4200, color: 'bg-sage-green' },
-        { timestamp: 8200, color: 'bg-golden-yellow' },
-        { timestamp: 12000, color: 'bg-dusty-rose' },
-        { timestamp: 16200, color: 'bg-deep-teal' },
-        { timestamp: 20200, color: 'bg-paprika' },
-        { timestamp: 24200, color: 'bg-mushroom' }
-      ] as ColorEvent[]
+      colorEvents: [0, 4200, 8200, 12000, 16200, 20200, 24200]
     },
     {
-      title: t('exercises.dancingSmallBig.daily.day2.accent3Title' as any),
       description: t('exercises.dancingSmallBig.daily.day2.accent3Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT_3-_Mandria_-_Juan_D_Arienzo-_AudioTrimmer.com_inib2s.mp3',
-      colorEvents: [
-        { timestamp: 1000, color: 'bg-terracotta' },
-        { timestamp: 4100, color: 'bg-sage-green' }
-      ] as ColorEvent[]
+      colorEvents: [1000, 4100]
     },
     {
-      title: t('exercises.dancingSmallBig.daily.day2.accent4Title' as any),
       description: t('exercises.dancingSmallBig.daily.day2.accent4Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/Accent_4_-_Arrabal_-_Pedro_Laurenz-_AudioTrimmer.com_aglurq.mp3',
-      colorEvents: [
-        { timestamp: 4300, color: 'bg-terracotta' },
-        { timestamp: 8000, color: 'bg-sage-green' },
-        { timestamp: 11400, color: 'bg-golden-yellow' },
-        { timestamp: 15000, color: 'bg-dusty-rose' },
-        { timestamp: 18200, color: 'bg-deep-teal' },
-        { timestamp: 22000, color: 'bg-paprika' }
-      ] as ColorEvent[]
+      colorEvents: [4300, 8000, 11400, 15000, 18200, 22000]
     },
     {
-      title: t('exercises.dancingSmallBig.daily.day2.accent5Title' as any),
       description: t('exercises.dancingSmallBig.daily.day2.accent5Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT_5_-_Alma_de_Bandone%C3%B3n_-_Orquesta_Francisco_Canaro-_AudioTrimmer.com_fhxnhb.mp3',
-      colorEvents: [
-        { timestamp: 500, color: 'bg-terracotta' },
-        { timestamp: 2000, color: 'bg-sage-green' },
-        { timestamp: 4000, color: 'bg-golden-yellow' },
-        { timestamp: 8000, color: 'bg-dusty-rose' },
-        { timestamp: 10000, color: 'bg-deep-teal' }
-      ] as ColorEvent[]
+      colorEvents: [500, 2000, 4000, 8000, 10000]
     }
   ];
 

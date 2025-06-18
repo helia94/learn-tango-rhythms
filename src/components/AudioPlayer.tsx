@@ -3,13 +3,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
-import { ColorChange, ColorEvent } from '@/types/rhythm';
+import { ColorChange } from '@/types/rhythm';
 
 interface AudioPlayerProps {
   title: string;
   audioUrl: string;
   colorChanges?: ColorChange[];
-  colorEvents?: ColorEvent[];
+  colorEvents?: number[];
   className?: string;
 }
 
@@ -27,6 +27,9 @@ const AudioPlayer = ({
   const [currentColor, setCurrentColor] = useState('bg-warm-brown/20');
   const [eventColor, setEventColor] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Fixed dark color for high contrast events
+  const EVENT_COLOR = 'bg-gray-800';
 
   useEffect(() => {
     const audio = new Audio(audioUrl);
@@ -94,13 +97,13 @@ const AudioPlayer = ({
       }
     }
 
-    // Handle event color changes
+    // Handle event color changes with simplified timestamp array
     const currentEvent = colorEvents.find(
-      event => Math.abs(currentTimeMs - event.timestamp) <= 100
+      timestamp => Math.abs(currentTimeMs - timestamp) <= 100
     );
 
     if (currentEvent) {
-      setEventColor(currentEvent.color);
+      setEventColor(EVENT_COLOR);
       setTimeout(() => setEventColor(null), 200);
     }
   }, [currentTime, isPlaying, colorChanges, colorEvents, currentColor]);
@@ -130,7 +133,7 @@ const AudioPlayer = ({
 
   // Determine text color based on background
   const getTextColor = (bgColor: string) => {
-    if (bgColor.includes('dusty-rose') || bgColor.includes('terracotta') || bgColor.includes('golden-yellow')) {
+    if (bgColor.includes('dusty-rose') || bgColor.includes('terracotta') || bgColor.includes('golden-yellow') || bgColor.includes('gray-800')) {
       return 'text-white';
     }
     return 'text-gray-700';
