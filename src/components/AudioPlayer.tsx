@@ -171,7 +171,7 @@ const AudioPlayer = ({
                 className={`${
                   marker.isActive 
                     ? 'w-8 h-8 text-yellow-400 drop-shadow-2xl scale-[2] animate-pulse' 
-                    : 'w-6 h-6 text-orange-600'
+                    : 'w-4 h-4 text-orange-600'
                 } transition-all duration-200 font-black stroke-[3]`}
                 fill="currentColor"
                 strokeWidth={3}
