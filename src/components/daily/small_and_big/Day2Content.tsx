@@ -44,7 +44,7 @@ const Day2Content: React.FC<Day2ContentProps> = ({
     {
       description: t('exercises.dancingSmallBig.daily.day2.accent5Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT_5_-_Alma_de_Bandone%C3%B3n_-_Orquesta_Francisco_Canaro-_AudioTrimmer.com_fhxnhb.mp3',
-      colorEvents: [500, 2000, 4000, 8000, 10000]
+      colorEvents: [100, 2000, 4000, 8000, 10000, 12000]
     }
   ];
 
