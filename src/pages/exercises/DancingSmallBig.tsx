@@ -55,14 +55,6 @@ const DancingSmallBig = () => {
         </div>
       </div>
 
-      {/* Daily System */}
-      <div className="max-w-4xl mx-auto px-4 mb-16">
-        <SmallAndBigDaily1to7 
-          completedTasks={completedTasks}
-          onTaskLevelChange={handleTaskLevelChange}
-        />
-      </div>
-
       {/* Story Content */}
       <div className="max-w-4xl mx-auto px-4 pb-8">
         {/* Introduction Story */}
@@ -114,6 +106,14 @@ const DancingSmallBig = () => {
             All Assignments
           </SeeAllAssignmentsButton>
         </div>
+      </div>
+
+      {/* Daily System */}
+      <div className="max-w-4xl mx-auto px-4 mb-16">
+        <SmallAndBigDaily1to7 
+          completedTasks={completedTasks}
+          onTaskLevelChange={handleTaskLevelChange}
+        />
       </div>
     </div>
   );
