@@ -19,29 +19,34 @@ const Day2Content: React.FC<Day2ContentProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  // Define accent examples with their event timestamps (in milliseconds)
+  // Define accent examples with their event timestamps (in milliseconds) and actual song names
   const accentExamples = [
     {
+      title: 'Recuerdo - Osvaldo Pugliese',
       description: t('exercises.dancingSmallBig.daily.day2.accent1Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT-1-_Recuerdo_-_Instrumental_-_Osvaldo_Pugliese_zmwbbr.mp3',
       colorEvents: [3000]
     },
     {
+      title: 'Recuerdo - Osvaldo Pugliese',
       description: t('exercises.dancingSmallBig.daily.day2.accent2Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT-2-_Recuerdo_-_Instrumental_-_Osvaldo_Pugliese_wiznii.mp3',
       colorEvents: [0, 4200, 8200, 12000, 16200, 20200, 24200]
     },
     {
+      title: 'Mandria - Juan D\'Arienzo',
       description: t('exercises.dancingSmallBig.daily.day2.accent3Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT_3-_Mandria_-_Juan_D_Arienzo-_AudioTrimmer.com_inib2s.mp3',
       colorEvents: [1000, 4100]
     },
     {
+      title: 'Arrabal - Pedro Laurenz',
       description: t('exercises.dancingSmallBig.daily.day2.accent4Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/Accent_4_-_Arrabal_-_Pedro_Laurenz-_AudioTrimmer.com_aglurq.mp3',
       colorEvents: [4300, 8000, 11400, 15000, 18200, 22000]
     },
     {
+      title: 'Alma de Bandoneón - Francisco Canaro',
       description: t('exercises.dancingSmallBig.daily.day2.accent5Description' as any),
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750265058/ACCENT_5_-_Alma_de_Bandone%C3%B3n_-_Orquesta_Francisco_Canaro-_AudioTrimmer.com_fhxnhb.mp3',
       colorEvents: [100, 2000, 4000, 8000, 10000, 12000]
@@ -65,7 +70,7 @@ const Day2Content: React.FC<Day2ContentProps> = ({
             <div className="bg-warm-brown/10 rounded-lg p-4">
               <p className="text-gray-600 text-sm mb-3">{example.description}</p>
               <AudioPlayer
-                title={`Audio Example ${index + 1}`}
+                title={example.title}
                 audioUrl={example.audioUrl}
                 colorEvents={example.colorEvents}
                 className="w-full"
