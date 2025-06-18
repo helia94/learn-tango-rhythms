@@ -31,10 +31,10 @@ BEGIN
 
   RETURN QUERY
   WITH daily_assignments AS (
-    -- Group assignments by date
+    -- Group assignments by date and count distinct assignments
     SELECT 
       ar.created_at::DATE as assignment_date,
-      COUNT(*) as daily_count
+      COUNT(DISTINCT ar.assignment_key) as daily_count
     FROM public.assignment_reports ar
     WHERE ar.user_id = _user_id
       AND ar.created_at::DATE >= _actual_start_date
