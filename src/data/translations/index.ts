@@ -1,11 +1,13 @@
 
 import { otherTranslations } from './other';
 import { profileTranslations } from './profile';
+import { translations as legacyTranslations } from './translations';
 
 // Combine all translations
 export const translations = {
   ...otherTranslations,
-  ...profileTranslations
+  ...profileTranslations,
+  ...legacyTranslations
 };
 
 // Generate the type for all possible translation keys
