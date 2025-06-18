@@ -38,6 +38,17 @@ interface SpotifyProviderProps {
   children: ReactNode;
 }
 
+interface SpotifyConnection {
+  id: string;
+  access_token: string;
+  refresh_token: string;
+  expires_at: number;
+  token_type: string;
+  scope: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) => {
   const { user } = useAuth();
   const [isConnected, setIsConnected] = useState(false);
@@ -61,17 +72,19 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     if (!user) return;
 
     try {
-      // Use RPC to get connection data since we need to query the spotify_connections table
-      const { data, error } = await supabase.rpc('get_user_spotify_connection', {
-        user_id: user.id
-      });
+      // Query the spotify_connections table directly
+      const { data, error } = await supabase
+        .from('spotify_connections')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
 
-      if (error || !data || data.length === 0) {
+      if (error || !data) {
         console.log('No Spotify connection found');
         return;
       }
 
-      const connection = data[0];
+      const connection = data as SpotifyConnection;
 
       // Check if token is still valid
       const now = Date.now();
@@ -216,10 +229,11 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     if (!user) return;
 
     try {
-      // Use RPC to delete connection since we need to delete from spotify_connections table
-      await supabase.rpc('delete_user_spotify_connection', {
-        user_id: user.id
-      });
+      // Delete connection from spotify_connections table
+      await supabase
+        .from('spotify_connections')
+        .delete()
+        .eq('user_id', user.id);
 
       // Disconnect player
       if (player) {
