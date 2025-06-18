@@ -12,6 +12,8 @@ import TopicStartButton from '@/components/ui/TopicStartButton';
 import SmallAndBigDaily1to7 from '@/components/SmallAndBigDaily1to7';
 import AssignmentList from '@/components/AssignmentList';
 import { getWeeklyAssignments } from '@/data/assignments/smallAndBig';
+import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
+
 
 const DancingSmallBig = () => {
   const { t } = useTranslation();
@@ -103,31 +105,14 @@ const DancingSmallBig = () => {
           tracks={practiceAudioTracks}
         />
 
-        {/* Weekly Assignment Section */}
-        <StorySection>
-          <div className="text-center mb-8">
-            <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-            <h2 className="text-3xl font-display text-gray-800 mb-6">Weekly Assignments</h2>
-            
-            {/* See All Assignments Button */}
-            <div className="mb-6">
-              <SeeAllAssignmentsButton 
-                to="/exercises/dancing-small-big/assignments"
-              >
-                All Assignments
-              </SeeAllAssignmentsButton>
-            </div>
-          </div>
-          
-          <AssignmentList
-            assignments={weeklyAssignments}
-            completedTasks={completedTasks}
-            onTaskLevelChange={handleTaskLevelChange}
-            keyPrefix="assignment"
-            topicName="dancing-small-big"
-            topicIndex={1}
-          />
-        </StorySection>
+        {/* See All Assignments Button */}
+        <div className="text-center my-12">
+          <SeeAllAssignmentsButton 
+            to="/exercises/dancing-small-big/assignments"
+          >
+            All Assignments
+          </SeeAllAssignmentsButton>
+        </div>
       </div>
 
       {/* Daily System */}
