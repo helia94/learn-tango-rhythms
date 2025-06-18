@@ -1,14 +1,10 @@
 
 import { otherTranslations } from './other';
-import { fastAndSlowTranslations } from './topics/fast_and_slow';
-import { smallAndBigTranslations } from './topics/small_and_big';
 import { profileTranslations } from './profile';
 
 // Combine all translations
 export const translations = {
   ...otherTranslations,
-  ...fastAndSlowTranslations,
-  ...smallAndBigTranslations,
   ...profileTranslations
 };
 
@@ -28,4 +24,4 @@ type DeepKeys<T> = T extends object
 export type TranslationKey = DeepKeys<typeof translations>;
 
 // Export individual translation modules for potential direct use
-export { otherTranslations, fastAndSlowTranslations, smallAndBigTranslations, profileTranslations };
+export { otherTranslations, profileTranslations };
