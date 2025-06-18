@@ -1,9 +1,10 @@
-
 import React, { useEffect } from 'react';
 import { useEngagementData } from '@/hooks/useEngagementData';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
 import { Flame, Calendar, TrendingUp, Target } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 
 const GameProfileDashboard: React.FC = () => {
   const {
@@ -14,7 +15,7 @@ const GameProfileDashboard: React.FC = () => {
   } = useEngagementData();
 
   const { getAllLatestAssignmentLevelByTopic } = useAssignmentReporting();
-  const { getActiveTopic } = useTopicActivation();
+  const { user } = useAuth();
   const [topicsMastery, setTopicsMastery] = React.useState<Array<{
     topicName: string;
     masteryPercentage: number;
@@ -29,46 +30,75 @@ const GameProfileDashboard: React.FC = () => {
   // Calculate mastery for all activated topics
   useEffect(() => {
     const fetchAllTopicsMastery = async () => {
+      if (!user) {
+        setTopicsMastery([]);
+        return;
+      }
+
       try {
-        const activeTopic = await getActiveTopic();
-        if (!activeTopic) {
+        // Get all activated topics from the database
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+        const { data: activatedTopics, error } = await supabase
+          .from('topic_activations')
+          .select('topic_key, topic_index')
+          .eq('user_id', user.id)
+          .gte('activated_at', sevenDaysAgo.toISOString());
+
+        if (error) {
+          console.error('Error fetching activated topics:', error);
+          return;
+        }
+
+        if (!activatedTopics || activatedTopics.length === 0) {
           setTopicsMastery([]);
           return;
         }
 
-        // Get all topics that have any assignment data (indicating they were started)
-        const allTopics = [
-          { key: 'dancing-fast-slow', index: 0, name: 'Fast & Slow Dancing' },
-          { key: 'dancing-small-big', index: 1, name: 'Small & Big Dancing' }
-        ];
+        // Define topic names mapping
+        const topicNames: Record<string, string> = {
+          'dancing-fast-slow': 'Fast & Slow Dancing',
+          'dancing-small-big': 'Small & Big Dancing'
+        };
 
         const masteryData = [];
 
-        for (const topic of allTopics) {
+        // Get unique activated topics
+        const uniqueTopics = activatedTopics.reduce((acc, topic) => {
+          const key = `${topic.topic_key}-${topic.topic_index}`;
+          if (!acc[key]) {
+            acc[key] = topic;
+          }
+          return acc;
+        }, {} as Record<string, any>);
+
+        for (const topic of Object.values(uniqueTopics)) {
           try {
-            const assignments = await getAllLatestAssignmentLevelByTopic(topic.key, topic.index);
+            const assignments = await getAllLatestAssignmentLevelByTopic(topic.topic_key, topic.topic_index);
             
-            // Only include topics that have at least one assignment with level > 0
-            const completedAssignments = assignments.filter(a => a.level > 0);
+            const totalAssignments = 12; // Standard number of assignments per topic
+            const totalPossibleLevels = totalAssignments * 4;
+            const totalCurrentLevels = assignments.reduce((sum, a) => sum + a.level, 0);
+            const completedAssignments = assignments.filter(a => a.level > 0).length;
             
-            if (completedAssignments.length > 0) {
-              const totalAssignments = 12; // Standard number of assignments per topic
-              const totalPossibleLevels = totalAssignments * 4;
-              const totalCurrentLevels = assignments.reduce((sum, a) => sum + a.level, 0);
-              
-              const percentage = totalPossibleLevels > 0 
-                ? Math.round((totalCurrentLevels / totalPossibleLevels) * 100) 
-                : 0;
-              
-              masteryData.push({
-                topicName: topic.name,
-                masteryPercentage: percentage,
-                totalAssignments: completedAssignments.length
-              });
-            }
+            const percentage = totalPossibleLevels > 0 
+              ? Math.round((totalCurrentLevels / totalPossibleLevels) * 100) 
+              : 0;
+            
+            masteryData.push({
+              topicName: topicNames[topic.topic_key] || topic.topic_key,
+              masteryPercentage: percentage,
+              totalAssignments: completedAssignments
+            });
           } catch (error) {
-            // If we can't fetch data for a topic, just skip it
-            console.log(`No data found for topic: ${topic.name}`);
+            console.log(`Error fetching data for topic: ${topic.topic_key}`, error);
+            // Still show the topic even if we can't fetch assignment data
+            masteryData.push({
+              topicName: topicNames[topic.topic_key] || topic.topic_key,
+              masteryPercentage: 0,
+              totalAssignments: 0
+            });
           }
         }
 
@@ -77,8 +107,9 @@ const GameProfileDashboard: React.FC = () => {
         console.error('Error fetching topics mastery:', error);
       }
     };
+
     fetchAllTopicsMastery();
-  }, [getAllLatestAssignmentLevelByTopic, getActiveTopic]);
+  }, [getAllLatestAssignmentLevelByTopic, user]);
 
   const getMasteryColor = (percentage: number) => {
     if (percentage >= 80) return 'bg-emerald-500';
@@ -143,7 +174,7 @@ const GameProfileDashboard: React.FC = () => {
           {topicsMastery.length === 0 && (
             <div className="text-center py-6 text-gray-600">
               <Target className="w-10 h-10 mx-auto mb-2 opacity-50" />
-              <p className="text-sm">No topics started yet</p>
+              <p className="text-sm">No topics activated yet</p>
             </div>
           )}
         </div>
