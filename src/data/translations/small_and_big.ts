@@ -2,6 +2,38 @@
 export const smallAndBigTranslations = {
   exercises: {
     dancingSmallBig: {
+      title: {
+        en: "Dancing Small & Big",
+        de: "Tanzen Klein & Groß"
+      },
+      allAssignments: {
+        en: "All Small & Big Assignments",
+        de: "Alle Klein & Groß Aufgaben"
+      },
+      assignmentsDescription: {
+        en: "Practice exercises focusing on contrasting step sizes to create dynamic movement and express musical nuances.",
+        de: "Übungsaufgaben mit Fokus auf kontrastierende Schrittgrößen, um dynamische Bewegungen zu schaffen und musikalische Nuancen auszudrücken."
+      },
+      assignment1: {
+        en: "Practice walking with extremely small steps, keeping the same rhythm but minimizing distance covered. Focus on maintaining connection and musicality.",
+        de: "Üben Sie das Gehen mit extrem kleinen Schritten, behalten Sie den gleichen Rhythmus bei, aber minimieren Sie die zurückgelegte Strecke. Konzentrieren Sie sich darauf, Verbindung und Musikalität zu bewahren."
+      },
+      assignment2: {
+        en: "Practice walking with extremely large steps, covering maximum distance while maintaining the rhythm and connection with your partner.",
+        de: "Üben Sie das Gehen mit extrem großen Schritten, decken Sie maximale Distanz ab, während Sie den Rhythmus und die Verbindung zu Ihrem Partner beibehalten."
+      },
+      assignment3: {
+        en: "Alternate between small and large steps within the same musical phrase. Practice different patterns: small-large-small-large, or three small followed by one large.",
+        de: "Wechseln Sie zwischen kleinen und großen Schritten innerhalb derselben musikalischen Phrase. Üben Sie verschiedene Muster: klein-groß-klein-groß oder drei kleine gefolgt von einem großen."
+      },
+      assignment4: {
+        en: "Listen for musical accents and highlight them with contrasting step sizes. Use large steps for strong accents and small steps for subtle musical moments.",
+        de: "Hören Sie auf musikalische Akzente und heben Sie sie mit kontrastierenden Schrittgrößen hervor. Verwenden Sie große Schritte für starke Akzente und kleine Schritte für subtile musikalische Momente."
+      },
+      assignment5: {
+        en: "Practice the four combinations of speed and size: fast+small, fast+large, slow+small, slow+large. Notice how each combination creates different emotional expressions.",
+        de: "Üben Sie die vier Kombinationen von Geschwindigkeit und Größe: schnell+klein, schnell+groß, langsam+klein, langsam+groß. Bemerken Sie, wie jede Kombination unterschiedliche emotionale Ausdrücke schafft."
+      },
       daily: {
         day1: {
           content: {
