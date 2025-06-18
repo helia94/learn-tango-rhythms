@@ -29,28 +29,28 @@ const DancingSmallBig = () => {
   const weeklyAssignments = getWeeklyAssignments();
 
   const tips = [
-    "You have to have more control and contact with the floor",
-    "Push the floor more", 
-    "Go a bit lower in your posture",
-    "Your follower needs three times more patience than usual"
+    t('exercises.dancingSmallBig.tip1' as any),
+    t('exercises.dancingSmallBig.tip2' as any), 
+    t('exercises.dancingSmallBig.tip3' as any),
+    t('exercises.dancingSmallBig.tip4' as any)
   ];
 
   const practiceAudioTracks = [
     {
       key: 'staccato-example',
-      title: 'Staccato Example - Small Steps',
+      title: t('exercises.dancingSmallBig.staccatoExampleTitle' as any),
       audioUrl: '/audio/staccato-example.mp3'
     },
     {
       key: 'legato-example',
-      title: 'Legato Example - Varied Steps',
+      title: t('exercises.dancingSmallBig.legatoExampleTitle' as any),
       audioUrl: '/audio/legato-example.mp3'
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
-      <PageHeader title="Dancing Small and Big" />
+      <PageHeader title={t('exercises.dancingSmallBig.title' as any)} />
       
       {/* Topic Action Button */}
       <div className="max-w-4xl mx-auto px-4 mb-8">
@@ -67,37 +67,37 @@ const DancingSmallBig = () => {
         {/* Introduction Story */}
         <StorySection>
           <TextContent variant="lead" align="center" className="mb-6">
-            This is an option only when the milonga is not very crowded and you even have the option. Realize what is your normal stepping size, and also when you tend to change it.
+            {t('exercises.dancingSmallBig.introText1' as any)}
           </TextContent>
           <TextContent variant="body" align="center">
-            Now try with your partner to walk in your usual size. Then try going smaller and smaller to the tiniest walking step possible.
+            {t('exercises.dancingSmallBig.introText2' as any)}
           </TextContent>
           <TextContent variant="body" align="center" className="mb-8">
-            Then reset, start from your normal step and try making it bigger. If you have just started with tango, larger steps might not work at all - they need more control, technique and experience.
+            {t('exercises.dancingSmallBig.introText3' as any)}
           </TextContent>
         </StorySection>
 
         {/* Tips for Larger Steps */}
         <StorySection>
           <TipsInfoBox
-            title="Tips for Larger Steps"
+            title={t('exercises.dancingSmallBig.tipsTitle' as any)}
             tips={tips}
           />
         </StorySection>
 
         {/* Musical Connection */}
-        <StorySection title="Musical Connection">
+        <StorySection title={t('exercises.dancingSmallBig.musicalConnectionTitle' as any)}>
           <TextContent variant="body" align="center" className="space-y-4">
-            <p>Now let's connect to the music. Listen to melody being rhythmical (Staccato) or being like singing (Legato).</p>
-            <p>Rhythmical melody is a good candidate for dancing smaller.</p>
-            <p>Now try changing the size of your step - much smaller and much bigger - when the music changes.</p>
+            <p>{t('exercises.dancingSmallBig.musicalConnectionText1' as any)}</p>
+            <p>{t('exercises.dancingSmallBig.musicalConnectionText2' as any)}</p>
+            <p>{t('exercises.dancingSmallBig.musicalConnectionText3' as any)}</p>
           </TextContent>
         </StorySection>
 
         {/* Audio Practice Section */}
         <AudioSection 
-          title="Practice with Different Musical Characters"
-          description="Listen to these examples and practice changing your step size based on the musical character."
+          title={t('exercises.dancingSmallBig.practiceTitle' as any)}
+          description={t('exercises.dancingSmallBig.practiceDescription' as any)}
           tracks={practiceAudioTracks}
         />
 
