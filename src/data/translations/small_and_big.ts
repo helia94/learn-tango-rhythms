@@ -2,6 +2,26 @@
 export const smallAndBigTranslations = {
   exercises: {
     dancingSmallBig: {
+      assignment1: {
+        en: "Making bigger steps with a partner without music.",
+        de: "Größere Schritte mit einem Partner ohne Musik machen."
+      },
+      assignment2: {
+        en: "Making tiny steps with a partner without music.",
+        de: "Winzige Schritte mit einem Partner ohne Musik machen."
+      },
+      assignment3: {
+        en: "Using small steps for Staccato and large steps for Legato in the milonga.",
+        de: "Kleine Schritte für Staccato und große Schritte für Legato in der Milonga verwenden."
+      },
+      allAssignments: {
+        en: "All Assignments - Dancing Small and Big",
+        de: "Alle Aufgaben - Klein und Groß tanzen"
+      },
+      assignmentsDescription: {
+        en: "Practice these assignments to master the art of varying step sizes in your tango dancing.",
+        de: "Üben Sie diese Aufgaben, um die Kunst des Variierens von Schrittgrößen in Ihrem Tango-Tanz zu meistern."
+      },
       daily: {
         day1: {
           content: {

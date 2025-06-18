@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import AssignmentList from '@/components/AssignmentList';
+import { getWeeklyAssignments } from '@/data/assignments/smallAndBig';
 
 const DancingSmallBigAssignments = () => {
   const { t } = useTranslation();
@@ -15,33 +16,13 @@ const DancingSmallBigAssignments = () => {
     }));
   };
 
-  const assignments = [
-    {
-      id: '1',
-      content: 'exercises.dancingSmallBig.assignment1' as any,
-      task: 'exercises.dancingSmallBig.assignment1' as any
-    },
-    {
-      id: '2',
-      content: 'exercises.dancingSmallBig.assignment2' as any,
-      task: 'exercises.dancingSmallBig.assignment2' as any
-    },
-    {
-      id: '3',
-      content: 'exercises.dancingSmallBig.assignment3' as any,
-      task: 'exercises.dancingSmallBig.assignment3' as any
-    },
-    {
-      id: '4',
-      content: 'exercises.dancingSmallBig.assignment4' as any,
-      task: 'exercises.dancingSmallBig.assignment4' as any
-    },
-    {
-      id: '5',
-      content: 'exercises.dancingSmallBig.assignment5' as any,
-      task: 'exercises.dancingSmallBig.assignment5' as any
-    }
-  ];
+  const weeklyAssignments = getWeeklyAssignments();
+
+  const assignments = weeklyAssignments.map((assignment, index) => ({
+    id: (index + 1).toString(),
+    content: assignment.content,
+    task: assignment.task
+  }));
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
