@@ -1,6 +1,6 @@
 
 import { useLanguageContext } from '@/contexts/LanguageContext';
-import { translations, TranslationKey } from '@/data/translations';
+import { translations, TranslationKey } from '@/data/translations/index';
 
 export const useTranslation = () => {
   const { currentLanguage } = useLanguageContext();
