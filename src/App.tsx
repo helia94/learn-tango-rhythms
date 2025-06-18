@@ -1,88 +1,90 @@
-import { Suspense, lazy } from "react";
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/contexts/AuthContext";
-import { SpotifyProvider } from "@/contexts/SpotifyContext";
+import { useState } from "react";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { FeatureFlagsProvider } from "@/contexts/FeatureFlagsContext";
-import ProtectedRoute from "@/components/ProtectedRoute";
+import { SpotifyProvider } from "@/contexts/SpotifyContext";
+import Home from "./pages/Home";
+import Index from "./pages/Index";
+import Quiz from "./pages/Quiz";
+import Leaderboard from "./pages/Leaderboard";
+import RoadMap from "./pages/RoadMap";
+import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
+import RhythmLabLayout from "./components/layouts/RhythmLabLayout";
+import DancingFastSlow from "./pages/exercises/DancingFastSlow";
+import DancingFastSlowAssignments from "./pages/exercises/DancingFastSlowAssignments";
+import DancingSmallBig from "./pages/exercises/DancingSmallBig";
+import DancingSmallBigAssignments from "./pages/exercises/DancingSmallBigAssignments";
+import SpotifyCallback from "./pages/SpotifyCallback";
 
-// Lazy load components
-const DynamicHome = lazy(() => import("@/pages/DynamicHome"));
-const Home = lazy(() => import("@/pages/Home"));
-const Auth = lazy(() => import("@/pages/Auth"));
-const Profile = lazy(() => import("@/pages/Profile"));
-const RoadMap = lazy(() => import("@/pages/RoadMap"));
-const DancingFastSlow = lazy(() => import("@/pages/exercises/DancingFastSlow"));
-const DancingFastSlowAssignments = lazy(() => import("@/pages/exercises/DancingFastSlowAssignments"));
-const DancingSmallBig = lazy(() => import("@/pages/exercises/DancingSmallBig"));
-const DancingSmallBigAssignments = lazy(() => import("@/pages/exercises/DancingSmallBigAssignments"));
-const Quiz = lazy(() => import("@/pages/Quiz"));
-const Leaderboard = lazy(() => import("@/pages/Leaderboard"));
-const SpotifyCallback = lazy(() => import("@/pages/SpotifyCallback"));
-const NotFound = lazy(() => import("@/pages/NotFound"));
-const Index = lazy(() => import("@/pages/Index"));
+const App = () => {
+  // Create QueryClient inside component to avoid context issues
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: 1,
+        refetchOnWindowFocus: false,
+      },
+    },
+  }));
 
-// Create a wrapper component for AllAssignmentsPage with default props
-const AllAssignmentsWrapper = () => {
-  const AllAssignmentsPage = lazy(() => import("@/components/AllAssignmentsPage"));
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <AllAssignmentsPage 
-        titleKey="assignments.title"
-        descriptionKey="assignments.description"
-        backRoute="/roadmap"
-        weeklyAssignments={[]}
-        topicSlug="general"
-        currentWeek={1}
-      />
-    </Suspense>
-  );
-};
-
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
-      <FeatureFlagsProvider>
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>
         <AuthProvider>
           <SpotifyProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <Suspense fallback={<div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-cream"></div>
-                </div>}>
+            <FeatureFlagsProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Sonner />
+                <BrowserRouter>
                   <Routes>
-                    <Route path="/" element={<DynamicHome />} />
-                    <Route path="/old-home" element={<Home />} />
+                    {/* Home page */}
+                    <Route path="/" element={<Home />} />
+                    
+                    {/* Authentication page */}
                     <Route path="/auth" element={<Auth />} />
-                    <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                    
+                    {/* Profile page */}
+                    <Route path="/profile" element={<Profile />} />
+                    
+                    {/* Road Map page */}
                     <Route path="/roadmap" element={<RoadMap />} />
-                    <Route path="/rhythmlab" element={<ProtectedRoute><Index /></ProtectedRoute>} />
-                    <Route path="/dancing-fast-slow" element={<ProtectedRoute><DancingFastSlow /></ProtectedRoute>} />
-                    <Route path="/dancing-fast-slow/assignments" element={<ProtectedRoute><DancingFastSlowAssignments /></ProtectedRoute>} />
-                    <Route path="/dancing-small-big" element={<ProtectedRoute><DancingSmallBig /></ProtectedRoute>} />
-                    <Route path="/dancing-small-big/assignments" element={<ProtectedRoute><DancingSmallBigAssignments /></ProtectedRoute>} />
-                    <Route path="/assignments" element={<ProtectedRoute><AllAssignmentsWrapper /></ProtectedRoute>} />
-                    <Route path="/quiz" element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
-                    <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
+                    
+                    {/* Spotify callback */}
                     <Route path="/spotify/callback" element={<SpotifyCallback />} />
+                    
+                    {/* Exercise pages */}
+                    <Route path="/exercises/dancing-fast-slow" element={<DancingFastSlow />} />
+                    <Route path="/exercises/dancing-fast-slow/assignments" element={<DancingFastSlowAssignments />} />
+                    <Route path="/exercises/dancing-small-big" element={<DancingSmallBig />} />
+                    <Route path="/exercises/dancing-small-big/assignments" element={<DancingSmallBigAssignments />} />
+                    
+                    {/* Rhythm Lab sub-routes */}
+                    <Route path="/rhythmlab" element={<RhythmLabLayout />}>
+                      <Route index element={<Index />} />
+                      <Route path="quiz" element={<Quiz />} />
+                      <Route path="leaderboard" element={<Leaderboard />} />
+                    </Route>
+                    
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
-                </Suspense>
-              </BrowserRouter>
-            </TooltipProvider>
+                </BrowserRouter>
+              </TooltipProvider>
+            </FeatureFlagsProvider>
           </SpotifyProvider>
         </AuthProvider>
-      </FeatureFlagsProvider>
-    </LanguageProvider>
-  </QueryClientProvider>
-);
+      </LanguageProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
