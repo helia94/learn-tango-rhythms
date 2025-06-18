@@ -57,13 +57,11 @@ const Day3Content: React.FC<Day3ContentProps> = ({
   const differentTimingExamples = [
     {
       title: 'El choclo - Juan D\'Arienzo',
-      description: 'Syncopation with different timing - do you feel any different impulse to dance them?',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277188/SYNCOPA_10_-_El_choclo_-_Juan_D_Arienzo-_AudioTrimmer.com_tt705r.mp3',
       colorEvents: [3000, 5000]
     },
     {
       title: 'La Cachila - Osvaldo Pugliese',
-      description: 'Single syncopation with unique timing.',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277191/SYNCOPA_3_-_La_Cachila_-_Osvaldo_Pugliese-_AudioTrimmer.com_mfmiw4.mp3',
       colorEvents: [9120]
     }
