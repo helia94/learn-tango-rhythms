@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState, ReactNode } from
 import { SpotifyUser, SpotifyTokens, SpotifyPlayer, SpotifyPlayerState } from '@/types/spotify';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
-import { getSpotifyAuthUrl, SPOTIFY_CONFIG } from '@/config/spotify';
+import { getSpotifyAuthUrl, getSpotifyClientId, SPOTIFY_CONFIG } from '@/config/spotify';
 import { toast } from 'sonner';
 
 interface SpotifyContextType {
@@ -207,26 +207,22 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     });
   };
 
-  const connectSpotify = () => {
+  const connectSpotify = async () => {
     if (!user) {
       console.error('User must be logged in to connect Spotify');
       toast.error('Please log in to connect Spotify');
       return;
     }
 
-    if (!SPOTIFY_CONFIG.CLIENT_ID) {
-      console.error('Spotify Client ID is not configured');
-      toast.error('Spotify configuration error. Please contact support.');
-      return;
-    }
-
     try {
+      // Get the client ID from Supabase
+      await getSpotifyClientId();
+      
       // Generate a random state for security
       const state = Math.random().toString(36).substring(2, 15);
       const redirectUri = `${window.location.origin}/spotify/callback`;
       
       console.log('Connecting to Spotify with:');
-      console.log('- Client ID:', SPOTIFY_CONFIG.CLIENT_ID);
       console.log('- Redirect URI:', redirectUri);
       console.log('- State:', state);
       
@@ -234,12 +230,12 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       localStorage.setItem('spotify_auth_state', state);
       
       // Redirect to Spotify authorization
-      const authUrl = getSpotifyAuthUrl(state, redirectUri);
+      const authUrl = await getSpotifyAuthUrl(state, redirectUri);
       console.log('Redirecting to:', authUrl);
       window.location.href = authUrl;
     } catch (error) {
-      console.error('Error generating Spotify auth URL:', error);
-      toast.error('Failed to connect to Spotify. Please try again.');
+      console.error('Error connecting to Spotify:', error);
+      toast.error('Failed to connect to Spotify. Please check if the Spotify Client ID is configured in Supabase secrets.');
     }
   };
 
