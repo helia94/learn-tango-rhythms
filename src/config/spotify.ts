@@ -1,10 +1,13 @@
+
 import { supabase } from '@/integrations/supabase/client';
 
 export const SPOTIFY_CONFIG = {
   CLIENT_ID: '', // Will be loaded dynamically from Supabase
   SCOPES: [
     'streaming',
-    'user-modify-playback-state'
+    'user-read-playback-state',
+    'user-modify-playback-state',
+    'user-read-currently-playing'
   ].join(' '),
   SDK_URL: 'https://sdk.scdn.co/spotify-player.js',
   API_BASE_URL: 'https://api.spotify.com/v1',
@@ -62,6 +65,7 @@ export const getSpotifyAuthUrl = async (state: string, redirectUri: string): Pro
     const authUrl = `${SPOTIFY_CONFIG.ACCOUNTS_BASE_URL}/authorize?${params.toString()}`;
     console.log('Generated Spotify auth URL:', authUrl);
     console.log('Client ID being used:', clientId);
+    console.log('Scopes being requested:', SPOTIFY_CONFIG.SCOPES);
     
     return authUrl;
   } catch (error) {

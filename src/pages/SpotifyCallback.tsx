@@ -4,13 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { Loader2, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const SpotifyCallback = () => {
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'retrying'>('loading');
   const [message, setMessage] = useState('Processing Spotify connection...');
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 3;
 
   useEffect(() => {
     // Wait for auth to finish loading before processing callback
@@ -19,19 +22,35 @@ const SpotifyCallback = () => {
     }
   }, [authLoading, user]);
 
-  const handleSpotifyCallback = async () => {
+  const handleSpotifyCallback = async (isRetry = false) => {
+    if (isRetry) {
+      setStatus('retrying');
+      setMessage(`Retrying connection... (${retryCount + 1}/${maxRetries})`);
+    }
+
     try {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
       const state = urlParams.get('state');
       const error = urlParams.get('error');
 
-      console.log('Spotify callback processing:', { code: !!code, state: !!state, error, user: !!user });
+      console.log('Spotify callback processing:', { 
+        code: !!code, 
+        state: !!state, 
+        error, 
+        user: !!user,
+        isRetry,
+        retryCount 
+      });
 
       // Check for authorization errors
       if (error) {
         setStatus('error');
-        setMessage(`Spotify authorization failed: ${error}`);
+        if (error === 'access_denied') {
+          setMessage('Spotify authorization was cancelled. Please try connecting again.');
+        } else {
+          setMessage(`Spotify authorization failed: ${error}`);
+        }
         setTimeout(() => navigate('/profile'), 3000);
         return;
       }
@@ -63,7 +82,9 @@ const SpotifyCallback = () => {
       }
 
       // Call Supabase Edge Function to exchange code for tokens
-      setMessage('Exchanging authorization code for access tokens...');
+      if (!isRetry) {
+        setMessage('Exchanging authorization code for access tokens...');
+      }
       
       const { data, error: functionError } = await supabase.functions.invoke('spotify-oauth', {
         body: {
@@ -72,10 +93,24 @@ const SpotifyCallback = () => {
         }
       });
 
-      console.log('Spotify OAuth function response:', { data, error: functionError });
+      console.log('Spotify OAuth function response:', { 
+        data, 
+        error: functionError,
+        attempt: retryCount + 1 
+      });
 
       if (functionError || !data?.success) {
         console.error('Function error:', functionError);
+        
+        // Retry logic for temporary failures
+        if (retryCount < maxRetries && !isRetry) {
+          setRetryCount(prev => prev + 1);
+          setTimeout(() => {
+            handleSpotifyCallback(true);
+          }, 2000);
+          return;
+        }
+        
         setStatus('error');
         setMessage('Failed to connect Spotify account. Please try again.');
         setTimeout(() => navigate('/profile'), 3000);
@@ -84,14 +119,34 @@ const SpotifyCallback = () => {
 
       setStatus('success');
       setMessage('Spotify connected successfully! Redirecting...');
-      setTimeout(() => navigate('/profile'), 2000);
+      
+      // Add a small delay to ensure everything is properly saved
+      setTimeout(() => {
+        // Force a page refresh to ensure the SpotifyContext picks up the new connection
+        window.location.href = '/profile';
+      }, 1500);
 
     } catch (error) {
       console.error('Error in Spotify callback:', error);
+      
+      // Retry logic for network errors
+      if (retryCount < maxRetries && !isRetry) {
+        setRetryCount(prev => prev + 1);
+        setTimeout(() => {
+          handleSpotifyCallback(true);
+        }, 2000);
+        return;
+      }
+      
       setStatus('error');
       setMessage('An unexpected error occurred. Please try again.');
       setTimeout(() => navigate('/profile'), 3000);
     }
+  };
+
+  const handleManualRetry = () => {
+    setRetryCount(0);
+    handleSpotifyCallback(false);
   };
 
   const getStatusIcon = () => {
@@ -102,6 +157,8 @@ const SpotifyCallback = () => {
         return <CheckCircle className="w-8 h-8 text-green-500" />;
       case 'error':
         return <XCircle className="w-8 h-8 text-red-500" />;
+      case 'retrying':
+        return <RefreshCw className="w-8 h-8 animate-spin text-orange-500" />;
     }
   };
 
@@ -113,6 +170,8 @@ const SpotifyCallback = () => {
         return 'text-green-700';
       case 'error':
         return 'text-red-700';
+      case 'retrying':
+        return 'text-orange-700';
     }
   };
 
@@ -141,14 +200,32 @@ const SpotifyCallback = () => {
             Spotify Integration
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-center">
+        <CardContent className="text-center space-y-4">
           <p className={`text-lg ${getStatusColor()}`}>
             {message}
           </p>
+          
           {status === 'loading' && (
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-sm text-gray-600">
               Please wait while we connect your Spotify account...
             </p>
+          )}
+          
+          {status === 'retrying' && (
+            <p className="text-sm text-orange-600">
+              Connection issues detected. Attempting to retry...
+            </p>
+          )}
+          
+          {status === 'error' && retryCount >= maxRetries && (
+            <Button 
+              onClick={handleManualRetry}
+              variant="outline"
+              className="mt-4"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Try Again
+            </Button>
           )}
         </CardContent>
       </Card>
