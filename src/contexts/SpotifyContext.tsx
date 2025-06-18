@@ -25,7 +25,27 @@ interface SpotifyContextType {
   setVolume: (volume: number) => Promise<void>;
 }
 
-const SpotifyContext = createContext<SpotifyContextType | undefined>(undefined);
+// Create context with default values to prevent undefined errors
+const defaultContextValue: SpotifyContextType = {
+  isConnected: false,
+  spotifyUser: null,
+  player: null,
+  playerState: null,
+  deviceId: null,
+  isPlaying: false,
+  currentTrack: null,
+  loading: false,
+  connectSpotify: () => {},
+  disconnectSpotify: async () => {},
+  playTrack: async () => {},
+  pauseTrack: async () => {},
+  resumeTrack: async () => {},
+  nextTrack: async () => {},
+  previousTrack: async () => {},
+  setVolume: async () => {}
+};
+
+const SpotifyContext = createContext<SpotifyContextType>(defaultContextValue);
 
 export const useSpotify = () => {
   const context = useContext(SpotifyContext);
@@ -61,18 +81,25 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
   const [currentTrack, setCurrentTrack] = useState(null);
   const [loading, setLoading] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Initialize the provider
+  useEffect(() => {
+    setIsInitialized(true);
+  }, []);
 
   // Check for existing Spotify connection on mount
   useEffect(() => {
-    if (user) {
+    if (user && isInitialized) {
       checkSpotifyConnection();
     }
-  }, [user]);
+  }, [user, isInitialized]);
 
   const checkSpotifyConnection = async () => {
     if (!user) return;
 
     try {
+      setLoading(true);
       // Query the spotify_connections table directly
       const { data, error } = await supabase
         .from('spotify_connections')
@@ -82,6 +109,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
       if (error || !data) {
         console.log('No Spotify connection found');
+        setLoading(false);
         return;
       }
 
@@ -99,6 +127,8 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       }
     } catch (error) {
       console.error('Error checking Spotify connection:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -109,6 +139,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       if (error || !data?.success) {
         console.error('Failed to refresh Spotify token:', error);
         setIsConnected(false);
+        setLoading(false);
         return;
       }
 
@@ -118,6 +149,8 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     } catch (error) {
       console.error('Error refreshing Spotify token:', error);
       setIsConnected(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -150,6 +183,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     spotifyPlayer.addListener('ready', ({ device_id }: { device_id: string }) => {
       console.log('Spotify Player ready with Device ID:', device_id);
       setDeviceId(device_id);
+      setLoading(false);
     });
 
     spotifyPlayer.addListener('not_ready', ({ device_id }: { device_id: string }) => {
@@ -166,15 +200,18 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
     spotifyPlayer.addListener('initialization_error', ({ message }: { message: string }) => {
       console.error('Spotify Player initialization error:', message);
+      setLoading(false);
     });
 
     spotifyPlayer.addListener('authentication_error', ({ message }: { message: string }) => {
       console.error('Spotify Player authentication error:', message);
       setIsConnected(false);
+      setLoading(false);
     });
 
     spotifyPlayer.addListener('account_error', ({ message }: { message: string }) => {
       console.error('Spotify Player account error:', message);
+      setLoading(false);
     });
 
     spotifyPlayer.addListener('playback_error', ({ message }: { message: string }) => {
@@ -185,6 +222,8 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       if (success) {
         console.log('Successfully connected to Spotify Player');
         setPlayer(spotifyPlayer);
+      } else {
+        setLoading(false);
       }
     });
   };
@@ -197,6 +236,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     }
 
     try {
+      setLoading(true);
       // Get the client ID from Supabase
       await getSpotifyClientId();
       
@@ -218,6 +258,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     } catch (error) {
       console.error('Error connecting to Spotify:', error);
       toast.error('Failed to connect to Spotify. Please check if the Spotify Client ID is configured in Supabase secrets.');
+      setLoading(false);
     }
   };
 
@@ -225,6 +266,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     if (!user) return;
 
     try {
+      setLoading(true);
       // Delete connection from spotify_connections table
       await supabase
         .from('spotify_connections')
@@ -247,6 +289,8 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       setAccessToken(null);
     } catch (error) {
       console.error('Error disconnecting Spotify:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -299,7 +343,8 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     }
   };
 
-  const value = {
+  // Provide the context value, ensuring it's never undefined
+  const value: SpotifyContextType = {
     isConnected,
     spotifyUser,
     player,
@@ -317,6 +362,11 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     previousTrack,
     setVolume
   };
+
+  // Only render children when the provider is properly initialized
+  if (!isInitialized) {
+    return null;
+  }
 
   return <SpotifyContext.Provider value={value}>{children}</SpotifyContext.Provider>;
 };
