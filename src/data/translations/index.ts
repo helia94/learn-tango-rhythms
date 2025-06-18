@@ -2,14 +2,15 @@ import { otherTranslations } from './other';
 import { profileTranslations } from './profile';
 import { translations as legacyTranslations } from './translations';
 import { smallAndBigTranslations } from './small_and_big';
+import { deepMergeTranslations } from '@/utils/mergeTranslations';
 
-// Combine all translations
-export const translations = {
-  ...otherTranslations,
-  ...profileTranslations,
-  ...legacyTranslations,
-  ...smallAndBigTranslations
-};
+// Deep merge all translations to properly handle nested objects like exercises.*
+export const translations = deepMergeTranslations(
+  otherTranslations,
+  profileTranslations,
+  legacyTranslations,
+  smallAndBigTranslations
+);
 
 // Manual type definition that includes all possible translation keys
 export type TranslationKey = 
