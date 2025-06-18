@@ -1,9 +1,9 @@
-
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { SpotifyUser, SpotifyTokens, SpotifyPlayer, SpotifyPlayerState } from '@/types/spotify';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { getSpotifyAuthUrl, SPOTIFY_CONFIG } from '@/config/spotify';
+import { toast } from 'sonner';
 
 interface SpotifyContextType {
   isConnected: boolean;
@@ -210,19 +210,37 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
   const connectSpotify = () => {
     if (!user) {
       console.error('User must be logged in to connect Spotify');
+      toast.error('Please log in to connect Spotify');
       return;
     }
 
-    // Generate a random state for security
-    const state = Math.random().toString(36).substring(2, 15);
-    const redirectUri = `${window.location.origin}/spotify/callback`;
-    
-    // Store state in localStorage for verification
-    localStorage.setItem('spotify_auth_state', state);
-    
-    // Redirect to Spotify authorization
-    const authUrl = getSpotifyAuthUrl(state, redirectUri);
-    window.location.href = authUrl;
+    if (!SPOTIFY_CONFIG.CLIENT_ID) {
+      console.error('Spotify Client ID is not configured');
+      toast.error('Spotify configuration error. Please contact support.');
+      return;
+    }
+
+    try {
+      // Generate a random state for security
+      const state = Math.random().toString(36).substring(2, 15);
+      const redirectUri = `${window.location.origin}/spotify/callback`;
+      
+      console.log('Connecting to Spotify with:');
+      console.log('- Client ID:', SPOTIFY_CONFIG.CLIENT_ID);
+      console.log('- Redirect URI:', redirectUri);
+      console.log('- State:', state);
+      
+      // Store state in localStorage for verification
+      localStorage.setItem('spotify_auth_state', state);
+      
+      // Redirect to Spotify authorization
+      const authUrl = getSpotifyAuthUrl(state, redirectUri);
+      console.log('Redirecting to:', authUrl);
+      window.location.href = authUrl;
+    } catch (error) {
+      console.error('Error generating Spotify auth URL:', error);
+      toast.error('Failed to connect to Spotify. Please try again.');
+    }
   };
 
   const disconnectSpotify = async () => {

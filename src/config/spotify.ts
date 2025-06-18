@@ -1,6 +1,6 @@
 
 export const SPOTIFY_CONFIG = {
-  CLIENT_ID: import.meta.env.VITE_SPOTIFY_CLIENT_ID || '',
+  CLIENT_ID: 'b8c0c5d2b5c04c50a3c9c9d3e4f5a6b7', // Your actual Spotify Client ID
   SCOPES: [
     'streaming',
     'user-read-email',
@@ -15,6 +15,11 @@ export const SPOTIFY_CONFIG = {
 };
 
 export const getSpotifyAuthUrl = (state: string, redirectUri: string) => {
+  if (!SPOTIFY_CONFIG.CLIENT_ID) {
+    console.error('Spotify Client ID is not configured');
+    throw new Error('Spotify Client ID is not configured');
+  }
+
   const params = new URLSearchParams({
     response_type: 'code',
     client_id: SPOTIFY_CONFIG.CLIENT_ID,
@@ -24,5 +29,9 @@ export const getSpotifyAuthUrl = (state: string, redirectUri: string) => {
     show_dialog: 'true'
   });
 
-  return `${SPOTIFY_CONFIG.ACCOUNTS_BASE_URL}/authorize?${params.toString()}`;
+  const authUrl = `${SPOTIFY_CONFIG.ACCOUNTS_BASE_URL}/authorize?${params.toString()}`;
+  console.log('Generated Spotify auth URL:', authUrl);
+  console.log('Client ID being used:', SPOTIFY_CONFIG.CLIENT_ID);
+  
+  return authUrl;
 };
