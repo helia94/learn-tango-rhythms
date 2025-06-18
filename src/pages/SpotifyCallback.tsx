@@ -51,11 +51,23 @@ const SpotifyCallback = () => {
       }
 
       // Call Supabase Edge Function to exchange code for tokens
-      // This will be implemented in the next step
       setMessage('Exchanging authorization code for access tokens...');
       
-      // For now, show success and redirect
-      // In the next step, we'll implement the actual token exchange
+      const { data, error: functionError } = await supabase.functions.invoke('spotify-oauth', {
+        body: {
+          code: code,
+          redirectUri: `${window.location.origin}/spotify/callback`
+        }
+      });
+
+      if (functionError || !data?.success) {
+        console.error('Function error:', functionError);
+        setStatus('error');
+        setMessage('Failed to connect Spotify account. Please try again.');
+        setTimeout(() => navigate('/profile'), 3000);
+        return;
+      }
+
       setStatus('success');
       setMessage('Spotify connected successfully! Redirecting...');
       setTimeout(() => navigate('/profile'), 2000);

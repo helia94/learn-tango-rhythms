@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import ProfileSection from '@/components/ProfileSection';
 import GameProfileDashboard from '@/components/profile/GameProfileDashboard';
+import SpotifyConnection from '@/components/SpotifyConnection';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 const Profile = () => {
@@ -47,8 +47,13 @@ const Profile = () => {
           </div>
 
           {/* Game Dashboard */}
-          <div className="mb-16">
+          <div className="mb-8">
             <GameProfileDashboard />
+          </div>
+
+          {/* Spotify Integration */}
+          <div className="mb-8">
+            <SpotifyConnection />
           </div>
 
           {/* Action Buttons */}

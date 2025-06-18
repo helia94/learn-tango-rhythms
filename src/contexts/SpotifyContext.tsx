@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState, ReactNode } from
 import { SpotifyUser, SpotifyTokens, SpotifyPlayer, SpotifyPlayerState } from '@/types/spotify';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
+import { getSpotifyAuthUrl, SPOTIFY_CONFIG } from '@/config/spotify';
 
 interface SpotifyContextType {
   isConnected: boolean;
@@ -60,36 +61,52 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     if (!user) return;
 
     try {
-      const { data, error } = await supabase
-        .from('spotify_connections')
-        .select('*')
-        .eq('user_id', user.id)
-        .single();
+      // Use RPC to get connection data since we need to query the spotify_connections table
+      const { data, error } = await supabase.rpc('get_user_spotify_connection', {
+        user_id: user.id
+      });
 
-      if (error || !data) {
+      if (error || !data || data.length === 0) {
         console.log('No Spotify connection found');
         return;
       }
 
+      const connection = data[0];
+
       // Check if token is still valid
       const now = Date.now();
-      if (data.expires_at && now >= data.expires_at) {
+      if (connection.expires_at && now >= connection.expires_at) {
         // Token expired, try to refresh
-        await refreshSpotifyToken(data.refresh_token);
+        await refreshSpotifyToken();
       } else {
-        setAccessToken(data.access_token);
+        setAccessToken(connection.access_token);
         setIsConnected(true);
-        await fetchSpotifyUser(data.access_token);
-        initializeSpotifyPlayer(data.access_token);
+        await fetchSpotifyUser(connection.access_token);
+        initializeSpotifyPlayer(connection.access_token);
       }
     } catch (error) {
       console.error('Error checking Spotify connection:', error);
     }
   };
 
-  const refreshSpotifyToken = async (refreshToken: string) => {
-    // This will be implemented in the next step with a Supabase Edge Function
-    console.log('Token refresh needed - will implement in next step');
+  const refreshSpotifyToken = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('spotify-refresh');
+
+      if (error || !data?.success) {
+        console.error('Failed to refresh Spotify token:', error);
+        setIsConnected(false);
+        return;
+      }
+
+      setAccessToken(data.access_token);
+      setIsConnected(true);
+      await fetchSpotifyUser(data.access_token);
+      initializeSpotifyPlayer(data.access_token);
+    } catch (error) {
+      console.error('Error refreshing Spotify token:', error);
+      setIsConnected(false);
+    }
   };
 
   const fetchSpotifyUser = async (token: string) => {
@@ -113,7 +130,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     if (!window.Spotify) {
       // Load Spotify SDK if not already loaded
       const script = document.createElement('script');
-      script.src = 'https://sdk.scdn.co/spotify-player.js';
+      script.src = SPOTIFY_CONFIG.SDK_URL;
       script.async = true;
       document.body.appendChild(script);
 
@@ -191,8 +208,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     localStorage.setItem('spotify_auth_state', state);
     
     // Redirect to Spotify authorization
-    const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${import.meta.env.VITE_SPOTIFY_CLIENT_ID}&scope=streaming%20user-read-email%20user-read-private%20user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}&show_dialog=true`;
-    
+    const authUrl = getSpotifyAuthUrl(state, redirectUri);
     window.location.href = authUrl;
   };
 
@@ -200,11 +216,10 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     if (!user) return;
 
     try {
-      // Remove from database
-      await supabase
-        .from('spotify_connections')
-        .delete()
-        .eq('user_id', user.id);
+      // Use RPC to delete connection since we need to delete from spotify_connections table
+      await supabase.rpc('delete_user_spotify_connection', {
+        user_id: user.id
+      });
 
       // Disconnect player
       if (player) {
@@ -229,7 +244,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     if (!accessToken || !deviceId) return;
 
     try {
-      await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+      await fetch(`${SPOTIFY_CONFIG.API_BASE_URL}/me/player/play?device_id=${deviceId}`, {
         method: 'PUT',
         body: JSON.stringify({
           uris: [trackUri]
