@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useEngagementData } from '@/hooks/useEngagementData';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
-import { Flame, Calendar, TrendingUp, Target } from 'lucide-react';
+import { Flame, Calendar, Target } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import AssignmentProgressChart from './AssignmentProgressChart';
 
 const GameProfileDashboard: React.FC = () => {
   const {
@@ -135,7 +136,6 @@ const GameProfileDashboard: React.FC = () => {
 
   const dailyStreak = streakData.find(s => s.streak_type === 'daily');
   const weeklyStreak = streakData.find(s => s.streak_type === 'weekly');
-  const totalAssignments = topicsMastery.reduce((sum, topic) => sum + topic.totalAssignments, 0);
 
   return (
     <div className="space-y-4 px-2">
@@ -219,19 +219,8 @@ const GameProfileDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Total Assignments */}
-      <div className="relative bg-white/30 backdrop-blur-sm rounded-2xl p-4 border border-warm-brown/15">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-warm-brown/15 rounded-full flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-warm-brown" />
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-gray-800">{totalAssignments}</div>
-            <div className="text-sm text-gray-800 font-medium">Assignments Done</div>
-            <div className="text-xs text-gray-600">Keep it up!</div>
-          </div>
-        </div>
-      </div>
+      {/* Assignment Progress Chart - replacing the simple counter */}
+      <AssignmentProgressChart />
 
       {/* Activity Heatmap */}
       <div className="relative bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-sandy-beige/20">
