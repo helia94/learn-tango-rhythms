@@ -8,6 +8,7 @@ import { useState } from "react";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { FeatureFlagsProvider } from "@/contexts/FeatureFlagsContext";
+import { SpotifyProvider } from "@/contexts/SpotifyContext";
 import Home from "./pages/Home";
 import Index from "./pages/Index";
 import Quiz from "./pages/Quiz";
@@ -21,6 +22,7 @@ import DancingFastSlow from "./pages/exercises/DancingFastSlow";
 import DancingFastSlowAssignments from "./pages/exercises/DancingFastSlowAssignments";
 import DancingSmallBig from "./pages/exercises/DancingSmallBig";
 import DancingSmallBigAssignments from "./pages/exercises/DancingSmallBigAssignments";
+import SpotifyCallback from "./pages/SpotifyCallback";
 
 const App = () => {
   // Create QueryClient inside component to avoid context issues
@@ -37,43 +39,48 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <AuthProvider>
-          <FeatureFlagsProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <Routes>
-                  {/* Home page */}
-                  <Route path="/" element={<Home />} />
-                  
-                  {/* Authentication page */}
-                  <Route path="/auth" element={<Auth />} />
-                  
-                  {/* Profile page */}
-                  <Route path="/profile" element={<Profile />} />
-                  
-                  {/* Road Map page */}
-                  <Route path="/roadmap" element={<RoadMap />} />
-                  
-                  {/* Exercise pages */}
-                  <Route path="/exercises/dancing-fast-slow" element={<DancingFastSlow />} />
-                  <Route path="/exercises/dancing-fast-slow/assignments" element={<DancingFastSlowAssignments />} />
-                  <Route path="/exercises/dancing-small-big" element={<DancingSmallBig />} />
-                  <Route path="/exercises/dancing-small-big/assignments" element={<DancingSmallBigAssignments />} />
-                  
-                  {/* Rhythm Lab sub-routes */}
-                  <Route path="/rhythmlab" element={<RhythmLabLayout />}>
-                    <Route index element={<Index />} />
-                    <Route path="quiz" element={<Quiz />} />
-                    <Route path="leaderboard" element={<Leaderboard />} />
-                  </Route>
-                  
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </BrowserRouter>
-            </TooltipProvider>
-          </FeatureFlagsProvider>
+          <SpotifyProvider>
+            <FeatureFlagsProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Sonner />
+                <BrowserRouter>
+                  <Routes>
+                    {/* Home page */}
+                    <Route path="/" element={<Home />} />
+                    
+                    {/* Authentication page */}
+                    <Route path="/auth" element={<Auth />} />
+                    
+                    {/* Profile page */}
+                    <Route path="/profile" element={<Profile />} />
+                    
+                    {/* Road Map page */}
+                    <Route path="/roadmap" element={<RoadMap />} />
+                    
+                    {/* Spotify callback */}
+                    <Route path="/spotify/callback" element={<SpotifyCallback />} />
+                    
+                    {/* Exercise pages */}
+                    <Route path="/exercises/dancing-fast-slow" element={<DancingFastSlow />} />
+                    <Route path="/exercises/dancing-fast-slow/assignments" element={<DancingFastSlowAssignments />} />
+                    <Route path="/exercises/dancing-small-big" element={<DancingSmallBig />} />
+                    <Route path="/exercises/dancing-small-big/assignments" element={<DancingSmallBigAssignments />} />
+                    
+                    {/* Rhythm Lab sub-routes */}
+                    <Route path="/rhythmlab" element={<RhythmLabLayout />}>
+                      <Route index element={<Index />} />
+                      <Route path="quiz" element={<Quiz />} />
+                      <Route path="leaderboard" element={<Leaderboard />} />
+                    </Route>
+                    
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </BrowserRouter>
+              </TooltipProvider>
+            </FeatureFlagsProvider>
+          </SpotifyProvider>
         </AuthProvider>
       </LanguageProvider>
     </QueryClientProvider>
