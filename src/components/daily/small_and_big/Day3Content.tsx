@@ -43,7 +43,7 @@ const Day3Content: React.FC<Day3ContentProps> = ({
       title: 'Torrente - Aníbal Troilo',
       description: 'A series of syncopations.',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277189/SYNCOPA_7_-_Torrente_-_An%C3%ADbal_Troilo-_AudioTrimmer.com_uxkgv0.mp3',
-      colorEvents: [7500, , 9600, 11500, 13500, 16000]
+      colorEvents: [7500, 9600, 11500, 13500, 16000]
     },
     {
       title: 'Tres amigos - Aníbal Troilo',
@@ -57,11 +57,13 @@ const Day3Content: React.FC<Day3ContentProps> = ({
   const differentTimingExamples = [
     {
       title: 'El choclo - Juan D\'Arienzo',
+      description: 'Different timing syncopation example.',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277188/SYNCOPA_10_-_El_choclo_-_Juan_D_Arienzo-_AudioTrimmer.com_tt705r.mp3',
       colorEvents: [3000, 5000]
     },
     {
       title: 'La Cachila - Osvaldo Pugliese',
+      description: 'Another example with different timing.',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277191/SYNCOPA_3_-_La_Cachila_-_Osvaldo_Pugliese-_AudioTrimmer.com_mfmiw4.mp3',
       colorEvents: [9120]
     }
