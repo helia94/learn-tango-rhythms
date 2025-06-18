@@ -1,3 +1,4 @@
+
 import { TranslationKey } from '../translations';
 
 export interface Assignment {
@@ -14,41 +15,41 @@ export interface Assignment {
 
 export const assignments: Record<string, Assignment> = {
   'day1': {
-    content: 'daily.day1.content',
-    audioTitle: 'daily.day1.audioTitle',
-    audioDescription: 'daily.day1.audioDescription',
-    fullSong: 'daily.day1.fullSong',
-    task: 'daily.day1.task'
+    content: 'exercises.dancingFastSlow.daily.day1.content',
+    audioTitle: 'exercises.dancingFastSlow.daily.day1.audioTitle',
+    audioDescription: 'exercises.dancingFastSlow.daily.day1.audioDescription',
+    fullSong: 'exercises.dancingFastSlow.daily.day1.fullSong',
+    task: 'exercises.dancingFastSlow.daily.day1.task'
   },
   'day2': {
-    content: 'daily.day2.content',
-    description: 'daily.day2.description',
-    bandonionSolos: 'daily.day2.bandonionSolos',
-    violinSolos: 'daily.day2.violinSolos',
-    singerSolo: 'daily.day2.singerSolo',
-    task: 'daily.day2.task'
+    content: 'exercises.dancingFastSlow.daily.day2.content',
+    description: 'exercises.dancingFastSlow.daily.day2.description',
+    bandonionSolos: 'exercises.dancingFastSlow.daily.day2.bandonionSolos',
+    violinSolos: 'exercises.dancingFastSlow.daily.day2.violinSolos',
+    singerSolo: 'exercises.dancingFastSlow.daily.day2.singerSolo',
+    task: 'exercises.dancingFastSlow.daily.day2.task'
   },
   'day3': {
-    content: 'daily.day3.content',
-    description: 'daily.day3.description',
-    task: 'daily.day3.task'
+    content: 'exercises.dancingFastSlow.daily.day3.content',
+    description: 'exercises.dancingFastSlow.daily.day3.description',
+    task: 'exercises.dancingFastSlow.daily.day3.task'
   },
   'day4': {
-    content: 'daily.day4.content',
-    description: 'daily.day4.description',
-    task: 'daily.day4.task'
+    content: 'exercises.dancingFastSlow.daily.day4.content',
+    description: 'exercises.dancingFastSlow.daily.day4.description',
+    task: 'exercises.dancingFastSlow.daily.day4.task'
   },
   'day5': {
-    content: 'daily.day5.content',
-    task: 'daily.day5.task'
+    content: 'exercises.dancingFastSlow.daily.day5.content',
+    task: 'exercises.dancingFastSlow.daily.day5.task'
   },
   'day6': {
-    content: 'daily.day6.content',
-    task: 'daily.day6.task'
+    content: 'exercises.dancingFastSlow.daily.day6.content',
+    task: 'exercises.dancingFastSlow.daily.day6.task'
   },
   'day7': {
-    content: 'daily.day7.content',
-    task: 'daily.day7.task'
+    content: 'exercises.dancingFastSlow.daily.day7.content',
+    task: 'exercises.dancingFastSlow.daily.day7.task'
   },
   'weekly-assignment-1': {
     content: 'exercises.dancingFastSlow.assignment1',
