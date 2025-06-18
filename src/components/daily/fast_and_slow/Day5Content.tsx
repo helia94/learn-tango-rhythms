@@ -17,24 +17,24 @@ const Day5Content: React.FC<Day5ContentProps> = ({
   topicName = 'dancing-fast-slow',
   topicIndex = 0
 }) => {
-  const { t } = useTranslation('fast-and-slow');
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-6">
       <p className="text-gray-700 text-lg leading-relaxed">
-        {t('daily.day5.content' as any)}
+        {t('daily.day5.content')}
       </p>
       
       <TipsSection 
-        title={t('tips.extremeSpeed' as any)}
+        title={t('tips.extremeSpeed')}
         tips={[
-          t('tips.extremeSpeedTip1' as any),
-          t('tips.extremeSpeedTip2' as any)
+          t('tips.extremeSpeedTip1'),
+          t('tips.extremeSpeedTip2')
         ]}
       />
 
       <Assignment
-        assignment={{ content: 'daily.day5.task' as any, task: 'daily.day5.task' as any }}
+        assignment={{ content: 'daily.day5.task', task: 'daily.day5.task' }}
         taskId="day-5-task"
         level={completedTasks['day-5-task'] || 0}
         onLevelChange={onTaskLevelChange}

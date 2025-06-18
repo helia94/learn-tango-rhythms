@@ -16,7 +16,7 @@ const Day2Content: React.FC<Day2ContentProps> = ({
   topicName,
   topicIndex
 }) => {
-  const { t } = useTranslation('small-and-big');
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-6">

@@ -18,7 +18,7 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
   completedTasks,
   onTaskLevelChange
 }) => {
-  const { t } = useTranslation('small-and-big');
+  const { t } = useTranslation();
   const { user } = useAuth();
   const unlockAllEnabled = useUnlockAll();
   
