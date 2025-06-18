@@ -1,14 +1,15 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTopicActivation } from './useTopicActivation';
+import { useUnlockAll } from './useFeatureFlag';
 
 export const useDailyTopicActivation = (topicKey: string, topicIndex: number) => {
   const [activatedDays, setActivatedDays] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
   const { getActiveTopic } = useTopicActivation();
+  const unlockAllEnabled = useUnlockAll();
 
   const fetchActivatedDays = async () => {
     if (!user) {
@@ -46,10 +47,13 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number) =>
       throw new Error('User must be logged in to activate day');
     }
 
-    // Check if we can activate this day
-    const canActivate = await canActivateDay(dayIndex);
-    if (!canActivate) {
-      throw new Error('Cannot activate this day yet - minimum wait time not met');
+    // If unlockAll is enabled, skip time restrictions
+    if (!unlockAllEnabled) {
+      // Check if we can activate this day
+      const canActivate = await canActivateDay(dayIndex);
+      if (!canActivate) {
+        throw new Error('Cannot activate this day yet - minimum wait time not met');
+      }
     }
 
     try {
@@ -76,10 +80,19 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number) =>
   };
 
   const whichDailiesWereActivated = (): number[] => {
+    // If unlockAll is enabled, return all days as activated
+    if (unlockAllEnabled) {
+      return [1, 2, 3, 4, 5, 6, 7];
+    }
     return [...activatedDays].sort((a, b) => a - b);
   };
 
   const whichDailyIsNextOnActivationOrder = (): number | null => {
+    // If unlockAll is enabled, all days are available
+    if (unlockAllEnabled) {
+      return null; // All days are unlocked
+    }
+    
     // Find the first day that hasn't been activated yet
     for (let day = 1; day <= 7; day++) {
       if (!activatedDays.includes(day)) {
@@ -130,6 +143,11 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number) =>
   };
 
   const whenCanNextDailyBeActivated = async (): Promise<Date | null> => {
+    // If unlockAll is enabled, next daily can always be activated
+    if (unlockAllEnabled) {
+      return new Date(); // Immediate activation
+    }
+
     const nextDay = whichDailyIsNextOnActivationOrder();
     if (nextDay === null) {
       return null; // All days activated
@@ -162,6 +180,11 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number) =>
   };
 
   const canActivateDay = async (dayIndex: number): Promise<boolean> => {
+    // If unlockAll is enabled, any day can be activated
+    if (unlockAllEnabled) {
+      return !activatedDays.includes(dayIndex); // Only prevent if already activated
+    }
+
     if (activatedDays.includes(dayIndex)) {
       return false; // Already activated
     }
@@ -181,6 +204,11 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number) =>
   };
 
   const getTimeUntilNextActivation = async (): Promise<number | null> => {
+    // If unlockAll is enabled, no waiting time
+    if (unlockAllEnabled) {
+      return 0;
+    }
+
     const nextActivationDate = await whenCanNextDailyBeActivated();
     if (!nextActivationDate) {
       return null;

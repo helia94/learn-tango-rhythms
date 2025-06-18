@@ -5,6 +5,7 @@ import { Accordion } from '@/components/ui/accordion';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
+import { useUnlockAll } from '@/hooks/useFeatureFlag';
 import DayItem from '@/components/daily/DayItem';
 import { getDayStatus } from '@/components/daily/DayStatus';
 
@@ -19,6 +20,7 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
 }) => {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const unlockAllEnabled = useUnlockAll();
   
   const { 
     activatedDays, 
@@ -29,8 +31,9 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
     canActivateDay
   } = useDailyTopicActivation('dancing-small-big', 1);
 
-  // Calculate days unlocked based on activated days
-  const daysUnlocked = Math.max(...whichDailiesWereActivated(), 0);
+  // Calculate days unlocked based on activated days or feature flag
+  const activatedDaysArray = whichDailiesWereActivated();
+  const daysUnlocked = unlockAllEnabled ? 7 : Math.max(...activatedDaysArray, 0);
   const nextDayToActivate = whichDailyIsNextOnActivationOrder();
 
   const handleDayActivation = async (dayNumber: number) => {
@@ -38,7 +41,7 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
     
     try {
       const canActivate = await canActivateDay(dayNumber);
-      if (!canActivate) {
+      if (!canActivate && !unlockAllEnabled) {
         console.log(`Cannot activate day ${dayNumber} yet`);
         return;
       }
@@ -68,8 +71,13 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
         <h2 className="text-3xl font-display text-gray-800">{t('daily.title' as any)}</h2>
         <p className="text-gray-600 mt-2">
           {t('daily.subtitle' as any)} ({daysUnlocked}/7 days unlocked)
+          {unlockAllEnabled && (
+            <span className="block text-sm text-green-600 font-medium mt-1">
+              🚀 All content unlocked (Dev Mode)
+            </span>
+          )}
         </p>
-        {nextDayToActivate && (
+        {nextDayToActivate && !unlockAllEnabled && (
           <p className="text-sm text-golden-yellow mt-1">
             Next day to unlock: Day {nextDayToActivate}
           </p>
@@ -78,9 +86,17 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
 
       <Accordion type="single" collapsible className="space-y-4">
         {[1, 2, 3, 4, 5, 6, 7].map(dayNumber => {
-          const isActivated = whichDailiesWereActivated().includes(dayNumber);
+          const isActivated = activatedDaysArray.includes(dayNumber);
           const isNextToActivate = nextDayToActivate === dayNumber;
-          const status = isActivated ? 'unlocked' : isNextToActivate ? 'tomorrow' : 'locked';
+          
+          // When unlockAll is enabled, treat all days as unlocked
+          let status;
+          if (unlockAllEnabled) {
+            status = 'unlocked';
+          } else {
+            status = isActivated ? 'unlocked' : isNextToActivate ? 'tomorrow' : 'locked';
+          }
+          
           const isCompleted = completedTasks[`day-${dayNumber}-task`] > 0;
           
           return (
@@ -91,7 +107,7 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
               isCompleted={isCompleted}
               completedTasks={completedTasks}
               onTaskLevelChange={onTaskLevelChange}
-              onDayActivation={user && isNextToActivate ? () => handleDayActivation(dayNumber) : undefined}
+              onDayActivation={user && (isNextToActivate || unlockAllEnabled) ? () => handleDayActivation(dayNumber) : undefined}
             />
           );
         })}

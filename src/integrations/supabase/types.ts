@@ -9,6 +9,27 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
       assignment_reports: {
         Row: {
           assignment_key: string
@@ -150,6 +171,30 @@ export type Database = {
           topic_index?: number
           topic_key?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      unlock_all_activated: {
+        Row: {
+          created_at: string
+          id: string
+          index_activated: number
+          time: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          index_activated: number
+          time?: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          index_activated?: number
+          time?: string
+          username?: string
         }
         Relationships: []
       }
