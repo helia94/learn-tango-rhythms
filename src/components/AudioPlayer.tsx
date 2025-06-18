@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Play, Pause } from 'lucide-react';
+import { Play, Pause, Zap } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { ColorChange } from '@/types/rhythm';
 
@@ -25,11 +25,8 @@ const AudioPlayer = ({
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [currentColor, setCurrentColor] = useState('bg-warm-brown/20');
-  const [eventColor, setEventColor] = useState<string | null>(null);
+  const [activeEvents, setActiveEvents] = useState<number[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  // Fixed dark color for high contrast events
-  const EVENT_COLOR = 'bg-gray-800';
 
   useEffect(() => {
     const audio = new Audio(audioUrl);
@@ -49,8 +46,8 @@ const AudioPlayer = ({
       setIsPlaying(false);
       setProgress(0);
       setCurrentTime(0);
-      // Reset color when audio ends
       setCurrentColor('bg-warm-brown/20');
+      setActiveEvents([]);
     };
 
     const handleError = (e: any) => {
@@ -81,6 +78,7 @@ const AudioPlayer = ({
     // Reset to initial color when starting from beginning
     if (currentTime < 0.1) {
       setCurrentColor('bg-warm-brown/20');
+      setActiveEvents([]);
       return;
     }
 
@@ -91,21 +89,17 @@ const AudioPlayer = ({
       .find(change => currentTimeMs >= change.timestamp);
     
     if (currentSegment) {
-      // Use the actual color from the segment instead of converting all to gray
       if (currentSegment.color !== currentColor) {
         setCurrentColor(currentSegment.color);
       }
     }
 
-    // Handle event color changes with simplified timestamp array
-    const currentEvent = colorEvents.find(
-      timestamp => Math.abs(currentTimeMs - timestamp) <= 100
+    // Handle event detection - show active events with symbols
+    const currentActiveEvents = colorEvents.filter(
+      timestamp => Math.abs(currentTimeMs - timestamp) <= 200
     );
 
-    if (currentEvent) {
-      setEventColor(EVENT_COLOR);
-      setTimeout(() => setEventColor(null), 200);
-    }
+    setActiveEvents(currentActiveEvents);
   }, [currentTime, isPlaying, colorChanges, colorEvents, currentColor]);
 
   const togglePlayback = async () => {
@@ -119,6 +113,7 @@ const AudioPlayer = ({
         // Reset color when starting playback
         if (currentTime < 0.1) {
           setCurrentColor('bg-warm-brown/20');
+          setActiveEvents([]);
         }
         await audioRef.current.play();
         setIsPlaying(true);
@@ -129,22 +124,25 @@ const AudioPlayer = ({
     }
   };
 
-  const displayColor = eventColor || currentColor;
-
-  // Determine text color based on background
-  const getTextColor = (bgColor: string) => {
-    if (bgColor.includes('dusty-rose') || bgColor.includes('terracotta') || bgColor.includes('golden-yellow') || bgColor.includes('gray-800')) {
-      return 'text-white';
-    }
-    return 'text-gray-700';
+  // Calculate positions for event markers on progress bar
+  const getEventMarkers = () => {
+    if (!duration) return [];
+    
+    return colorEvents.map((timestamp, index) => {
+      const percentage = (timestamp / 1000 / duration) * 100;
+      return {
+        id: index,
+        position: percentage,
+        timestamp,
+        isActive: activeEvents.includes(timestamp)
+      };
+    });
   };
 
-  const textColor = getTextColor(currentColor);
-
   return (
-    <div className={`${displayColor} backdrop-blur-sm rounded-2xl p-6 border border-cream/20 transition-colors duration-500 ${className}`}>
+    <div className={`${currentColor} backdrop-blur-sm rounded-2xl p-6 border border-cream/20 transition-colors duration-500 ${className}`}>
       <div className="flex items-center justify-between mb-4">
-        <span className={`font-semibold text-lg ${textColor}`}>
+        <span className="font-semibold text-lg text-gray-700">
           {title}
         </span>
         <Button
@@ -156,12 +154,33 @@ const AudioPlayer = ({
         </Button>
       </div>
       
-      <div className="w-full">
+      <div className="w-full relative">
         <Progress 
           value={progress} 
-          className="h-3 bg-cream/20"
+          className="h-4 bg-cream/20"
         />
-        <div className={`flex justify-between text-sm mt-2 ${textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>
+        
+        {/* Event markers on progress bar */}
+        <div className="absolute inset-0 pointer-events-none">
+          {getEventMarkers().map((marker) => (
+            <div
+              key={marker.id}
+              className="absolute top-0 h-full flex items-center justify-center transition-all duration-200"
+              style={{ left: `${marker.position}%`, transform: 'translateX(-50%)' }}
+            >
+              <Zap 
+                className={`w-3 h-3 ${
+                  marker.isActive 
+                    ? 'text-orange-500 drop-shadow-lg scale-150' 
+                    : 'text-terracotta/60'
+                } transition-all duration-200`}
+                fill="currentColor"
+              />
+            </div>
+          ))}
+        </div>
+        
+        <div className="flex justify-between text-sm mt-2 text-gray-600">
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>

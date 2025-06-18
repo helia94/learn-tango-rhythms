@@ -3,14 +3,14 @@ import React from 'react';
 import AudioPlayer from '@/components/AudioPlayer';
 import StorySection from './StorySection';
 import TextContent from './TextContent';
-import { ColorChange, ColorEvent } from '@/types/rhythm';
+import { ColorChange } from '@/types/rhythm';
 
 interface AudioTrack {
   key: string;
   title: string;
   audioUrl: string;
   colorChanges?: ColorChange[];
-  colorEvents?: ColorEvent[];
+  colorEvents?: number[];
 }
 
 interface AudioSectionProps {
