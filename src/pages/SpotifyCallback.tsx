@@ -8,13 +8,16 @@ import { Loader2, CheckCircle, XCircle } from 'lucide-react';
 
 const SpotifyCallback = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('Processing Spotify connection...');
 
   useEffect(() => {
-    handleSpotifyCallback();
-  }, []);
+    // Wait for auth to finish loading before processing callback
+    if (!authLoading) {
+      handleSpotifyCallback();
+    }
+  }, [authLoading, user]);
 
   const handleSpotifyCallback = async () => {
     try {
@@ -22,6 +25,8 @@ const SpotifyCallback = () => {
       const code = urlParams.get('code');
       const state = urlParams.get('state');
       const error = urlParams.get('error');
+
+      console.log('Spotify callback processing:', { code: !!code, state: !!state, error, user: !!user });
 
       // Check for authorization errors
       if (error) {
@@ -43,10 +48,17 @@ const SpotifyCallback = () => {
       // Clear stored state
       localStorage.removeItem('spotify_auth_state');
 
-      if (!code || !user) {
+      if (!code) {
         setStatus('error');
-        setMessage('Missing authorization code or user not logged in.');
+        setMessage('Missing authorization code from Spotify.');
         setTimeout(() => navigate('/profile'), 3000);
+        return;
+      }
+
+      if (!user) {
+        setStatus('error');
+        setMessage('User not logged in. Please log in and try connecting Spotify again.');
+        setTimeout(() => navigate('/auth'), 3000);
         return;
       }
 
@@ -59,6 +71,8 @@ const SpotifyCallback = () => {
           redirectUri: `${window.location.origin}/spotify/callback`
         }
       });
+
+      console.log('Spotify OAuth function response:', { data, error: functionError });
 
       if (functionError || !data?.success) {
         console.error('Function error:', functionError);
@@ -101,6 +115,22 @@ const SpotifyCallback = () => {
         return 'text-red-700';
     }
   };
+
+  // Show loading while auth is still loading
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-warm-brown/5 via-sandy-beige/10 to-cream/20 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardContent className="text-center p-6">
+            <Loader2 className="w-8 h-8 animate-spin text-blue-500 mx-auto mb-4" />
+            <p className="text-lg text-blue-700">
+              Loading authentication...
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-brown/5 via-sandy-beige/10 to-cream/20 flex items-center justify-center p-4">
