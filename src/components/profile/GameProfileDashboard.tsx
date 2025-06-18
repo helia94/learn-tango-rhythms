@@ -31,26 +31,48 @@ const GameProfileDashboard: React.FC = () => {
     const fetchAllTopicsMastery = async () => {
       try {
         const activeTopic = await getActiveTopic();
-        if (activeTopic) {
-          const assignments = await getAllLatestAssignmentLevelByTopic(activeTopic.topic_key, activeTopic.topic_index);
-          
-          const totalAssignments = 12;
-          const totalPossibleLevels = totalAssignments * 4;
-          const totalCurrentLevels = assignments.reduce((sum, a) => sum + a.level, 0);
-          const completedAssignments = assignments.filter(a => a.level > 0).length;
-          
-          const percentage = totalPossibleLevels > 0 
-            ? Math.round((totalCurrentLevels / totalPossibleLevels) * 100) 
-            : 0;
-          
-          setTopicsMastery([{
-            topicName: 'Fast & Slow Dancing',
-            masteryPercentage: percentage,
-            totalAssignments: completedAssignments
-          }]);
-        } else {
+        if (!activeTopic) {
           setTopicsMastery([]);
+          return;
         }
+
+        // Get all topics that have any assignment data (indicating they were started)
+        const allTopics = [
+          { key: 'dancing-fast-slow', index: 0, name: 'Fast & Slow Dancing' },
+          { key: 'dancing-small-big', index: 1, name: 'Small & Big Dancing' }
+        ];
+
+        const masteryData = [];
+
+        for (const topic of allTopics) {
+          try {
+            const assignments = await getAllLatestAssignmentLevelByTopic(topic.key, topic.index);
+            
+            // Only include topics that have at least one assignment with level > 0
+            const completedAssignments = assignments.filter(a => a.level > 0);
+            
+            if (completedAssignments.length > 0) {
+              const totalAssignments = 12; // Standard number of assignments per topic
+              const totalPossibleLevels = totalAssignments * 4;
+              const totalCurrentLevels = assignments.reduce((sum, a) => sum + a.level, 0);
+              
+              const percentage = totalPossibleLevels > 0 
+                ? Math.round((totalCurrentLevels / totalPossibleLevels) * 100) 
+                : 0;
+              
+              masteryData.push({
+                topicName: topic.name,
+                masteryPercentage: percentage,
+                totalAssignments: completedAssignments.length
+              });
+            }
+          } catch (error) {
+            // If we can't fetch data for a topic, just skip it
+            console.log(`No data found for topic: ${topic.name}`);
+          }
+        }
+
+        setTopicsMastery(masteryData);
       } catch (error) {
         console.error('Error fetching topics mastery:', error);
       }
@@ -95,7 +117,7 @@ const GameProfileDashboard: React.FC = () => {
           <h3 className="text-lg font-bold text-gray-800">Topic Mastery</h3>
         </div>
         
-        <div className="space-y-3">
+        <div className="space-y-4">
           {topicsMastery.map((topic, index) => (
             <div key={index} className="space-y-2">
               <div className="flex justify-between items-center">
@@ -121,7 +143,7 @@ const GameProfileDashboard: React.FC = () => {
           {topicsMastery.length === 0 && (
             <div className="text-center py-6 text-gray-600">
               <Target className="w-10 h-10 mx-auto mb-2 opacity-50" />
-              <p className="text-sm">No topics activated yet</p>
+              <p className="text-sm">No topics started yet</p>
             </div>
           )}
         </div>
