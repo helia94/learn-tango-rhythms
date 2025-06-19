@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Link } from 'react-router-dom';
@@ -28,19 +29,19 @@ const Profile = () => {
               className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-300 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm font-medium">Back</span>
+              <span className="text-sm font-medium">{t('profile.back')}</span>
             </Link>
           </div>
 
           {/* Game-style Title */}
           <div className="text-center mb-12">
             <h1 className="boho-title text-5xl md:text-7xl mb-2 font-display text-white drop-shadow-lg">
-              YOUR JOURNEY
+              {t('profile.title')}
             </h1>
             <div className="flex justify-center items-center gap-2">
               <div className="w-2 h-2 bg-golden-yellow rounded-full animate-organic-pulse"></div>
               <p className="text-white/80 text-sm font-medium tracking-wider uppercase">
-                Keep dancing, keep growing
+                {t('profile.subtitle')}
               </p>
               <div className="w-2 h-2 bg-terracotta rounded-full animate-organic-pulse"></div>
             </div>
@@ -63,7 +64,7 @@ const Profile = () => {
                 to="/rhythmlab" 
                 className="relative block bg-gradient-to-r from-sage-green to-deep-teal text-white font-bold text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-white/20 text-center group-hover:scale-105"
               >
-                <span className="font-display tracking-wide">🎵 RHYTHM LAB</span>
+                <span className="font-display tracking-wide">{t('profile.rhythmLab')}</span>
               </Link>
             </div>
             
@@ -72,7 +73,7 @@ const Profile = () => {
                 to="/roadmap" 
                 className="relative block bg-gradient-to-r from-terracotta to-paprika text-white font-bold text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-white/20 text-center group-hover:scale-105"
               >
-                <span className="font-display tracking-wide">🗺️ ROADMAP</span>
+                <span className="font-display tracking-wide">{t('profile.roadMap')}</span>
               </Link>
             </div>
           </div>

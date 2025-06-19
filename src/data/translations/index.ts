@@ -1,8 +1,8 @@
 
-
 import { translations as mainTranslations, TranslationKey as MainTranslationKey } from './translations';
 import { otherTranslations } from './other';
 import { homeTranslations } from './home';
+import { profileTranslations } from './profile';
 import { smallAndBigTranslations } from './small_and_big';
 import { deepMergeTranslations } from '@/utils/mergeTranslations';
 
@@ -18,6 +18,13 @@ export type TranslationKey = MainTranslationKey |
   `home.accordion.concept.title` | `home.accordion.concept.content` |
   `home.accordion.credits.title` | `home.accordion.credits.intro` | `home.accordion.credits.teachers` |
   `home.footer.copyright` | `home.footer.terms` | `home.footer.privacy` | `home.footer.contact` |
+  // Profile translation keys
+  `profile.title` | `profile.subtitle` | `profile.back` | `profile.rhythmLab` | `profile.roadMap` |
+  `profile.sections.username` | `profile.sections.fullName` | `profile.sections.bio` | `profile.sections.memberSince` |
+  `profile.sections.edit` | `profile.sections.cancel` | `profile.sections.signOut` | `profile.sections.saveChanges` | `profile.sections.saving` |
+  `profile.sections.placeholders.fullName` | `profile.sections.placeholders.username` | `profile.sections.placeholders.bio` |
+  `profile.sections.messages.profileUpdated` | `profile.sections.messages.usernameTaken` | `profile.sections.messages.updateFailed` |
+  `profile.sections.messages.unexpectedError` | `profile.sections.messages.signedOut` | `profile.sections.messages.signOutFailed` |
   // Add missing small and big dancing exercise keys
   `exercises.dancingSmallBig.daily.day1.content` | `exercises.dancingSmallBig.daily.day1.task` |
   `exercises.dancingSmallBig.daily.day2.content` | `exercises.dancingSmallBig.daily.day2.task` |
@@ -32,6 +39,6 @@ export const translations = deepMergeTranslations(
   mainTranslations,
   otherTranslations,
   { home: homeTranslations },
+  profileTranslations,
   smallAndBigTranslations
 );
-

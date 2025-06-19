@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslation } from '@/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,6 +11,7 @@ import { User, Settings, LogOut } from 'lucide-react';
 
 const ProfileSection: React.FC = () => {
   const { user, profile, updateProfile, signOut } = useAuth();
+  const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
     username: profile?.username || '',
@@ -25,16 +27,16 @@ const ProfileSection: React.FC = () => {
       
       if (error) {
         if (error.message.includes('duplicate key')) {
-          toast.error('Username already taken. Please choose another one.');
+          toast.error(t('profile.sections.messages.usernameTaken'));
         } else {
-          toast.error('Failed to update profile');
+          toast.error(t('profile.sections.messages.updateFailed'));
         }
       } else {
-        toast.success('Profile updated successfully!');
+        toast.success(t('profile.sections.messages.profileUpdated'));
         setIsEditing(false);
       }
     } catch (error) {
-      toast.error('An unexpected error occurred');
+      toast.error(t('profile.sections.messages.unexpectedError'));
     } finally {
       setIsUpdating(false);
     }
@@ -52,9 +54,9 @@ const ProfileSection: React.FC = () => {
   const handleSignOut = async () => {
     try {
       await signOut();
-      toast.success('Signed out successfully');
+      toast.success(t('profile.sections.messages.signedOut'));
     } catch (error) {
-      toast.error('Failed to sign out');
+      toast.error(t('profile.sections.messages.signOutFailed'));
     }
   };
 
@@ -85,7 +87,7 @@ const ProfileSection: React.FC = () => {
             className="border-sage-green/30 text-sage-green hover:bg-sage-green/10"
           >
             <Settings className="w-4 h-4 mr-1" />
-            {isEditing ? 'Cancel' : 'Edit'}
+            {isEditing ? t('profile.sections.cancel') : t('profile.sections.edit')}
           </Button>
           
           <Button
@@ -95,7 +97,7 @@ const ProfileSection: React.FC = () => {
             className="border-terracotta/30 text-terracotta hover:bg-terracotta/10"
           >
             <LogOut className="w-4 h-4 mr-1" />
-            Sign Out
+            {t('profile.sections.signOut')}
           </Button>
         </div>
       </div>
@@ -104,40 +106,40 @@ const ProfileSection: React.FC = () => {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="full_name" className="text-warm-brown font-medium">
-              Full Name
+              {t('profile.sections.fullName')}
             </Label>
             <Input
               id="full_name"
               value={editForm.full_name}
               onChange={(e) => setEditForm({ ...editForm, full_name: e.target.value })}
               className="border-sage-green/30 focus:border-terracotta focus:ring-terracotta/20"
-              placeholder="Enter your full name"
+              placeholder={t('profile.sections.placeholders.fullName')}
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="username" className="text-warm-brown font-medium">
-              Username
+              {t('profile.sections.username')}
             </Label>
             <Input
               id="username"
               value={editForm.username}
               onChange={(e) => setEditForm({ ...editForm, username: e.target.value })}
               className="border-sage-green/30 focus:border-terracotta focus:ring-terracotta/20"
-              placeholder="Choose a username"
+              placeholder={t('profile.sections.placeholders.username')}
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="bio" className="text-warm-brown font-medium">
-              Bio
+              {t('profile.sections.bio')}
             </Label>
             <Input
               id="bio"
               value={editForm.bio}
               onChange={(e) => setEditForm({ ...editForm, bio: e.target.value })}
               className="border-sage-green/30 focus:border-terracotta focus:ring-terracotta/20"
-              placeholder="Tell us about yourself"
+              placeholder={t('profile.sections.placeholders.bio')}
             />
           </div>
 
@@ -147,14 +149,14 @@ const ProfileSection: React.FC = () => {
               disabled={isUpdating}
               className="bg-terracotta hover:bg-burnt-orange text-white rounded-organic"
             >
-              {isUpdating ? 'Saving...' : 'Save Changes'}
+              {isUpdating ? t('profile.sections.saving') : t('profile.sections.saveChanges')}
             </Button>
             <Button
               onClick={handleCancel}
               variant="outline"
               className="border-sage-green/30 text-sage-green hover:bg-sage-green/10 rounded-organic"
             >
-              Cancel
+              {t('profile.sections.cancel')}
             </Button>
           </div>
         </div>
@@ -162,20 +164,20 @@ const ProfileSection: React.FC = () => {
         <div className="space-y-3">
           {profile.username && (
             <div>
-              <Label className="text-warm-brown font-medium text-sm">Username</Label>
+              <Label className="text-warm-brown font-medium text-sm">{t('profile.sections.username')}</Label>
               <p className="text-gray-700">{profile.username}</p>
             </div>
           )}
           
           {profile.bio && (
             <div>
-              <Label className="text-warm-brown font-medium text-sm">Bio</Label>
+              <Label className="text-warm-brown font-medium text-sm">{t('profile.sections.bio')}</Label>
               <p className="text-gray-700">{profile.bio}</p>
             </div>
           )}
           
           <div>
-            <Label className="text-warm-brown font-medium text-sm">Member Since</Label>
+            <Label className="text-warm-brown font-medium text-sm">{t('profile.sections.memberSince')}</Label>
             <p className="text-gray-700">
               {new Date(profile.created_at).toLocaleDateString('en-US', {
                 year: 'numeric',
