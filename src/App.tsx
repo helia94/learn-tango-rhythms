@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,6 +22,9 @@ import DancingFastSlowAssignments from "./pages/exercises/DancingFastSlowAssignm
 import DancingSmallBig from "./pages/exercises/DancingSmallBig";
 import DancingSmallBigAssignments from "./pages/exercises/DancingSmallBigAssignments";
 import SpotifyCallback from "./pages/SpotifyCallback";
+import Terms from '@/pages/Terms';
+import Privacy from '@/pages/Privacy';
+import Contact from '@/pages/Contact';
 
 const App = () => {
   // Create QueryClient inside component to avoid context issues
@@ -75,6 +77,10 @@ const App = () => {
                     </Route>
                     
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/privacy" element={<Privacy />} />
+                    <Route path="/contact" element={<Contact />} />
+                    
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </BrowserRouter>

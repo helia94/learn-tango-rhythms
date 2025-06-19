@@ -309,9 +309,9 @@ const Home = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-lg font-medium text-terracotta/80">TANGO A DIARIO © 2025</div>
             <div className="flex gap-6">
-              <a href="#" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Terms</a>
-              <a href="#" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Privacy</a>
-              <a href="#" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Contact</a>
+              <Link to="/terms" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Terms</Link>
+              <Link to="/privacy" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Privacy</Link>
+              <Link to="/contact" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Contact</Link>
             </div>
           </div>
         </footer>
