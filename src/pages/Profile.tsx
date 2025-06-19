@@ -6,6 +6,7 @@ import { ArrowLeft } from 'lucide-react';
 import ProfileSection from '@/components/ProfileSection';
 import GameProfileDashboard from '@/components/profile/GameProfileDashboard';
 import SpotifyConnection from '@/components/SpotifyConnection';
+import LanguageSelector from '@/components/LanguageSelector';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 const Profile = () => {
@@ -22,8 +23,8 @@ const Profile = () => {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 py-8">
-          {/* Minimal Back Button */}
-          <div className="mb-8">
+          {/* Header with Back Button and Language Toggle */}
+          <div className="mb-8 flex justify-between items-center">
             <Link 
               to="/" 
               className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-300 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2"
@@ -31,6 +32,8 @@ const Profile = () => {
               <ArrowLeft className="w-4 h-4" />
               <span className="text-sm font-medium">{t('profile.back')}</span>
             </Link>
+            
+            <LanguageSelector />
           </div>
 
           {/* Game-style Title */}
