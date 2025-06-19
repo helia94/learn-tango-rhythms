@@ -285,7 +285,7 @@ const Home = () => {
                     I am Helia, but the information in the app did not come to me in a dream. It is the result of the work of many Tango Teachers who have invested their life into understanding this music and teaching it. I just like to make this information more accessible.
                   </p>
                   <p className="leading-relaxed text-warm-brown/90">
-                    <span className="font-bold">I have personally learned the most from:</span> Horacio Godoy, Michael Lavocah, Pepa Polazón, and Murat Erdemsel.
+                    <span className="font-bold">I have personally learned the most from:</span> Horacio Godoy, Michael Lavocah, Pepa Palazon, and Murat Erdemsel.
                   </p>
                 </div>
               </AccordionContent>
