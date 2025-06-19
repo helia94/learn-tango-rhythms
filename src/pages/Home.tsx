@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -105,13 +106,13 @@ const Home = () => {
             {/* Main title area */}
             <div className="md:col-span-7 bg-gradient-to-br from-terracotta/80 to-warm-brown/70 rounded-[40px] p-8 md:p-12 text-cream shadow-lg">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
-                TANGO A DIARIO
+                {t('home.hero.title')}
               </h1>
               <h2 className="text-xl md:text-2xl mb-6 font-light opacity-90">
-                (Daily Tango)
+                {t('home.hero.subtitle')}
               </h2>
               <p className="text-lg md:text-xl mb-6 opacity-95">
-                The Duolingo for Tango Musicality
+                {t('home.hero.tagline')}
               </p>
               <div className="flex items-center gap-4">
                 <Music className="w-8 h-8 text-cream/90" />
@@ -125,9 +126,9 @@ const Home = () => {
             {/* Side content area */}
             <div className="md:col-span-5 flex flex-col gap-6">
               <div className="bg-gradient-to-br from-warm-brown/70 to-caramel/60 rounded-[30px] p-6 text-cream shadow-md">
-                <h3 className="text-xl font-medium mb-3">About Us</h3>
+                <h3 className="text-xl font-medium mb-3">{t('home.about.title')}</h3>
                 <p className="opacity-95">
-                  Practice Tango Musicality for 5 Minutes Every Day. Get One Topic Per Week and Learn More About it Every Day.
+                  {t('home.about.description')}
                 </p>
               </div>
               
@@ -138,7 +139,7 @@ const Home = () => {
                   to="/roadmap" 
                   className="bg-gradient-to-br from-burnt-orange to-paprika border-2 border-burnt-orange text-cream font-bold text-xl p-6 rounded-[20px] hover:from-paprika hover:to-terracotta hover:border-paprika transition-all duration-300 flex items-center justify-between group shadow-xl hover:shadow-2xl transform hover:-translate-y-1 block"
                 >
-                  <span className="font-bold tracking-wide">GO TO ROAD MAP NOW</span>
+                  <span className="font-bold tracking-wide">{t('home.buttons.roadMap')}</span>
                   <Map className="w-6 h-6 group-hover:scale-110 transition-transform" />
                 </Link>
                 
@@ -148,7 +149,7 @@ const Home = () => {
                   className="bg-gradient-to-br from-sage-green/70 to-deep-teal/60 text-cream font-medium text-lg p-4 rounded-[20px] hover:from-cream/80 hover:to-sandy-beige/70 hover:text-sage-green hover:border-sage-green/40 border-2 border-sage-green/30 transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
                 >
                   <span className="font-medium">
-                    {user ? "PROFILE" : "LOGIN"}
+                    {user ? t('home.buttons.profile') : t('home.buttons.login')}
                   </span>
                   {user ? 
                     <User className="w-5 h-5 group-hover:scale-110 transition-transform" /> : 
@@ -161,7 +162,7 @@ const Home = () => {
                   to="/rhythmlab" 
                   className="bg-gradient-to-br from-mushroom/70 to-warm-brown/60 border-2 border-warm-brown/30 text-cream font-medium text-lg p-4 rounded-[20px] hover:from-warm-brown/80 hover:to-caramel/70 hover:text-cream transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
                 >
-                  <span className="font-medium">RHYTHM LAB</span>
+                  <span className="font-medium">{t('home.buttons.rhythmLab')}</span>
                   <Music className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </Link>
               </div>
@@ -185,24 +186,24 @@ const Home = () => {
             />
             
             <h2 className="text-3xl md:text-5xl font-bold mb-8 text-warm-brown relative z-10">
-              PRACTICE MUSICALITY
+              {t('home.description.title')}
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8 relative z-10">
               <div className="space-y-4">
                 <p className="text-lg leading-relaxed text-warm-brown/90">
-                  <strong>Get One Topic Per Week</strong> And Learn More About It Every Day
+                  <strong>{t('home.description.getTopicWeek')}</strong>
                 </p>
                 <p className="text-lg leading-relaxed text-warm-brown/90">
-                  <strong>Track Your Progress</strong> - Repeat, Repeat, And Then Repeat - Until You Can Forget It
+                  <strong>{t('home.description.trackProgress')}</strong>
                 </p>
               </div>
               <div className="space-y-4">
                 <p className="text-lg leading-relaxed text-warm-brown/90">
-                  Most Topics Are About <strong>Building More Contrast</strong> Into Your Dancing And <strong>Breaking Your Habits</strong>
+                  {t('home.description.buildingContrast')}
                 </p>
                 <p className="text-lg leading-relaxed text-warm-brown/90">
-                  <strong>Example Topics:</strong> Dancing Fast And Slow, Dancing Small And Big, Dancing High And Low...
+                  <strong>{t('home.description.exampleTopics')}</strong>
                 </p>
               </div>
             </div>
@@ -216,7 +217,7 @@ const Home = () => {
             <AccordionItem value="why" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">
                 <span className="text-2xl font-medium text-terracotta/90">
-                  WHY?
+                  {t('home.accordion.why.title')}
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
@@ -224,19 +225,19 @@ const Home = () => {
                   <div className="flex gap-4 items-start">
                     <span className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-terracotta/80 to-burnt-orange/70 text-cream flex items-center justify-center font-bold rounded-full">1</span>
                     <p className="leading-relaxed pt-2 text-warm-brown/90">
-                      Because it took me more than 8 years and many long distance trips to musicality workshops to learn basic concepts that are not even that hard
+                      {t('home.accordion.why.reason1')}
                     </p>
                   </div>
                   <div className="flex gap-4 items-start">
                     <span className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-warm-brown/80 to-caramel/70 text-cream flex items-center justify-center font-bold rounded-full">2</span>
                     <p className="leading-relaxed pt-2 text-warm-brown/90">
-                      Because each workshop was 3-4 days, way too much information at once, and I hardly ever went back to practicing them
+                      {t('home.accordion.why.reason2')}
                     </p>
                   </div>
                   <div className="flex gap-4 items-start">
                     <span className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-sandy-beige/80 to-mushroom/70 text-warm-brown flex items-center justify-center font-bold rounded-full">3</span>
                     <p className="leading-relaxed pt-2 text-warm-brown/90">
-                      Because I needed a little inspiration continuously instead of a lot at once
+                      {t('home.accordion.why.reason3')}
                     </p>
                   </div>
                 </div>
@@ -247,12 +248,12 @@ const Home = () => {
             <AccordionItem value="pricing" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">
                 <span className="text-2xl font-medium text-terracotta/90">
-                  IS THIS FREE?
+                  {t('home.accordion.pricing.title')}
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
                 <p className="leading-relaxed text-warm-brown/90">
-                  For now, yes, but paying even a little amount will increase your motivation and commitment at least fivefold. All the content will remain free, only if you want to build a habit and track your mastery of topics, we will charge a small amount in the future.
+                  {t('home.accordion.pricing.content')}
                 </p>
               </AccordionContent>
             </AccordionItem>
@@ -261,12 +262,12 @@ const Home = () => {
             <AccordionItem value="concept" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">
                 <span className="text-2xl font-medium text-terracotta/90">
-                  PROOF OF CONCEPT
+                  {t('home.accordion.concept.title')}
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
                 <p className="leading-relaxed text-warm-brown/90">
-                  For now, this is just a proof of concept. I made it because I had a hunch that others might also need what I needed. I am testing that hunch. In fact, if you are reading this, you are already part of this test. I will commit to finishing it if I find people who really really really want it :) If you kind of want it, this is not for you yet!
+                  {t('home.accordion.concept.content')}
                 </p>
               </AccordionContent>
             </AccordionItem>
@@ -275,16 +276,16 @@ const Home = () => {
             <AccordionItem value="credits" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">
                 <span className="text-2xl font-medium text-terracotta/90">
-                  CREDITS
+                  {t('home.accordion.credits.title')}
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
                 <div className="space-y-4">
                   <p className="leading-relaxed text-warm-brown/90">
-                    I am Helia, but the information in the app did not come to me in a dream. It is the result of the work of many Tango Teachers who have invested their life into understanding this music and teaching it. I just like to make this information more accessible.
+                    {t('home.accordion.credits.intro')}
                   </p>
                   <p className="leading-relaxed text-warm-brown/90">
-                    <span className="font-bold">I have personally learned the most from:</span> Horacio Godoy, Michael Lavocah, Pepa Palazon, and Murat Erdemsel.
+                    <span className="font-bold">{t('home.accordion.credits.teachers')}</span>
                   </p>
                 </div>
               </AccordionContent>
@@ -298,7 +299,7 @@ const Home = () => {
             to="/roadmap" 
             className="w-full bg-gradient-to-br from-burnt-orange to-paprika border-2 border-burnt-orange text-cream font-bold text-xl p-6 rounded-[20px] hover:from-paprika hover:to-terracotta hover:border-paprika transition-all duration-300 flex items-center justify-between group shadow-xl hover:shadow-2xl transform hover:-translate-y-1 block"
           >
-            <span className="font-bold tracking-wide">GO TO ROAD MAP NOW</span>
+            <span className="font-bold tracking-wide">{t('home.buttons.roadMap')}</span>
             <Map className="w-6 h-6 group-hover:scale-110 transition-transform" />
           </Link>
         </div>
@@ -306,11 +307,11 @@ const Home = () => {
         {/* Footer with Mid-Century styling */}
         <footer className="mt-16 pt-6 border-t border-terracotta/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-lg font-medium text-terracotta/80">TANGO A DIARIO © 2025</div>
+            <div className="text-lg font-medium text-terracotta/80">{t('home.footer.copyright')}</div>
             <div className="flex gap-6">
-              <Link to="/terms" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Terms</Link>
-              <Link to="/privacy" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Privacy</Link>
-              <Link to="/contact" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Contact</Link>
+              <Link to="/terms" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">{t('home.footer.terms')}</Link>
+              <Link to="/privacy" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">{t('home.footer.privacy')}</Link>
+              <Link to="/contact" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">{t('home.footer.contact')}</Link>
             </div>
           </div>
         </footer>
