@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -170,7 +169,7 @@ const Home = () => {
           </div>
         </div>
         
-        {/* Main description section */}
+        {/* Main description section with homogenized casing */}
         <div className="mb-16">
           <div className="bg-gradient-to-br from-cream/80 to-sandy-beige/60 rounded-[30px] p-8 relative overflow-hidden shadow-lg">
             {/* Background shape */}
@@ -192,18 +191,18 @@ const Home = () => {
             <div className="grid md:grid-cols-2 gap-8 relative z-10">
               <div className="space-y-4">
                 <p className="text-lg leading-relaxed text-warm-brown/90">
-                  <strong>Get One Topic Per Week</strong> and Learn More About it Every Day
+                  <strong>Get One Topic Per Week</strong> And Learn More About It Every Day
                 </p>
                 <p className="text-lg leading-relaxed text-warm-brown/90">
-                  <strong>Track Your Progress</strong> - Repeat, Repeat, and then Repeat - until You Can Forget It
+                  <strong>Track Your Progress</strong> - Repeat, Repeat, And Then Repeat - Until You Can Forget It
                 </p>
               </div>
               <div className="space-y-4">
                 <p className="text-lg leading-relaxed text-warm-brown/90">
-                  Most topics are about <strong>building more contrast</strong> into your dancing and <strong>breaking your habits</strong>
+                  Most Topics Are About <strong>Building More Contrast</strong> Into Your Dancing And <strong>Breaking Your Habits</strong>
                 </p>
                 <p className="text-lg leading-relaxed text-warm-brown/90">
-                  <strong>Example topics:</strong> Dancing fast and slow, dancing small and big, dancing high and low...
+                  <strong>Example Topics:</strong> Dancing Fast And Slow, Dancing Small And Big, Dancing High And Low...
                 </p>
               </div>
             </div>
