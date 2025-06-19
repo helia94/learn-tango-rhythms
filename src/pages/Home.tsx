@@ -24,12 +24,12 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-cream text-dark-brown overflow-hidden relative">
-      {/* Mid-Century Modern organic shapes background */}
+    <div className="min-h-screen bg-gradient-to-br from-sandy-beige/30 via-cream to-mushroom/20 text-warm-brown overflow-hidden relative">
+      {/* Softer Mid-Century Modern organic shapes background */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Large burnt orange shape in top left */}
+        {/* Large soft terracotta shape in top left */}
         <div 
-          className="absolute bg-burnt-orange rounded-full opacity-90" 
+          className="absolute bg-gradient-to-br from-terracotta/30 to-burnt-orange/20 rounded-full opacity-60" 
           style={{ 
             width: '45%', 
             height: '40%', 
@@ -39,9 +39,9 @@ const Home = () => {
           }}
         />
         
-        {/* Terracotta shape in top right */}
+        {/* Warm brown shape in top right */}
         <div 
-          className="absolute bg-terracotta rounded-full opacity-80" 
+          className="absolute bg-gradient-to-bl from-warm-brown/25 to-caramel/15 rounded-full opacity-70" 
           style={{ 
             width: '35%', 
             height: '30%', 
@@ -51,9 +51,9 @@ const Home = () => {
           }}
         />
         
-        {/* Brown shape in middle right */}
+        {/* Sandy beige shape in middle right */}
         <div 
-          className="absolute bg-warm-brown rounded-full opacity-80" 
+          className="absolute bg-gradient-to-l from-sandy-beige/40 to-mushroom/25 rounded-full opacity-50" 
           style={{ 
             width: '25%', 
             height: '40%', 
@@ -63,9 +63,9 @@ const Home = () => {
           }}
         />
         
-        {/* Burnt orange shape in bottom left */}
+        {/* Soft burnt orange shape in bottom left */}
         <div 
-          className="absolute bg-burnt-orange rounded-full opacity-70" 
+          className="absolute bg-gradient-to-tr from-burnt-orange/20 to-terracotta/15 rounded-full opacity-60" 
           style={{ 
             width: '40%', 
             height: '45%', 
@@ -75,9 +75,9 @@ const Home = () => {
           }}
         />
         
-        {/* Teal accent shape */}
+        {/* Subtle accent shape */}
         <div 
-          className="absolute bg-teal rounded-full opacity-80" 
+          className="absolute bg-gradient-to-tl from-sage-green/20 to-deep-teal/10 rounded-full opacity-60" 
           style={{ 
             width: '20%', 
             height: '25%', 
@@ -93,46 +93,46 @@ const Home = () => {
         {/* Header with Language Selector */}
         <div className="flex justify-between items-center mb-12 pt-4">
           <div className="text-2xl font-medium tracking-wide">
-            <span className="text-teal">TANGO</span> <span className="text-burnt-orange">A DIARIO</span>
+            <span className="text-sage-green">TANGO</span> <span className="text-burnt-orange/80">A DIARIO</span>
           </div>
           <LanguageSelector />
         </div>
         
-        {/* Hero section with Mid-Century Modern styling */}
+        {/* Hero section with softer Mid-Century Modern styling */}
         <div 
           className={`relative mb-16 transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}
         >
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             {/* Main title area */}
-            <div className="md:col-span-7 bg-burnt-orange rounded-[40px] p-8 md:p-12 text-cream">
+            <div className="md:col-span-7 bg-gradient-to-br from-terracotta/80 to-warm-brown/70 rounded-[40px] p-8 md:p-12 text-cream shadow-lg">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
                 TANGO A DIARIO
               </h1>
-              <h2 className="text-xl md:text-2xl mb-6 font-light">
+              <h2 className="text-xl md:text-2xl mb-6 font-light opacity-90">
                 (Daily Tango)
               </h2>
-              <p className="text-lg md:text-xl mb-6">
+              <p className="text-lg md:text-xl mb-6 opacity-95">
                 The Duolingo for Tango Musicality
               </p>
               <div className="flex items-center gap-4">
-                <Music className="w-8 h-8 text-cream" />
-                <div className="w-2 h-2 bg-cream rounded-full"></div>
-                <Zap className="w-6 h-6 text-cream" />
-                <div className="w-2 h-2 bg-cream rounded-full"></div>
-                <Map className="w-8 h-8 text-cream" />
+                <Music className="w-8 h-8 text-cream/90" />
+                <div className="w-2 h-2 bg-cream/80 rounded-full"></div>
+                <Zap className="w-6 h-6 text-cream/90" />
+                <div className="w-2 h-2 bg-cream/80 rounded-full"></div>
+                <Map className="w-8 h-8 text-cream/90" />
               </div>
             </div>
             
             {/* Side content area */}
             <div className="md:col-span-5 flex flex-col gap-6">
-              <div className="bg-warm-brown rounded-[30px] p-6 text-cream">
+              <div className="bg-gradient-to-br from-warm-brown/70 to-caramel/60 rounded-[30px] p-6 text-cream shadow-md">
                 <h3 className="text-xl font-medium mb-3">About Us</h3>
-                <p>
+                <p className="opacity-95">
                   Practice Tango Musicality for 5 Minutes Every Day. Get One Topic Per Week and Learn More About it Every Day.
                 </p>
               </div>
               
-              <div className="bg-mustard rounded-[30px] p-6 text-dark-brown">
+              <div className="bg-gradient-to-br from-sandy-beige/80 to-mushroom/60 rounded-[30px] p-6 text-warm-brown shadow-md">
                 <h3 className="text-xl font-medium mb-3">Upcoming Events</h3>
                 <ul className="space-y-2">
                   <li className="flex justify-between">
@@ -151,10 +151,10 @@ const Home = () => {
         
         {/* Main description section */}
         <div className="mb-16">
-          <div className="bg-cream rounded-[30px] p-8 relative overflow-hidden shadow-md">
+          <div className="bg-gradient-to-br from-cream/80 to-sandy-beige/60 rounded-[30px] p-8 relative overflow-hidden shadow-lg">
             {/* Background shape */}
             <div 
-              className="absolute bg-burnt-orange opacity-10 rounded-full" 
+              className="absolute bg-gradient-to-br from-burnt-orange/10 to-terracotta/5 rounded-full" 
               style={{ 
                 width: '60%', 
                 height: '120%', 
@@ -164,24 +164,24 @@ const Home = () => {
               }}
             />
             
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-dark-brown relative z-10">
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-warm-brown relative z-10">
               PRACTICE MUSICALITY
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8 relative z-10">
               <div className="space-y-4">
-                <p className="text-lg leading-relaxed">
+                <p className="text-lg leading-relaxed text-warm-brown/90">
                   <strong>Get One Topic Per Week</strong> and Learn More About it Every Day
                 </p>
-                <p className="text-lg leading-relaxed">
+                <p className="text-lg leading-relaxed text-warm-brown/90">
                   <strong>Track Your Progress</strong> - Repeat, Repeat, and then Repeat - until You Can Forget It
                 </p>
               </div>
               <div className="space-y-4">
-                <p className="text-lg leading-relaxed">
+                <p className="text-lg leading-relaxed text-warm-brown/90">
                   Most topics are about <strong>building more contrast</strong> into your dancing and <strong>breaking your habits</strong>
                 </p>
-                <p className="text-lg leading-relaxed">
+                <p className="text-lg leading-relaxed text-warm-brown/90">
                   <strong>Example topics:</strong> Dancing fast and slow, dancing small and big, dancing high and low...
                 </p>
               </div>
@@ -189,12 +189,12 @@ const Home = () => {
           </div>
         </div>
         
-        {/* Action buttons with Mid-Century styling */}
+        {/* Action buttons with softer Mid-Century styling */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {/* Road Map Button */}
           <Link 
             to="/roadmap" 
-            className="bg-cream border-2 border-burnt-orange text-burnt-orange font-medium text-xl p-6 rounded-[30px] hover:bg-burnt-orange hover:text-cream transition-colors flex items-center justify-between group"
+            className="bg-gradient-to-br from-sandy-beige/80 to-cream/70 border-2 border-terracotta/30 text-terracotta font-medium text-xl p-6 rounded-[30px] hover:from-terracotta/80 hover:to-burnt-orange/70 hover:text-cream transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
           >
             <span className="font-medium">ROAD MAP</span>
             <Map className="w-6 h-6 group-hover:scale-110 transition-transform" />
@@ -203,7 +203,7 @@ const Home = () => {
           {/* Profile/Login Button */}
           <Link 
             to={user ? "/profile" : "/auth"}
-            className="bg-teal text-cream font-medium text-xl p-6 rounded-[30px] hover:bg-cream hover:text-teal hover:border-teal border-2 border-teal transition-colors flex items-center justify-between group"
+            className="bg-gradient-to-br from-sage-green/70 to-deep-teal/60 text-cream font-medium text-xl p-6 rounded-[30px] hover:from-cream/80 hover:to-sandy-beige/70 hover:text-sage-green hover:border-sage-green/40 border-2 border-sage-green/30 transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
           >
             <span className="font-medium">
               {user ? "PROFILE" : "LOGIN"}
@@ -217,40 +217,40 @@ const Home = () => {
           {/* Rhythm Lab Button */}
           <Link 
             to="/rhythmlab" 
-            className="bg-cream border-2 border-warm-brown text-warm-brown font-medium text-xl p-6 rounded-[30px] hover:bg-warm-brown hover:text-cream transition-colors flex items-center justify-between group"
+            className="bg-gradient-to-br from-mushroom/70 to-warm-brown/60 border-2 border-warm-brown/30 text-cream font-medium text-xl p-6 rounded-[30px] hover:from-warm-brown/80 hover:to-caramel/70 hover:text-cream transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
           >
             <span className="font-medium">RHYTHM LAB</span>
             <Music className="w-6 h-6 group-hover:scale-110 transition-transform" />
           </Link>
         </div>
 
-        {/* Expandable Sections with Mid-Century styling */}
-        <div className="mb-16 bg-cream rounded-[30px] p-6 shadow-md">
+        {/* Expandable Sections with softer Mid-Century styling */}
+        <div className="mb-16 bg-gradient-to-br from-cream/70 to-sandy-beige/50 rounded-[30px] p-6 shadow-lg">
           <Accordion type="single" collapsible className="w-full">
             {/* Why Section */}
-            <AccordionItem value="why" className="border-b border-burnt-orange/30">
+            <AccordionItem value="why" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">
-                <span className="text-2xl font-medium text-burnt-orange">
+                <span className="text-2xl font-medium text-terracotta/90">
                   WHY?
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
                 <div className="space-y-4">
                   <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-10 h-10 bg-burnt-orange text-cream flex items-center justify-center font-bold rounded-full">1</span>
-                    <p className="leading-relaxed pt-2">
+                    <span className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-terracotta/80 to-burnt-orange/70 text-cream flex items-center justify-center font-bold rounded-full">1</span>
+                    <p className="leading-relaxed pt-2 text-warm-brown/90">
                       Because it took me more than 8 years and many long distance trips to musicality workshops to learn basic concepts that are not even that hard
                     </p>
                   </div>
                   <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-10 h-10 bg-terracotta text-cream flex items-center justify-center font-bold rounded-full">2</span>
-                    <p className="leading-relaxed pt-2">
+                    <span className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-warm-brown/80 to-caramel/70 text-cream flex items-center justify-center font-bold rounded-full">2</span>
+                    <p className="leading-relaxed pt-2 text-warm-brown/90">
                       Because each workshop was 3-4 days, way too much information at once, and I hardly ever went back to practicing them
                     </p>
                   </div>
                   <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-10 h-10 bg-warm-brown text-cream flex items-center justify-center font-bold rounded-full">3</span>
-                    <p className="leading-relaxed pt-2">
+                    <span className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-sandy-beige/80 to-mushroom/70 text-warm-brown flex items-center justify-center font-bold rounded-full">3</span>
+                    <p className="leading-relaxed pt-2 text-warm-brown/90">
                       Because I needed a little inspiration continuously instead of a lot at once
                     </p>
                   </div>
@@ -259,46 +259,46 @@ const Home = () => {
             </AccordionItem>
 
             {/* Is this free? Section */}
-            <AccordionItem value="pricing" className="border-b border-burnt-orange/30">
+            <AccordionItem value="pricing" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">
-                <span className="text-2xl font-medium text-burnt-orange">
+                <span className="text-2xl font-medium text-terracotta/90">
                   IS THIS FREE?
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
-                <p className="leading-relaxed">
+                <p className="leading-relaxed text-warm-brown/90">
                   For now, yes, but paying even a little amount will increase your motivation and commitment at least five fold. So, in the future, this will be paid for both our sakes.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
             {/* Proof of Concept Section */}
-            <AccordionItem value="concept" className="border-b border-burnt-orange/30">
+            <AccordionItem value="concept" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">
-                <span className="text-2xl font-medium text-burnt-orange">
+                <span className="text-2xl font-medium text-terracotta/90">
                   PROOF OF CONCEPT
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
-                <p className="leading-relaxed">
+                <p className="leading-relaxed text-warm-brown/90">
                   For now, this is just a proof of concept. I made it because I had a hunch that others might also need what I needed. I am testing that hunch. In fact, if you are reading this, you are already part of this test. I will commit to finishing it if I find people who really really really want it :) If you kind of want it, this is not for you yet!
                 </p>
               </AccordionContent>
             </AccordionItem>
 
             {/* Credits Section */}
-            <AccordionItem value="credits" className="border-b border-burnt-orange/30">
+            <AccordionItem value="credits" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">
-                <span className="text-2xl font-medium text-burnt-orange">
+                <span className="text-2xl font-medium text-terracotta/90">
                   CREDITS
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
                 <div className="space-y-4">
-                  <p className="leading-relaxed">
+                  <p className="leading-relaxed text-warm-brown/90">
                     I am Helia, but the information in the app did not come to me in a dream. It is the result of the work of many Tango Teachers who have invested their life into understanding this music and teaching it. I just like to make this information more accessible.
                   </p>
-                  <p className="leading-relaxed">
+                  <p className="leading-relaxed text-warm-brown/90">
                     <span className="font-bold">I have personally learned the most from:</span> Horacio Godoy, Michael Lavoca, Pepa Polazón, and Murat Erdemsel.
                   </p>
                 </div>
@@ -308,13 +308,13 @@ const Home = () => {
         </div>
 
         {/* Footer with Mid-Century styling */}
-        <footer className="mt-16 pt-6 border-t border-burnt-orange/30">
+        <footer className="mt-16 pt-6 border-t border-terracotta/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-lg font-medium text-burnt-orange">TANGO A DIARIO © 2025</div>
+            <div className="text-lg font-medium text-terracotta/80">TANGO A DIARIO © 2025</div>
             <div className="flex gap-6">
-              <a href="#" className="text-warm-brown hover:text-burnt-orange transition-colors">Terms</a>
-              <a href="#" className="text-warm-brown hover:text-burnt-orange transition-colors">Privacy</a>
-              <a href="#" className="text-warm-brown hover:text-burnt-orange transition-colors">Contact</a>
+              <a href="#" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Terms</a>
+              <a href="#" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Privacy</a>
+              <a href="#" className="text-warm-brown/80 hover:text-terracotta/80 transition-colors">Contact</a>
             </div>
           </div>
         </footer>
