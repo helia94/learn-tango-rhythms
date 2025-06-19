@@ -133,13 +133,13 @@ const Home = () => {
               
               {/* Action buttons moved here, below About Us */}
               <div className="grid grid-cols-1 gap-4">
-                {/* Road Map Button */}
+                {/* Road Map Button - Enhanced with more contrast */}
                 <Link 
                   to="/roadmap" 
-                  className="bg-gradient-to-br from-sandy-beige/80 to-cream/70 border-2 border-terracotta/30 text-terracotta font-medium text-lg p-4 rounded-[20px] hover:from-terracotta/80 hover:to-burnt-orange/70 hover:text-cream transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
+                  className="bg-gradient-to-br from-burnt-orange to-paprika border-2 border-burnt-orange text-cream font-bold text-xl p-6 rounded-[20px] hover:from-paprika hover:to-terracotta hover:border-paprika transition-all duration-300 flex items-center justify-between group shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
                 >
-                  <span className="font-medium">ROAD MAP</span>
-                  <Map className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <span className="font-bold tracking-wide">ROAD MAP</span>
+                  <Map className="w-6 h-6 group-hover:scale-110 transition-transform" />
                 </Link>
                 
                 {/* Profile/Login Button */}
