@@ -1,10 +1,12 @@
 
 import React from 'react';
 import { useSpotify } from '@/contexts/SpotifyContext';
+import { useTranslation } from '@/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
 import { Music, Check, Loader2 } from 'lucide-react';
 
 const SpotifyConnection = () => {
+  const { t } = useTranslation();
   const { 
     isConnected, 
     loading, 
@@ -17,7 +19,7 @@ const SpotifyConnection = () => {
       <div className="bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-6">
         <div className="flex items-center justify-center">
           <Loader2 className="w-5 h-5 animate-spin text-sage-green" />
-          <span className="ml-2 text-warm-brown font-medium">Connecting...</span>
+          <span className="ml-2 text-warm-brown font-medium">{t('profile.spotify.connecting')}</span>
         </div>
       </div>
     );
@@ -38,7 +40,7 @@ const SpotifyConnection = () => {
             <Music className="w-5 h-5 text-sage-green" />
           </div>
           <div>
-            <h3 className="text-lg font-display text-warm-brown">Spotify</h3>
+            <h3 className="text-lg font-display text-warm-brown">{t('profile.spotify.title')}</h3>
           </div>
         </div>
 
@@ -50,8 +52,8 @@ const SpotifyConnection = () => {
                 <Check className="w-6 h-6 text-white" />
               </div>
               <div>
-                <p className="font-medium text-sage-green font-display">Connected</p>
-                <p className="text-xs text-warm-brown">Premium playback enabled</p>
+                <p className="font-medium text-sage-green font-display">{t('profile.spotify.connected')}</p>
+                <p className="text-xs text-warm-brown">{t('profile.spotify.premiumEnabled')}</p>
               </div>
             </div>
 
@@ -62,7 +64,7 @@ const SpotifyConnection = () => {
               size="sm"
               className="w-full border-terracotta/30 text-terracotta hover:bg-terracotta/10 rounded-organic font-medium"
             >
-              Disconnect
+              {t('profile.spotify.disconnect')}
             </Button>
           </div>
         ) : (
@@ -73,8 +75,8 @@ const SpotifyConnection = () => {
                 <Music className="w-6 h-6 text-white" />
               </div>
               <div>
-                <p className="font-medium text-warm-brown font-display">Not Connected</p>
-                <p className="text-xs text-mushroom">Premium account required</p>
+                <p className="font-medium text-warm-brown font-display">{t('profile.spotify.notConnected')}</p>
+                <p className="text-xs text-mushroom">{t('profile.spotify.premiumRequired')}</p>
               </div>
             </div>
 
@@ -84,7 +86,7 @@ const SpotifyConnection = () => {
               className="w-full bg-gradient-to-r from-sage-green to-deep-teal hover:from-deep-teal hover:to-sage-green text-white rounded-organic shadow-lg hover:shadow-xl transition-all duration-300 font-medium transform hover:-translate-y-1"
             >
               <Music className="w-4 h-4 mr-2" />
-              Connect Premium
+              {t('profile.spotify.connectPremium')}
             </Button>
           </div>
         )}

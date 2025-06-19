@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import { useEngagementData } from '@/hooks/useEngagementData';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
+import { useTranslation } from '@/hooks/useTranslation';
 import { Flame, Calendar, Target } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import AssignmentProgressChart from './AssignmentProgressChart';
 
 const GameProfileDashboard: React.FC = () => {
+  const { t } = useTranslation();
   const {
     engagementData,
     streakData,
@@ -145,7 +147,7 @@ const GameProfileDashboard: React.FC = () => {
           <div className="w-10 h-10 bg-terracotta/20 rounded-full flex items-center justify-center">
             <Target className="w-5 h-5 text-terracotta" />
           </div>
-          <h3 className="text-lg font-bold text-gray-800">Topic Mastery</h3>
+          <h3 className="text-lg font-bold text-gray-800">{t('profile.dashboard.topicMastery')}</h3>
         </div>
         
         <div className="space-y-4">
@@ -166,7 +168,7 @@ const GameProfileDashboard: React.FC = () => {
               </div>
               
               <div className="text-xs text-gray-600 text-right">
-                {topic.totalAssignments} assignments completed
+                {topic.totalAssignments} {t('profile.dashboard.assignmentsCompleted')}
               </div>
             </div>
           ))}
@@ -174,7 +176,7 @@ const GameProfileDashboard: React.FC = () => {
           {topicsMastery.length === 0 && (
             <div className="text-center py-6 text-gray-600">
               <Target className="w-10 h-10 mx-auto mb-2 opacity-50" />
-              <p className="text-sm">No topics activated yet</p>
+              <p className="text-sm">{t('profile.dashboard.noTopicsActivated')}</p>
             </div>
           )}
         </div>
@@ -192,9 +194,9 @@ const GameProfileDashboard: React.FC = () => {
               <div className="text-2xl font-bold text-terracotta">
                 {dailyStreak?.current_streak || 0}
               </div>
-              <div className="text-xs text-gray-800 font-medium -mt-1">Daily</div>
+              <div className="text-xs text-gray-800 font-medium -mt-1">{t('profile.dashboard.dailyStreak')}</div>
               <div className="text-xs text-gray-600">
-                Best: {dailyStreak?.longest_streak || 0}
+                {t('profile.dashboard.best')} {dailyStreak?.longest_streak || 0}
               </div>
             </div>
           </div>
@@ -210,9 +212,9 @@ const GameProfileDashboard: React.FC = () => {
               <div className="text-2xl font-bold text-deep-teal">
                 {weeklyStreak?.current_streak || 0}
               </div>
-              <div className="text-xs text-gray-800 font-medium -mt-1">Weekly</div>
+              <div className="text-xs text-gray-800 font-medium -mt-1">{t('profile.dashboard.weeklyStreak')}</div>
               <div className="text-xs text-gray-600">
-                Best: {weeklyStreak?.longest_streak || 0}
+                {t('profile.dashboard.best')} {weeklyStreak?.longest_streak || 0}
               </div>
             </div>
           </div>
@@ -224,7 +226,7 @@ const GameProfileDashboard: React.FC = () => {
 
       {/* Activity Heatmap */}
       <div className="relative bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-sandy-beige/20">
-        <h3 className="text-sm font-bold text-gray-800 mb-3 text-center">Monthly Activity</h3>
+        <h3 className="text-sm font-bold text-gray-800 mb-3 text-center">{t('profile.dashboard.monthlyActivity')}</h3>
         <div className="flex justify-center">
           <div className="grid grid-cols-7 gap-1.5 max-w-fit">
             {Array.from({ length: 28 }, (_, i) => {
@@ -264,7 +266,7 @@ const GameProfileDashboard: React.FC = () => {
         </div>
         
         <div className="flex items-center justify-center gap-2 mt-3">
-          <span className="text-xs text-gray-600">Less</span>
+          <span className="text-xs text-gray-600">{t('profile.dashboard.activityLess')}</span>
           <div className="flex gap-1">
             <div className="w-3 h-3 rounded-full bg-sandy-beige/20" />
             <div className="w-3 h-3 rounded-full bg-sandy-beige/50" />
@@ -272,7 +274,7 @@ const GameProfileDashboard: React.FC = () => {
             <div className="w-3 h-3 rounded-full bg-warm-brown/70" />
             <div className="w-3 h-3 rounded-full bg-warm-brown" />
           </div>
-          <span className="text-xs text-gray-600">More</span>
+          <span className="text-xs text-gray-600">{t('profile.dashboard.activityMore')}</span>
         </div>
       </div>
 
@@ -280,7 +282,7 @@ const GameProfileDashboard: React.FC = () => {
       <div className="relative text-center py-3">
         <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-terracotta/20">
           <span className="text-lg">🎯</span>
-          <span className="text-gray-800 font-medium text-sm">Keep going! Every step counts.</span>
+          <span className="text-gray-800 font-medium text-sm">{t('profile.dashboard.keepGoing')}</span>
         </div>
       </div>
     </div>

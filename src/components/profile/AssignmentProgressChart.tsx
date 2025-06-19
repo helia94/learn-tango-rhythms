@@ -2,9 +2,11 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { TrendingUp } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 import { useAssignmentProgress, AssignmentProgressData } from '@/hooks/useAssignmentProgress';
 
 const AssignmentProgressChart: React.FC = () => {
+  const { t } = useTranslation();
   const { progressData, isLoading } = useAssignmentProgress();
 
   if (isLoading) {
@@ -16,7 +18,7 @@ const AssignmentProgressChart: React.FC = () => {
           </div>
           <div>
             <div className="w-8 h-6 bg-warm-brown/20 rounded animate-pulse"></div>
-            <div className="text-sm text-gray-800 font-medium">Assignments Done</div>
+            <div className="text-sm text-gray-800 font-medium">{t('profile.dashboard.assignmentsDone')}</div>
           </div>
         </div>
         <div className="h-16 bg-warm-brown/10 rounded animate-pulse"></div>
@@ -34,7 +36,7 @@ const AssignmentProgressChart: React.FC = () => {
         </div>
         <div>
           <div className="text-2xl font-bold text-gray-800">{totalAssignments}</div>
-          <div className="text-sm text-gray-800 font-medium">Assignments Done</div>
+          <div className="text-sm text-gray-800 font-medium">{t('profile.dashboard.assignmentsDone')}</div>
         </div>
       </div>
       
@@ -80,7 +82,7 @@ const AssignmentProgressChart: React.FC = () => {
           </ResponsiveContainer>
         </div>
       ) : (
-        <div className="text-xs text-gray-600 mt-2">Keep going!</div>
+        <div className="text-xs text-gray-600 mt-2">{t('profile.dashboard.keepGoingShort')}</div>
       )}
     </div>
   );

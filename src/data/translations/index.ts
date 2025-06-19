@@ -25,6 +25,13 @@ export type TranslationKey = MainTranslationKey |
   `profile.sections.placeholders.fullName` | `profile.sections.placeholders.username` | `profile.sections.placeholders.bio` |
   `profile.sections.messages.profileUpdated` | `profile.sections.messages.usernameTaken` | `profile.sections.messages.updateFailed` |
   `profile.sections.messages.unexpectedError` | `profile.sections.messages.signedOut` | `profile.sections.messages.signOutFailed` |
+  // Profile dashboard keys
+  `profile.dashboard.topicMastery` | `profile.dashboard.dailyStreak` | `profile.dashboard.weeklyStreak` | `profile.dashboard.best` |
+  `profile.dashboard.assignmentsDone` | `profile.dashboard.monthlyActivity` | `profile.dashboard.activityLess` | `profile.dashboard.activityMore` |
+  `profile.dashboard.noTopicsActivated` | `profile.dashboard.assignmentsCompleted` | `profile.dashboard.keepGoing` | `profile.dashboard.keepGoingShort` |
+  // Profile spotify keys
+  `profile.spotify.title` | `profile.spotify.connected` | `profile.spotify.notConnected` | `profile.spotify.premiumEnabled` |
+  `profile.spotify.premiumRequired` | `profile.spotify.disconnect` | `profile.spotify.connectPremium` | `profile.spotify.connecting` |
   // Add missing small and big dancing exercise keys
   `exercises.dancingSmallBig.daily.day1.content` | `exercises.dancingSmallBig.daily.day1.task` |
   `exercises.dancingSmallBig.daily.day2.content` | `exercises.dancingSmallBig.daily.day2.task` |

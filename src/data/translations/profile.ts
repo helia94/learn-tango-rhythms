@@ -21,6 +21,90 @@ export const profileTranslations = {
       en: "🗺️ ROADMAP",
       de: "🗺️ ROADMAP"
     },
+    dashboard: {
+      topicMastery: {
+        en: "Topic Mastery",
+        de: "Themen-Meisterschaft"
+      },
+      dailyStreak: {
+        en: "Daily",
+        de: "Täglich"
+      },
+      weeklyStreak: {
+        en: "Weekly",
+        de: "Wöchentlich"
+      },
+      best: {
+        en: "Best:",
+        de: "Beste:"
+      },
+      assignmentsDone: {
+        en: "Assignments Done",
+        de: "Aufgaben Erledigt"
+      },
+      monthlyActivity: {
+        en: "Monthly Activity",
+        de: "Monatliche Aktivität"
+      },
+      activityLess: {
+        en: "Less",
+        de: "Weniger"
+      },
+      activityMore: {
+        en: "More",
+        de: "Mehr"
+      },
+      noTopicsActivated: {
+        en: "No topics activated yet",
+        de: "Noch keine Themen aktiviert"
+      },
+      assignmentsCompleted: {
+        en: "assignments completed",
+        de: "Aufgaben abgeschlossen"
+      },
+      keepGoing: {
+        en: "Keep going! Every step counts.",
+        de: "Mach weiter! Jeder Schritt zählt."
+      },
+      keepGoingShort: {
+        en: "Keep going!",
+        de: "Weiter so!"
+      }
+    },
+    spotify: {
+      title: {
+        en: "Spotify",
+        de: "Spotify"
+      },
+      connected: {
+        en: "Connected",
+        de: "Verbunden"
+      },
+      notConnected: {
+        en: "Not Connected",
+        de: "Nicht verbunden"
+      },
+      premiumEnabled: {
+        en: "Premium playback enabled",
+        de: "Premium-Wiedergabe aktiviert"
+      },
+      premiumRequired: {
+        en: "Premium account required",
+        de: "Premium-Konto erforderlich"
+      },
+      disconnect: {
+        en: "Disconnect",
+        de: "Trennen"
+      },
+      connectPremium: {
+        en: "Connect Premium",
+        de: "Premium Verbinden"
+      },
+      connecting: {
+        en: "Connecting...",
+        de: "Verbinde..."
+      }
+    },
     sections: {
       username: {
         en: "Username",
