@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -252,7 +253,7 @@ const Home = () => {
               </AccordionTrigger>
               <AccordionContent className="pb-6">
                 <p className="leading-relaxed text-warm-brown/90">
-                  For now, yes, but paying even a little amount will increase your motivation and commitment at least five fold. So, in the future, this will be paid for both our sakes.
+                  For now, yes, but paying even a little amount will increase your motivation and commitment at least fivefold. All the content will remain free, only if you want to build a habit and track your mastery of topics, we will charge a small amount.
                 </p>
               </AccordionContent>
             </AccordionItem>
