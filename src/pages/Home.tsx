@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
@@ -10,215 +9,345 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 const Home = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Set loaded state after a short delay for entrance animations
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
-      {/* Geometric shapes for abstract design */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-32 right-32 w-16 h-16 bg-paprika transform rotate-45"></div>
-        <div className="absolute bottom-48 left-16 w-20 h-20 bg-sage-green transform rotate-12"></div>
-        <div className="absolute top-1/2 right-16 w-12 h-12 bg-golden-yellow transform -rotate-12"></div>
-        <div className="absolute bottom-32 right-1/3 w-24 h-24 bg-terracotta transform rotate-45"></div>
+    <div className="min-h-screen bg-cream text-dark-brown overflow-hidden relative">
+      {/* Mid-Century Modern organic shapes background */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Large burnt orange shape in top left */}
+        <div 
+          className="absolute bg-burnt-orange rounded-full opacity-90" 
+          style={{ 
+            width: '45%', 
+            height: '40%', 
+            top: '-5%', 
+            left: '-10%',
+            borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%',
+          }}
+        />
+        
+        {/* Terracotta shape in top right */}
+        <div 
+          className="absolute bg-terracotta rounded-full opacity-80" 
+          style={{ 
+            width: '35%', 
+            height: '30%', 
+            top: '5%', 
+            right: '5%',
+            borderRadius: '70% 30% 50% 50% / 60% 40% 60% 40%',
+          }}
+        />
+        
+        {/* Brown shape in middle right */}
+        <div 
+          className="absolute bg-warm-brown rounded-full opacity-80" 
+          style={{ 
+            width: '25%', 
+            height: '40%', 
+            top: '35%', 
+            right: '-5%',
+            borderRadius: '50% 50% 70% 30% / 50% 50% 30% 70%',
+          }}
+        />
+        
+        {/* Burnt orange shape in bottom left */}
+        <div 
+          className="absolute bg-burnt-orange rounded-full opacity-70" 
+          style={{ 
+            width: '40%', 
+            height: '45%', 
+            bottom: '-15%', 
+            left: '-10%',
+            borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
+          }}
+        />
+        
+        {/* Teal accent shape */}
+        <div 
+          className="absolute bg-teal rounded-full opacity-80" 
+          style={{ 
+            width: '20%', 
+            height: '25%', 
+            bottom: '20%', 
+            right: '15%',
+            borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
+          }}
+        />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
-        {/* Language Selector in top right */}
-        <div className="flex justify-end mb-8">
+      {/* Main content container */}
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        {/* Header with Language Selector */}
+        <div className="flex justify-between items-center mb-12 pt-4">
+          <div className="text-2xl font-medium tracking-wide">
+            <span className="text-teal">TANGO</span> <span className="text-burnt-orange">A DIARIO</span>
+          </div>
           <LanguageSelector />
         </div>
         
-        <div className="text-center">
-          {/* Main Title with geometric background */}
-          <div className="relative mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-burnt-orange/20 to-terracotta/20 rounded-3xl transform rotate-1"></div>
-            <div className="relative bg-cream/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-warm-brown/20">
-              <h1 className="boho-title text-4xl md:text-6xl lg:text-8xl mb-2 font-display">
+        {/* Hero section with Mid-Century Modern styling */}
+        <div 
+          className={`relative mb-16 transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            {/* Main title area */}
+            <div className="md:col-span-7 bg-burnt-orange rounded-[40px] p-8 md:p-12 text-cream">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
                 TANGO A DIARIO
               </h1>
-              <h2 className="boho-title text-2xl md:text-3xl lg:text-4xl mb-4 font-display opacity-80">
+              <h2 className="text-xl md:text-2xl mb-6 font-light">
                 (Daily Tango)
               </h2>
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <Music className="w-8 h-8 md:w-12 md:h-12 text-burnt-orange animate-gentle-bounce" />
-                <div className="w-2 h-2 bg-terracotta rounded-full animate-organic-pulse"></div>
-                <Zap className="w-6 h-6 md:w-10 md:h-10 text-golden-yellow animate-gentle-bounce delay-300" />
-                <div className="w-2 h-2 bg-sage-green rounded-full animate-organic-pulse delay-500"></div>
-                <Map className="w-8 h-8 md:w-12 md:h-12 text-deep-teal animate-gentle-bounce delay-600" />
-              </div>
-              <p className="boho-subtitle text-lg md:text-xl mb-2 text-warm-brown">
+              <p className="text-lg md:text-xl mb-6">
                 The Duolingo for Tango Musicality
               </p>
+              <div className="flex items-center gap-4">
+                <Music className="w-8 h-8 text-cream" />
+                <div className="w-2 h-2 bg-cream rounded-full"></div>
+                <Zap className="w-6 h-6 text-cream" />
+                <div className="w-2 h-2 bg-cream rounded-full"></div>
+                <Map className="w-8 h-8 text-cream" />
+              </div>
             </div>
-          </div>
-          
-          {/* Main Description Panel */}
-          <div className="relative mb-8">
-            <div className="absolute inset-0 bg-gradient-to-bl from-sage-green/20 to-deep-teal/20 rounded-2xl transform -rotate-1"></div>
-            <div className="relative boho-panel p-6 md:p-8">
-              <h3 className="boho-title text-2xl md:text-3xl mb-4 text-burnt-orange">
-                Practice Tango Musicality for 5 Minutes Every Day
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6 text-left">
-                <div className="space-y-3">
-                  <p className="text-warm-brown leading-relaxed">
-                    <strong>Get One Topic Per Week</strong> and Learn More About it Every Day
-                  </p>
-                  <p className="text-warm-brown leading-relaxed">
-                    <strong>Track Your Progress</strong> - Repeat, Repeat, and then Repeat - until You Can Forget It
-                  </p>
-                </div>
-                <div className="space-y-3">
-                  <p className="text-warm-brown leading-relaxed">
-                    Most topics are about <strong>building more contrast</strong> into your dancing and <strong>breaking your habits</strong>
-                  </p>
-                  <p className="text-warm-brown leading-relaxed">
-                    <strong>Example topics:</strong> Dancing fast and slow, dancing small and big, dancing high and low...
-                  </p>
-                </div>
+            
+            {/* Side content area */}
+            <div className="md:col-span-5 flex flex-col gap-6">
+              <div className="bg-warm-brown rounded-[30px] p-6 text-cream">
+                <h3 className="text-xl font-medium mb-3">About Us</h3>
+                <p>
+                  Practice Tango Musicality for 5 Minutes Every Day. Get One Topic Per Week and Learn More About it Every Day.
+                </p>
+              </div>
+              
+              <div className="bg-mustard rounded-[30px] p-6 text-dark-brown">
+                <h3 className="text-xl font-medium mb-3">Upcoming Events</h3>
+                <ul className="space-y-2">
+                  <li className="flex justify-between">
+                    <span>05.21.XX</span>
+                    <span>Rhythm Workshop</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>06.15.XX</span>
+                    <span>Musicality Class</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          
-          {/* Action Buttons with geometric backgrounds */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-            {/* Road Map Button */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-terracotta to-paprika rounded-xl transform rotate-2 group-hover:rotate-3 transition-transform duration-300"></div>
-              <Link 
-                to="/roadmap" 
-                className="relative block bg-gradient-to-r from-burnt-orange to-terracotta text-cream font-medium text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-warm-brown/20"
-              >
-                <div className="flex items-center justify-center gap-3">
-                  <Map className="w-6 h-6" />
-                  <span className="font-display tracking-wide">ROAD MAP</span>
-                </div>
-              </Link>
-            </div>
+        </div>
+        
+        {/* Main description section */}
+        <div className="mb-16">
+          <div className="bg-cream rounded-[30px] p-8 relative overflow-hidden shadow-md">
+            {/* Background shape */}
+            <div 
+              className="absolute bg-burnt-orange opacity-10 rounded-full" 
+              style={{ 
+                width: '60%', 
+                height: '120%', 
+                top: '-10%', 
+                right: '-20%',
+                borderRadius: '70% 30% 50% 50% / 60% 40% 60% 40%',
+              }}
+            />
             
-            {/* Profile/Login Button */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-golden-yellow to-dusty-rose rounded-xl transform rotate-1 group-hover:rotate-2 transition-transform duration-300"></div>
-              <Link 
-                to={user ? "/profile" : "/auth"}
-                className="relative block bg-gradient-to-r from-golden-yellow to-dusty-rose text-warm-brown font-medium text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-warm-brown/20"
-              >
-                <div className="flex items-center justify-center gap-3">
-                  {user ? <User className="w-6 h-6" /> : <LogIn className="w-6 h-6" />}
-                  <span className="font-display tracking-wide">
-                    {user ? "PROFILE" : "LOGIN"}
-                  </span>
-                </div>
-              </Link>
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-dark-brown relative z-10">
+              PRACTICE MUSICALITY
+            </h2>
+            
+            <div className="grid md:grid-cols-2 gap-8 relative z-10">
+              <div className="space-y-4">
+                <p className="text-lg leading-relaxed">
+                  <strong>Get One Topic Per Week</strong> and Learn More About it Every Day
+                </p>
+                <p className="text-lg leading-relaxed">
+                  <strong>Track Your Progress</strong> - Repeat, Repeat, and then Repeat - until You Can Forget It
+                </p>
+              </div>
+              <div className="space-y-4">
+                <p className="text-lg leading-relaxed">
+                  Most topics are about <strong>building more contrast</strong> into your dancing and <strong>breaking your habits</strong>
+                </p>
+                <p className="text-lg leading-relaxed">
+                  <strong>Example topics:</strong> Dancing fast and slow, dancing small and big, dancing high and low...
+                </p>
+              </div>
             </div>
-
-            {/* Rhythm Lab Button */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-sage-green to-deep-teal rounded-xl transform -rotate-2 group-hover:-rotate-3 transition-transform duration-300"></div>
-              <Link 
-                to="/rhythmlab" 
-                className="relative block bg-gradient-to-r from-sage-green to-deep-teal text-cream font-medium text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-warm-brown/20"
-              >
-                <div className="flex items-center justify-center gap-3">
-                  <Music className="w-6 h-6" />
-                  <span className="font-display tracking-wide">RHYTHM LAB</span>
-                </div>
-              </Link>
-            </div>
-          </div>
-
-          {/* Expandable Sections */}
-          <div className="max-w-4xl mx-auto space-y-6">
-            <Accordion type="single" collapsible className="w-full">
-              {/* Why Section */}
-              <AccordionItem value="why" className="border-warm-brown/30">
-                <AccordionTrigger className="boho-panel px-6 py-4 hover:no-underline">
-                  <span className="boho-title text-xl md:text-2xl text-burnt-orange">
-                    WHY?
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="boho-panel px-6 pb-6">
-                  <div className="space-y-4 text-left">
-                    <div className="flex gap-4">
-                      <span className="flex-shrink-0 w-8 h-8 bg-terracotta text-cream rounded-full flex items-center justify-center font-bold">1</span>
-                      <p className="text-warm-brown leading-relaxed">
-                        Because it took me more than 8 years and many long distance trips to musicality workshops to learn basic concepts that are not even that hard
-                      </p>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="flex-shrink-0 w-8 h-8 bg-burnt-orange text-cream rounded-full flex items-center justify-center font-bold">2</span>
-                      <p className="text-warm-brown leading-relaxed">
-                        Because each workshop was 3-4 days, way too much information at once, and I hardly ever went back to practicing them
-                      </p>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="flex-shrink-0 w-8 h-8 bg-sage-green text-cream rounded-full flex items-center justify-center font-bold">3</span>
-                      <p className="text-warm-brown leading-relaxed">
-                        Because I needed a little inspiration continuously instead of a lot at once
-                      </p>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Is this free? Section */}
-              <AccordionItem value="pricing" className="border-warm-brown/30">
-                <AccordionTrigger className="boho-panel px-6 py-4 hover:no-underline">
-                  <span className="boho-title text-xl md:text-2xl text-burnt-orange">
-                    IS THIS FREE?
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="boho-panel px-6 pb-6">
-                  <p className="text-warm-brown leading-relaxed text-left">
-                    For now, yes, but paying even a little amount will increase your motivation and commitment at least five fold. So, in the future, this will be paid for both our sakes.
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Finally Section */}
-              <AccordionItem value="concept" className="border-warm-brown/30">
-                <AccordionTrigger className="boho-panel px-6 py-4 hover:no-underline">
-                  <span className="boho-title text-xl md:text-2xl text-burnt-orange">
-                    PROOF OF CONCEPT
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="boho-panel px-6 pb-6">
-                  <p className="text-warm-brown leading-relaxed text-left">
-                    For now, this is just a proof of concept. I made it because I had a hunch that others might also need what I needed. I am testing that hunch. In fact, if you are reading this, you are already part of this test. I will commit to finishing it if I find people who really really really want it :) If you kind of want it, this is not for you yet!
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Credits Section */}
-              <AccordionItem value="credits" className="border-warm-brown/30">
-                <AccordionTrigger className="boho-panel px-6 py-4 hover:no-underline">
-                  <span className="boho-title text-xl md:text-2xl text-burnt-orange">
-                    CREDITS
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="boho-panel px-6 pb-6">
-                  <div className="text-left space-y-4">
-                    <p className="text-warm-brown leading-relaxed">
-                      I am Helia, but the information in the app did not come to me in a dream. It is the result of the work of many Tango Teachers who have invested their life into understanding this music and teaching it. I just like to make this information more accessible.
-                    </p>
-                    <p className="text-warm-brown leading-relaxed">
-                      <strong>I have personally learned the most from:</strong> Horacio Godoy, Michael Lavoca, Pepa Polazón, and Murat Erdemsel.
-                    </p>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-
-          {/* Decorative Elements */}
-          <div className="mt-16 flex justify-center items-center gap-8 opacity-60">
-            <div className="w-12 h-1 bg-gradient-to-r from-transparent via-warm-brown to-transparent"></div>
-            <div className="w-3 h-3 bg-golden-yellow rounded-full animate-organic-pulse"></div>
-            <div className="w-12 h-1 bg-gradient-to-r from-transparent via-warm-brown to-transparent"></div>
           </div>
         </div>
+        
+        {/* Feature blocks with Mid-Century styling */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="bg-burnt-orange rounded-[30px] p-6 text-cream transition-transform hover:translate-y-[-5px]">
+            <h3 className="text-2xl font-medium mb-4">RHYTHM</h3>
+            <p className="mb-6">Learn to feel and express the different rhythms in tango music through your movement.</p>
+            <div className="flex justify-end">
+              <div className="w-12 h-1 bg-cream"></div>
+            </div>
+          </div>
+          
+          <div className="bg-terracotta rounded-[30px] p-6 text-cream transition-transform hover:translate-y-[-5px]">
+            <h3 className="text-2xl font-medium mb-4">CONTRAST</h3>
+            <p className="mb-6">Discover how to create dynamic contrast in your dancing to match the music's intensity.</p>
+            <div className="flex justify-end">
+              <div className="w-12 h-1 bg-cream"></div>
+            </div>
+          </div>
+          
+          <div className="bg-warm-brown rounded-[30px] p-6 text-cream transition-transform hover:translate-y-[-5px]">
+            <h3 className="text-2xl font-medium mb-4">REPETITION</h3>
+            <p className="mb-6">Master techniques through consistent practice and build muscle memory for natural expression.</p>
+            <div className="flex justify-end">
+              <div className="w-12 h-1 bg-cream"></div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Action buttons with Mid-Century styling */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {/* Road Map Button */}
+          <Link 
+            to="/roadmap" 
+            className="bg-cream border-2 border-burnt-orange text-burnt-orange font-medium text-xl p-6 rounded-[30px] hover:bg-burnt-orange hover:text-cream transition-colors flex items-center justify-between group"
+          >
+            <span className="font-medium">ROAD MAP</span>
+            <Map className="w-6 h-6 group-hover:scale-110 transition-transform" />
+          </Link>
+          
+          {/* Profile/Login Button */}
+          <Link 
+            to={user ? "/profile" : "/auth"}
+            className="bg-teal text-cream font-medium text-xl p-6 rounded-[30px] hover:bg-cream hover:text-teal hover:border-teal border-2 border-teal transition-colors flex items-center justify-between group"
+          >
+            <span className="font-medium">
+              {user ? "PROFILE" : "LOGIN"}
+            </span>
+            {user ? 
+              <User className="w-6 h-6 group-hover:scale-110 transition-transform" /> : 
+              <LogIn className="w-6 h-6 group-hover:scale-110 transition-transform" />
+            }
+          </Link>
+
+          {/* Rhythm Lab Button */}
+          <Link 
+            to="/rhythmlab" 
+            className="bg-cream border-2 border-warm-brown text-warm-brown font-medium text-xl p-6 rounded-[30px] hover:bg-warm-brown hover:text-cream transition-colors flex items-center justify-between group"
+          >
+            <span className="font-medium">RHYTHM LAB</span>
+            <Music className="w-6 h-6 group-hover:scale-110 transition-transform" />
+          </Link>
+        </div>
+
+        {/* Expandable Sections with Mid-Century styling */}
+        <div className="mb-16 bg-cream rounded-[30px] p-6 shadow-md">
+          <Accordion type="single" collapsible className="w-full">
+            {/* Why Section */}
+            <AccordionItem value="why" className="border-b border-burnt-orange/30">
+              <AccordionTrigger className="py-4 hover:no-underline">
+                <span className="text-2xl font-medium text-burnt-orange">
+                  WHY?
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <div className="space-y-4">
+                  <div className="flex gap-4 items-start">
+                    <span className="flex-shrink-0 w-10 h-10 bg-burnt-orange text-cream flex items-center justify-center font-bold rounded-full">1</span>
+                    <p className="leading-relaxed pt-2">
+                      Because it took me more than 8 years and many long distance trips to musicality workshops to learn basic concepts that are not even that hard
+                    </p>
+                  </div>
+                  <div className="flex gap-4 items-start">
+                    <span className="flex-shrink-0 w-10 h-10 bg-terracotta text-cream flex items-center justify-center font-bold rounded-full">2</span>
+                    <p className="leading-relaxed pt-2">
+                      Because each workshop was 3-4 days, way too much information at once, and I hardly ever went back to practicing them
+                    </p>
+                  </div>
+                  <div className="flex gap-4 items-start">
+                    <span className="flex-shrink-0 w-10 h-10 bg-warm-brown text-cream flex items-center justify-center font-bold rounded-full">3</span>
+                    <p className="leading-relaxed pt-2">
+                      Because I needed a little inspiration continuously instead of a lot at once
+                    </p>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Is this free? Section */}
+            <AccordionItem value="pricing" className="border-b border-burnt-orange/30">
+              <AccordionTrigger className="py-4 hover:no-underline">
+                <span className="text-2xl font-medium text-burnt-orange">
+                  IS THIS FREE?
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <p className="leading-relaxed">
+                  For now, yes, but paying even a little amount will increase your motivation and commitment at least five fold. So, in the future, this will be paid for both our sakes.
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Proof of Concept Section */}
+            <AccordionItem value="concept" className="border-b border-burnt-orange/30">
+              <AccordionTrigger className="py-4 hover:no-underline">
+                <span className="text-2xl font-medium text-burnt-orange">
+                  PROOF OF CONCEPT
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <p className="leading-relaxed">
+                  For now, this is just a proof of concept. I made it because I had a hunch that others might also need what I needed. I am testing that hunch. In fact, if you are reading this, you are already part of this test. I will commit to finishing it if I find people who really really really want it :) If you kind of want it, this is not for you yet!
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Credits Section */}
+            <AccordionItem value="credits" className="border-b border-burnt-orange/30">
+              <AccordionTrigger className="py-4 hover:no-underline">
+                <span className="text-2xl font-medium text-burnt-orange">
+                  CREDITS
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <div className="space-y-4">
+                  <p className="leading-relaxed">
+                    I am Helia, but the information in the app did not come to me in a dream. It is the result of the work of many Tango Teachers who have invested their life into understanding this music and teaching it. I just like to make this information more accessible.
+                  </p>
+                  <p className="leading-relaxed">
+                    <span className="font-bold">I have personally learned the most from:</span> Horacio Godoy, Michael Lavoca, Pepa Polazón, and Murat Erdemsel.
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+
+        {/* Footer with Mid-Century styling */}
+        <footer className="mt-16 pt-6 border-t border-burnt-orange/30">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-lg font-medium text-burnt-orange">TANGO A DIARIO © 2025</div>
+            <div className="flex gap-6">
+              <a href="#" className="text-warm-brown hover:text-burnt-orange transition-colors">Terms</a>
+              <a href="#" className="text-warm-brown hover:text-burnt-orange transition-colors">Privacy</a>
+              <a href="#" className="text-warm-brown hover:text-burnt-orange transition-colors">Contact</a>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
 };
 
 export default Home;
+
