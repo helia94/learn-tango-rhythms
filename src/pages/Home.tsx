@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -131,6 +130,41 @@ const Home = () => {
                   Practice Tango Musicality for 5 Minutes Every Day. Get One Topic Per Week and Learn More About it Every Day.
                 </p>
               </div>
+              
+              {/* Action buttons moved here, below About Us */}
+              <div className="grid grid-cols-1 gap-4">
+                {/* Road Map Button */}
+                <Link 
+                  to="/roadmap" 
+                  className="bg-gradient-to-br from-sandy-beige/80 to-cream/70 border-2 border-terracotta/30 text-terracotta font-medium text-lg p-4 rounded-[20px] hover:from-terracotta/80 hover:to-burnt-orange/70 hover:text-cream transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
+                >
+                  <span className="font-medium">ROAD MAP</span>
+                  <Map className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </Link>
+                
+                {/* Profile/Login Button */}
+                <Link 
+                  to={user ? "/profile" : "/auth"}
+                  className="bg-gradient-to-br from-sage-green/70 to-deep-teal/60 text-cream font-medium text-lg p-4 rounded-[20px] hover:from-cream/80 hover:to-sandy-beige/70 hover:text-sage-green hover:border-sage-green/40 border-2 border-sage-green/30 transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
+                >
+                  <span className="font-medium">
+                    {user ? "PROFILE" : "LOGIN"}
+                  </span>
+                  {user ? 
+                    <User className="w-5 h-5 group-hover:scale-110 transition-transform" /> : 
+                    <LogIn className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  }
+                </Link>
+
+                {/* Rhythm Lab Button */}
+                <Link 
+                  to="/rhythmlab" 
+                  className="bg-gradient-to-br from-mushroom/70 to-warm-brown/60 border-2 border-warm-brown/30 text-cream font-medium text-lg p-4 rounded-[20px] hover:from-warm-brown/80 hover:to-caramel/70 hover:text-cream transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
+                >
+                  <span className="font-medium">RHYTHM LAB</span>
+                  <Music className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -175,41 +209,6 @@ const Home = () => {
           </div>
         </div>
         
-        {/* Action buttons with softer Mid-Century styling */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {/* Road Map Button */}
-          <Link 
-            to="/roadmap" 
-            className="bg-gradient-to-br from-sandy-beige/80 to-cream/70 border-2 border-terracotta/30 text-terracotta font-medium text-xl p-6 rounded-[30px] hover:from-terracotta/80 hover:to-burnt-orange/70 hover:text-cream transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
-          >
-            <span className="font-medium">ROAD MAP</span>
-            <Map className="w-6 h-6 group-hover:scale-110 transition-transform" />
-          </Link>
-          
-          {/* Profile/Login Button */}
-          <Link 
-            to={user ? "/profile" : "/auth"}
-            className="bg-gradient-to-br from-sage-green/70 to-deep-teal/60 text-cream font-medium text-xl p-6 rounded-[30px] hover:from-cream/80 hover:to-sandy-beige/70 hover:text-sage-green hover:border-sage-green/40 border-2 border-sage-green/30 transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
-          >
-            <span className="font-medium">
-              {user ? "PROFILE" : "LOGIN"}
-            </span>
-            {user ? 
-              <User className="w-6 h-6 group-hover:scale-110 transition-transform" /> : 
-              <LogIn className="w-6 h-6 group-hover:scale-110 transition-transform" />
-            }
-          </Link>
-
-          {/* Rhythm Lab Button */}
-          <Link 
-            to="/rhythmlab" 
-            className="bg-gradient-to-br from-mushroom/70 to-warm-brown/60 border-2 border-warm-brown/30 text-cream font-medium text-xl p-6 rounded-[30px] hover:from-warm-brown/80 hover:to-caramel/70 hover:text-cream transition-all duration-300 flex items-center justify-between group shadow-md hover:shadow-lg"
-          >
-            <span className="font-medium">RHYTHM LAB</span>
-            <Music className="w-6 h-6 group-hover:scale-110 transition-transform" />
-          </Link>
-        </div>
-
         {/* Expandable Sections with softer Mid-Century styling */}
         <div className="mb-16 bg-gradient-to-br from-cream/70 to-sandy-beige/50 rounded-[30px] p-6 shadow-lg">
           <Accordion type="single" collapsible className="w-full">
