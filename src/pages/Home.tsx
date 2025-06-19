@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -188,33 +189,6 @@ const Home = () => {
           </div>
         </div>
         
-        {/* Feature blocks with Mid-Century styling */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-burnt-orange rounded-[30px] p-6 text-cream transition-transform hover:translate-y-[-5px]">
-            <h3 className="text-2xl font-medium mb-4">RHYTHM</h3>
-            <p className="mb-6">Learn to feel and express the different rhythms in tango music through your movement.</p>
-            <div className="flex justify-end">
-              <div className="w-12 h-1 bg-cream"></div>
-            </div>
-          </div>
-          
-          <div className="bg-terracotta rounded-[30px] p-6 text-cream transition-transform hover:translate-y-[-5px]">
-            <h3 className="text-2xl font-medium mb-4">CONTRAST</h3>
-            <p className="mb-6">Discover how to create dynamic contrast in your dancing to match the music's intensity.</p>
-            <div className="flex justify-end">
-              <div className="w-12 h-1 bg-cream"></div>
-            </div>
-          </div>
-          
-          <div className="bg-warm-brown rounded-[30px] p-6 text-cream transition-transform hover:translate-y-[-5px]">
-            <h3 className="text-2xl font-medium mb-4">REPETITION</h3>
-            <p className="mb-6">Master techniques through consistent practice and build muscle memory for natural expression.</p>
-            <div className="flex justify-end">
-              <div className="w-12 h-1 bg-cream"></div>
-            </div>
-          </div>
-        </div>
-        
         {/* Action buttons with Mid-Century styling */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {/* Road Map Button */}
@@ -350,4 +324,3 @@ const Home = () => {
 };
 
 export default Home;
-
