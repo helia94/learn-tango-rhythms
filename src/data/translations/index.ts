@@ -1,7 +1,9 @@
 
+
 import { translations as mainTranslations, TranslationKey as MainTranslationKey } from './translations';
 import { otherTranslations } from './other';
 import { homeTranslations } from './home';
+import { smallAndBigTranslations } from './small_and_big';
 import { deepMergeTranslations } from '@/utils/mergeTranslations';
 
 // Export the main TranslationKey type and extend it with home keys and missing exercise keys
@@ -29,5 +31,7 @@ export type TranslationKey = MainTranslationKey |
 export const translations = deepMergeTranslations(
   mainTranslations,
   otherTranslations,
-  { home: homeTranslations }
+  { home: homeTranslations },
+  smallAndBigTranslations
 );
+
