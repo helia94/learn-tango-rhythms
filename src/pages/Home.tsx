@@ -131,20 +131,6 @@ const Home = () => {
                   Practice Tango Musicality for 5 Minutes Every Day. Get One Topic Per Week and Learn More About it Every Day.
                 </p>
               </div>
-              
-              <div className="bg-gradient-to-br from-sandy-beige/80 to-mushroom/60 rounded-[30px] p-6 text-warm-brown shadow-md">
-                <h3 className="text-xl font-medium mb-3">Upcoming Events</h3>
-                <ul className="space-y-2">
-                  <li className="flex justify-between">
-                    <span>05.21.XX</span>
-                    <span>Rhythm Workshop</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>06.15.XX</span>
-                    <span>Musicality Class</span>
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
         </div>
