@@ -213,7 +213,7 @@ const Home = () => {
         {/* Expandable Sections with softer Mid-Century styling */}
         <div className="mb-16 bg-gradient-to-br from-cream/70 to-sandy-beige/50 rounded-[30px] p-6 shadow-lg">
           <Accordion type="single" collapsible className="w-full">
-            {/* Why Section */}
+            {/* WHY Section */}
             <AccordionItem value="why" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">
                 <span className="text-2xl font-medium text-terracotta/90">
@@ -253,7 +253,7 @@ const Home = () => {
               </AccordionTrigger>
               <AccordionContent className="pb-6">
                 <p className="leading-relaxed text-warm-brown/90">
-                  For now, yes, but paying even a little amount will increase your motivation and commitment at least fivefold. All the content will remain free, only if you want to build a habit and track your mastery of topics, we will charge a small amount.
+                  For now, yes, but paying even a little amount will increase your motivation and commitment at least fivefold. All the content will remain free, only if you want to build a habit and track your mastery of topics, we will charge a small amount in the future.
                 </p>
               </AccordionContent>
             </AccordionItem>
