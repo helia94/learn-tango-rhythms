@@ -136,9 +136,9 @@ const Home = () => {
                 {/* Road Map Button - Enhanced with more contrast */}
                 <Link 
                   to="/roadmap" 
-                  className="bg-gradient-to-br from-burnt-orange to-paprika border-2 border-burnt-orange text-cream font-bold text-xl p-6 rounded-[20px] hover:from-paprika hover:to-terracotta hover:border-paprika transition-all duration-300 flex items-center justify-between group shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+                  className="bg-gradient-to-br from-burnt-orange to-paprika border-2 border-burnt-orange text-cream font-bold text-xl p-6 rounded-[20px] hover:from-paprika hover:to-terracotta hover:border-paprika transition-all duration-300 flex items-center justify-between group shadow-xl hover:shadow-2xl transform hover:-translate-y-1 block"
                 >
-                  <span className="font-bold tracking-wide">ROAD MAP</span>
+                  <span className="font-bold tracking-wide">GO TO ROAD MAP NOW</span>
                   <Map className="w-6 h-6 group-hover:scale-110 transition-transform" />
                 </Link>
                 
@@ -290,6 +290,17 @@ const Home = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+        </div>
+
+        {/* Mobile-only ROAD MAP button at bottom */}
+        <div className="md:hidden mb-8">
+          <Link 
+            to="/roadmap" 
+            className="w-full bg-gradient-to-br from-burnt-orange to-paprika border-2 border-burnt-orange text-cream font-bold text-xl p-6 rounded-[20px] hover:from-paprika hover:to-terracotta hover:border-paprika transition-all duration-300 flex items-center justify-between group shadow-xl hover:shadow-2xl transform hover:-translate-y-1 block"
+          >
+            <span className="font-bold tracking-wide">GO TO ROAD MAP NOW</span>
+            <Map className="w-6 h-6 group-hover:scale-110 transition-transform" />
+          </Link>
         </div>
 
         {/* Footer with Mid-Century styling */}
