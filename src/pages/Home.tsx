@@ -24,12 +24,12 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-cream text-dark-brown overflow-hidden relative">
-      {/* Mid-Century Modern organic shapes background */}
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-800 overflow-hidden relative">
+      {/* Organic shapes background adapted to roadmap colors */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Large burnt orange shape in top left */}
+        {/* Large blue-gray shape in top left */}
         <div 
-          className="absolute bg-burnt-orange rounded-full opacity-90" 
+          className="absolute bg-blue-200/60 rounded-full opacity-90" 
           style={{ 
             width: '45%', 
             height: '40%', 
@@ -39,9 +39,9 @@ const Home = () => {
           }}
         />
         
-        {/* Terracotta shape in top right */}
+        {/* Purple shape in top right */}
         <div 
-          className="absolute bg-terracotta rounded-full opacity-80" 
+          className="absolute bg-purple-200/50 rounded-full opacity-80" 
           style={{ 
             width: '35%', 
             height: '30%', 
@@ -51,9 +51,9 @@ const Home = () => {
           }}
         />
         
-        {/* Brown shape in middle right */}
+        {/* Green shape in middle right */}
         <div 
-          className="absolute bg-warm-brown rounded-full opacity-80" 
+          className="absolute bg-green-200/40 rounded-full opacity-80" 
           style={{ 
             width: '25%', 
             height: '40%', 
@@ -63,9 +63,9 @@ const Home = () => {
           }}
         />
         
-        {/* Burnt orange shape in bottom left */}
+        {/* Orange shape in bottom left */}
         <div 
-          className="absolute bg-burnt-orange rounded-full opacity-70" 
+          className="absolute bg-orange-200/50 rounded-full opacity-70" 
           style={{ 
             width: '40%', 
             height: '45%', 
@@ -77,7 +77,7 @@ const Home = () => {
         
         {/* Teal accent shape */}
         <div 
-          className="absolute bg-teal rounded-full opacity-80" 
+          className="absolute bg-teal-200/60 rounded-full opacity-80" 
           style={{ 
             width: '20%', 
             height: '25%', 
@@ -93,46 +93,46 @@ const Home = () => {
         {/* Header with Language Selector */}
         <div className="flex justify-between items-center mb-12 pt-4">
           <div className="text-2xl font-medium tracking-wide">
-            <span className="text-teal">TANGO</span> <span className="text-burnt-orange">A DIARIO</span>
+            <span className="text-blue-600">TANGO</span> <span className="text-purple-600">A DIARIO</span>
           </div>
           <LanguageSelector />
         </div>
         
-        {/* Hero section with Mid-Century Modern styling */}
+        {/* Hero section */}
         <div 
           className={`relative mb-16 transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}
         >
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             {/* Main title area */}
-            <div className="md:col-span-7 bg-burnt-orange rounded-[40px] p-8 md:p-12 text-cream">
+            <div className="md:col-span-7 bg-gradient-to-br from-blue-600 to-purple-600 rounded-[40px] p-8 md:p-12 text-white shadow-xl">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
                 TANGO A DIARIO
               </h1>
-              <h2 className="text-xl md:text-2xl mb-6 font-light">
+              <h2 className="text-xl md:text-2xl mb-6 font-light opacity-90">
                 (Daily Tango)
               </h2>
-              <p className="text-lg md:text-xl mb-6">
+              <p className="text-lg md:text-xl mb-6 opacity-90">
                 The Duolingo for Tango Musicality
               </p>
               <div className="flex items-center gap-4">
-                <Music className="w-8 h-8 text-cream" />
-                <div className="w-2 h-2 bg-cream rounded-full"></div>
-                <Zap className="w-6 h-6 text-cream" />
-                <div className="w-2 h-2 bg-cream rounded-full"></div>
-                <Map className="w-8 h-8 text-cream" />
+                <Music className="w-8 h-8 text-white" />
+                <div className="w-2 h-2 bg-white rounded-full opacity-70"></div>
+                <Zap className="w-6 h-6 text-white" />
+                <div className="w-2 h-2 bg-white rounded-full opacity-70"></div>
+                <Map className="w-8 h-8 text-white" />
               </div>
             </div>
             
             {/* Side content area */}
             <div className="md:col-span-5 flex flex-col gap-6">
-              <div className="bg-warm-brown rounded-[30px] p-6 text-cream">
+              <div className="bg-gradient-to-br from-green-500 to-teal-500 rounded-[30px] p-6 text-white shadow-lg">
                 <h3 className="text-xl font-medium mb-3">About Us</h3>
-                <p>
+                <p className="opacity-90">
                   Practice Tango Musicality for 5 Minutes Every Day. Get One Topic Per Week and Learn More About it Every Day.
                 </p>
               </div>
               
-              <div className="bg-mustard rounded-[30px] p-6 text-dark-brown">
+              <div className="bg-gradient-to-br from-orange-400 to-yellow-400 rounded-[30px] p-6 text-gray-800 shadow-lg">
                 <h3 className="text-xl font-medium mb-3">Upcoming Events</h3>
                 <ul className="space-y-2">
                   <li className="flex justify-between">
@@ -151,10 +151,10 @@ const Home = () => {
         
         {/* Main description section */}
         <div className="mb-16">
-          <div className="bg-cream rounded-[30px] p-8 relative overflow-hidden shadow-md">
+          <div className="bg-white/80 backdrop-blur-sm rounded-[30px] p-8 relative overflow-hidden shadow-lg border border-gray-200/50">
             {/* Background shape */}
             <div 
-              className="absolute bg-burnt-orange opacity-10 rounded-full" 
+              className="absolute bg-gradient-to-r from-blue-100 to-purple-100 opacity-50 rounded-full" 
               style={{ 
                 width: '60%', 
                 height: '120%', 
@@ -164,37 +164,37 @@ const Home = () => {
               }}
             />
             
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-dark-brown relative z-10">
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-800 relative z-10">
               PRACTICE MUSICALITY
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8 relative z-10">
               <div className="space-y-4">
-                <p className="text-lg leading-relaxed">
-                  <strong>Get One Topic Per Week</strong> and Learn More About it Every Day
+                <p className="text-lg leading-relaxed text-gray-700">
+                  <strong className="text-gray-800">Get One Topic Per Week</strong> and Learn More About it Every Day
                 </p>
-                <p className="text-lg leading-relaxed">
-                  <strong>Track Your Progress</strong> - Repeat, Repeat, and then Repeat - until You Can Forget It
+                <p className="text-lg leading-relaxed text-gray-700">
+                  <strong className="text-gray-800">Track Your Progress</strong> - Repeat, Repeat, and then Repeat - until You Can Forget It
                 </p>
               </div>
               <div className="space-y-4">
-                <p className="text-lg leading-relaxed">
-                  Most topics are about <strong>building more contrast</strong> into your dancing and <strong>breaking your habits</strong>
+                <p className="text-lg leading-relaxed text-gray-700">
+                  Most topics are about <strong className="text-gray-800">building more contrast</strong> into your dancing and <strong className="text-gray-800">breaking your habits</strong>
                 </p>
-                <p className="text-lg leading-relaxed">
-                  <strong>Example topics:</strong> Dancing fast and slow, dancing small and big, dancing high and low...
+                <p className="text-lg leading-relaxed text-gray-700">
+                  <strong className="text-gray-800">Example topics:</strong> Dancing fast and slow, dancing small and big, dancing high and low...
                 </p>
               </div>
             </div>
           </div>
         </div>
         
-        {/* Action buttons with Mid-Century styling */}
+        {/* Action buttons */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {/* Road Map Button */}
           <Link 
             to="/roadmap" 
-            className="bg-cream border-2 border-burnt-orange text-burnt-orange font-medium text-xl p-6 rounded-[30px] hover:bg-burnt-orange hover:text-cream transition-colors flex items-center justify-between group"
+            className="bg-white border-2 border-blue-500 text-blue-600 font-medium text-xl p-6 rounded-[30px] hover:bg-blue-500 hover:text-white transition-colors flex items-center justify-between group shadow-lg"
           >
             <span className="font-medium">ROAD MAP</span>
             <Map className="w-6 h-6 group-hover:scale-110 transition-transform" />
@@ -203,7 +203,7 @@ const Home = () => {
           {/* Profile/Login Button */}
           <Link 
             to={user ? "/profile" : "/auth"}
-            className="bg-teal text-cream font-medium text-xl p-6 rounded-[30px] hover:bg-cream hover:text-teal hover:border-teal border-2 border-teal transition-colors flex items-center justify-between group"
+            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium text-xl p-6 rounded-[30px] hover:from-purple-600 hover:to-pink-600 transition-all flex items-center justify-between group shadow-lg"
           >
             <span className="font-medium">
               {user ? "PROFILE" : "LOGIN"}
@@ -217,40 +217,40 @@ const Home = () => {
           {/* Rhythm Lab Button */}
           <Link 
             to="/rhythmlab" 
-            className="bg-cream border-2 border-warm-brown text-warm-brown font-medium text-xl p-6 rounded-[30px] hover:bg-warm-brown hover:text-cream transition-colors flex items-center justify-between group"
+            className="bg-white border-2 border-green-500 text-green-600 font-medium text-xl p-6 rounded-[30px] hover:bg-green-500 hover:text-white transition-colors flex items-center justify-between group shadow-lg"
           >
             <span className="font-medium">RHYTHM LAB</span>
             <Music className="w-6 h-6 group-hover:scale-110 transition-transform" />
           </Link>
         </div>
 
-        {/* Expandable Sections with Mid-Century styling */}
-        <div className="mb-16 bg-cream rounded-[30px] p-6 shadow-md">
+        {/* Expandable Sections */}
+        <div className="mb-16 bg-white/80 backdrop-blur-sm rounded-[30px] p-6 shadow-lg border border-gray-200/50">
           <Accordion type="single" collapsible className="w-full">
             {/* Why Section */}
-            <AccordionItem value="why" className="border-b border-burnt-orange/30">
+            <AccordionItem value="why" className="border-b border-gray-200">
               <AccordionTrigger className="py-4 hover:no-underline">
-                <span className="text-2xl font-medium text-burnt-orange">
+                <span className="text-2xl font-medium text-blue-600">
                   WHY?
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
                 <div className="space-y-4">
                   <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-10 h-10 bg-burnt-orange text-cream flex items-center justify-center font-bold rounded-full">1</span>
-                    <p className="leading-relaxed pt-2">
+                    <span className="flex-shrink-0 w-10 h-10 bg-blue-500 text-white flex items-center justify-center font-bold rounded-full">1</span>
+                    <p className="leading-relaxed pt-2 text-gray-700">
                       Because it took me more than 8 years and many long distance trips to musicality workshops to learn basic concepts that are not even that hard
                     </p>
                   </div>
                   <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-10 h-10 bg-terracotta text-cream flex items-center justify-center font-bold rounded-full">2</span>
-                    <p className="leading-relaxed pt-2">
+                    <span className="flex-shrink-0 w-10 h-10 bg-purple-500 text-white flex items-center justify-center font-bold rounded-full">2</span>
+                    <p className="leading-relaxed pt-2 text-gray-700">
                       Because each workshop was 3-4 days, way too much information at once, and I hardly ever went back to practicing them
                     </p>
                   </div>
                   <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-10 h-10 bg-warm-brown text-cream flex items-center justify-center font-bold rounded-full">3</span>
-                    <p className="leading-relaxed pt-2">
+                    <span className="flex-shrink-0 w-10 h-10 bg-green-500 text-white flex items-center justify-center font-bold rounded-full">3</span>
+                    <p className="leading-relaxed pt-2 text-gray-700">
                       Because I needed a little inspiration continuously instead of a lot at once
                     </p>
                   </div>
@@ -259,47 +259,47 @@ const Home = () => {
             </AccordionItem>
 
             {/* Is this free? Section */}
-            <AccordionItem value="pricing" className="border-b border-burnt-orange/30">
+            <AccordionItem value="pricing" className="border-b border-gray-200">
               <AccordionTrigger className="py-4 hover:no-underline">
-                <span className="text-2xl font-medium text-burnt-orange">
+                <span className="text-2xl font-medium text-blue-600">
                   IS THIS FREE?
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
-                <p className="leading-relaxed">
+                <p className="leading-relaxed text-gray-700">
                   For now, yes, but paying even a little amount will increase your motivation and commitment at least five fold. So, in the future, this will be paid for both our sakes.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
             {/* Proof of Concept Section */}
-            <AccordionItem value="concept" className="border-b border-burnt-orange/30">
+            <AccordionItem value="concept" className="border-b border-gray-200">
               <AccordionTrigger className="py-4 hover:no-underline">
-                <span className="text-2xl font-medium text-burnt-orange">
+                <span className="text-2xl font-medium text-blue-600">
                   PROOF OF CONCEPT
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
-                <p className="leading-relaxed">
+                <p className="leading-relaxed text-gray-700">
                   For now, this is just a proof of concept. I made it because I had a hunch that others might also need what I needed. I am testing that hunch. In fact, if you are reading this, you are already part of this test. I will commit to finishing it if I find people who really really really want it :) If you kind of want it, this is not for you yet!
                 </p>
               </AccordionContent>
             </AccordionItem>
 
             {/* Credits Section */}
-            <AccordionItem value="credits" className="border-b border-burnt-orange/30">
+            <AccordionItem value="credits" className="border-b border-gray-200">
               <AccordionTrigger className="py-4 hover:no-underline">
-                <span className="text-2xl font-medium text-burnt-orange">
+                <span className="text-2xl font-medium text-blue-600">
                   CREDITS
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
                 <div className="space-y-4">
-                  <p className="leading-relaxed">
+                  <p className="leading-relaxed text-gray-700">
                     I am Helia, but the information in the app did not come to me in a dream. It is the result of the work of many Tango Teachers who have invested their life into understanding this music and teaching it. I just like to make this information more accessible.
                   </p>
-                  <p className="leading-relaxed">
-                    <span className="font-bold">I have personally learned the most from:</span> Horacio Godoy, Michael Lavoca, Pepa Polazón, and Murat Erdemsel.
+                  <p className="leading-relaxed text-gray-700">
+                    <span className="font-bold text-gray-800">I have personally learned the most from:</span> Horacio Godoy, Michael Lavoca, Pepa Polazón, and Murat Erdemsel.
                   </p>
                 </div>
               </AccordionContent>
@@ -307,14 +307,14 @@ const Home = () => {
           </Accordion>
         </div>
 
-        {/* Footer with Mid-Century styling */}
-        <footer className="mt-16 pt-6 border-t border-burnt-orange/30">
+        {/* Footer */}
+        <footer className="mt-16 pt-6 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-lg font-medium text-burnt-orange">TANGO A DIARIO © 2025</div>
+            <div className="text-lg font-medium text-blue-600">TANGO A DIARIO © 2025</div>
             <div className="flex gap-6">
-              <a href="#" className="text-warm-brown hover:text-burnt-orange transition-colors">Terms</a>
-              <a href="#" className="text-warm-brown hover:text-burnt-orange transition-colors">Privacy</a>
-              <a href="#" className="text-warm-brown hover:text-burnt-orange transition-colors">Contact</a>
+              <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors">Terms</a>
+              <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors">Privacy</a>
+              <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
             </div>
           </div>
         </footer>
