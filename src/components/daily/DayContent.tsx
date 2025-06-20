@@ -25,8 +25,6 @@ import HighLowDay2Content from './dancing_high_low/Day2Content';
 import HighLowDay3Content from './dancing_high_low/Day3Content';
 import HighLowDay4Content from './dancing_high_low/Day4Content';
 import HighLowDay5Content from './dancing_high_low/Day5Content';
-import HighLowDay6Content from './dancing_high_low/Day6Content';
-import HighLowDay7Content from './dancing_high_low/Day7Content';
 import { DayStatus } from './DayStatus';
 
 interface DayContentProps {
@@ -83,10 +81,6 @@ const DayContent: React.FC<DayContentProps> = ({
         return <HighLowDay4Content {...commonProps} />;
       case 5:
         return <HighLowDay5Content {...commonProps} />;
-      case 6:
-        return <HighLowDay6Content {...commonProps} />;
-      case 7:
-        return <HighLowDay7Content {...commonProps} />;
       default:
         return (
           <div className="space-y-6">

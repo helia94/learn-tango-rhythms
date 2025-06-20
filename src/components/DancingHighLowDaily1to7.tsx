@@ -74,7 +74,7 @@ const DancingHighLowDaily1to7: React.FC<DancingHighLowDaily1to7Props> = ({
     <div className="space-y-6">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-display text-gray-800 mb-4">
-          7 Days of Height Exploration
+          5 Days of Height Exploration
         </h2>
         <p className="text-gray-600 text-lg">
           Discover the power of height variations in your tango
@@ -82,7 +82,7 @@ const DancingHighLowDaily1to7: React.FC<DancingHighLowDaily1to7Props> = ({
       </div>
 
       <Accordion type="single" collapsible className="space-y-4">
-        {[1, 2, 3, 4, 5, 6, 7].map((dayNumber) => {
+        {[1, 2, 3, 4, 5].map((dayNumber) => {
           const status = getDayStatus(dayNumber);
           const statusColor = getStatusColor(status);
           

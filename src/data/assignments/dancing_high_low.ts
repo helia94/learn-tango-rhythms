@@ -22,14 +22,6 @@ export const day5Assignment: Assignment = {
   content: 'exercises.dancingHighLow.daily.day5.task'
 };
 
-export const day6Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day6.task'
-};
-
-export const day7Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day7.task'
-};
-
 // Weekly assignments
 export const weeklyAssignment1: Assignment = {
   content: 'exercises.dancingHighLow.assignment1'
@@ -51,8 +43,6 @@ export const getAssignment = (key: string): Assignment | null => {
     'day3': day3Assignment,
     'day4': day4Assignment,
     'day5': day5Assignment,
-    'day6': day6Assignment,
-    'day7': day7Assignment,
     'weekly-assignment-1': weeklyAssignment1,
     'weekly-assignment-2': weeklyAssignment2,
     'weekly-assignment-3': weeklyAssignment3,
