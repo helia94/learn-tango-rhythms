@@ -1,3 +1,4 @@
+
 import { Assignment } from '@/data/assignments/fastAndSlow';
 
 // Daily assignments for Dancing High vs Low topic

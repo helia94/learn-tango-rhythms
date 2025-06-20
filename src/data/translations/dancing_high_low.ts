@@ -92,7 +92,7 @@ export const dancingHighLowTranslations = {
         },
         day2: {
           content: {
-            en: "Now let's work with pitch, the tone of the melody. As the melody climbs higher, your height can rise with it. Think of it as your body tracing the shape of the violin, the singer, the bandoneon.",
+            en: "Now let's work with pitch - the tone of the melody. As the melody climbs higher, your height can rise with it. Think of it as your body tracing the shape of the violin, the singer, the bandoneon.",
             de: "Jetzt arbeiten wir mit der Tonhöhe, dem Ton der Melodie. Wenn die Melodie höher steigt, kann deine Höhe mit ihr steigen. Denke daran, als würde dein Körper die Form der Geige, des Sängers, des Bandoneons nachzeichnen."
           },
           task: {
