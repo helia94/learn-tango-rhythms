@@ -95,7 +95,7 @@ const DayContent: React.FC<DayContentProps> = ({
             </p>
             
             <Assignment
-              assignment={{ content: 'daily.placeholderTask' as any, task: 'daily.placeholderTask' as any }}
+              assignment={{ content: 'daily.placeholderTask' as any }}
               taskId={`day-${dayNumber}-task`}
               level={completedTasks[`day-${dayNumber}-task`] || 0}
               onLevelChange={onTaskLevelChange}
@@ -133,7 +133,7 @@ const DayContent: React.FC<DayContentProps> = ({
             </p>
             
             <Assignment
-              assignment={{ content: 'daily.placeholderTask' as any, task: 'daily.placeholderTask' as any }}
+              assignment={{ content: 'daily.placeholderTask' as any }}
               taskId={`day-${dayNumber}-task`}
               level={completedTasks[`day-${dayNumber}-task`] || 0}
               onLevelChange={onTaskLevelChange}
@@ -172,7 +172,7 @@ const DayContent: React.FC<DayContentProps> = ({
           </p>
           
           <Assignment
-            assignment={{ content: 'daily.placeholderTask' as any, task: 'daily.placeholderTask' as any }}
+            assignment={{ content: 'daily.placeholderTask' as any }}
             taskId={`day-${dayNumber}-task`}
             level={completedTasks[`day-${dayNumber}-task`] || 0}
             onLevelChange={onTaskLevelChange}
