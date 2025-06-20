@@ -19,36 +19,40 @@ export const dancingHighLowTranslations = {
         de: "Werkzeuge zum Verändern der Höhe"
       },
       tip1: {
-        en: "Breathing in and out: Bigger inhales and exhales can be felt by your partner, changing the height of your contact point.",
-        de: "Ein- und Ausatmen: Größere Ein- und Ausatmungen können von deinem Partner gespürt werden und verändern die Höhe eures Kontaktpunkts."
+        en: "Breathing in and out: if you are dancing in a closed embrace, bigger inhales and exhales can be felt by your partner, and they can even mirror your breathing. This will change the height of your contact point. With a partner, stand close. Take turns leading each other with just your breath, no steps. Can you feel the height shifting between you?",
+        de: "Ein- und Ausatmen: Wenn du in geschlossener Umarmung tanzt, können größere Ein- und Ausatmungen von deinem Partner gespürt werden, und sie können sogar dein Atmen spiegeln. Dies verändert die Höhe eures Kontaktpunkts. Mit einem Partner stehe nah. Führt euch abwechselnd nur mit eurem Atem, ohne Schritte. Könnt ihr die Höhenverschiebung zwischen euch spüren?"
       },
       tip2: {
-        en: "Spine: Stretching or not stretching your spine has a large impact on height. Your spine can come alive when dancing.",
-        de: "Wirbelsäule: Das Strecken oder Nicht-Strecken deiner Wirbelsäule hat großen Einfluss auf die Höhe. Deine Wirbelsäule kann beim Tanzen lebendig werden."
+        en: "Spine: Surely you have heard someone tell you \"sit tall\", stretching or not stretching your spine has a large impact on height. Our spine is a dynamic part of the body, and it can come alive when dancing tango; it does not have to be a \"frame\" as we were told. Pick a private place, imagine your spine is a snake, and it is your primary source of movement; your spine starts to move, arms and legs are just following along. Move around the room while your spine is being a snake. This helps you rediscover and connect with a part of your body that you might have forgotten.",
+        de: "Wirbelsäule: Sicherlich hast du jemanden sagen hören \"sitz aufrecht\", das Strecken oder Nicht-Strecken deiner Wirbelsäule hat großen Einfluss auf die Höhe. Unsere Wirbelsäule ist ein dynamischer Teil des Körpers und kann beim Tango-Tanzen lebendig werden; sie muss nicht ein \"Rahmen\" sein, wie uns gesagt wurde. Wähle einen privaten Ort, stelle dir vor, deine Wirbelsäule ist eine Schlange und sie ist deine primäre Bewegungsquelle; deine Wirbelsäule beginnt sich zu bewegen, Arme und Beine folgen nur. Bewege dich im Raum, während deine Wirbelsäule eine Schlange ist. Dies hilft dir, einen Teil deines Körpers wiederzuentdecken und dich mit ihm zu verbinden, den du vielleicht vergessen hattest."
       },
       tip3: {
-        en: "Knees and hips: Bending and stretching both knees and hips can obviously change height.",
-        de: "Knie und Hüften: Das Beugen und Strecken von Knien und Hüften kann offensichtlich die Höhe verändern."
+        en: "Knees and hips: bending and stretching both knees and hips can also obviously change height.",
+        de: "Knie und Hüften: Das Beugen und Strecken von Knien und Hüften kann offensichtlich auch die Höhe verändern."
       },
       tip4: {
-        en: "Use height intentionally to express yourself and build drama into your dance.",
-        de: "Nutze die Höhe bewusst, um dich auszudrücken und Drama in deinen Tanz zu bringen."
+        en: "Why change the height? This is like asking why dance tango? because we can, and because it can be fun. It is an element to play with. For many years, you hear from teachers that tango is to dance in one plane and one height, until you realize it is not true. However, there is a difference in bouncing up and down on every step unconsciously, to using height intentionally to express yourself.",
+        de: "Warum die Höhe ändern? Das ist wie zu fragen, warum Tango tanzen? Weil wir es können und weil es Spaß machen kann. Es ist ein Element zum Spielen. Jahrelang hörst du von Lehrern, dass Tango in einer Ebene und einer Höhe getanzt wird, bis du merkst, dass das nicht stimmt. Es gibt jedoch einen Unterschied zwischen unbewusstem Auf- und Abhüpfen bei jedem Schritt und der bewussten Nutzung der Höhe, um sich auszudrücken."
+      },
+      heightDramaText: {
+        en: "Changing the height can build more drama into your dance. Majo Martirena and Rodrigo Fonti are a professional couple who use this element a lot.",
+        de: "Das Verändern der Höhe kann mehr Drama in deinen Tanz bringen. Majo Martirena und Rodrigo Fonti sind ein professionelles Paar, das dieses Element viel verwendet."
       },
       musicalConnectionTitle: {
-        en: "Why Change the Height?",
-        de: "Warum die Höhe ändern?"
+        en: "Musical Connection",
+        de: "Musikalische Verbindung"
       },
       musicalConnectionText1: {
-        en: "This is like asking why dance tango? Because we can, and because it can be fun. It is an element to play with.",
-        de: "Das ist wie zu fragen, warum Tango tanzen? Weil wir es können und weil es Spaß machen kann. Es ist ein Element zum Spielen."
+        en: "One way to embody the music is by rising as the volume rises. Louder? Taller. Quieter? Lower. Let your body amplify the sound.",
+        de: "Eine Art, die Musik zu verkörpern, ist es, zu steigen, wenn die Lautstärke steigt. Lauter? Größer. Leiser? Niedriger. Lass deinen Körper den Klang verstärken."
       },
       musicalConnectionText2: {
-        en: "For many years, you hear from teachers that tango is to dance in one plane and one height, until you realize it is not true.",
-        de: "Jahrelang hörst du von Lehrern, dass Tango in einer Ebene und einer Höhe getanzt wird, bis du merkst, dass das nicht stimmt."
+        en: "Another approach is working with pitch - the tone of the melody. As the melody climbs higher, your height can rise with it. Think of it as your body tracing the shape of the violin, the singer, the bandoneon.",
+        de: "Ein anderer Ansatz ist die Arbeit mit der Tonhöhe - dem Ton der Melodie. Wenn die Melodie höher steigt, kann deine Höhe mit ihr steigen. Denke daran, als würde dein Körper die Form der Geige, des Sängers, des Bandoneons nachzeichnen."
       },
       musicalConnectionText3: {
-        en: "Changing the height can build more drama into your dance. Use this element intentionally to express yourself.",
-        de: "Das Verändern der Höhe kann mehr Drama in deinen Tanz bringen. Nutze dieses Element bewusst, um dich auszudrücken."
+        en: "Use height intentionally to express yourself and build drama into your dance.",
+        de: "Nutze die Höhe bewusst, um dich auszudrücken und Drama in deinen Tanz zu bringen."
       },
       practiceTitle: {
         en: "Height Expression Practice",

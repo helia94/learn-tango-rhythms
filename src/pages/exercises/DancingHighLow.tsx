@@ -78,6 +78,32 @@ const DancingHighLow = () => {
           />
         </StorySection>
 
+        {/* Height Drama Text */}
+        <StorySection>
+          <TextContent variant="body" align="center" className="mb-6">
+            {t('exercises.dancingHighLow.heightDramaText' as any)}
+          </TextContent>
+          
+          {/* Professional Example Video */}
+          <div className="flex justify-center">
+            <div className="w-full max-w-2xl">
+              <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-2xl shadow-2xl">
+                <iframe
+                  src="https://www.youtube.com/embed/UiAic0aBKdk?si=0TlLs7TSAb4eYGoc"
+                  title="Majo Martirena and Rodrigo Fonti - Height Variation Example"
+                  className="absolute top-0 left-0 w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              <p className="text-center text-sm text-gray-600 mt-2">
+                Majo Martirena and Rodrigo Fonti demonstrating height variations
+              </p>
+            </div>
+          </div>
+        </StorySection>
+
         {/* Musical Connection */}
         <StorySection title={t('exercises.dancingHighLow.musicalConnectionTitle' as any)}>
           <TextContent variant="body" align="center" className="space-y-4">
