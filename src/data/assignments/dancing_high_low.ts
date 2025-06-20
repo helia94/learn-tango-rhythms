@@ -1,5 +1,4 @@
-
-import { Assignment } from '@/types/assignments';
+import { Assignment } from '@/data/assignments/fastAndSlow';
 
 // Daily assignments for Dancing High vs Low topic
 export const day1Assignment: Assignment = {

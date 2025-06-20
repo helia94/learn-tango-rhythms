@@ -4,7 +4,7 @@ import AllAssignmentsPage from '@/components/AllAssignmentsPage';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments/dancing_high_low';
 
 const DancingHighLowAssignments = () => {
-  const weeklyAssignments = getWeeklyAssignments();
+  const weeklyAssignments = getWeeklyAssignments().map(item => item.assignment);
 
   return (
     <AllAssignmentsPage

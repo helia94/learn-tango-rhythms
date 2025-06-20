@@ -36,7 +36,7 @@ const DancingHighLowDaily1to7: React.FC<DancingHighLowDaily1to7Props> = ({
     const nextDay = whichDailyIsNextOnActivationOrder();
     
     if (activatedDaysList.includes(dayNumber)) {
-      return 'active';
+      return 'unlocked';
     } else if (nextDay === dayNumber) {
       return 'tomorrow';
     } else {
@@ -46,7 +46,7 @@ const DancingHighLowDaily1to7: React.FC<DancingHighLowDaily1to7Props> = ({
 
   const getStatusIcon = (status: DayStatus) => {
     switch (status) {
-      case 'active':
+      case 'unlocked':
         return <CheckCircle className="w-5 h-5 text-sage-green" />;
       case 'tomorrow':
         return <Clock className="w-5 h-5 text-golden-yellow" />;
@@ -59,7 +59,7 @@ const DancingHighLowDaily1to7: React.FC<DancingHighLowDaily1to7Props> = ({
 
   const getStatusColor = (status: DayStatus) => {
     switch (status) {
-      case 'active':
+      case 'unlocked':
         return 'border-sage-green/30 bg-sage-green/5';
       case 'tomorrow':
         return 'border-golden-yellow/30 bg-golden-yellow/5';
@@ -106,7 +106,7 @@ const DancingHighLowDaily1to7: React.FC<DancingHighLowDaily1to7Props> = ({
                   
                   <div className="flex-1 text-left">
                     <div className="text-sm text-gray-600 font-medium">
-                      {status === 'active' && 'Available Now'}
+                      {status === 'unlocked' && 'Available Now'}
                       {status === 'tomorrow' && 'Available Tomorrow'}
                       {status === 'locked' && 'Locked'}
                     </div>
