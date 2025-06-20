@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,9 +23,7 @@ import DancingSmallBig from "./pages/exercises/DancingSmallBig";
 import DancingSmallBigAssignments from "./pages/exercises/DancingSmallBigAssignments";
 import DancingHighLow from "./pages/exercises/DancingHighLow";
 import DancingHighLowAssignments from "./pages/exercises/DancingHighLowAssignments";
-import Sp
-
-otifyCallback from "./pages/SpotifyCallback";
+import SpotifyCallback from "./pages/SpotifyCallback";
 import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
 import Contact from '@/pages/Contact';
