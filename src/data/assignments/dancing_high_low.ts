@@ -3,31 +3,31 @@ import { Assignment } from '@/data/assignments/fastAndSlow';
 
 // Daily assignments for Dancing High vs Low topic
 export const day1Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day1.content'
+  content: 'exercises.dancingHighLow.daily.day1.task'
 };
 
 export const day2Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day2.content'
+  content: 'exercises.dancingHighLow.daily.day2.task'
 };
 
 export const day3Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day3.content'
+  content: 'exercises.dancingHighLow.daily.day3.task'
 };
 
 export const day4Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day4.content'
+  content: 'exercises.dancingHighLow.daily.day4.task'
 };
 
 export const day5Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day5.content'
+  content: 'exercises.dancingHighLow.daily.day5.task'
 };
 
 export const day6Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day6.content'
+  content: 'exercises.dancingHighLow.daily.day6.task'
 };
 
 export const day7Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day7.content'
+  content: 'exercises.dancingHighLow.daily.day7.task'
 };
 
 // Weekly assignments
