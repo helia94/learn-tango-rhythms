@@ -27,8 +27,7 @@ const DancingHighLow = () => {
   const tips = [
     t('exercises.dancingHighLow.tip1' as any),
     t('exercises.dancingHighLow.tip2' as any), 
-    t('exercises.dancingHighLow.tip3' as any),
-    t('exercises.dancingHighLow.tip4' as any)
+    t('exercises.dancingHighLow.tip3' as any)
   ];
 
   const practiceAudioTracks = [
@@ -78,6 +77,13 @@ const DancingHighLow = () => {
           />
         </StorySection>
 
+        {/* Why Change Height Section */}
+        <StorySection title="Why change the height?">
+          <TextContent variant="body" align="center">
+            {t('exercises.dancingHighLow.tip4' as any)}
+          </TextContent>
+        </StorySection>
+
         {/* Height Drama Text */}
         <StorySection>
           <TextContent variant="body" align="center" className="mb-6">
@@ -89,7 +95,7 @@ const DancingHighLow = () => {
             <div className="w-full max-w-2xl">
               <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-2xl shadow-2xl">
                 <iframe
-                  src="https://www.youtube.com/embed/UiAic0aBKdk?si=0TlLs7TSAb4eYGoc"
+                  src="https://www.youtube.com/embed/UiAic0aBKdc?si=0TlLs7TSAb4eYGoc"
                   title="Majo Martirena and Rodrigo Fonti - Height Variation Example"
                   className="absolute top-0 left-0 w-full h-full"
                   frameBorder="0"
