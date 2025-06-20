@@ -54,22 +54,6 @@ export const dancingHighLowTranslations = {
         en: "Use height intentionally to express yourself and build drama into your dance.",
         de: "Nutze die Höhe bewusst, um dich auszudrücken und Drama in deinen Tanz zu bringen."
       },
-      practiceTitle: {
-        en: "Height Expression Practice",
-        de: "Höhenausdruck Übung"
-      },
-      practiceDescription: {
-        en: "Practice exploring different heights while dancing. Feel how changes in elevation affect your expression and connection.",
-        de: "Übe das Erkunden verschiedener Höhen beim Tanzen. Spüre, wie Höhenveränderungen deinen Ausdruck und deine Verbindung beeinflussen."
-      },
-      volumeExampleTitle: {
-        en: "Volume Expression - Rising with Sound",
-        de: "Lautstärke-Ausdruck - Mit dem Klang aufsteigen"
-      },
-      pitchExampleTitle: {
-        en: "Pitch Expression - Following Melody",
-        de: "Tonhöhen-Ausdruck - Der Melodie folgen"
-      },
       allAssignments: {
         en: "All High vs Low Assignments",
         de: "Alle Hoch vs Tief Aufgaben"
@@ -128,26 +112,6 @@ export const dancingHighLowTranslations = {
           task: {
             en: "In open embrace, dance an ocho cortado. Just before the rebound, go very low. Bend your knees, ground your hips. Feel the weight drop. Notice what happens: You'll likely slow down, lowering takes time. Find at least two more positions where you and your partner are not directly in front of each other, and try going extremely low there.",
             de: "In offener Umarmung tanze einen Ocho Cortado. Kurz vor dem Rückprall gehe sehr tief. Beuge deine Knie, erde deine Hüften. Spüre das Gewicht fallen. Bemerke, was passiert: Du wirst wahrscheinlich langsamer, das Senken braucht Zeit. Finde mindestens zwei weitere Positionen, wo du und dein Partner nicht direkt voreinander stehen, und versuche dort extrem tief zu gehen."
-          }
-        },
-        day6: {
-          content: {
-            en: "Today we explore the breath as a tool for height variation. Your breathing can create subtle but powerful changes in your dance height and connection with your partner.",
-            de: "Heute erkunden wir den Atem als Werkzeug für Höhenvariationen. Dein Atmen kann subtile aber kraftvolle Veränderungen in deiner Tanzhöhe und Verbindung mit deinem Partner schaffen."
-          },
-          task: {
-            en: "With a partner, stand close in closed embrace. Take turns leading each other with just your breath, no steps. Feel how inhaling naturally lifts you and exhaling grounds you. Can you feel the height shifting between you? Practice using your breath to initiate movement and create height changes throughout a simple walking sequence.",
-            de: "Mit einem Partner stehe nah in geschlossener Umarmung. Führt euch abwechselnd nur mit eurem Atem, ohne Schritte. Spürt, wie das Einatmen euch natürlich hebt und das Ausatmen euch erdet. Könnt ihr die Höhenverschiebung zwischen euch spüren? Übt, euren Atem zu nutzen, um Bewegung zu initiieren und Höhenveränderungen in einer einfachen Gehsequenz zu schaffen."
-          }
-        },
-        day7: {
-          content: {
-            en: "Your spine is a dynamic part of your body that can come alive when dancing tango. It doesn't have to be a rigid 'frame' as often taught. Let your spine be your primary source of movement.",
-            de: "Deine Wirbelsäule ist ein dynamischer Teil deines Körpers, der beim Tango-Tanzen lebendig werden kann. Sie muss nicht ein starrer 'Rahmen' sein, wie oft gelehrt wird. Lass deine Wirbelsäule deine primäre Bewegungsquelle sein."
-          },
-          task: {
-            en: "Pick a private place, imagine your spine is a snake, and it is your primary source of movement. Your spine starts to move, arms and legs are just following along. Move around the room while your spine is being a snake. Then apply this spinal awareness to your tango: let your spine initiate height changes, creating waves of movement that flow through your entire body.",
-            de: "Wähle einen privaten Ort, stelle dir vor, deine Wirbelsäule ist eine Schlange und sie ist deine primäre Bewegungsquelle. Deine Wirbelsäule beginnt sich zu bewegen, Arme und Beine folgen nur. Bewege dich im Raum, während deine Wirbelsäule eine Schlange ist. Dann wende dieses Wirbelsäulenbewusstsein auf deinen Tango an: lass deine Wirbelsäule Höhenveränderungen initiieren und Bewegungswellen schaffen, die durch deinen ganzen Körper fließen."
           }
         }
       },
