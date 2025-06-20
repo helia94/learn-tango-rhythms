@@ -78,76 +78,76 @@ export const dancingHighLowTranslations = {
         en: "Complete weekly assignments to master the art of dancing with height variations.",
         de: "Vervollständige wöchentliche Aufgaben, um die Kunst des Tanzens mit Höhenvariationen zu meistern."
       },
-      // Daily content
+      // Daily content - rephrased for meaningful exercises
       daily: {
         day1: {
           content: {
-            en: "One way to embody the music is by rising as the volume rises. Louder? Taller. Quieter? Lower. Let your body amplify the sound.",
-            de: "Eine Art, die Musik zu verkörpern, ist es, zu steigen, wenn die Lautstärke steigt. Lauter? Größer. Leiser? Niedriger. Lass deinen Körper den Klang verstärken."
+            en: "Today we'll discover how music volume can become a physical sensation in your body. Like a conductor who grows taller during crescendos, you'll learn to let the sound waves lift and lower you naturally.",
+            de: "Heute entdecken wir, wie die Lautstärke der Musik zu einem körperlichen Gefühl werden kann. Wie ein Dirigent, der während Crescendos größer wird, lernst du, die Schallwellen dich natürlich heben und senken zu lassen."
           },
           task: {
-            en: "Put on a tango with dynamic volume shifts. Start low, with slightly bent knees and softened spine. As the music grows louder, slowly stretch upward. Let the volume pull you taller. Then sink again as it fades. Tip: To rise multiple times, you need to start low enough. Plan your starting height carefully.",
-            de: "Spiele einen Tango mit dynamischen Lautstärkewechseln. Beginne niedrig, mit leicht gebeugten Knien und weicher Wirbelsäule. Wenn die Musik lauter wird, strecke dich langsam nach oben. Lass die Lautstärke dich größer ziehen. Dann sinke wieder, wenn sie nachlässt. Tipp: Um mehrmals zu steigen, musst du niedrig genug beginnen. Plane deine Anfangshöhe sorgfältig."
+            en: "Find a tango with strong volume dynamics (try 'El Choclo' or 'La Cumparsita'). Start in a comfortable squat with bent knees. As the music swells, slowly rise - let the volume physically pull you upward. When it fades, sink back down. Practice this 3 times, then try it while walking. Notice: your starting position determines how high you can go.",
+            de: "Finde einen Tango mit starken Lautstärkedynamiken (versuche 'El Choclo' oder 'La Cumparsita'). Beginne in einer bequemen Hocke mit gebeugten Knien. Wenn die Musik anschwillt, steige langsam - lass die Lautstärke dich körperlich nach oben ziehen. Wenn sie nachlässt, sinke zurück. Übe das 3 Mal, dann versuche es beim Gehen. Bemerke: deine Startposition bestimmt, wie hoch du gehen kannst."
           }
         },
         day2: {
           content: {
-            en: "Now let's work with pitch, the tone of the melody. As the melody climbs higher, your height can rise with it. Think of it as your body tracing the shape of the violin, the singer, the bandoneon.",
-            de: "Jetzt arbeiten wir mit der Tonhöhe, dem Ton der Melodie. Wenn die Melodie höher steigt, kann deine Höhe mit ihr steigen. Denke daran, als würde dein Körper die Form der Geige, des Sängers, des Bandoneons nachzeichnen."
+            en: "The melody is like a mountain range - it has peaks and valleys. Today you'll become a human graph of the music, your body tracing every melodic curve through space.",
+            de: "Die Melodie ist wie eine Bergkette - sie hat Gipfel und Täler. Heute wirst du zu einem menschlichen Graphen der Musik, dein Körper zeichnet jede melodische Kurve durch den Raum nach."
           },
           task: {
-            en: "Pick a melodic tango with a clear pitch contour (like 'Romance de Barrio' or 'Nada'). Let the high notes stretch you tall. Let the low notes ground you. Move as if you're drawing the melody in the air with your spine. Tip: Start low to give yourself range. You can't climb if you're already at the top.",
-            de: "Wähle einen melodischen Tango mit klarer Tonhöhenkontur (wie 'Romance de Barrio' oder 'Nada'). Lass die hohen Töne dich groß strecken. Lass die tiefen Töne dich erden. Bewege dich, als würdest du die Melodie mit deiner Wirbelsäule in die Luft zeichnen. Tipp: Beginne niedrig, um dir Spielraum zu geben. Du kannst nicht klettern, wenn du bereits oben bist."
+            en: "Choose a melodic tango like 'Nostalgias' or 'Desde el Alma'. Stand with feet hip-width apart, knees slightly bent. Follow only the main melody line with your height - high notes stretch you tall, low notes bring you down. Ignore the rhythm, focus purely on pitch. Try this for 2 minutes, then attempt simple walking while maintaining this melodic connection.",
+            de: "Wähle einen melodischen Tango wie 'Nostalgias' oder 'Desde el Alma'. Stehe mit hüftbreiten Füßen, Knie leicht gebeugt. Folge nur der Hauptmelodie mit deiner Höhe - hohe Töne strecken dich groß, tiefe Töne bringen dich nach unten. Ignoriere den Rhythmus, konzentriere dich rein auf die Tonhöhe. Versuche das 2 Minuten, dann versuche einfaches Gehen, während du diese melodische Verbindung beibehältst."
           }
         },
         day3: {
           content: {
-            en: "One of the most natural uses of height is signaling go and stop. We instinctively lower ourselves to start moving, like loading energy, and rise when we want to stop and punctuate. It's a physical exclamation mark.",
-            de: "Eine der natürlichsten Verwendungen der Höhe ist das Signalisieren von Gehen und Stoppen. Wir senken uns instinktiv, um uns zu bewegen, wie das Laden von Energie, und steigen, wenn wir stoppen und betonen wollen. Es ist ein physisches Ausrufezeichen."
+            en: "Every movement has a beginning and end. Today we explore how height can be your punctuation mark - a physical way to say 'starting now' or 'finished here' with your entire body.",
+            de: "Jede Bewegung hat einen Anfang und ein Ende. Heute erkunden wir, wie Höhe dein Satzzeichen sein kann - eine körperliche Art zu sagen 'jetzt geht's los' oder 'hier fertig' mit deinem ganzen Körper."
           },
           task: {
-            en: "Pick a tango with clear phrases. Let your body drop slightly as you begin each one. Let it rise at the end. Feel the arc. Then reverse it: rise to start, lower to stop. What effect does it have? Try starting with a deep, grounded first step and gradually rising with each movement.",
-            de: "Wähle einen Tango mit klaren Phrasen. Lass deinen Körper leicht fallen, wenn du jede beginnst. Lass ihn am Ende steigen. Spüre den Bogen. Dann kehre es um: steige zum Beginnen, senke zum Stoppen. Welche Wirkung hat das? Versuche, mit einem tiefen, geerdeten ersten Schritt zu beginnen und mit jeder Bewegung allmählich zu steigen."
+            en: "Practice with clear musical phrases (try 'Por Una Cabeza'). At the start of each phrase, drop into a slight crouch - loading energy like a spring. At the phrase's end, rise tall - releasing that energy as an exclamation point. Do this 5 times. Then reverse it: rise to begin, sink to end. How does each version feel different? Which feels more natural to you?",
+            de: "Übe mit klaren musikalischen Phrasen (versuche 'Por Una Cabeza'). Am Anfang jeder Phrase gehe in eine leichte Hocke - lade Energie wie eine Feder. Am Ende der Phrase steige hoch - gib diese Energie als Ausrufezeichen frei. Mache das 5 Mal. Dann kehre es um: steige zum Beginnen, sinke zum Enden. Wie fühlt sich jede Version anders an? Welche fühlt sich natürlicher für dich an?"
           }
         },
         day4: {
           content: {
-            en: "Want more stability, groundedness, and flow in your turns? Try going lower. Lowering your height, just slightly, can anchor the pivot and generate more momentum.",
-            de: "Willst du mehr Stabilität, Erdung und Fluss in deinen Drehungen? Versuche, tiefer zu gehen. Das Senken deiner Höhe, nur leicht, kann die Drehung verankern und mehr Schwung erzeugen."
+            en: "Rotation becomes magic when you understand the physics of height. Like a figure skater pulling in their arms, changing your vertical position can transform the quality of your turns completely.",
+            de: "Rotation wird zu Magie, wenn du die Physik der Höhe verstehst. Wie ein Eiskunstläufer, der die Arme anzieht, kann das Verändern deiner vertikalen Position die Qualität deiner Drehungen völlig transformieren."
           },
           task: {
-            en: "Pick a few ochos. Right at the pivot moment, gently lower the embrace. Not to push, but to invite the rotation. Then try the same with a higher posture. Compare. This isn't about changing your whole technique. It's about choice. Use the extra height difference when you want to highlight a moment.",
-            de: "Wähle ein paar Ochos. Genau im Drehmoment senke die Umarmung sanft. Nicht um zu drücken, sondern um die Rotation einzuladen. Dann versuche dasselbe mit einer höheren Haltung. Vergleiche. Es geht nicht darum, deine ganze Technik zu ändern. Es geht um Wahl. Nutze den zusätzlichen Höhenunterschied, wenn du einen Moment hervorheben willst."
+            en: "Practice simple turns (molinetes or giros). First, maintain your normal height throughout. Then try the same turn while gradually sinking lower as you pivot - feel how this grounds and stabilizes you. Finally, try rising during the turn. Compare all three: Which gives you more control? Which feels more musical? Practice each version 3 times to feel the difference.",
+            de: "Übe einfache Drehungen (Molinetes oder Giros). Halte zuerst deine normale Höhe bei. Dann versuche dieselbe Drehung, während du beim Drehen allmählich tiefer sinkst - spüre, wie das dich erdet und stabilisiert. Schließlich versuche, während der Drehung zu steigen. Vergleiche alle drei: Welche gibt dir mehr Kontrolle? Welche fühlt sich musikalischer an? Übe jede Version 3 Mal, um den Unterschied zu spüren."
           }
         },
         day5: {
           content: {
-            en: "Let's push the height play to the extreme. In open embrace, you have more freedom to play with vertical movement. Front-facing positions limit how much you can drop without collapsing the structure.",
-            de: "Lass uns das Höhenspiel zum Extrem treiben. In offener Umarmung hast du mehr Freiheit, mit vertikaler Bewegung zu spielen. Frontal ausgerichtete Positionen begrenzen, wie tief du gehen kannst, ohne die Struktur zu kollabieren."
+            en: "Sometimes the most powerful expression comes from extremes. Today we push the boundaries - discovering just how much height variation your body can safely achieve while maintaining elegance and connection.",
+            de: "Manchmal kommt der kraftvollste Ausdruck von Extremen. Heute verschieben wir die Grenzen - entdecken, wie viel Höhenvariation dein Körper sicher erreichen kann, während Eleganz und Verbindung erhalten bleiben."
           },
           task: {
-            en: "In open embrace, dance an ocho cortado. Just before the rebound, go very low. Bend your knees, ground your hips. Feel the weight drop. Notice what happens: You'll likely slow down, lowering takes time. Find at least two more positions where you and your partner are not directly in front of each other, and try going extremely low there.",
-            de: "In offener Umarmung tanze einen Ocho Cortado. Kurz vor dem Rückprall gehe sehr tief. Beuge deine Knie, erde deine Hüften. Spüre das Gewicht fallen. Bemerke, was passiert: Du wirst wahrscheinlich langsamer, das Senken braucht Zeit. Finde mindestens zwei weitere Positionen, wo du und dein Partner nicht direkt voreinander stehen, und versuche dort extrem tief zu gehen."
+            en: "In open embrace, practice dramatic height changes during ocho cortados. Start standing tall, then sink very low (bent knees, lowered hips) just before the rebound. Feel the contrast. Try this same extreme lowering in at least two other figures where you're not face-to-face with your partner. Notice: extreme changes take time - use this timing as a musical tool.",
+            de: "In offener Umarmung übe dramatische Höhenveränderungen während Ocho Cortados. Beginne stehend groß, dann sinke sehr tief (gebeugte Knie, gesenkte Hüften) kurz vor dem Rückprall. Spüre den Kontrast. Versuche dieselbe extreme Senkung in mindestens zwei anderen Figuren, wo du nicht Gesicht zu Gesicht mit deinem Partner bist. Bemerke: extreme Veränderungen brauchen Zeit - nutze dieses Timing als musikalisches Werkzeug."
           }
         },
         day6: {
           content: {
-            en: "Today we explore the breath as a tool for height variation. Your breathing can create subtle but powerful changes in your dance height and connection with your partner.",
-            de: "Heute erkunden wir den Atem als Werkzeug für Höhenvariationen. Dein Atmen kann subtile aber kraftvolle Veränderungen in deiner Tanzhöhe und Verbindung mit deinem Partner schaffen."
+            en: "Your breath is an invisible conductor, orchestrating subtle height changes that your partner can feel even with their eyes closed. Today we turn breathing into a conversation.",
+            de: "Dein Atem ist ein unsichtbarer Dirigent, der subtile Höhenveränderungen orchestriert, die dein Partner sogar mit geschlossenen Augen spüren kann. Heute machen wir das Atmen zu einer Unterhaltung."
           },
           task: {
-            en: "With a partner, stand close in closed embrace. Take turns leading each other with just your breath, no steps. Feel how inhaling naturally lifts you and exhaling grounds you. Can you feel the height shifting between you? Practice using your breath to initiate movement and create height changes throughout a simple walking sequence.",
-            de: "Mit einem Partner stehe nah in geschlossener Umarmung. Führt euch abwechselnd nur mit eurem Atem, ohne Schritte. Spürt, wie das Einatmen euch natürlich hebt und das Ausatmen euch erdet. Könnt ihr die Höhenverschiebung zwischen euch spüren? Übt, euren Atem zu nutzen, um Bewegung zu initiieren und Höhenveränderungen in einer einfachen Gehsequenz zu schaffen."
+            en: "With a partner, stand in close embrace. One person leads using only breath - no foot movement. Inhale to rise slightly, exhale to settle. The follower mirrors this breathing. Switch roles every 30 seconds for 3 minutes total. Then try leading a simple walking sequence where your breath initiates each height change before your feet move. Can you communicate direction through breathing alone?",
+            de: "Mit einem Partner stehe in enger Umarmung. Eine Person führt nur mit dem Atem - keine Fußbewegung. Einatmen zum leichten Steigen, Ausatmen zum Setzen. Der Folgende spiegelt dieses Atmen. Wechselt die Rollen alle 30 Sekunden für insgesamt 3 Minuten. Dann versuche, eine einfache Gehsequenz zu führen, wo dein Atem jede Höhenveränderung initiiert, bevor sich deine Füße bewegen. Kannst du Richtung allein durch Atmen kommunizieren?"
           }
         },
         day7: {
           content: {
-            en: "Your spine is a dynamic part of your body that can come alive when dancing tango. It doesn't have to be a rigid 'frame' as often taught. Let your spine be your primary source of movement.",
-            de: "Deine Wirbelsäule ist ein dynamischer Teil deines Körpers, der beim Tango-Tanzen lebendig werden kann. Sie muss nicht ein starrer 'Rahmen' sein, wie oft gelehrt wird. Lass deine Wirbelsäule deine primäre Bewegungsquelle sein."
+            en: "Your spine is not a rigid pole but a flexible chain of possibility. Today we unlock its dynamic potential, letting it snake and wave through space to create fluid height transitions that flow like water.",
+            de: "Deine Wirbelsäule ist kein starrer Stab, sondern eine flexible Kette von Möglichkeiten. Heute entschlüsseln wir ihr dynamisches Potenzial, lassen sie sich schlängeln und wellen durch den Raum, um fließende Höhenübergänge zu schaffen, die wie Wasser fließen."
           },
           task: {
-            en: "Pick a private place, imagine your spine is a snake, and it is your primary source of movement. Your spine starts to move, arms and legs are just following along. Move around the room while your spine is being a snake. Then apply this spinal awareness to your tango: let your spine initiate height changes, creating waves of movement that flow through your entire body.",
-            de: "Wähle einen privaten Ort, stelle dir vor, deine Wirbelsäule ist eine Schlange und sie ist deine primäre Bewegungsquelle. Deine Wirbelsäule beginnt sich zu bewegen, Arme und Beine folgen nur. Bewege dich im Raum, während deine Wirbelsäule eine Schlange ist. Dann wende dieses Wirbelsäulenbewusstsein auf deinen Tango an: lass deine Wirbelsäule Höhenveränderungen initiieren und Bewegungswellen schaffen, die durch deinen ganzen Körper fließen."
+            en: "Solo exercise: Stand and imagine your spine as a silk ribbon floating in water. Let it undulate from base to crown, creating waves of height change. Start small, then let the waves grow larger. Now apply this to tango: choose a slow vals and let your spine initiate all height changes, creating flowing waves throughout your dance. Your arms and legs simply follow where your spine leads. Practice for one full song.",
+            de: "Solo-Übung: Stehe und stelle dir deine Wirbelsäule als Seidenband vor, das im Wasser schwebt. Lass sie von der Basis zur Krone wellen und Höhenwellen schaffen. Beginne klein, dann lass die Wellen größer werden. Jetzt wende das auf Tango an: wähle einen langsamen Vals und lass deine Wirbelsäule alle Höhenveränderungen initiieren, schaffe fließende Wellen durch deinen ganzen Tanz. Deine Arme und Beine folgen einfach, wohin deine Wirbelsäule führt. Übe ein ganzes Lied lang."
           }
         }
       },
