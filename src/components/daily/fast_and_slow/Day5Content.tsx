@@ -34,7 +34,7 @@ const Day5Content: React.FC<Day5ContentProps> = ({
       />
 
       <Assignment
-        assignment={{ content: 'exercises.dancingFastSlow.daily.day5.task', task: 'exercises.dancingFastSlow.daily.day5.task' }}
+        assignment={{ content: 'exercises.dancingFastSlow.daily.day5.task' }}
         taskId="day-5-task"
         level={completedTasks['day-5-task'] || 0}
         onLevelChange={onTaskLevelChange}

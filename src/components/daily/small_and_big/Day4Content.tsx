@@ -26,8 +26,7 @@ const Day4Content: React.FC<Day4ContentProps> = ({
       
       <Assignment
         assignment={{ 
-          content: 'exercises.dancingSmallBig.daily.day4.task' as any, 
-          task: 'exercises.dancingSmallBig.daily.day4.task' as any 
+          content: 'exercises.dancingSmallBig.daily.day4.task' as any
         }}
         taskId="day-4-task"
         level={completedTasks['day-4-task'] || 0}

@@ -3,54 +3,44 @@ import { Assignment } from '@/data/assignments/fastAndSlow';
 
 // Daily assignments for Dancing High vs Low topic
 export const day1Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day1.content',
-  task: 'exercises.dancingHighLow.daily.day1.task'
+  content: 'exercises.dancingHighLow.daily.day1.content'
 };
 
 export const day2Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day2.content',
-  task: 'exercises.dancingHighLow.daily.day2.task'
+  content: 'exercises.dancingHighLow.daily.day2.content'
 };
 
 export const day3Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day3.content',
-  task: 'exercises.dancingHighLow.daily.day3.task'
+  content: 'exercises.dancingHighLow.daily.day3.content'
 };
 
 export const day4Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day4.content',
-  task: 'exercises.dancingHighLow.daily.day4.task'
+  content: 'exercises.dancingHighLow.daily.day4.content'
 };
 
 export const day5Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day5.content',
-  task: 'exercises.dancingHighLow.daily.day5.task'
+  content: 'exercises.dancingHighLow.daily.day5.content'
 };
 
 export const day6Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day6.content',
-  task: 'exercises.dancingHighLow.daily.day6.task'
+  content: 'exercises.dancingHighLow.daily.day6.content'
 };
 
 export const day7Assignment: Assignment = {
-  content: 'exercises.dancingHighLow.daily.day7.content',
-  task: 'exercises.dancingHighLow.daily.day7.task'
+  content: 'exercises.dancingHighLow.daily.day7.content'
 };
 
 // Weekly assignments
 export const weeklyAssignment1: Assignment = {
-  content: 'exercises.dancingHighLow.assignment1',
-  task: 'exercises.dancingHighLow.assignment1'
+  content: 'exercises.dancingHighLow.assignment1'
 };
 
 export const weeklyAssignment2: Assignment = {
-  content: 'exercises.dancingHighLow.assignment2',
-  task: 'exercises.dancingHighLow.assignment2'
+  content: 'exercises.dancingHighLow.assignment2'
 };
 
 export const weeklyAssignment3: Assignment = {
-  content: 'exercises.dancingHighLow.assignment3',
-  task: 'exercises.dancingHighLow.assignment3'
+  content: 'exercises.dancingHighLow.assignment3'
 };
 
 // Helper function to get assignment by key

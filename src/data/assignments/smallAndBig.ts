@@ -3,7 +3,6 @@ import { TranslationKey } from '../translations';
 
 export interface Assignment {
   content: TranslationKey;
-  task: TranslationKey;
   audioTitle?: TranslationKey;
   audioDescription?: TranslationKey;
   fullSong?: TranslationKey;
@@ -15,44 +14,34 @@ export interface Assignment {
 
 export const assignments: Record<string, Assignment> = {
   'day1': {
-    content: 'exercises.dancingSmallBig.daily.day1.content',
-    task: 'exercises.dancingSmallBig.daily.day1.task'
+    content: 'exercises.dancingSmallBig.daily.day1.content'
   },
   'day2': {
-    content: 'exercises.dancingSmallBig.daily.day2.content',
-    task: 'exercises.dancingSmallBig.daily.day2.task'
+    content: 'exercises.dancingSmallBig.daily.day2.content'
   },
   'day3': {
-    content: 'exercises.dancingSmallBig.daily.day3.content',
-    task: 'exercises.dancingSmallBig.daily.day3.task'
+    content: 'exercises.dancingSmallBig.daily.day3.content'
   },
   'day4': {
-    content: 'exercises.dancingSmallBig.daily.day4.content',
-    task: 'exercises.dancingSmallBig.daily.day4.task'
+    content: 'exercises.dancingSmallBig.daily.day4.content'
   },
   'day5': {
-    content: 'exercises.dancingSmallBig.daily.day5.content',
-    task: 'exercises.dancingSmallBig.daily.day5.task'
+    content: 'exercises.dancingSmallBig.daily.day5.content'
   },
   'day6': {
-    content: 'exercises.dancingSmallBig.daily.day6.content',
-    task: 'exercises.dancingSmallBig.daily.day6.task'
+    content: 'exercises.dancingSmallBig.daily.day6.content'
   },
   'day7': {
-    content: 'exercises.dancingSmallBig.daily.day7.content',
-    task: 'exercises.dancingSmallBig.daily.day7.task'
+    content: 'exercises.dancingSmallBig.daily.day7.content'
   },
   'weekly-assignment-1': {
-    content: 'exercises.dancingSmallBig.assignment1',
-    task: 'exercises.dancingSmallBig.assignment1'
+    content: 'exercises.dancingSmallBig.assignment1'
   },
   'weekly-assignment-2': {
-    content: 'exercises.dancingSmallBig.assignment2',
-    task: 'exercises.dancingSmallBig.assignment2'
+    content: 'exercises.dancingSmallBig.assignment2'
   },
   'weekly-assignment-3': {
-    content: 'exercises.dancingSmallBig.assignment3',
-    task: 'exercises.dancingSmallBig.assignment3'
+    content: 'exercises.dancingSmallBig.assignment3'
   }
 };
 
