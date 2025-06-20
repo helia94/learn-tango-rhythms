@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,7 +22,11 @@ import DancingFastSlow from "./pages/exercises/DancingFastSlow";
 import DancingFastSlowAssignments from "./pages/exercises/DancingFastSlowAssignments";
 import DancingSmallBig from "./pages/exercises/DancingSmallBig";
 import DancingSmallBigAssignments from "./pages/exercises/DancingSmallBigAssignments";
-import SpotifyCallback from "./pages/SpotifyCallback";
+import DancingHighLow from "./pages/exercises/DancingHighLow";
+import DancingHighLowAssignments from "./pages/exercises/DancingHighLowAssignments";
+import Sp
+
+otifyCallback from "./pages/SpotifyCallback";
 import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
 import Contact from '@/pages/Contact';
@@ -68,6 +73,8 @@ const App = () => {
                     <Route path="/exercises/dancing-fast-slow/assignments" element={<DancingFastSlowAssignments />} />
                     <Route path="/exercises/dancing-small-big" element={<DancingSmallBig />} />
                     <Route path="/exercises/dancing-small-big/assignments" element={<DancingSmallBigAssignments />} />
+                    <Route path="/exercises/dancing-high-low" element={<DancingHighLow />} />
+                    <Route path="/exercises/dancing-high-low/assignments" element={<DancingHighLowAssignments />} />
                     
                     {/* Rhythm Lab sub-routes */}
                     <Route path="/rhythmlab" element={<RhythmLabLayout />}>

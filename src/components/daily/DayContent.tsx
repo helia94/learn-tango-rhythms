@@ -19,6 +19,14 @@ import SmallBigDay4Content from './small_and_big/Day4Content';
 import SmallBigDay5Content from './small_and_big/Day5Content';
 import SmallBigDay6Content from './small_and_big/Day6Content';
 import SmallBigDay7Content from './small_and_big/Day7Content';
+// High and Low imports
+import HighLowDay1Content from './dancing_high_low/Day1Content';
+import HighLowDay2Content from './dancing_high_low/Day2Content';
+import HighLowDay3Content from './dancing_high_low/Day3Content';
+import HighLowDay4Content from './dancing_high_low/Day4Content';
+import HighLowDay5Content from './dancing_high_low/Day5Content';
+import HighLowDay6Content from './dancing_high_low/Day6Content';
+import HighLowDay7Content from './dancing_high_low/Day7Content';
 import { DayStatus } from './DayStatus';
 
 interface DayContentProps {
@@ -44,6 +52,7 @@ const DayContent: React.FC<DayContentProps> = ({
     topicName,
     topicIndex,
     status,
+    willRouteToHighLow: topicName === 'dancing-high-low',
     willRouteToSmallBig: topicName === 'dancing-small-big'
   });
 
@@ -61,6 +70,44 @@ const DayContent: React.FC<DayContentProps> = ({
   };
 
   // Route to the correct topic's daily content
+  if (topicName === 'dancing-high-low') {
+    console.log(`DayContent - Routing to high-low Day ${dayNumber}`);
+    switch (dayNumber) {
+      case 1:
+        return <HighLowDay1Content {...commonProps} />;
+      case 2:
+        return <HighLowDay2Content {...commonProps} />;
+      case 3:
+        return <HighLowDay3Content {...commonProps} />;
+      case 4:
+        return <HighLowDay4Content {...commonProps} />;
+      case 5:
+        return <HighLowDay5Content {...commonProps} />;
+      case 6:
+        return <HighLowDay6Content {...commonProps} />;
+      case 7:
+        return <HighLowDay7Content {...commonProps} />;
+      default:
+        return (
+          <div className="space-y-6">
+            <p className="text-gray-700 text-lg leading-relaxed">
+              Day {dayNumber} content coming soon...
+            </p>
+            
+            <Assignment
+              assignment={{ content: 'daily.placeholderTask' as any, task: 'daily.placeholderTask' as any }}
+              taskId={`day-${dayNumber}-task`}
+              level={completedTasks[`day-${dayNumber}-task`] || 0}
+              onLevelChange={onTaskLevelChange}
+              variant="sage"
+              topicName={topicName}
+              topicIndex={topicIndex}
+            />
+          </div>
+        );
+    }
+  }
+
   if (topicName === 'dancing-small-big') {
     console.log(`DayContent - Routing to small-big Day ${dayNumber}`);
     switch (dayNumber) {

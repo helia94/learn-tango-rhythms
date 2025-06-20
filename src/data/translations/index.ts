@@ -4,6 +4,7 @@ import { otherTranslations } from './other';
 import { homeTranslations } from './home';
 import { profileTranslations } from './profile';
 import { smallAndBigTranslations } from './small_and_big';
+import { dancingHighLowTranslations } from './dancing_high_low';
 import { deepMergeTranslations } from '@/utils/mergeTranslations';
 
 // Export the main TranslationKey type and extend it with home keys and missing exercise keys
@@ -40,12 +41,28 @@ export type TranslationKey = MainTranslationKey |
   `exercises.dancingSmallBig.daily.day5.content` | `exercises.dancingSmallBig.daily.day5.task` |
   `exercises.dancingSmallBig.daily.day6.content` | `exercises.dancingSmallBig.daily.day6.task` |
   `exercises.dancingSmallBig.daily.day7.content` | `exercises.dancingSmallBig.daily.day7.task` |
-  `exercises.dancingSmallBig.assignment1` | `exercises.dancingSmallBig.assignment2` | `exercises.dancingSmallBig.assignment3`;
+  `exercises.dancingSmallBig.assignment1` | `exercises.dancingSmallBig.assignment2` | `exercises.dancingSmallBig.assignment3` |
+  // Add new dancing high low exercise keys
+  `exercises.dancingHighLow.title` | `exercises.dancingHighLow.introText1` | `exercises.dancingHighLow.introText2` |
+  `exercises.dancingHighLow.tipsTitle` | `exercises.dancingHighLow.tip1` | `exercises.dancingHighLow.tip2` | `exercises.dancingHighLow.tip3` | `exercises.dancingHighLow.tip4` |
+  `exercises.dancingHighLow.musicalConnectionTitle` | `exercises.dancingHighLow.musicalConnectionText1` | `exercises.dancingHighLow.musicalConnectionText2` | `exercises.dancingHighLow.musicalConnectionText3` |
+  `exercises.dancingHighLow.practiceTitle` | `exercises.dancingHighLow.practiceDescription` |
+  `exercises.dancingHighLow.volumeExampleTitle` | `exercises.dancingHighLow.pitchExampleTitle` |
+  `exercises.dancingHighLow.allAssignments` | `exercises.dancingHighLow.assignmentsDescription` |
+  `exercises.dancingHighLow.daily.day1.content` | `exercises.dancingHighLow.daily.day1.task` |
+  `exercises.dancingHighLow.daily.day2.content` | `exercises.dancingHighLow.daily.day2.task` |
+  `exercises.dancingHighLow.daily.day3.content` | `exercises.dancingHighLow.daily.day3.task` |
+  `exercises.dancingHighLow.daily.day4.content` | `exercises.dancingHighLow.daily.day4.task` |
+  `exercises.dancingHighLow.daily.day5.content` | `exercises.dancingHighLow.daily.day5.task` |
+  `exercises.dancingHighLow.daily.day6.content` | `exercises.dancingHighLow.daily.day6.task` |
+  `exercises.dancingHighLow.daily.day7.content` | `exercises.dancingHighLow.daily.day7.task` |
+  `exercises.dancingHighLow.assignment1` | `exercises.dancingHighLow.assignment2` | `exercises.dancingHighLow.assignment3`;
 
 export const translations = deepMergeTranslations(
   mainTranslations,
   otherTranslations,
   { home: homeTranslations },
   profileTranslations,
-  smallAndBigTranslations
+  smallAndBigTranslations,
+  dancingHighLowTranslations
 );

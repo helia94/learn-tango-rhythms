@@ -1,0 +1,118 @@
+
+import React, { useState } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
+import PageHeader from '@/components/ui/PageHeader';
+import StorySection from '@/components/ui/StorySection';
+import TipsInfoBox from '@/components/ui/TipsInfoBox';
+import AudioSection from '@/components/ui/AudioSection';
+import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
+import TextContent from '@/components/ui/TextContent';
+import TopicStartButton from '@/components/ui/TopicStartButton';
+import DancingHighLowDaily1to7 from '@/components/DancingHighLowDaily1to7';
+import { getWeeklyAssignments } from '@/data/assignments/dancing_high_low';
+
+const DancingHighLow = () => {
+  const { t } = useTranslation();
+  const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
+
+  const handleTaskLevelChange = (taskId: string, level: number) => {
+    setCompletedTasks(prev => ({
+      ...prev,
+      [taskId]: level
+    }));
+  };
+
+  const weeklyAssignments = getWeeklyAssignments();
+
+  const tips = [
+    t('exercises.dancingHighLow.tip1' as any),
+    t('exercises.dancingHighLow.tip2' as any), 
+    t('exercises.dancingHighLow.tip3' as any),
+    t('exercises.dancingHighLow.tip4' as any)
+  ];
+
+  const practiceAudioTracks = [
+    {
+      key: 'volume-example',
+      title: t('exercises.dancingHighLow.volumeExampleTitle' as any),
+      audioUrl: '/audio/volume-dynamics-example.mp3'
+    },
+    {
+      key: 'pitch-example',
+      title: t('exercises.dancingHighLow.pitchExampleTitle' as any),
+      audioUrl: '/audio/pitch-contour-example.mp3'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
+      <PageHeader title={t('exercises.dancingHighLow.title' as any)} />
+      
+      {/* Topic Action Button */}
+      <div className="max-w-4xl mx-auto px-4 mb-8">
+        <div className="text-center">
+          <TopicStartButton 
+            topicKey="dancing-high-low"
+            topicIndex={2}
+          />
+        </div>
+      </div>
+
+      {/* Story Content */}
+      <div className="max-w-4xl mx-auto px-4 pb-8">
+        {/* Introduction Story */}
+        <StorySection>
+          <TextContent variant="lead" align="center" className="mb-6">
+            {t('exercises.dancingHighLow.introText1' as any)}
+          </TextContent>
+          <TextContent variant="body" align="center">
+            {t('exercises.dancingHighLow.introText2' as any)}
+          </TextContent>
+        </StorySection>
+
+        {/* Tips for Height Tools */}
+        <StorySection>
+          <TipsInfoBox
+            title={t('exercises.dancingHighLow.tipsTitle' as any)}
+            tips={tips}
+          />
+        </StorySection>
+
+        {/* Musical Connection */}
+        <StorySection title={t('exercises.dancingHighLow.musicalConnectionTitle' as any)}>
+          <TextContent variant="body" align="center" className="space-y-4">
+            <p>{t('exercises.dancingHighLow.musicalConnectionText1' as any)}</p>
+            <p>{t('exercises.dancingHighLow.musicalConnectionText2' as any)}</p>
+            <p>{t('exercises.dancingHighLow.musicalConnectionText3' as any)}</p>
+          </TextContent>
+        </StorySection>
+
+        {/* Audio Practice Section */}
+        <AudioSection 
+          title={t('exercises.dancingHighLow.practiceTitle' as any)}
+          description={t('exercises.dancingHighLow.practiceDescription' as any)}
+          tracks={practiceAudioTracks}
+        />
+
+        {/* See All Assignments Button */}
+        <div className="text-center my-12">
+          <SeeAllAssignmentsButton 
+            to="/exercises/dancing-high-low/assignments"
+          >
+            All Assignments
+          </SeeAllAssignmentsButton>
+        </div>
+      </div>
+
+      {/* Daily System */}
+      <div className="max-w-4xl mx-auto px-4 mb-16">
+        <DancingHighLowDaily1to7 
+          completedTasks={completedTasks}
+          onTaskLevelChange={handleTaskLevelChange}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default DancingHighLow;
