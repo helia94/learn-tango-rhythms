@@ -1,7 +1,6 @@
-
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Lock, CheckCircle, Circle } from 'lucide-react';
+import { ArrowLeft, Lock, Circle } from 'lucide-react';
 import { MapIcon } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { TranslationKey } from '@/data/translations/index';
@@ -12,22 +11,7 @@ const RoadMap = () => {
   const { t } = useTranslation();
   const { getTopicVisibility, isLoading, visibleTopics } = useTopicVisibility();
 
-  // Log the visibility context when it changes (but less frequently)
-  useEffect(() => {
-    console.log('RoadMap: TopicVisibility context updated:', {
-      isLoading,
-      visibleTopicsCount: visibleTopics.length,
-      visibleTopics: visibleTopics.map(t => ({
-        topicIndex: t.topicIndex,
-        topicKey: t.topicKey,
-        isVisible: t.isVisible,
-        isUnlocked: t.isUnlocked,
-        isActive: t.isActive
-      }))
-    });
-  }, [isLoading, visibleTopics.length]); // Only log when loading state or count changes
-
-  // Memoize the concepts array to prevent recreating it on every render
+  // Memoize the concepts array
   const allConcepts = useMemo(() => [
     { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow" as TranslationKey, topicIndex: 0, link: "/exercises/dancing-fast-slow" },
     { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig" as TranslationKey, topicIndex: 1, link: "/exercises/dancing-small-big" },
@@ -58,35 +42,46 @@ const RoadMap = () => {
     { key: "danceTheAccents", translationKey: "concepts.danceTheAccents" as TranslationKey }
   ], []);
 
-  const getConceptStatus = useCallback((concept: typeof allConcepts[0]) => {
-    // For concepts without topicIndex, use fallback logic
-    if (concept.topicIndex === undefined) {
-      return {
-        unlocked: false,
-        completed: false,
-        visible: false,
-        active: false
-      };
-    }
+  // Memoize concept statuses to prevent recalculation on every render
+  const conceptStatuses = useMemo(() => {
+    return allConcepts.map(concept => {
+      if (concept.topicIndex === undefined) {
+        return {
+          concept,
+          status: {
+            unlocked: false,
+            completed: false,
+            visible: false,
+            active: false
+          }
+        };
+      }
 
-    const topicVisibility = getTopicVisibility(concept.topicIndex);
-    
-    if (!topicVisibility) {
-      return {
-        unlocked: false,
-        completed: false,
-        visible: false,
-        active: false
-      };
-    }
+      const topicVisibility = getTopicVisibility(concept.topicIndex);
+      
+      if (!topicVisibility) {
+        return {
+          concept,
+          status: {
+            unlocked: false,
+            completed: false,
+            visible: false,
+            active: false
+          }
+        };
+      }
 
-    return {
-      unlocked: topicVisibility.isUnlocked,
-      completed: false, // We don't track completion status yet
-      visible: topicVisibility.isVisible,
-      active: topicVisibility.isActive
-    };
-  }, [getTopicVisibility]);
+      return {
+        concept,
+        status: {
+          unlocked: topicVisibility.isUnlocked,
+          completed: false,
+          visible: topicVisibility.isVisible,
+          active: topicVisibility.isActive
+        }
+      };
+    });
+  }, [allConcepts, getTopicVisibility, visibleTopics]); // Added visibleTopics to ensure updates when data changes
 
   const getNodeIcon = useCallback((unlocked: boolean, active: boolean, visible: boolean) => {
     if (!visible) {
@@ -123,19 +118,15 @@ const RoadMap = () => {
   // Generate winding path coordinates for each concept
   const generateWindingPath = useCallback((index: number, total: number) => {
     const progress = index / (total - 1);
-    const baseY = progress * 100; // Base vertical progression
+    const baseY = progress * 100;
 
-    // Create curves using sine waves with different frequencies
-    const curve1 = Math.sin(progress * Math.PI * 3) * 15; // Primary curve
-    const curve2 = Math.sin(progress * Math.PI * 7) * 8; // Secondary curve
-    const curve3 = Math.sin(progress * Math.PI * 11) * 4; // Tertiary curve
+    const curve1 = Math.sin(progress * Math.PI * 3) * 15;
+    const curve2 = Math.sin(progress * Math.PI * 7) * 8;
+    const curve3 = Math.sin(progress * Math.PI * 11) * 4;
 
-    const x = 50 + curve1 + curve2 + curve3; // Center at 50% with curves
+    const x = 50 + curve1 + curve2 + curve3;
     const y = baseY;
-    return {
-      x,
-      y
-    };
+    return { x, y };
   }, []);
 
   if (isLoading) {
@@ -201,12 +192,11 @@ const RoadMap = () => {
           }).join(' ')}`} stroke="hsl(var(--cream))" strokeWidth="1" fill="none" strokeDasharray="2 3" className="opacity-60" />
           </svg>
 
-          {/* Concept Nodes along the winding path */}
-          {allConcepts.map((concept, index) => {
-            const conceptStatus = getConceptStatus(concept);
+          {/* Concept Nodes using memoized statuses */}
+          {conceptStatuses.map(({ concept, status }, index) => {
             const position = generateWindingPath(index, allConcepts.length);
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
-            const canRoute = conceptStatus.visible && concept.link;
+            const canRoute = status.visible && concept.link;
 
             const ConceptCard = ({ children }: { children: React.ReactNode }) => {
               if (canRoute) {
@@ -233,11 +223,11 @@ const RoadMap = () => {
                   {/* Concept Card */}
                   <div className={`${isLeft ? 'order-1 mr-8' : 'order-3 ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
                     <ConceptCard>
-                      <div className={`game-card bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${!conceptStatus.visible ? 'opacity-60 grayscale' : canRoute ? 'cursor-pointer hover:shadow-2xl' : ''}`}>
+                      <div className={`game-card bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${!status.visible ? 'opacity-60 grayscale' : canRoute ? 'cursor-pointer hover:shadow-2xl' : ''}`}>
                         <div className="text-warm-brown font-bold text-center text-sm">
                           {t(concept.translationKey)}
                         </div>
-                        {!conceptStatus.visible && (
+                        {!status.visible && (
                           <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
                             <Lock className="w-6 h-6 text-cream" />
                           </div>
@@ -249,8 +239,8 @@ const RoadMap = () => {
                   {/* Central Road Node */}
                   <div className="order-2 relative z-20">
                     <ConceptCard>
-                      <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${getNodeBackground(conceptStatus.unlocked, conceptStatus.active, conceptStatus.visible)}`}>
-                        {getNodeIcon(conceptStatus.unlocked, conceptStatus.active, conceptStatus.visible)}
+                      <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${getNodeBackground(status.unlocked, status.active, status.visible)}`}>
+                        {getNodeIcon(status.unlocked, status.active, status.visible)}
                       </div>
                     </ConceptCard>
                     
