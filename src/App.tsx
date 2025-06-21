@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,6 +9,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { FeatureFlagsProvider } from "@/contexts/FeatureFlagsContext";
 import { SpotifyProvider } from "@/contexts/SpotifyContext";
+import { TopicVisibilityProvider } from "@/contexts/TopicVisibilityContext";
 import Home from "./pages/Home";
 import Index from "./pages/Index";
 import Quiz from "./pages/Quiz";
@@ -49,54 +51,56 @@ const App = () => {
         <AuthProvider>
           <SpotifyProvider>
             <FeatureFlagsProvider>
-              <TooltipProvider>
-                <Toaster />
-                <Sonner />
-                <BrowserRouter>
-                  <Routes>
-                    {/* Home page */}
-                    <Route path="/" element={<Home />} />
-                    
-                    {/* Authentication page */}
-                    <Route path="/auth" element={<Auth />} />
-                    
-                    {/* Profile page */}
-                    <Route path="/profile" element={<Profile />} />
-                    
-                    {/* Road Map page */}
-                    <Route path="/roadmap" element={<RoadMap />} />
-                    
-                    {/* Spotify callback */}
-                    <Route path="/spotify/callback" element={<SpotifyCallback />} />
-                    
-                    {/* Exercise pages */}
-                    <Route path="/exercises/dancing-fast-slow" element={<DancingFastSlow />} />
-                    <Route path="/exercises/dancing-fast-slow/assignments" element={<DancingFastSlowAssignments />} />
-                    <Route path="/exercises/dancing-small-big" element={<DancingSmallBig />} />
-                    <Route path="/exercises/dancing-small-big/assignments" element={<DancingSmallBigAssignments />} />
-                    <Route path="/exercises/dancing-high-low" element={<DancingHighLow />} />
-                    <Route path="/exercises/dancing-high-low/assignments" element={<DancingHighLowAssignments />} />
-                    <Route path="/exercises/dancing-circular-linear" element={<DancingCircularLinear />} />
-                    <Route path="/exercises/dancing-circular-linear/assignments" element={<DancingCircularLinearAssignments />} />
-                    <Route path="/exercises/dancing-with-without-control" element={<DancingWithWithoutControl />} />
-                    <Route path="/exercises/dancing-with-without-control/assignments" element={<DancingWithWithoutControlAssignments />} />
-                    
-                    {/* Rhythm Lab sub-routes */}
-                    <Route path="/rhythmlab" element={<RhythmLabLayout />}>
-                      <Route index element={<Index />} />
-                      <Route path="quiz" element={<Quiz />} />
-                      <Route path="leaderboard" element={<Leaderboard />} />
-                    </Route>
-                    
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                    <Route path="/terms" element={<Terms />} />
-                    <Route path="/privacy" element={<Privacy />} />
-                    <Route path="/contact" element={<Contact />} />
-                    
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </BrowserRouter>
-              </TooltipProvider>
+              <TopicVisibilityProvider>
+                <TooltipProvider>
+                  <Toaster />
+                  <Sonner />
+                  <BrowserRouter>
+                    <Routes>
+                      {/* Home page */}
+                      <Route path="/" element={<Home />} />
+                      
+                      {/* Authentication page */}
+                      <Route path="/auth" element={<Auth />} />
+                      
+                      {/* Profile page */}
+                      <Route path="/profile" element={<Profile />} />
+                      
+                      {/* Road Map page */}
+                      <Route path="/roadmap" element={<RoadMap />} />
+                      
+                      {/* Spotify callback */}
+                      <Route path="/spotify/callback" element={<SpotifyCallback />} />
+                      
+                      {/* Exercise pages */}
+                      <Route path="/exercises/dancing-fast-slow" element={<DancingFastSlow />} />
+                      <Route path="/exercises/dancing-fast-slow/assignments" element={<DancingFastSlowAssignments />} />
+                      <Route path="/exercises/dancing-small-big" element={<DancingSmallBig />} />
+                      <Route path="/exercises/dancing-small-big/assignments" element={<DancingSmallBigAssignments />} />
+                      <Route path="/exercises/dancing-high-low" element={<DancingHighLow />} />
+                      <Route path="/exercises/dancing-high-low/assignments" element={<DancingHighLowAssignments />} />
+                      <Route path="/exercises/dancing-circular-linear" element={<DancingCircularLinear />} />
+                      <Route path="/exercises/dancing-circular-linear/assignments" element={<DancingCircularLinearAssignments />} />
+                      <Route path="/exercises/dancing-with-without-control" element={<DancingWithWithoutControl />} />
+                      <Route path="/exercises/dancing-with-without-control/assignments" element={<DancingWithWithoutControlAssignments />} />
+                      
+                      {/* Rhythm Lab sub-routes */}
+                      <Route path="/rhythmlab" element={<RhythmLabLayout />}>
+                        <Route index element={<Index />} />
+                        <Route path="quiz" element={<Quiz />} />
+                        <Route path="leaderboard" element={<Leaderboard />} />
+                      </Route>
+                      
+                      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                      <Route path="/terms" element={<Terms />} />
+                      <Route path="/privacy" element={<Privacy />} />
+                      <Route path="/contact" element={<Contact />} />
+                      
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </BrowserRouter>
+                </TooltipProvider>
+              </TopicVisibilityProvider>
             </FeatureFlagsProvider>
           </SpotifyProvider>
         </AuthProvider>
