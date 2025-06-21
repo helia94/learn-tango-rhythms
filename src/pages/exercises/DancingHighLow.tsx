@@ -4,6 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
 import TipsInfoBox from '@/components/ui/TipsInfoBox';
+import AudioSection from '@/components/ui/AudioSection';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
@@ -27,6 +28,19 @@ const DancingHighLow = () => {
     t('exercises.dancingHighLow.tip1' as any),
     t('exercises.dancingHighLow.tip2' as any), 
     t('exercises.dancingHighLow.tip3' as any)
+  ];
+
+  const practiceAudioTracks = [
+    {
+      key: 'volume-example',
+      title: t('exercises.dancingHighLow.volumeExampleTitle' as any),
+      audioUrl: '/audio/volume-dynamics-example.mp3'
+    },
+    {
+      key: 'pitch-example',
+      title: t('exercises.dancingHighLow.pitchExampleTitle' as any),
+      audioUrl: '/audio/pitch-contour-example.mp3'
+    }
   ];
 
   return (
@@ -81,7 +95,7 @@ const DancingHighLow = () => {
             <div className="w-full max-w-2xl">
               <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-2xl shadow-2xl">
                 <iframe
-                  src="https://www.youtube.com/embed/UiAic0aBKdc?si=0TlLs7TSAb4eYGoc"
+                  src="https://www.youtube.com/embed/UiAic0aBKdk?si=0TlLs7TSAb4eYGoc"
                   title="Majo Martirena and Rodrigo Fonti - Height Variation Example"
                   className="absolute top-0 left-0 w-full h-full"
                   frameBorder="0"
@@ -95,6 +109,22 @@ const DancingHighLow = () => {
             </div>
           </div>
         </StorySection>
+
+        {/* Musical Connection */}
+        <StorySection title={t('exercises.dancingHighLow.musicalConnectionTitle' as any)}>
+          <TextContent variant="body" align="center" className="space-y-4">
+            <p>{t('exercises.dancingHighLow.musicalConnectionText1' as any)}</p>
+            <p>{t('exercises.dancingHighLow.musicalConnectionText2' as any)}</p>
+            <p>{t('exercises.dancingHighLow.musicalConnectionText3' as any)}</p>
+          </TextContent>
+        </StorySection>
+
+        {/* Audio Practice Section */}
+        <AudioSection 
+          title={t('exercises.dancingHighLow.practiceTitle' as any)}
+          description={t('exercises.dancingHighLow.practiceDescription' as any)}
+          tracks={practiceAudioTracks}
+        />
 
         {/* See All Assignments Button */}
         <div className="text-center my-12">
