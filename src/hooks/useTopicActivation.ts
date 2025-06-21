@@ -1,5 +1,5 @@
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -8,13 +8,13 @@ export const useTopicActivation = () => {
   const { user } = useAuth();
 
   // Helper function to get the 7-day cutoff date
-  const getSevenDaysAgo = useCallback(() => {
+  const getSevenDaysAgo = () => {
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     return sevenDaysAgo.toISOString();
-  }, []);
+  };
 
-  const activateTopic = useCallback(async (topicKey: string, topicIndex: number) => {
+  const activateTopic = async (topicKey: string, topicIndex: number) => {
     if (!user) {
       throw new Error('User must be logged in to activate topic');
     }
@@ -47,9 +47,9 @@ export const useTopicActivation = () => {
     } finally {
       setIsActivating(false);
     }
-  }, [user]);
+  };
 
-  const isTopicActive = useCallback(async (topicKey: string, topicIndex: number): Promise<boolean> => {
+  const isTopicActive = async (topicKey: string, topicIndex: number): Promise<boolean> => {
     if (!user) {
       console.log(`isTopicActive: No user logged in, returning false for topic ${topicKey}`);
       return false;
@@ -85,9 +85,9 @@ export const useTopicActivation = () => {
       console.error('Error checking topic activation:', error);
       return false;
     }
-  }, [user, getSevenDaysAgo]);
+  };
 
-  const hasActiveTopic = useCallback(async (): Promise<boolean> => {
+  const hasActiveTopic = async (): Promise<boolean> => {
     if (!user) {
       return false;
     }
@@ -112,9 +112,9 @@ export const useTopicActivation = () => {
       console.error('Error checking for active topics:', error);
       return false;
     }
-  }, [user, getSevenDaysAgo]);
+  };
 
-  const getActiveTopic = useCallback(async (): Promise<{ topic_key: string; topic_index: number; activated_at: string } | null> => {
+  const getActiveTopic = async (): Promise<{ topic_key: string; topic_index: number; activated_at: string } | null> => {
     if (!user) {
       return null;
     }
@@ -140,9 +140,9 @@ export const useTopicActivation = () => {
       console.error('Error getting active topic:', error);
       return null;
     }
-  }, [user, getSevenDaysAgo]);
+  };
 
-  const getTopicDeadline = useCallback(async (topicKey: string, topicIndex: number): Promise<Date | null> => {
+  const getTopicDeadline = async (topicKey: string, topicIndex: number): Promise<Date | null> => {
     if (!user) {
       return null;
     }
@@ -180,9 +180,9 @@ export const useTopicActivation = () => {
       console.error('Error calculating topic deadline:', error);
       return null;
     }
-  }, [user, getSevenDaysAgo]);
+  };
 
-  const topicIsUnlocked = useCallback(async (topicIndex: number): Promise<boolean> => {
+  const topicIsUnlocked = async (topicIndex: number): Promise<boolean> => {
     // Topic 0 (first topic) is always unlocked - FIXED: changed from topicIndex === 1 to topicIndex === 0
     if (topicIndex === 0) {
       return true;
@@ -231,9 +231,9 @@ export const useTopicActivation = () => {
       console.error('Error checking topic unlock status:', error);
       return false;
     }
-  }, [user]);
+  };
 
-  const getAllUnlockedTopics = useCallback(async (): Promise<number[]> => {
+  const getAllUnlockedTopics = async (): Promise<number[]> => {
     const unlockedTopics: number[] = [];
     
     // Topic 0 (first topic) is always unlocked - FIXED: changed from pushing 1 to pushing 0
@@ -297,7 +297,7 @@ export const useTopicActivation = () => {
       console.error('Error getting all unlocked topics:', error);
       return unlockedTopics;
     }
-  }, [user]);
+  };
 
   return {
     activateTopic,
