@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -15,6 +14,12 @@ export const useTopicActivation = () => {
     setIsActivating(true);
     
     try {
+      // First check if there's already an active topic
+      const existingActiveTopic = await hasActiveTopic();
+      if (existingActiveTopic) {
+        throw new Error('Another topic is already active. Only one topic can be activated at a time.');
+      }
+
       const { error } = await supabase
         .from('topic_activations')
         .insert({
