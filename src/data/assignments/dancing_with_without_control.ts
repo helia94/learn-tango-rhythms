@@ -1,7 +1,9 @@
 
+import { TranslationKey } from '@/data/translations/index';
+
 export interface DancingWithWithoutControlAssignment {
   id: string;
-  content: string;
+  content: TranslationKey;
   type: 'practice' | 'weekly';
 }
 
