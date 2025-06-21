@@ -115,18 +115,22 @@ export const dancingHighLowTranslations = {
           }
         }
       },
-      // Weekly assignments
+      // Weekly assignments - REPLACED WITH NEW FOUR ASSIGNMENTS
       assignment1: {
-        en: "Practice Volume Dancing: Choose 3 different tangos with varying dynamics. For each song, focus on letting your height respond to volume changes. Record yourself or practice with a partner to observe how your height variations affect the overall expression of the dance.",
-        de: "Übe Lautstärke-Tanzen: Wähle 3 verschiedene Tangos mit unterschiedlichen Dynamiken. Konzentriere dich bei jedem Lied darauf, deine Höhe auf Lautstärkeänderungen reagieren zu lassen. Nimm dich auf oder übe mit einem Partner, um zu beobachten, wie deine Höhenvariationen den Gesamtausdruck des Tanzes beeinflussen."
+        en: "Lead your partner using only breath in close embrace",
+        de: "Führe deinen Partner nur mit dem Atem in geschlossener Umarmung"
       },
       assignment2: {
-        en: "Master Pitch Following: Select a melodic tango and practice tracing the melody's pitch contours with your body height. Focus on smooth transitions between high and low positions. Challenge: Can you maintain this height awareness while executing complex tango figures?",
-        de: "Meistere das Tonhöhen-Folgen: Wähle einen melodischen Tango und übe, die Tonhöhenkonturen der Melodie mit deiner Körperhöhe nachzuzeichnen. Konzentriere dich auf sanfte Übergänge zwischen hohen und tiefen Positionen. Herausforderung: Kannst du dieses Höhenbewusstsein beibehalten, während du komplexe Tango-Figuren ausführst?"
+        en: "Move around with your spine as a snake, no structured steps",
+        de: "Bewege dich mit deiner Wirbelsäule wie eine Schlange, keine strukturierten Schritte"
       },
       assignment3: {
-        en: "Extreme Height Exploration: In open embrace, explore the most extreme height variations you can safely achieve. Practice ocho cortados, ganchos, and boleos while incorporating dramatic height changes. Focus on maintaining connection and musicality throughout these explorations.",
-        de: "Extreme Höhenerkundung: In offener Umarmung erkunde die extremsten Höhenvariationen, die du sicher erreichen kannst. Übe Ocho Cortados, Ganchos und Boleos, während du dramatische Höhenveränderungen einbaust. Konzentriere dich darauf, Verbindung und Musikalität während dieser Erkundungen beizubehalten."
+        en: "Walk once low (bent knees), once high (extended legs)",
+        de: "Gehe einmal tief (gebeugte Knie), einmal hoch (gestreckte Beine)"
+      },
+      assignment4: {
+        en: "Dance one song once normally, then once with intentional height changes",
+        de: "Tanze ein Lied einmal normal, dann einmal mit bewussten Höhenveränderungen"
       }
     }
   }
