@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -86,9 +87,13 @@ const DancingSmallBig = () => {
         {/* Musical Connection */}
         <StorySection title={t('exercises.dancingSmallBig.musicalConnectionTitle' as any)}>
           <TextContent variant="body" align="center" className="space-y-4">
-            <p>{t('exercises.dancingSmallBig.musicalConnectionText1' as any)}</p>
-            <p>{t('exercises.dancingSmallBig.musicalConnectionText2' as any)}</p>
-            <p>{t('exercises.dancingSmallBig.musicalConnectionText3' as any)}</p>
+            {t('exercises.dancingSmallBig.musicalConnectionText1' as any)}
+          </TextContent>
+          <TextContent variant="body" align="center" className="space-y-4">
+            {t('exercises.dancingSmallBig.musicalConnectionText2' as any)}
+          </TextContent>
+          <TextContent variant="body" align="center" className="space-y-4">
+            {t('exercises.dancingSmallBig.musicalConnectionText3' as any)}
           </TextContent>
         </StorySection>
 
