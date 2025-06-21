@@ -5,6 +5,7 @@ import { homeTranslations } from './home';
 import { profileTranslations } from './profile';
 import { smallAndBigTranslations } from './small_and_big';
 import { dancingHighLowTranslations } from './dancing_high_low';
+import { dancingCircularLinearTranslations } from './dancing_circular_linear';
 import { deepMergeTranslations } from '@/utils/mergeTranslations';
 
 // Export the main TranslationKey type and extend it with home keys and missing exercise keys
@@ -56,7 +57,15 @@ export type TranslationKey = MainTranslationKey |
   `exercises.dancingHighLow.daily.day5.content` | `exercises.dancingHighLow.daily.day5.task` |
   `exercises.dancingHighLow.daily.day6.content` | `exercises.dancingHighLow.daily.day6.task` |
   `exercises.dancingHighLow.daily.day7.content` | `exercises.dancingHighLow.daily.day7.task` |
-  `exercises.dancingHighLow.assignment1` | `exercises.dancingHighLow.assignment2` | `exercises.dancingHighLow.assignment3` | `exercises.dancingHighLow.assignment4`;
+  `exercises.dancingHighLow.assignment1` | `exercises.dancingHighLow.assignment2` | `exercises.dancingHighLow.assignment3` | `exercises.dancingHighLow.assignment4` |
+  // Add new dancing circular linear exercise keys
+  `exercises.dancingCircularLinear.title` | `exercises.dancingCircularLinear.introText1` | `exercises.dancingCircularLinear.introText2` |
+  `exercises.dancingCircularLinear.musicalConnectionTitle` | `exercises.dancingCircularLinear.musicalConnectionText1` |
+  `exercises.dancingCircularLinear.allAssignments` | `exercises.dancingCircularLinear.assignmentsDescription` |
+  `exercises.dancingCircularLinear.assignment1` | `exercises.dancingCircularLinear.assignment2` |
+  `exercises.danc ingCircularLinear.daily.day1.content` | `exercises.dancingCircularLinear.daily.day1.task` |
+  `exercises.dancingCircularLinear.daily.day2.content` | `exercises.dancingCircularLinear.daily.day2.task` |
+  `exercises.dancingCircularLinear.daily.day3.content` | `exercises.dancingCircularLinear.daily.day3.task`;
 
 export const translations = deepMergeTranslations(
   mainTranslations,
@@ -64,5 +73,6 @@ export const translations = deepMergeTranslations(
   { home: homeTranslations },
   profileTranslations,
   smallAndBigTranslations,
-  dancingHighLowTranslations
+  dancingHighLowTranslations,
+  dancingCircularLinearTranslations
 );
