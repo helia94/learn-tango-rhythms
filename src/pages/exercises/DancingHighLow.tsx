@@ -5,7 +5,6 @@ import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
 import TipsInfoBox from '@/components/ui/TipsInfoBox';
-import AudioSection from '@/components/ui/AudioSection';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
@@ -31,19 +30,6 @@ const DancingHighLow = () => {
     t('exercises.dancingHighLow.tip1' as any),
     t('exercises.dancingHighLow.tip2' as any), 
     t('exercises.dancingHighLow.tip3' as any)
-  ];
-
-  const practiceAudioTracks = [
-    {
-      key: 'volume-example',
-      title: t('exercises.dancingHighLow.volumeExampleTitle' as any),
-      audioUrl: '/audio/volume-dynamics-example.mp3'
-    },
-    {
-      key: 'pitch-example',
-      title: t('exercises.dancingHighLow.pitchExampleTitle' as any),
-      audioUrl: '/audio/pitch-contour-example.mp3'
-    }
   ];
 
   return (
