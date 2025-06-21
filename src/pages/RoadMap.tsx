@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
@@ -11,18 +10,18 @@ const RoadMap = () => {
   const { t } = useTranslation();
   const { getTopicVisibility, isLoading } = useTopicVisibility();
 
-  // All concepts combined into one flowing sequence
+  // All concepts combined into one flowing sequence - FIXED: updated topicIndex to start from 0
   const allConcepts: Array<{
     key: string;
     translationKey: TranslationKey;
     topicIndex?: number;
     link?: string;
   }> = [
-    { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", topicIndex: 1, link: "/exercises/dancing-fast-slow" },
-    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", topicIndex: 2, link: "/exercises/dancing-small-big" },
-    { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", topicIndex: 3, link: "/exercises/dancing-high-low" },
-    { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear", topicIndex: 4, link: "/exercises/dancing-circular-linear" },
-    { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl", topicIndex: 5, link: "/exercises/dancing-with-without-control" },
+    { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", topicIndex: 0, link: "/exercises/dancing-fast-slow" },
+    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", topicIndex: 1, link: "/exercises/dancing-small-big" },
+    { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", topicIndex: 2, link: "/exercises/dancing-high-low" },
+    { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear", topicIndex: 3, link: "/exercises/dancing-circular-linear" },
+    { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl", topicIndex: 4, link: "/exercises/dancing-with-without-control" },
     { key: "fullWeightTransferVsRebounds", translationKey: "concepts.fullWeightTransferVsRebounds" },
     { key: "expandingVsShrinking", translationKey: "concepts.expandingVsShrinking" },
     { key: "highBodyTensionVsLowBodyTension", translationKey: "concepts.highBodyTensionVsLowBodyTension" },

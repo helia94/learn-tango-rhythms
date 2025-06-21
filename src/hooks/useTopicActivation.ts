@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -182,17 +183,17 @@ export const useTopicActivation = () => {
   };
 
   const topicIsUnlocked = async (topicIndex: number): Promise<boolean> => {
-    // Topic 1 is always unlocked
-    if (topicIndex === 1) {
+    // Topic 0 (first topic) is always unlocked - FIXED: changed from topicIndex === 1 to topicIndex === 0
+    if (topicIndex === 0) {
       return true;
     }
 
-    // Topics 2-4 are unlocked if user is not logged in
-    if (!user && topicIndex >= 2 && topicIndex <= 4) {
+    // Topics 1-3 are unlocked if user is not logged in - FIXED: changed from topicIndex >= 2 && topicIndex <= 4 to topicIndex >= 1 && topicIndex <= 3
+    if (!user && topicIndex >= 1 && topicIndex <= 3) {
       return true;
     }
 
-    // If user is not logged in and topic is beyond 4, it's locked
+    // If user is not logged in and topic is beyond 3, it's locked - FIXED: changed from beyond 4 to beyond 3
     if (!user) {
       return false;
     }
@@ -235,12 +236,12 @@ export const useTopicActivation = () => {
   const getAllUnlockedTopics = async (): Promise<number[]> => {
     const unlockedTopics: number[] = [];
     
-    // Topic 1 is always unlocked
-    unlockedTopics.push(1);
+    // Topic 0 (first topic) is always unlocked - FIXED: changed from pushing 1 to pushing 0
+    unlockedTopics.push(0);
 
-    // Topics 2-4 are unlocked if user is not logged in
+    // Topics 1-3 are unlocked if user is not logged in - FIXED: changed from pushing 2,3,4 to pushing 1,2,3
     if (!user) {
-      unlockedTopics.push(2, 3, 4);
+      unlockedTopics.push(1, 2, 3);
       return unlockedTopics;
     }
 
@@ -270,8 +271,8 @@ export const useTopicActivation = () => {
         }
       });
 
-      // Check each topic from 2 onwards
-      for (let topicIndex = 2; topicIndex <= 50; topicIndex++) { // Assuming max 50 topics
+      // Check each topic from 1 onwards - FIXED: changed from starting at 2 to starting at 1
+      for (let topicIndex = 1; topicIndex <= 50; topicIndex++) { // Assuming max 50 topics
         const previousTopicIndex = topicIndex - 1;
         const previousTopicFirstActivation = firstActivations[previousTopicIndex];
 

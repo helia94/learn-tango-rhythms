@@ -34,13 +34,13 @@ interface TopicVisibilityContextValue {
 
 const TopicVisibilityContext = createContext<TopicVisibilityContextValue | undefined>(undefined);
 
-// Define all available topics with their configurations
+// Define all available topics with their configurations - FIXED: topicIndex should start from 0, not 1
 const AVAILABLE_TOPICS = [
-  { topicIndex: 1, topicKey: 'dancing-fast-slow', totalDays: 7 },
-  { topicIndex: 2, topicKey: 'dancing-small-big', totalDays: 7 },
-  { topicIndex: 3, topicKey: 'dancing-high-low', totalDays: 7 },
-  { topicIndex: 4, topicKey: 'dancing-circular-linear', totalDays: 3 },
-  { topicIndex: 5, topicKey: 'dancing-with-without-control', totalDays: 4 },
+  { topicIndex: 0, topicKey: 'dancing-fast-slow', totalDays: 7 },
+  { topicIndex: 1, topicKey: 'dancing-small-big', totalDays: 7 },
+  { topicIndex: 2, topicKey: 'dancing-high-low', totalDays: 7 },
+  { topicIndex: 3, topicKey: 'dancing-circular-linear', totalDays: 3 },
+  { topicIndex: 4, topicKey: 'dancing-with-without-control', totalDays: 4 },
 ];
 
 interface TopicVisibilityProviderProps {
