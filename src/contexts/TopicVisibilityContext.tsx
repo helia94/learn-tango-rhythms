@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
 import { useFeatureFlags } from '@/contexts/FeatureFlagsContext';
@@ -47,11 +47,17 @@ interface TopicVisibilityProviderProps {
   children: ReactNode;
 }
 
+// Deep compare function to prevent unnecessary re-renders
+const deepEqual = (a: any, b: any): boolean => {
+  return JSON.stringify(a) === JSON.stringify(b);
+};
+
 export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = ({ children }) => {
   const [visibleTopics, setVisibleTopics] = useState<TopicVisibility[]>([]);
   const [visibleSubtopics, setVisibleSubtopics] = useState<SubtopicVisibility[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const hasInitialized = useRef(false);
   
   const { user } = useAuth();
   const { flags } = useFeatureFlags();
@@ -65,8 +71,15 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     console.log('TopicVisibilityContext: Starting refreshVisibility...', { 
       user: !!user, 
       unlockAll: flags?.unlockAll,
-      userEmail: user?.email 
+      userEmail: user?.email,
+      hasInitialized: hasInitialized.current
     });
+    
+    // Prevent multiple concurrent calls
+    if (hasInitialized.current) {
+      console.log('TopicVisibilityContext: Already initialized, skipping refresh');
+      return;
+    }
     
     setIsLoading(true);
     setError(null);
@@ -127,13 +140,24 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
         }
       }
       
-      console.log('TopicVisibilityContext: Setting visible topics:', topicVisibilities);
-      setVisibleTopics(topicVisibilities);
+      console.log('TopicVisibilityContext: New topic visibilities calculated:', topicVisibilities);
+      
+      // Only update state if the data has actually changed
+      setVisibleTopics(prevVisibleTopics => {
+        if (!deepEqual(prevVisibleTopics, topicVisibilities)) {
+          console.log('TopicVisibilityContext: Topics data changed, updating state');
+          return topicVisibilities;
+        } else {
+          console.log('TopicVisibilityContext: Topics data unchanged, keeping previous state');
+          return prevVisibleTopics;
+        }
+      });
       
       // For now, we'll skip subtopic visibility calculation
       setVisibleSubtopics([]);
       
-      console.log('TopicVisibilityContext: Refresh complete. Final visible topics:', topicVisibilities);
+      hasInitialized.current = true;
+      console.log('TopicVisibilityContext: Refresh complete. Marked as initialized.');
     } catch (error) {
       console.error('TopicVisibilityContext: Error calculating topic visibility:', error);
       setError(error instanceof Error ? error.message : 'Unknown error occurred');
@@ -170,6 +194,8 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
   // Refresh visibility when user authentication status changes or feature flags change
   useEffect(() => {
     console.log('TopicVisibilityContext: useEffect triggered, calling refreshVisibility');
+    // Reset initialization flag when dependencies change
+    hasInitialized.current = false;
     refreshVisibility().catch(error => {
       console.error('TopicVisibilityContext: Error in useEffect refreshVisibility:', error);
     });
