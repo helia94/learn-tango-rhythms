@@ -1,4 +1,3 @@
-
 import { translations as mainTranslations, TranslationKey as MainTranslationKey } from './translations';
 import { otherTranslations } from './other';
 import { homeTranslations } from './home';
@@ -76,13 +75,5 @@ export const translations = deepMergeTranslations(
   profileTranslations,
   smallAndBigTranslations,
   dancingHighLowTranslations,
-  // Fix the merging to nest correctly under exercises
-  {
-    exercises: {
-      dancingCircularLinear: {
-        en: dancingCircularLinearTranslations.en.exercises.dancingCircularLinear,
-        de: dancingCircularLinearTranslations.de.exercises.dancingCircularLinear
-      }
-    }
-  }
+  dancingCircularLinearTranslations
 );
