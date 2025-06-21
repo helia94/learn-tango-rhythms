@@ -75,7 +75,12 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
       
       for (const topicConfig of AVAILABLE_TOPICS) {
         const isUnlocked = unlockedTopicIndices.includes(topicConfig.topicIndex);
+        
+        // Check if topic is active - add more detailed logging
+        console.log(`TopicVisibilityContext: Checking if topic ${topicConfig.topicIndex} (${topicConfig.topicKey}) is active...`);
         const isActive = await isTopicActive(topicConfig.topicKey, topicConfig.topicIndex);
+        console.log(`TopicVisibilityContext: Topic ${topicConfig.topicIndex} active status:`, isActive);
+        
         const deadline = await getTopicDeadline(topicConfig.topicKey, topicConfig.topicIndex);
         
         // Topic is visible if:
@@ -87,7 +92,8 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
           isUnlocked,
           isActive,
           isVisible,
-          unlockAllFlag: flags.unlockAll
+          unlockAllFlag: flags.unlockAll,
+          deadline
         });
         
         topicVisibilities.push({
