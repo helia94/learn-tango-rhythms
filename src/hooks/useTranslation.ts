@@ -20,6 +20,8 @@ export const useTranslation = () => {
           value = value[k];
         } else {
           console.warn(`Translation key not found: ${key} - failed at segment: ${k}`);
+          console.log('Available keys at this level:', value ? Object.keys(value) : 'none');
+          console.log('Full translations structure at root level:', Object.keys(translations));
           return key; // Return the key itself if translation not found
         }
       }
@@ -33,6 +35,7 @@ export const useTranslation = () => {
       
       console.warn(`Translation not found for key: ${key}, language: ${currentLanguage}`);
       console.log('Available languages for this key:', value ? Object.keys(value) : 'none');
+      console.log('Value at final key:', value);
       return key; // Return the key itself if translation not found
     } catch (error) {
       console.error(`Error translating key: ${key}`, error);
