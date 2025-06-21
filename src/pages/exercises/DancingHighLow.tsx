@@ -78,7 +78,7 @@ const DancingHighLow = () => {
         </StorySection>
 
         {/* Why Change Height Section */}
-        <StorySection title="Why change the height?">
+        <StorySection title="">
           <TextContent variant="body" align="center">
             {t('exercises.dancingHighLow.tip4' as any)}
           </TextContent>
