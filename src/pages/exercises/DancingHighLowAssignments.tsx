@@ -15,6 +15,7 @@ const DancingHighLowAssignments = () => {
       getAssignment={getAssignment}
       topicName="dancing-high-low"
       topicIndex={2}
+      totalDays={5}
     />
   );
 };

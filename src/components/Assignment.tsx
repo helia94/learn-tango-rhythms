@@ -30,6 +30,16 @@ const Assignment: React.FC<AssignmentProps> = ({
   const { t, currentLanguage } = useTranslation();
   const { reportAssignmentLevel, isLoading } = useAssignmentReporting();
 
+  // Add null check for assignment
+  if (!assignment || !assignment.content) {
+    console.error('Assignment is missing or has no content:', assignment);
+    return (
+      <div className={`bg-red-100 border border-red-300 rounded-2xl p-6 ${className}`}>
+        <p className="text-red-700">Error: Assignment content is missing</p>
+      </div>
+    );
+  }
+
   const handleLevelChange = async (newLevel: number) => {
     // Update local state immediately for responsiveness
     onLevelChange(taskId, newLevel);

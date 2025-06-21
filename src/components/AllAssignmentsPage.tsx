@@ -23,6 +23,8 @@ interface AllAssignmentsPageProps {
   topicName: string;
   /** Topic index for reporting */
   topicIndex: number;
+  /** Total number of days for this topic */
+  totalDays?: number;
 }
 
 const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
@@ -32,13 +34,14 @@ const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
   weeklyAssignments,
   getAssignment,
   topicName,
-  topicIndex
+  topicIndex,
+  totalDays = 7
 }) => {
   const { t, currentLanguage } = useTranslation();
   const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
 
-  // Simulate user progress (0-7 days unlocked)
-  const daysUnlocked = 7;
+  // Simulate user progress (unlock all days for assignments page)
+  const daysUnlocked = totalDays;
 
   const handleTaskLevelChange = (taskId: string, level: number) => {
     setCompletedTasks(prev => ({
@@ -47,15 +50,21 @@ const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
     }));
   };
 
+  // Create daily assignments based on actual totalDays
+  const dailyAssignments: Assignment[] = [];
+  for (let dayNumber = 1; dayNumber <= totalDays; dayNumber++) {
+    const assignment = getAssignment(`day${dayNumber}`);
+    if (assignment) {
+      dailyAssignments.push(assignment);
+    }
+  }
+
   // Create all assignments in one array - WEEKLY FIRST, then DAILY
   const allAssignments: Assignment[] = [
     // Weekly assignments first (same order as main page)
     ...weeklyAssignments,
-    // Daily assignments second (logical order Day 1-7)
-    ...Array.from({ length: 7 }, (_, index) => {
-      const dayNumber = index + 1;
-      return getAssignment(`day${dayNumber}`)!;
-    })
+    // Daily assignments second (only existing ones)
+    ...dailyAssignments
   ];
 
   // Create assignment metadata for locked status
@@ -66,8 +75,8 @@ const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
       dayNumber: null,
       taskIdPrefix: `weekly-assignment-${index + 1}`
     })),
-    // Daily assignments metadata (check lock status)
-    ...Array.from({ length: 7 }, (_, index) => {
+    // Daily assignments metadata (check lock status, only for existing assignments)
+    ...dailyAssignments.map((_, index) => {
       const dayNumber = index + 1;
       const status = getDayStatus(dayNumber, daysUnlocked);
       return {
