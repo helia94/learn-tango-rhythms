@@ -114,9 +114,7 @@ const DancingHighLow = () => {
         <div className="text-center my-12">
           <SeeAllAssignmentsButton 
             to="/exercises/dancing-high-low/assignments"
-          >
-            All Assignments
-          </SeeAllAssignmentsButton>
+          />
         </div>
       </div>
 

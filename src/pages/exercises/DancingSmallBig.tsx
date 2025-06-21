@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -13,7 +12,6 @@ import SmallAndBigDaily1to7 from '@/components/SmallAndBigDaily1to7';
 import AssignmentList from '@/components/AssignmentList';
 import { getWeeklyAssignments } from '@/data/assignments/smallAndBig';
 import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
-
 
 const DancingSmallBig = () => {
   const { t } = useTranslation();
@@ -105,9 +103,7 @@ const DancingSmallBig = () => {
         <div className="text-center my-12">
           <SeeAllAssignmentsButton 
             to="/exercises/dancing-small-big/assignments"
-          >
-            All Assignments
-          </SeeAllAssignmentsButton>
+          />
         </div>
       </div>
 
