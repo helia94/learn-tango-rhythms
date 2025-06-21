@@ -29,7 +29,7 @@ const DancingCircularLinearDaily1to3: React.FC<DancingCircularLinearDaily1to3Pro
   const daysUnlocked = unlockAllEnabled ? totalDays : activatedDays.length;
 
   return (
-    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-warm-brown/20 shadow-xl">
+    <div className="bg-cream/90 backdrop-blur-sm rounded-2xl p-8 border border-warm-brown/20 shadow-xl">
       <DailyAssignmentsHeader
         daysUnlocked={daysUnlocked}
         totalDays={totalDays}
