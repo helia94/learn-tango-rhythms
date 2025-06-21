@@ -45,8 +45,8 @@ export const dancingWithWithoutControlTranslations = {
       daily: {
         day1: {
           content: {
-            en: "Use triplets in the music for uncontrolled movement. Listen to these examples to know what a triplet is.",
-            de: "Verwenden Sie Triolen in der Musik für unkontrollierte Bewegung. Hören Sie sich diese Beispiele an, um zu wissen, was eine Triole ist."
+            en: "Use triplets in the music for uncontrolled movement. Triplet is in form of ONE two three ONE or ONE two three ONE two three ONE. Listen to these examples to know what a triplet is.",
+            de: "Verwenden Sie Triplet in der Musik für unkontrollierte Bewegung. Triplet ist in der Form EINS zwei drei EINS oder EINS zwei drei EINS zwei drei EINS. Hören Sie sich diese Beispiele an, um zu wissen, was ein Triplet ist."
           },
           task: {
             en: "Listen to triplets in the music and dance like a drunk person using gravity to fall into your next steps.",
