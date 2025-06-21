@@ -1,12 +1,11 @@
 
 import React, { useState } from 'react';
-import { CheckCircle } from 'lucide-react';
 import { Accordion } from '@/components/ui/accordion';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 import DayItem from '@/components/daily/DayItem';
-import { getDayStatus } from '@/components/daily/DayStatus';
+import DailyAssignmentsHeader from '@/components/ui/DailyAssignmentsHeader';
 
 interface FastAndSlowDaily1to7Props {
   completedTasks: Record<string, number>;
@@ -32,6 +31,7 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
   // Calculate days unlocked based on activated days
   const daysUnlocked = Math.max(...whichDailiesWereActivated(), 0);
   const nextDayToActivate = whichDailyIsNextOnActivationOrder();
+  const totalDays = 7;
 
   const handleDayActivation = async (dayNumber: number) => {
     if (!user) return;
@@ -52,9 +52,11 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
   if (isLoading) {
     return (
       <div className="mb-16">
-        <div className="text-center mb-8">
-          <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-          <h2 className="text-3xl font-display text-gray-800">{t('exercises.dancingFastSlow.daily.title')}</h2>
+        <DailyAssignmentsHeader
+          daysUnlocked={0}
+          totalDays={totalDays}
+        />
+        <div className="text-center">
           <p className="text-gray-600 mt-2">{t('common.loading')}...</p>
         </div>
       </div>
@@ -63,18 +65,11 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
 
   return (
     <div className="mb-16">
-      <div className="text-center mb-8">
-        <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-        <h2 className="text-3xl font-display text-gray-800">{t('exercises.dancingFastSlow.daily.title')}</h2>
-        <p className="text-gray-600 mt-2">
-          {t('exercises.dancingFastSlow.daily.subtitle')} ({daysUnlocked}/7 days unlocked)
-        </p>
-        {nextDayToActivate && (
-          <p className="text-sm text-golden-yellow mt-1">
-            Next day to unlock: Day {nextDayToActivate}
-          </p>
-        )}
-      </div>
+      <DailyAssignmentsHeader
+        daysUnlocked={daysUnlocked}
+        totalDays={totalDays}
+        nextDayToActivate={nextDayToActivate}
+      />
 
       <Accordion type="single" collapsible className="space-y-4">
         {[1, 2, 3, 4, 5, 6, 7].map(dayNumber => {

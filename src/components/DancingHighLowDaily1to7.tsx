@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/accordion";
 import DayContent from '@/components/daily/DayContent';
 import { DayStatus } from '@/components/daily/DayStatus';
+import DailyAssignmentsHeader from '@/components/ui/DailyAssignmentsHeader';
 
 interface DancingHighLowDaily1to7Props {
   completedTasks: Record<string, number>;
@@ -70,16 +71,19 @@ const DancingHighLowDaily1to7: React.FC<DancingHighLowDaily1to7Props> = ({
     }
   };
 
+  // Calculate data for header
+  const activatedDaysList = whichDailiesWereActivated();
+  const daysUnlocked = Math.max(...activatedDaysList, 0);
+  const nextDayToActivate = whichDailyIsNextOnActivationOrder();
+  const totalDays = 5;
+
   return (
     <div className="space-y-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-display text-gray-800 mb-4">
-          5 Days of Height Exploration
-        </h2>
-        <p className="text-gray-600 text-lg">
-          Discover the power of height variations in your tango
-        </p>
-      </div>
+      <DailyAssignmentsHeader
+        daysUnlocked={daysUnlocked}
+        totalDays={totalDays}
+        nextDayToActivate={nextDayToActivate}
+      />
 
       <Accordion type="single" collapsible className="space-y-4">
         {[1, 2, 3, 4, 5].map((dayNumber) => {
