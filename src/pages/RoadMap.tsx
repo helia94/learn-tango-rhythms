@@ -1,51 +1,81 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { TranslationKey } from '@/data/translations/index';
+import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
 import LanguageSelector from '@/components/LanguageSelector';
 
 const RoadMap = () => {
   const { t } = useTranslation();
+  const { getTopicVisibility, isLoading } = useTopicVisibility();
 
   // All concepts combined into one flowing sequence
   const allConcepts: Array<{
     key: string;
     translationKey: TranslationKey;
-    unlocked: boolean;
-    completed: boolean;
+    topicIndex?: number;
     link?: string;
   }> = [
-    { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", unlocked: true, completed: true, link: "/exercises/dancing-fast-slow" },
-    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", unlocked: true, completed: true, link: "/exercises/dancing-small-big" },
-    { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", unlocked: true, completed: false, link: "/exercises/dancing-high-low" },
-    { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear", unlocked: true, completed: false, link: "/exercises/dancing-circular-linear" },
-    { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl", unlocked: true, completed: false, link: "/exercises/dancing-with-without-control" },
-    { key: "fullWeightTransferVsRebounds", translationKey: "concepts.fullWeightTransferVsRebounds", unlocked: false, completed: false },
-    { key: "expandingVsShrinking", translationKey: "concepts.expandingVsShrinking", unlocked: false, completed: false },
-    { key: "highBodyTensionVsLowBodyTension", translationKey: "concepts.highBodyTensionVsLowBodyTension", unlocked: false, completed: false },
-    { key: "feetAlwaysOnFloorVsFeetOffFloor", translationKey: "concepts.feetAlwaysOnFloorVsFeetOffFloor", unlocked: false, completed: false },
-    { key: "pushingFloorVsNotPushingFloor", translationKey: "concepts.pushingFloorVsNotPushingFloor", unlocked: false, completed: false },
-    { key: "leadingEveryStepVsNotLeadingEveryStep", translationKey: "concepts.leadingEveryStepVsNotLeadingEveryStep", unlocked: false, completed: false },
-    { key: "sameStepsVsDifferentSteps", translationKey: "concepts.sameStepsVsDifferentSteps", unlocked: false, completed: false },
-    { key: "fewStepsVsManySteps", translationKey: "concepts.fewStepsVsManySteps", unlocked: false, completed: false },
-    { key: "dancingRhythmVsDancingMelody", translationKey: "concepts.dancingRhythmVsDancingMelody", unlocked: false, completed: false },
-    { key: "facingPartnerVsTurningAway", translationKey: "concepts.facingPartnerVsTurningAway", unlocked: false, completed: false },
-    { key: "acceleratingVsDecelerating", translationKey: "concepts.acceleratingVsDecelerating", unlocked: false, completed: false },
-    { key: "dancingRubato", translationKey: "concepts.dancingRubato", unlocked: false, completed: false },
-    { key: "marcatoIn2VsIn4", translationKey: "concepts.marcatoIn2VsIn4", unlocked: false, completed: false },
-    { key: "normalSyncopa", translationKey: "concepts.normalSyncopa", unlocked: false, completed: false },
-    { key: "doubleSyncopa", translationKey: "concepts.doubleSyncopa", unlocked: false, completed: false },
-    { key: "dragSyncopa", translationKey: "concepts.dragSyncopa", unlocked: false, completed: false },
-    { key: "dance4To1", translationKey: "concepts.dance4To1", unlocked: false, completed: false },
-    { key: "danceTriplets", translationKey: "concepts.danceTriplets", unlocked: false, completed: false },
-    { key: "danceLikeJellyfish", translationKey: "concepts.danceLikeJellyfish", unlocked: false, completed: false },
-    { key: "danceLikeWater", translationKey: "concepts.danceLikeWater", unlocked: false, completed: false },
-    { key: "danceLikeSculptures", translationKey: "concepts.danceLikeSculptures", unlocked: false, completed: false },
-    { key: "danceTheAccents", translationKey: "concepts.danceTheAccents", unlocked: false, completed: false }
+    { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", topicIndex: 1, link: "/exercises/dancing-fast-slow" },
+    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", topicIndex: 2, link: "/exercises/dancing-small-big" },
+    { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", topicIndex: 3, link: "/exercises/dancing-high-low" },
+    { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear", topicIndex: 4, link: "/exercises/dancing-circular-linear" },
+    { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl", topicIndex: 5, link: "/exercises/dancing-with-without-control" },
+    { key: "fullWeightTransferVsRebounds", translationKey: "concepts.fullWeightTransferVsRebounds" },
+    { key: "expandingVsShrinking", translationKey: "concepts.expandingVsShrinking" },
+    { key: "highBodyTensionVsLowBodyTension", translationKey: "concepts.highBodyTensionVsLowBodyTension" },
+    { key: "feetAlwaysOnFloorVsFeetOffFloor", translationKey: "concepts.feetAlwaysOnFloorVsFeetOffFloor" },
+    { key: "pushingFloorVsNotPushingFloor", translationKey: "concepts.pushingFloorVsNotPushingFloor" },
+    { key: "leadingEveryStepVsNotLeadingEveryStep", translationKey: "concepts.leadingEveryStepVsNotLeadingEveryStep" },
+    { key: "sameStepsVsDifferentSteps", translationKey: "concepts.sameStepsVsDifferentSteps" },
+    { key: "fewStepsVsManySteps", translationKey: "concepts.fewStepsVsManySteps" },
+    { key: "dancingRhythmVsDancingMelody", translationKey: "concepts.dancingRhythmVsDancingMelody" },
+    { key: "facingPartnerVsTurningAway", translationKey: "concepts.facingPartnerVsTurningAway" },
+    { key: "acceleratingVsDecelerating", translationKey: "concepts.acceleratingVsDecelerating" },
+    { key: "dancingRubato", translationKey: "concepts.dancingRubato" },
+    { key: "marcatoIn2VsIn4", translationKey: "concepts.marcatoIn2VsIn4" },
+    { key: "normalSyncopa", translationKey: "concepts.normalSyncopa" },
+    { key: "doubleSyncopa", translationKey: "concepts.doubleSyncopa" },
+    { key: "dragSyncopa", translationKey: "concepts.dragSyncopa" },
+    { key: "dance4To1", translationKey: "concepts.dance4To1" },
+    { key: "danceTriplets", translationKey: "concepts.danceTriplets" },
+    { key: "danceLikeJellyfish", translationKey: "concepts.danceLikeJellyfish" },
+    { key: "danceLikeWater", translationKey: "concepts.danceLikeWater" },
+    { key: "danceLikeSculptures", translationKey: "concepts.danceLikeSculptures" },
+    { key: "danceTheAccents", translationKey: "concepts.danceTheAccents" }
   ];
 
-  const getNodeStatus = (unlocked: boolean, completed: boolean) => {
+  const getConceptStatus = (concept: typeof allConcepts[0]) => {
+    // For concepts without topicIndex, use fallback logic
+    if (!concept.topicIndex) {
+      return {
+        unlocked: false,
+        completed: false,
+        visible: false
+      };
+    }
+
+    const topicVisibility = getTopicVisibility(concept.topicIndex);
+    
+    if (!topicVisibility) {
+      return {
+        unlocked: false,
+        completed: false,
+        visible: false
+      };
+    }
+
+    return {
+      unlocked: topicVisibility.isUnlocked,
+      completed: false, // We don't track completion status yet
+      visible: topicVisibility.isVisible
+    };
+  };
+
+  const getNodeStatus = (unlocked: boolean, completed: boolean, visible: boolean) => {
+    if (!visible) return 'locked';
     if (completed) return 'completed';
     if (unlocked) return 'unlocked';
     return 'locked';
@@ -79,6 +109,14 @@ const RoadMap = () => {
       y
     };
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige flex items-center justify-center">
+        <div className="text-cream text-2xl">Loading...</div>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
@@ -137,14 +175,16 @@ const RoadMap = () => {
 
           {/* Concept Nodes along the winding path */}
           {allConcepts.map((concept, index) => {
-            const status = getNodeStatus(concept.unlocked, concept.completed);
+            const conceptStatus = getConceptStatus(concept);
+            const status = getNodeStatus(conceptStatus.unlocked, conceptStatus.completed, conceptStatus.visible);
             const position = generateWindingPath(index, allConcepts.length);
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
+            const canRoute = conceptStatus.visible && concept.link;
 
             const ConceptCard = ({ children }: { children: React.ReactNode }) => {
-              if (concept.link && status !== 'locked') {
+              if (canRoute) {
                 return (
-                  <Link to={concept.link} className="block">
+                  <Link to={concept.link!} className="block">
                     {children}
                   </Link>
                 );
@@ -166,11 +206,11 @@ const RoadMap = () => {
                   {/* Concept Card */}
                   <div className={`${isLeft ? 'order-1 mr-8' : 'order-3 ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
                     <ConceptCard>
-                      <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${status === 'locked' ? 'opacity-60 grayscale' : 'cursor-pointer hover:shadow-2xl'}`}>
+                      <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${!conceptStatus.visible ? 'opacity-60 grayscale' : canRoute ? 'cursor-pointer hover:shadow-2xl' : ''}`}>
                         <div className="text-warm-brown font-bold text-center text-sm">
                           {t(concept.translationKey)}
                         </div>
-                        {status === 'locked' && (
+                        {!conceptStatus.visible && (
                           <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
                             <Lock className="w-6 h-6 text-cream" />
                           </div>
