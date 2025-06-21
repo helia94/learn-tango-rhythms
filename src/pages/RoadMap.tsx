@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -31,34 +31,47 @@ const RoadMap = () => {
     });
   }, [isLoading, visibleTopics]);
 
+  // Memoize the calculation function to prevent infinite loops
+  const calculateNextAvailableDate = useCallback(async () => {
+    if (!user || isLoading || visibleTopics.length === 0) return;
+
+    // Find the first locked topic that isn't visible
+    const lockedTopic = visibleTopics.find(topic => !topic.isVisible && !topic.isUnlocked);
+    if (!lockedTopic) {
+      setNextAvailableDate(null);
+      setNextAvailableTopicIndex(null);
+      return;
+    }
+
+    // Get the previous topic's deadline to calculate availability
+    const previousTopicIndex = lockedTopic.topicIndex - 1;
+    const previousTopic = visibleTopics.find(t => t.topicIndex === previousTopicIndex);
+    
+    if (previousTopic && previousTopic.isActive) {
+      try {
+        const deadline = await getTopicDeadline(previousTopic.topicKey, previousTopic.topicIndex);
+        if (deadline) {
+          setNextAvailableDate(deadline);
+          setNextAvailableTopicIndex(lockedTopic.topicIndex);
+        } else {
+          setNextAvailableDate(null);
+          setNextAvailableTopicIndex(null);
+        }
+      } catch (error) {
+        console.error('Error calculating next available date:', error);
+        setNextAvailableDate(null);
+        setNextAvailableTopicIndex(null);
+      }
+    } else {
+      setNextAvailableDate(null);
+      setNextAvailableTopicIndex(null);
+    }
+  }, [user, isLoading, visibleTopics, getTopicDeadline]);
+
   // Calculate when the next topic will be available
   useEffect(() => {
-    const calculateNextAvailableDate = async () => {
-      if (!user || isLoading) return;
-
-      // Find the first locked topic that isn't visible
-      const lockedTopic = visibleTopics.find(topic => !topic.isVisible && !topic.isUnlocked);
-      if (!lockedTopic) return;
-
-      // Get the previous topic's deadline to calculate availability
-      const previousTopicIndex = lockedTopic.topicIndex - 1;
-      const previousTopic = visibleTopics.find(t => t.topicIndex === previousTopicIndex);
-      
-      if (previousTopic && previousTopic.isActive) {
-        try {
-          const deadline = await getTopicDeadline(previousTopic.topicKey, previousTopic.topicIndex);
-          if (deadline) {
-            setNextAvailableDate(deadline);
-            setNextAvailableTopicIndex(lockedTopic.topicIndex);
-          }
-        } catch (error) {
-          console.error('Error calculating next available date:', error);
-        }
-      }
-    };
-
     calculateNextAvailableDate();
-  }, [user, isLoading, visibleTopics, getTopicDeadline]);
+  }, [calculateNextAvailableDate]);
 
   // All concepts combined into one flowing sequence
   const allConcepts: Array<{
@@ -66,7 +79,7 @@ const RoadMap = () => {
     translationKey: TranslationKey;
     topicIndex?: number;
     link?: string;
-  }> = [
+  }> = useMemo(() => [
     { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", topicIndex: 0, link: "/exercises/dancing-fast-slow" },
     { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", topicIndex: 1, link: "/exercises/dancing-small-big" },
     { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", topicIndex: 2, link: "/exercises/dancing-high-low" },
@@ -94,9 +107,9 @@ const RoadMap = () => {
     { key: "danceLikeWater", translationKey: "concepts.danceLikeWater" },
     { key: "danceLikeSculptures", translationKey: "concepts.danceLikeSculptures" },
     { key: "danceTheAccents", translationKey: "concepts.danceTheAccents" }
-  ];
+  ], []);
 
-  const getConceptStatus = (concept: typeof allConcepts[0]) => {
+  const getConceptStatus = useCallback((concept: typeof allConcepts[0]) => {
     // For concepts without topicIndex, use fallback logic
     if (concept.topicIndex === undefined) {
       return {
@@ -108,11 +121,6 @@ const RoadMap = () => {
     }
 
     const topicVisibility = getTopicVisibility(concept.topicIndex);
-    
-    console.log(`RoadMap: getConceptStatus for concept ${concept.key} (topicIndex: ${concept.topicIndex}):`, {
-      topicVisibility,
-      found: !!topicVisibility
-    });
     
     if (!topicVisibility) {
       return {
@@ -130,13 +138,28 @@ const RoadMap = () => {
       active: topicVisibility.isActive
     };
 
-    console.log(`RoadMap: Concept ${concept.key} status:`, status);
     return status;
-  };
+  }, [getTopicVisibility]);
+
+  // Generate winding path coordinates for each concept
+  const generateWindingPath = useCallback((index: number, total: number) => {
+    const progress = index / (total - 1);
+    const baseY = progress * 100; // Base vertical progression
+
+    // Create curves using sine waves with different frequencies
+    const curve1 = Math.sin(progress * Math.PI * 3) * 15; // Primary curve
+    const curve2 = Math.sin(progress * Math.PI * 7) * 8; // Secondary curve
+    const curve3 = Math.sin(progress * Math.PI * 11) * 4; // Tertiary curve
+
+    const x = 50 + curve1 + curve2 + curve3; // Center at 50% with curves
+    const y = baseY;
+    return {
+      x,
+      y
+    };
+  }, []);
 
   const getNodeIcon = (unlocked: boolean, active: boolean, visible: boolean) => {
-    console.log('RoadMap: getNodeIcon called with:', { unlocked, active, visible });
-    
     if (!visible) {
       return <Lock className="w-6 h-6 text-warm-brown opacity-50" />;
     }
@@ -168,41 +191,20 @@ const RoadMap = () => {
     return 'bg-warm-brown border-cream opacity-60';
   };
 
-  const formatAvailabilityDate = (date: Date) => {
+  const formatAvailabilityDate = useCallback((date: Date) => {
     return date.toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric'
     });
-  };
+  }, []);
 
-  const shouldShowAvailabilityInfo = (concept: typeof allConcepts[0]) => {
+  const shouldShowAvailabilityInfo = useCallback((concept: typeof allConcepts[0]) => {
     return user && 
            concept.topicIndex === nextAvailableTopicIndex && 
            nextAvailableDate && 
            !getConceptStatus(concept).visible;
-  };
-
-  // Generate winding path coordinates for each concept
-  const generateWindingPath = (index: number, total: number) => {
-    // ... keep existing code (winding path generation)
-    const progress = index / (total - 1);
-    const baseY = progress * 100; // Base vertical progression
-
-    // Create curves using sine waves with different frequencies
-    const curve1 = Math.sin(progress * Math.PI * 3) * 15; // Primary curve
-    const curve2 = Math.sin(progress * Math.PI * 7) * 8; // Secondary curve
-    const curve3 = Math.sin(progress * Math.PI * 11) * 4; // Tertiary curve
-
-    const x = 50 + curve1 + curve2 + curve3; // Center at 50% with curves
-    const y = baseY;
-    return {
-      x,
-      y
-    };
-  };
-
-  console.log('RoadMap: Rendering with isLoading:', isLoading);
+  }, [user, nextAvailableTopicIndex, nextAvailableDate, getConceptStatus]);
 
   if (isLoading) {
     return (
@@ -274,13 +276,6 @@ const RoadMap = () => {
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
             const canRoute = conceptStatus.visible && concept.link;
             const showAvailability = shouldShowAvailabilityInfo(concept);
-
-            console.log(`RoadMap: Rendering concept ${concept.key}:`, {
-              conceptStatus,
-              canRoute,
-              topicIndex: concept.topicIndex,
-              showAvailability
-            });
 
             const ConceptCard = ({ children }: { children: React.ReactNode }) => {
               if (canRoute) {
