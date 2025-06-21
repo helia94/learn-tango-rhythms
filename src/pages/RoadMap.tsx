@@ -1,7 +1,6 @@
-
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
+import { ArrowLeft, Map as MapIcon, Lock, CheckCircle, Circle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { TranslationKey } from '@/data/translations/index';
 import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
@@ -227,7 +226,7 @@ const RoadMap = () => {
       {/* Header */}
       <div className="relative z-10 text-center mb-8">
         <div className="flex items-center justify-center gap-4 mb-6">
-          <Map className="w-16 h-16 text-golden-yellow drop-shadow-lg" />
+          <MapIcon className="w-16 h-16 text-golden-yellow drop-shadow-lg" />
           <h1 className="text-6xl md:text-8xl font-display text-cream drop-shadow-2xl tracking-wider">
             {t('roadmap.title')}
           </h1>
