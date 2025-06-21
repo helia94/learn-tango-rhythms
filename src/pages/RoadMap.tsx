@@ -4,11 +4,17 @@ import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { TranslationKey } from '@/data/translations/index';
 import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
+import { useTopicActivation } from '@/hooks/useTopicActivation';
+import { useAuth } from '@/contexts/AuthContext';
 import LanguageSelector from '@/components/LanguageSelector';
 
 const RoadMap = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const { getTopicVisibility, isLoading, visibleTopics } = useTopicVisibility();
+  const { getTopicDeadline } = useTopicActivation();
+  const [nextAvailableDate, setNextAvailableDate] = useState<Date | null>(null);
+  const [nextAvailableTopicIndex, setNextAvailableTopicIndex] = useState<number | null>(null);
 
   // Log the visibility context when it changes
   useEffect(() => {
@@ -24,6 +30,35 @@ const RoadMap = () => {
       }))
     });
   }, [isLoading, visibleTopics]);
+
+  // Calculate when the next topic will be available
+  useEffect(() => {
+    const calculateNextAvailableDate = async () => {
+      if (!user || isLoading) return;
+
+      // Find the first locked topic that isn't visible
+      const lockedTopic = visibleTopics.find(topic => !topic.isVisible && !topic.isUnlocked);
+      if (!lockedTopic) return;
+
+      // Get the previous topic's deadline to calculate availability
+      const previousTopicIndex = lockedTopic.topicIndex - 1;
+      const previousTopic = visibleTopics.find(t => t.topicIndex === previousTopicIndex);
+      
+      if (previousTopic && previousTopic.isActive) {
+        try {
+          const deadline = await getTopicDeadline(previousTopic.topicKey, previousTopic.topicIndex);
+          if (deadline) {
+            setNextAvailableDate(deadline);
+            setNextAvailableTopicIndex(lockedTopic.topicIndex);
+          }
+        } catch (error) {
+          console.error('Error calculating next available date:', error);
+        }
+      }
+    };
+
+    calculateNextAvailableDate();
+  }, [user, isLoading, visibleTopics, getTopicDeadline]);
 
   // All concepts combined into one flowing sequence
   const allConcepts: Array<{
@@ -133,6 +168,21 @@ const RoadMap = () => {
     return 'bg-warm-brown border-cream opacity-60';
   };
 
+  const formatAvailabilityDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const shouldShowAvailabilityInfo = (concept: typeof allConcepts[0]) => {
+    return user && 
+           concept.topicIndex === nextAvailableTopicIndex && 
+           nextAvailableDate && 
+           !getConceptStatus(concept).visible;
+  };
+
   // Generate winding path coordinates for each concept
   const generateWindingPath = (index: number, total: number) => {
     // ... keep existing code (winding path generation)
@@ -223,11 +273,13 @@ const RoadMap = () => {
             const position = generateWindingPath(index, allConcepts.length);
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
             const canRoute = conceptStatus.visible && concept.link;
+            const showAvailability = shouldShowAvailabilityInfo(concept);
 
             console.log(`RoadMap: Rendering concept ${concept.key}:`, {
               conceptStatus,
               canRoute,
-              topicIndex: concept.topicIndex
+              topicIndex: concept.topicIndex,
+              showAvailability
             });
 
             const ConceptCard = ({ children }: { children: React.ReactNode }) => {
@@ -259,7 +311,12 @@ const RoadMap = () => {
                         <div className="text-warm-brown font-bold text-center text-sm">
                           {t(concept.translationKey)}
                         </div>
-                        {!conceptStatus.visible && (
+                        {showAvailability && nextAvailableDate && (
+                          <div className="text-xs text-sage-green font-medium text-center mt-2">
+                            Available on {formatAvailabilityDate(nextAvailableDate)}
+                          </div>
+                        )}
+                        {!conceptStatus.visible && !showAvailability && (
                           <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
                             <Lock className="w-6 h-6 text-cream" />
                           </div>
