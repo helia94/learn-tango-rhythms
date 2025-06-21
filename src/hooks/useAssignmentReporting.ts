@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -23,7 +23,7 @@ export const useAssignmentReporting = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
 
-  const reportAssignmentLevel = async (
+  const reportAssignmentLevel = useCallback(async (
     topicName: string,
     topicIndex: number,
     assignmentKey: string,
@@ -61,9 +61,9 @@ export const useAssignmentReporting = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [user]);
 
-  const getAssignmentReports = async (
+  const getAssignmentReports = useCallback(async (
     topicName?: string,
     topicIndex?: number,
     assignmentKey?: string
@@ -102,9 +102,9 @@ export const useAssignmentReporting = () => {
       console.error('Error fetching assignment reports:', error);
       return [];
     }
-  };
+  }, [user]);
 
-  const getLatestAssignmentLevel = async (
+  const getLatestAssignmentLevel = useCallback(async (
     topicName: string,
     topicIndex: number,
     assignmentKey: string
@@ -133,9 +133,9 @@ export const useAssignmentReporting = () => {
       console.error('Error fetching latest assignment level:', error);
       return 0;
     }
-  };
+  }, [user]);
 
-  const getAllLatestAssignmentLevelByTopic = async (
+  const getAllLatestAssignmentLevelByTopic = useCallback(async (
     topicName: string,
     topicIndex: number
   ): Promise<AssignmentLevelSummary[]> => {
@@ -182,7 +182,7 @@ export const useAssignmentReporting = () => {
       console.error('Error fetching all latest assignment levels by topic:', error);
       return [];
     }
-  };
+  }, [user]);
 
   return {
     reportAssignmentLevel,
