@@ -1,13 +1,12 @@
 
 import React, { useState } from 'react';
-import { CheckCircle } from 'lucide-react';
 import { Accordion } from '@/components/ui/accordion';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 import { useUnlockAll } from '@/hooks/useFeatureFlag';
 import DayItem from '@/components/daily/DayItem';
-import { getDayStatus } from '@/components/daily/DayStatus';
+import DailyAssignmentsHeader from '@/components/ui/DailyAssignmentsHeader';
 
 interface SmallAndBigDaily1to7Props {
   completedTasks: Record<string, number>;
@@ -37,6 +36,7 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
   const activatedDaysArray = whichDailiesWereActivated();
   const daysUnlocked = unlockAllEnabled ? 7 : Math.max(...activatedDaysArray, 0);
   const nextDayToActivate = whichDailyIsNextOnActivationOrder();
+  const totalDays = 7;
 
   console.log('SmallAndBigDaily1to7 - Topic info:', {
     topicName: 'dancing-small-big',
@@ -64,9 +64,12 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
   if (isLoading) {
     return (
       <div className="mb-16">
-        <div className="text-center mb-8">
-          <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-          <h2 className="text-3xl font-display text-gray-800">{t('daily.title' as any)}</h2>
+        <DailyAssignmentsHeader
+          daysUnlocked={0}
+          totalDays={totalDays}
+          unlockAllEnabled={unlockAllEnabled}
+        />
+        <div className="text-center">
           <p className="text-gray-600 mt-2">{t('common.loading' as any)}...</p>
         </div>
       </div>
@@ -75,23 +78,12 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
 
   return (
     <div className="mb-16">
-      <div className="text-center mb-8">
-        <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
-        <h2 className="text-3xl font-display text-gray-800">{t('daily.title' as any)}</h2>
-        <p className="text-gray-600 mt-2">
-          {t('daily.subtitle' as any)} ({daysUnlocked}/7 days unlocked)
-          {unlockAllEnabled && (
-            <span className="block text-sm text-green-600 font-medium mt-1">
-              🚀 All content unlocked (Dev Mode)
-            </span>
-          )}
-        </p>
-        {nextDayToActivate && !unlockAllEnabled && (
-          <p className="text-sm text-golden-yellow mt-1">
-            Next day to unlock: Day {nextDayToActivate}
-          </p>
-        )}
-      </div>
+      <DailyAssignmentsHeader
+        daysUnlocked={daysUnlocked}
+        totalDays={totalDays}
+        nextDayToActivate={nextDayToActivate}
+        unlockAllEnabled={unlockAllEnabled}
+      />
 
       <Accordion type="single" collapsible className="space-y-4">
         {[1, 2, 3, 4, 5, 6, 7].map(dayNumber => {
