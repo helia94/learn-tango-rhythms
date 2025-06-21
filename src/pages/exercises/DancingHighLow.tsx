@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
@@ -8,6 +9,7 @@ import AudioSection from '@/components/ui/AudioSection';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
+import AssignmentList from '@/components/AssignmentList';
 import DancingHighLowDaily1to7 from '@/components/DancingHighLowDaily1to7';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_high_low';
 
@@ -22,7 +24,8 @@ const DancingHighLow = () => {
     }));
   };
 
-  const weeklyAssignments = getWeeklyAssignments();
+  const weeklyAssignmentsData = getWeeklyAssignments();
+  const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
 
   const tips = [
     t('exercises.dancingHighLow.tip1' as any),
@@ -110,12 +113,27 @@ const DancingHighLow = () => {
           </div>
         </StorySection>
 
-        {/* See All Assignments Button */}
-        <div className="text-center my-12">
-          <SeeAllAssignmentsButton 
-            to="/exercises/dancing-high-low/assignments"
+        {/* Weekly Assignment Section */}
+        <StorySection>
+          <div className="text-center mb-8">
+            <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
+            <h2 className="text-3xl font-display text-gray-800 mb-6">{t('exercises.dancingHighLow.allAssignments' as any)}</h2>
+            
+            {/* Prominent "See All Assignments" Button */}
+            <div className="mb-6">
+              <SeeAllAssignmentsButton to="/exercises/dancing-high-low/assignments" />
+            </div>
+          </div>
+          
+          <AssignmentList
+            assignments={weeklyAssignments}
+            completedTasks={completedTasks}
+            onTaskLevelChange={handleTaskLevelChange}
+            keyPrefix="assignment"
+            topicName="dancing-high-low"
+            topicIndex={2}
           />
-        </div>
+        </StorySection>
       </div>
 
       {/* Daily System */}
