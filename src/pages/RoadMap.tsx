@@ -8,9 +8,24 @@ import LanguageSelector from '@/components/LanguageSelector';
 
 const RoadMap = () => {
   const { t } = useTranslation();
-  const { getTopicVisibility, isLoading } = useTopicVisibility();
+  const { getTopicVisibility, isLoading, visibleTopics } = useTopicVisibility();
 
-  // All concepts combined into one flowing sequence - FIXED: updated topicIndex to start from 0
+  // Log the visibility context when it changes
+  useEffect(() => {
+    console.log('RoadMap: TopicVisibility context updated:', {
+      isLoading,
+      visibleTopicsCount: visibleTopics.length,
+      visibleTopics: visibleTopics.map(t => ({
+        topicIndex: t.topicIndex,
+        topicKey: t.topicKey,
+        isVisible: t.isVisible,
+        isUnlocked: t.isUnlocked,
+        isActive: t.isActive
+      }))
+    });
+  }, [isLoading, visibleTopics]);
+
+  // All concepts combined into one flowing sequence
   const allConcepts: Array<{
     key: string;
     translationKey: TranslationKey;
@@ -48,7 +63,7 @@ const RoadMap = () => {
 
   const getConceptStatus = (concept: typeof allConcepts[0]) => {
     // For concepts without topicIndex, use fallback logic
-    if (!concept.topicIndex) {
+    if (concept.topicIndex === undefined) {
       return {
         unlocked: false,
         completed: false,
@@ -59,6 +74,11 @@ const RoadMap = () => {
 
     const topicVisibility = getTopicVisibility(concept.topicIndex);
     
+    console.log(`RoadMap: getConceptStatus for concept ${concept.key} (topicIndex: ${concept.topicIndex}):`, {
+      topicVisibility,
+      found: !!topicVisibility
+    });
+    
     if (!topicVisibility) {
       return {
         unlocked: false,
@@ -68,15 +88,20 @@ const RoadMap = () => {
       };
     }
 
-    return {
+    const status = {
       unlocked: topicVisibility.isUnlocked,
       completed: false, // We don't track completion status yet
       visible: topicVisibility.isVisible,
       active: topicVisibility.isActive
     };
+
+    console.log(`RoadMap: Concept ${concept.key} status:`, status);
+    return status;
   };
 
   const getNodeIcon = (unlocked: boolean, active: boolean, visible: boolean) => {
+    console.log('RoadMap: getNodeIcon called with:', { unlocked, active, visible });
+    
     if (!visible) {
       return <Lock className="w-6 h-6 text-warm-brown opacity-50" />;
     }
@@ -110,6 +135,7 @@ const RoadMap = () => {
 
   // Generate winding path coordinates for each concept
   const generateWindingPath = (index: number, total: number) => {
+    // ... keep existing code (winding path generation)
     const progress = index / (total - 1);
     const baseY = progress * 100; // Base vertical progression
 
@@ -125,6 +151,8 @@ const RoadMap = () => {
       y
     };
   };
+
+  console.log('RoadMap: Rendering with isLoading:', isLoading);
 
   if (isLoading) {
     return (
@@ -195,6 +223,12 @@ const RoadMap = () => {
             const position = generateWindingPath(index, allConcepts.length);
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
             const canRoute = conceptStatus.visible && concept.link;
+
+            console.log(`RoadMap: Rendering concept ${concept.key}:`, {
+              conceptStatus,
+              canRoute,
+              topicIndex: concept.topicIndex
+            });
 
             const ConceptCard = ({ children }: { children: React.ReactNode }) => {
               if (canRoute) {

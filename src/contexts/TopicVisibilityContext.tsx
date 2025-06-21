@@ -34,7 +34,7 @@ interface TopicVisibilityContextValue {
 
 const TopicVisibilityContext = createContext<TopicVisibilityContextValue | undefined>(undefined);
 
-// Define all available topics with their configurations - FIXED: topicIndex should start from 0, not 1
+// Define all available topics with their configurations
 const AVAILABLE_TOPICS = [
   { topicIndex: 0, topicKey: 'dancing-fast-slow', totalDays: 7 },
   { topicIndex: 1, topicKey: 'dancing-small-big', totalDays: 7 },
@@ -62,15 +62,19 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
   } = useTopicActivation();
 
   const refreshVisibility = async () => {
+    console.log('TopicVisibilityContext: Starting refreshVisibility...', { 
+      user: !!user, 
+      unlockAll: flags?.unlockAll,
+      userEmail: user?.email 
+    });
+    
     setIsLoading(true);
     setError(null);
     
     try {
-      console.log('TopicVisibilityContext: Starting refreshVisibility...', { user: !!user, unlockAll: flags?.unlockAll });
-      
       // Get all unlocked topics
       const unlockedTopicIndices = await getAllUnlockedTopics();
-      console.log('TopicVisibilityContext: Unlocked topics:', unlockedTopicIndices);
+      console.log('TopicVisibilityContext: Unlocked topics from hook:', unlockedTopicIndices);
       
       // Calculate topic visibility
       const topicVisibilities: TopicVisibility[] = [];
@@ -79,7 +83,7 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
         try {
           const isUnlocked = unlockedTopicIndices.includes(topicConfig.topicIndex);
           
-          // Check if topic is active - add more detailed logging
+          // Check if topic is active
           console.log(`TopicVisibilityContext: Checking if topic ${topicConfig.topicIndex} (${topicConfig.topicKey}) is active...`);
           const isActive = await isTopicActive(topicConfig.topicKey, topicConfig.topicIndex);
           console.log(`TopicVisibilityContext: Topic ${topicConfig.topicIndex} active status:`, isActive);
@@ -91,6 +95,15 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
           // 2. Or if unlockAll feature flag is enabled
           const isVisible = isUnlocked || (flags?.unlockAll === true);
           
+          const topicVisibility: TopicVisibility = {
+            topicIndex: topicConfig.topicIndex,
+            topicKey: topicConfig.topicKey,
+            isVisible,
+            isUnlocked,
+            isActive,
+            deadline
+          };
+          
           console.log(`TopicVisibilityContext: Topic ${topicConfig.topicIndex} (${topicConfig.topicKey}):`, {
             isUnlocked,
             isActive,
@@ -99,35 +112,28 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
             deadline
           });
           
-          topicVisibilities.push({
-            topicIndex: topicConfig.topicIndex,
-            topicKey: topicConfig.topicKey,
-            isVisible,
-            isUnlocked,
-            isActive,
-            deadline
-          });
+          topicVisibilities.push(topicVisibility);
         } catch (topicError) {
           console.error(`TopicVisibilityContext: Error processing topic ${topicConfig.topicIndex}:`, topicError);
           // Add a fallback visibility entry for this topic
           topicVisibilities.push({
             topicIndex: topicConfig.topicIndex,
             topicKey: topicConfig.topicKey,
-            isVisible: false,
-            isUnlocked: false,
+            isVisible: topicConfig.topicIndex === 0, // Only show first topic as fallback
+            isUnlocked: topicConfig.topicIndex === 0,
             isActive: false,
             deadline: null
           });
         }
       }
       
+      console.log('TopicVisibilityContext: Setting visible topics:', topicVisibilities);
       setVisibleTopics(topicVisibilities);
       
-      // For now, we'll skip subtopic visibility calculation to avoid the hook issue
-      // This can be implemented later when needed
+      // For now, we'll skip subtopic visibility calculation
       setVisibleSubtopics([]);
       
-      console.log('TopicVisibilityContext: Final visible topics:', topicVisibilities);
+      console.log('TopicVisibilityContext: Refresh complete. Final visible topics:', topicVisibilities);
     } catch (error) {
       console.error('TopicVisibilityContext: Error calculating topic visibility:', error);
       setError(error instanceof Error ? error.message : 'Unknown error occurred');
@@ -142,15 +148,19 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
         deadline: null
       }));
       
+      console.log('TopicVisibilityContext: Using fallback topics:', fallbackTopics);
       setVisibleTopics(fallbackTopics);
       setVisibleSubtopics([]);
     } finally {
       setIsLoading(false);
+      console.log('TopicVisibilityContext: Refresh visibility complete, isLoading set to false');
     }
   };
 
   const getTopicVisibility = (topicIndex: number): TopicVisibility | null => {
-    return visibleTopics.find(t => t.topicIndex === topicIndex) || null;
+    const visibility = visibleTopics.find(t => t.topicIndex === topicIndex) || null;
+    console.log(`TopicVisibilityContext: getTopicVisibility(${topicIndex}):`, visibility);
+    return visibility;
   };
 
   const getSubtopicVisibility = (topicIndex: number, dayIndex: number): SubtopicVisibility | null => {
@@ -173,6 +183,13 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     getTopicVisibility,
     getSubtopicVisibility
   };
+
+  console.log('TopicVisibilityContext: Providing context with:', {
+    visibleTopicsCount: visibleTopics.length,
+    isLoading,
+    error,
+    firstTopicVisibility: visibleTopics[0]
+  });
 
   // Always provide the context, even if there's an error
   return (
