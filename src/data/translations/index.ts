@@ -5,6 +5,7 @@ import { profileTranslations } from './profile';
 import { smallAndBigTranslations } from './small_and_big';
 import { dancingHighLowTranslations } from './dancing_high_low';
 import { dancingCircularLinearTranslations } from './dancing_circular_linear';
+import { dancingWithWithoutControlTranslations } from './dancing_with_without_control';
 import { deepMergeTranslations } from '@/utils/mergeTranslations';
 
 // Export the main TranslationKey type and extend it with home keys and missing exercise keys
@@ -65,6 +66,15 @@ export type TranslationKey = MainTranslationKey |
   `exercises.dancingCircularLinear.daily.day1.content` | `exercises.dancingCircularLinear.daily.day1.task` |
   `exercises.dancingCircularLinear.daily.day2.content` | `exercises.dancingCircularLinear.daily.day2.task` |
   `exercises.dancingCircularLinear.daily.day3.content` | `exercises.dancingCircularLinear.daily.day3.task` |
+  // Add new dancing with without control exercise keys
+  `exercises.dancingWithWithoutControl.title` | `exercises.dancingWithWithoutControl.introText1` | `exercises.dancingWithWithoutControl.introText2` | `exercises.dancingWithWithoutControl.introText3` |
+  `exercises.dancingWithWithoutControl.musicalConnectionTitle` | `exercises.dancingWithWithoutControl.musicalConnectionText1` |
+  `exercises.dancingWithWithoutControl.allAssignments` | `exercises.dancingWithWithoutControl.assignmentsDescription` |
+  `exercises.dancingWithWithoutControl.assignment1` | `exercises.dancingWithWithoutControl.assignment2` |
+  `exercises.dancingWithWithoutControl.daily.day1.content` | `exercises.dancingWithWithoutControl.daily.day1.task` |
+  `exercises.dancingWithWithoutControl.daily.day2.content` | `exercises.dancingWithWithoutControl.daily.day2.task` |
+  `exercises.dancingWithWithoutControl.daily.day3.content` | `exercises.dancingWithWithoutControl.daily.day3.task` |
+  `exercises.dancingWithWithoutControl.daily.day4.content` | `exercises.dancingWithWithoutControl.daily.day4.task` |
   // Add missing daily translation keys
   `daily.dayNotFound` | `daily.topicNotFound`;
 
@@ -75,5 +85,6 @@ export const translations = deepMergeTranslations(
   profileTranslations,
   smallAndBigTranslations,
   dancingHighLowTranslations,
-  dancingCircularLinearTranslations
+  dancingCircularLinearTranslations,
+  dancingWithWithoutControlTranslations
 );

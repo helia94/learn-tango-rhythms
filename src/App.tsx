@@ -25,6 +25,8 @@ import DancingHighLow from "./pages/exercises/DancingHighLow";
 import DancingHighLowAssignments from "./pages/exercises/DancingHighLowAssignments";
 import DancingCircularLinear from "./pages/exercises/DancingCircularLinear";
 import DancingCircularLinearAssignments from "./pages/exercises/DancingCircularLinearAssignments";
+import DancingWithWithoutControl from "./pages/exercises/DancingWithWithoutControl";
+import DancingWithWithoutControlAssignments from "./pages/exercises/DancingWithWithoutControlAssignments";
 import SpotifyCallback from "./pages/SpotifyCallback";
 import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
@@ -76,6 +78,8 @@ const App = () => {
                     <Route path="/exercises/dancing-high-low/assignments" element={<DancingHighLowAssignments />} />
                     <Route path="/exercises/dancing-circular-linear" element={<DancingCircularLinear />} />
                     <Route path="/exercises/dancing-circular-linear/assignments" element={<DancingCircularLinearAssignments />} />
+                    <Route path="/exercises/dancing-with-without-control" element={<DancingWithWithoutControl />} />
+                    <Route path="/exercises/dancing-with-without-control/assignments" element={<DancingWithWithoutControlAssignments />} />
                     
                     {/* Rhythm Lab sub-routes */}
                     <Route path="/rhythmlab" element={<RhythmLabLayout />}>
