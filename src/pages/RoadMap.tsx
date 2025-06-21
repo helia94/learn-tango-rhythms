@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
+import { ArrowLeft, Lock, CheckCircle, Circle } from 'lucide-react';
+import { MapIcon } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { TranslationKey } from '@/data/translations/index';
 import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
@@ -10,7 +12,7 @@ const RoadMap = () => {
   const { t } = useTranslation();
   const { getTopicVisibility, isLoading, visibleTopics } = useTopicVisibility();
 
-  // Log the visibility context when it changes
+  // Log the visibility context when it changes (but less frequently)
   useEffect(() => {
     console.log('RoadMap: TopicVisibility context updated:', {
       isLoading,
@@ -23,45 +25,40 @@ const RoadMap = () => {
         isActive: t.isActive
       }))
     });
-  }, [isLoading, visibleTopics]);
+  }, [isLoading, visibleTopics.length]); // Only log when loading state or count changes
 
-  // All concepts combined into one flowing sequence
-  const allConcepts: Array<{
-    key: string;
-    translationKey: TranslationKey;
-    topicIndex?: number;
-    link?: string;
-  }> = [
-    { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", topicIndex: 0, link: "/exercises/dancing-fast-slow" },
-    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", topicIndex: 1, link: "/exercises/dancing-small-big" },
-    { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", topicIndex: 2, link: "/exercises/dancing-high-low" },
-    { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear", topicIndex: 3, link: "/exercises/dancing-circular-linear" },
-    { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl", topicIndex: 4, link: "/exercises/dancing-with-without-control" },
-    { key: "fullWeightTransferVsRebounds", translationKey: "concepts.fullWeightTransferVsRebounds" },
-    { key: "expandingVsShrinking", translationKey: "concepts.expandingVsShrinking" },
-    { key: "highBodyTensionVsLowBodyTension", translationKey: "concepts.highBodyTensionVsLowBodyTension" },
-    { key: "feetAlwaysOnFloorVsFeetOffFloor", translationKey: "concepts.feetAlwaysOnFloorVsFeetOffFloor" },
-    { key: "pushingFloorVsNotPushingFloor", translationKey: "concepts.pushingFloorVsNotPushingFloor" },
-    { key: "leadingEveryStepVsNotLeadingEveryStep", translationKey: "concepts.leadingEveryStepVsNotLeadingEveryStep" },
-    { key: "sameStepsVsDifferentSteps", translationKey: "concepts.sameStepsVsDifferentSteps" },
-    { key: "fewStepsVsManySteps", translationKey: "concepts.fewStepsVsManySteps" },
-    { key: "dancingRhythmVsDancingMelody", translationKey: "concepts.dancingRhythmVsDancingMelody" },
-    { key: "facingPartnerVsTurningAway", translationKey: "concepts.facingPartnerVsTurningAway" },
-    { key: "acceleratingVsDecelerating", translationKey: "concepts.acceleratingVsDecelerating" },
-    { key: "dancingRubato", translationKey: "concepts.dancingRubato" },
-    { key: "marcatoIn2VsIn4", translationKey: "concepts.marcatoIn2VsIn4" },
-    { key: "normalSyncopa", translationKey: "concepts.normalSyncopa" },
-    { key: "doubleSyncopa", translationKey: "concepts.doubleSyncopa" },
-    { key: "dragSyncopa", translationKey: "concepts.dragSyncopa" },
-    { key: "dance4To1", translationKey: "concepts.dance4To1" },
-    { key: "danceTriplets", translationKey: "concepts.danceTriplets" },
-    { key: "danceLikeJellyfish", translationKey: "concepts.danceLikeJellyfish" },
-    { key: "danceLikeWater", translationKey: "concepts.danceLikeWater" },
-    { key: "danceLikeSculptures", translationKey: "concepts.danceLikeSculptures" },
-    { key: "danceTheAccents", translationKey: "concepts.danceTheAccents" }
-  ];
+  // Memoize the concepts array to prevent recreating it on every render
+  const allConcepts = useMemo(() => [
+    { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow" as TranslationKey, topicIndex: 0, link: "/exercises/dancing-fast-slow" },
+    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig" as TranslationKey, topicIndex: 1, link: "/exercises/dancing-small-big" },
+    { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow" as TranslationKey, topicIndex: 2, link: "/exercises/dancing-high-low" },
+    { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear" as TranslationKey, topicIndex: 3, link: "/exercises/dancing-circular-linear" },
+    { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl" as TranslationKey, topicIndex: 4, link: "/exercises/dancing-with-without-control" },
+    { key: "fullWeightTransferVsRebounds", translationKey: "concepts.fullWeightTransferVsRebounds" as TranslationKey },
+    { key: "expandingVsShrinking", translationKey: "concepts.expandingVsShrinking" as TranslationKey },
+    { key: "highBodyTensionVsLowBodyTension", translationKey: "concepts.highBodyTensionVsLowBodyTension" as TranslationKey },
+    { key: "feetAlwaysOnFloorVsFeetOffFloor", translationKey: "concepts.feetAlwaysOnFloorVsFeetOffFloor" as TranslationKey },
+    { key: "pushingFloorVsNotPushingFloor", translationKey: "concepts.pushingFloorVsNotPushingFloor" as TranslationKey },
+    { key: "leadingEveryStepVsNotLeadingEveryStep", translationKey: "concepts.leadingEveryStepVsNotLeadingEveryStep" as TranslationKey },
+    { key: "sameStepsVsDifferentSteps", translationKey: "concepts.sameStepsVsDifferentSteps" as TranslationKey },
+    { key: "fewStepsVsManySteps", translationKey: "concepts.fewStepsVsManySteps" as TranslationKey },
+    { key: "dancingRhythmVsDancingMelody", translationKey: "concepts.dancingRhythmVsDancingMelody" as TranslationKey },
+    { key: "facingPartnerVsTurningAway", translationKey: "concepts.facingPartnerVsTurningAway" as TranslationKey },
+    { key: "acceleratingVsDecelerating", translationKey: "concepts.acceleratingVsDecelerating" as TranslationKey },
+    { key: "dancingRubato", translationKey: "concepts.dancingRubato" as TranslationKey },
+    { key: "marcatoIn2VsIn4", translationKey: "concepts.marcatoIn2VsIn4" as TranslationKey },
+    { key: "normalSyncopa", translationKey: "concepts.normalSyncopa" as TranslationKey },
+    { key: "doubleSyncopa", translationKey: "concepts.doubleSyncopa" as TranslationKey },
+    { key: "dragSyncopa", translationKey: "concepts.dragSyncopa" as TranslationKey },
+    { key: "dance4To1", translationKey: "concepts.dance4To1" as TranslationKey },
+    { key: "danceTriplets", translationKey: "concepts.danceTriplets" as TranslationKey },
+    { key: "danceLikeJellyfish", translationKey: "concepts.danceLikeJellyfish" as TranslationKey },
+    { key: "danceLikeWater", translationKey: "concepts.danceLikeWater" as TranslationKey },
+    { key: "danceLikeSculptures", translationKey: "concepts.danceLikeSculptures" as TranslationKey },
+    { key: "danceTheAccents", translationKey: "concepts.danceTheAccents" as TranslationKey }
+  ], []);
 
-  const getConceptStatus = (concept: typeof allConcepts[0]) => {
+  const getConceptStatus = useCallback((concept: typeof allConcepts[0]) => {
     // For concepts without topicIndex, use fallback logic
     if (concept.topicIndex === undefined) {
       return {
@@ -74,11 +71,6 @@ const RoadMap = () => {
 
     const topicVisibility = getTopicVisibility(concept.topicIndex);
     
-    console.log(`RoadMap: getConceptStatus for concept ${concept.key} (topicIndex: ${concept.topicIndex}):`, {
-      topicVisibility,
-      found: !!topicVisibility
-    });
-    
     if (!topicVisibility) {
       return {
         unlocked: false,
@@ -88,20 +80,15 @@ const RoadMap = () => {
       };
     }
 
-    const status = {
+    return {
       unlocked: topicVisibility.isUnlocked,
       completed: false, // We don't track completion status yet
       visible: topicVisibility.isVisible,
       active: topicVisibility.isActive
     };
+  }, [getTopicVisibility]);
 
-    console.log(`RoadMap: Concept ${concept.key} status:`, status);
-    return status;
-  };
-
-  const getNodeIcon = (unlocked: boolean, active: boolean, visible: boolean) => {
-    console.log('RoadMap: getNodeIcon called with:', { unlocked, active, visible });
-    
+  const getNodeIcon = useCallback((unlocked: boolean, active: boolean, visible: boolean) => {
     if (!visible) {
       return <Lock className="w-6 h-6 text-warm-brown opacity-50" />;
     }
@@ -115,9 +102,9 @@ const RoadMap = () => {
     }
     
     return <Lock className="w-6 h-6 text-warm-brown opacity-50" />;
-  };
+  }, []);
 
-  const getNodeBackground = (unlocked: boolean, active: boolean, visible: boolean) => {
+  const getNodeBackground = useCallback((unlocked: boolean, active: boolean, visible: boolean) => {
     if (!visible) {
       return 'bg-warm-brown border-cream opacity-60';
     }
@@ -131,11 +118,10 @@ const RoadMap = () => {
     }
     
     return 'bg-warm-brown border-cream opacity-60';
-  };
+  }, []);
 
   // Generate winding path coordinates for each concept
-  const generateWindingPath = (index: number, total: number) => {
-    // ... keep existing code (winding path generation)
+  const generateWindingPath = useCallback((index: number, total: number) => {
     const progress = index / (total - 1);
     const baseY = progress * 100; // Base vertical progression
 
@@ -150,9 +136,7 @@ const RoadMap = () => {
       x,
       y
     };
-  };
-
-  console.log('RoadMap: Rendering with isLoading:', isLoading);
+  }, []);
 
   if (isLoading) {
     return (
@@ -184,7 +168,7 @@ const RoadMap = () => {
       {/* Header */}
       <div className="relative z-10 text-center mb-8">
         <div className="flex items-center justify-center gap-4 mb-6">
-          <Map className="w-16 h-16 text-golden-yellow drop-shadow-lg" />
+          <MapIcon className="w-16 h-16 text-golden-yellow drop-shadow-lg" />
           <h1 className="text-6xl md:text-8xl font-display text-cream drop-shadow-2xl tracking-wider">
             {t('roadmap.title')}
           </h1>
@@ -223,12 +207,6 @@ const RoadMap = () => {
             const position = generateWindingPath(index, allConcepts.length);
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
             const canRoute = conceptStatus.visible && concept.link;
-
-            console.log(`RoadMap: Rendering concept ${concept.key}:`, {
-              conceptStatus,
-              canRoute,
-              topicIndex: concept.topicIndex
-            });
 
             const ConceptCard = ({ children }: { children: React.ReactNode }) => {
               if (canRoute) {

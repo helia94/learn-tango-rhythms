@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback, useMemo } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
 import { useFeatureFlags } from '@/contexts/FeatureFlagsContext';
@@ -61,10 +61,13 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     getTopicDeadline 
   } = useTopicActivation();
 
-  const refreshVisibility = async () => {
+  // Memoize the unlockAll flag value to prevent unnecessary re-renders
+  const unlockAllFlag = useMemo(() => flags?.unlockAll === true, [flags?.unlockAll]);
+
+  const refreshVisibility = useCallback(async () => {
     console.log('TopicVisibilityContext: Starting refreshVisibility...', { 
       user: !!user, 
-      unlockAll: flags?.unlockAll,
+      unlockAll: unlockAllFlag,
       userEmail: user?.email 
     });
     
@@ -93,7 +96,7 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
           // Topic is visible if:
           // 1. It's unlocked (either naturally or via feature flag)
           // 2. Or if unlockAll feature flag is enabled
-          const isVisible = isUnlocked || (flags?.unlockAll === true);
+          const isVisible = isUnlocked || unlockAllFlag;
           
           const topicVisibility: TopicVisibility = {
             topicIndex: topicConfig.topicIndex,
@@ -108,7 +111,7 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
             isUnlocked,
             isActive,
             isVisible,
-            unlockAllFlag: flags?.unlockAll,
+            unlockAllFlag,
             deadline
           });
           
@@ -155,17 +158,17 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
       setIsLoading(false);
       console.log('TopicVisibilityContext: Refresh visibility complete, isLoading set to false');
     }
-  };
+  }, [user, unlockAllFlag, getAllUnlockedTopics, isTopicActive, getTopicDeadline]);
 
-  const getTopicVisibility = (topicIndex: number): TopicVisibility | null => {
+  const getTopicVisibility = useCallback((topicIndex: number): TopicVisibility | null => {
     const visibility = visibleTopics.find(t => t.topicIndex === topicIndex) || null;
     console.log(`TopicVisibilityContext: getTopicVisibility(${topicIndex}):`, visibility);
     return visibility;
-  };
+  }, [visibleTopics]);
 
-  const getSubtopicVisibility = (topicIndex: number, dayIndex: number): SubtopicVisibility | null => {
+  const getSubtopicVisibility = useCallback((topicIndex: number, dayIndex: number): SubtopicVisibility | null => {
     return visibleSubtopics.find(s => s.topicIndex === topicIndex && s.dayIndex === dayIndex) || null;
-  };
+  }, [visibleSubtopics]);
 
   // Refresh visibility when user authentication status changes or feature flags change
   useEffect(() => {
@@ -173,16 +176,17 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     refreshVisibility().catch(error => {
       console.error('TopicVisibilityContext: Error in useEffect refreshVisibility:', error);
     });
-  }, [user, flags?.unlockAll]);
+  }, [refreshVisibility]);
 
-  const value: TopicVisibilityContextValue = {
+  // Memoize the context value to prevent unnecessary re-renders
+  const value = useMemo<TopicVisibilityContextValue>(() => ({
     visibleTopics,
     visibleSubtopics,
     isLoading,
     refreshVisibility,
     getTopicVisibility,
     getSubtopicVisibility
-  };
+  }), [visibleTopics, visibleSubtopics, isLoading, refreshVisibility, getTopicVisibility, getSubtopicVisibility]);
 
   console.log('TopicVisibilityContext: Providing context with:', {
     visibleTopicsCount: visibleTopics.length,
