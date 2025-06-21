@@ -76,5 +76,13 @@ export const translations = deepMergeTranslations(
   profileTranslations,
   smallAndBigTranslations,
   dancingHighLowTranslations,
-  dancingCircularLinearTranslations
+  // Fix the merging to nest correctly under exercises
+  {
+    exercises: {
+      dancingCircularLinear: {
+        en: dancingCircularLinearTranslations.en.exercises.dancingCircularLinear,
+        de: dancingCircularLinearTranslations.de.exercises.dancingCircularLinear
+      }
+    }
+  }
 );
