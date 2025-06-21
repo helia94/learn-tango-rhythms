@@ -3,77 +3,66 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { TranslationKey } from '@/data/translations/index';
-import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
 import LanguageSelector from '@/components/LanguageSelector';
-import TopicProgressManager from '@/components/TopicProgressManager';
 
 const RoadMap = () => {
   const { t } = useTranslation();
-  const { getTopicVisibility, getAllVisibleTopics } = useTopicVisibility();
 
-  // All concepts with their configuration
+  // All concepts combined into one flowing sequence
   const allConcepts: Array<{
     key: string;
     translationKey: TranslationKey;
-    topicIndex: number;
+    unlocked: boolean;
+    completed: boolean;
     link?: string;
   }> = [
-    { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", topicIndex: 0, link: "/exercises/dancing-fast-slow" },
-    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", topicIndex: 1, link: "/exercises/dancing-small-big" },
-    { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", topicIndex: 2, link: "/exercises/dancing-high-low" },
-    { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear", topicIndex: 3, link: "/exercises/dancing-circular-linear" },
-    { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl", topicIndex: 4, link: "/exercises/dancing-with-without-control" },
-    { key: "fullWeightTransferVsRebounds", translationKey: "concepts.fullWeightTransferVsRebounds", topicIndex: 5 },
-    { key: "expandingVsShrinking", translationKey: "concepts.expandingVsShrinking", topicIndex: 6 },
-    { key: "highBodyTensionVsLowBodyTension", translationKey: "concepts.highBodyTensionVsLowBodyTension", topicIndex: 7 },
-    { key: "feetAlwaysOnFloorVsFeetOffFloor", translationKey: "concepts.feetAlwaysOnFloorVsFeetOffFloor", topicIndex: 8 },
-    { key: "pushingFloorVsNotPushingFloor", translationKey: "concepts.pushingFloorVsNotPushingFloor", topicIndex: 9 },
-    { key: "leadingEveryStepVsNotLeadingEveryStep", translationKey: "concepts.leadingEveryStepVsNotLeadingEveryStep", topicIndex: 10 },
-    { key: "sameStepsVsDifferentSteps", translationKey: "concepts.sameStepsVsDifferentSteps", topicIndex: 11 },
-    { key: "fewStepsVsManySteps", translationKey: "concepts.fewStepsVsManySteps", topicIndex: 12 },
-    { key: "dancingRhythmVsDancingMelody", translationKey: "concepts.dancingRhythmVsDancingMelody", topicIndex: 13 },
-    { key: "facingPartnerVsTurningAway", translationKey: "concepts.facingPartnerVsTurningAway", topicIndex: 14 },
-    { key: "acceleratingVsDecelerating", translationKey: "concepts.acceleratingVsDecelerating", topicIndex: 15 },
-    { key: "dancingRubato", translationKey: "concepts.dancingRubato", topicIndex: 16 },
-    { key: "marcatoIn2VsIn4", translationKey: "concepts.marcatoIn2VsIn4", topicIndex: 17 },
-    { key: "normalSyncopa", translationKey: "concepts.normalSyncopa", topicIndex: 18 },
-    { key: "doubleSyncopa", translationKey: "concepts.doubleSyncopa", topicIndex: 19 },
-    { key: "dragSyncopa", translationKey: "concepts.dragSyncopa", topicIndex: 20 },
-    { key: "dance4To1", translationKey: "concepts.dance4To1", topicIndex: 21 },
-    { key: "danceTriplets", translationKey: "concepts.danceTriplets", topicIndex: 22 },
-    { key: "danceLikeJellyfish", translationKey: "concepts.danceLikeJellyfish", topicIndex: 23 },
-    { key: "danceLikeWater", translationKey: "concepts.danceLikeWater", topicIndex: 24 },
-    { key: "danceLikeSculptures", translationKey: "concepts.danceLikeSculptures", topicIndex: 25 },
-    { key: "danceTheAccents", translationKey: "concepts.danceTheAccents", topicIndex: 26 }
+    { key: "dancingFastVsSlow", translationKey: "concepts.dancingFastVsSlow", unlocked: true, completed: true, link: "/exercises/dancing-fast-slow" },
+    { key: "dancingSmallVsBig", translationKey: "concepts.dancingSmallVsBig", unlocked: true, completed: true, link: "/exercises/dancing-small-big" },
+    { key: "dancingHighVsLow", translationKey: "concepts.dancingHighVsLow", unlocked: true, completed: false, link: "/exercises/dancing-high-low" },
+    { key: "dancingCircularVsLinear", translationKey: "concepts.dancingCircularVsLinear", unlocked: true, completed: false, link: "/exercises/dancing-circular-linear" },
+    { key: "withControlVsWithoutControl", translationKey: "concepts.withControlVsWithoutControl", unlocked: true, completed: false, link: "/exercises/dancing-with-without-control" },
+    { key: "fullWeightTransferVsRebounds", translationKey: "concepts.fullWeightTransferVsRebounds", unlocked: false, completed: false },
+    { key: "expandingVsShrinking", translationKey: "concepts.expandingVsShrinking", unlocked: false, completed: false },
+    { key: "highBodyTensionVsLowBodyTension", translationKey: "concepts.highBodyTensionVsLowBodyTension", unlocked: false, completed: false },
+    { key: "feetAlwaysOnFloorVsFeetOffFloor", translationKey: "concepts.feetAlwaysOnFloorVsFeetOffFloor", unlocked: false, completed: false },
+    { key: "pushingFloorVsNotPushingFloor", translationKey: "concepts.pushingFloorVsNotPushingFloor", unlocked: false, completed: false },
+    { key: "leadingEveryStepVsNotLeadingEveryStep", translationKey: "concepts.leadingEveryStepVsNotLeadingEveryStep", unlocked: false, completed: false },
+    { key: "sameStepsVsDifferentSteps", translationKey: "concepts.sameStepsVsDifferentSteps", unlocked: false, completed: false },
+    { key: "fewStepsVsManySteps", translationKey: "concepts.fewStepsVsManySteps", unlocked: false, completed: false },
+    { key: "dancingRhythmVsDancingMelody", translationKey: "concepts.dancingRhythmVsDancingMelody", unlocked: false, completed: false },
+    { key: "facingPartnerVsTurningAway", translationKey: "concepts.facingPartnerVsTurningAway", unlocked: false, completed: false },
+    { key: "acceleratingVsDecelerating", translationKey: "concepts.acceleratingVsDecelerating", unlocked: false, completed: false },
+    { key: "dancingRubato", translationKey: "concepts.dancingRubato", unlocked: false, completed: false },
+    { key: "marcatoIn2VsIn4", translationKey: "concepts.marcatoIn2VsIn4", unlocked: false, completed: false },
+    { key: "normalSyncopa", translationKey: "concepts.normalSyncopa", unlocked: false, completed: false },
+    { key: "doubleSyncopa", translationKey: "concepts.doubleSyncopa", unlocked: false, completed: false },
+    { key: "dragSyncopa", translationKey: "concepts.dragSyncopa", unlocked: false, completed: false },
+    { key: "dance4To1", translationKey: "concepts.dance4To1", unlocked: false, completed: false },
+    { key: "danceTriplets", translationKey: "concepts.danceTriplets", unlocked: false, completed: false },
+    { key: "danceLikeJellyfish", translationKey: "concepts.danceLikeJellyfish", unlocked: false, completed: false },
+    { key: "danceLikeWater", translationKey: "concepts.danceLikeWater", unlocked: false, completed: false },
+    { key: "danceLikeSculptures", translationKey: "concepts.danceLikeSculptures", unlocked: false, completed: false },
+    { key: "danceTheAccents", translationKey: "concepts.danceTheAccents", unlocked: false, completed: false }
   ];
 
-  // Filter concepts based on visibility
-  const visibleConcepts = allConcepts.filter(concept => {
-    const visibility = getTopicVisibility(concept.key, concept.topicIndex);
-    return visibility.isVisible;
-  });
-
-  const getNodeStatus = (concept: typeof allConcepts[0]) => {
-    const visibility = getTopicVisibility(concept.key, concept.topicIndex);
-    
-    if (!visibility.isVisible) return 'locked';
-    if (visibility.isActive) return 'active';
-    if (visibility.isUnlocked) return 'unlocked';
+  const getNodeStatus = (unlocked: boolean, completed: boolean) => {
+    if (completed) return 'completed';
+    if (unlocked) return 'unlocked';
     return 'locked';
   };
   
   const getNodeIcon = (status: string) => {
     switch (status) {
-      case 'active':
-        return <CheckCircle className="w-6 h-6 text-golden-yellow animate-pulse" />;
+      case 'completed':
+        return <CheckCircle className="w-6 h-6 text-sage-green" />;
       case 'unlocked':
-        return <Circle className="w-6 h-6 text-sage-green" />;
+        return <Circle className="w-6 h-6 text-golden-yellow" />;
       default:
         return <Lock className="w-6 h-6 text-warm-brown opacity-50" />;
     }
   };
 
-  // Generate winding path coordinates for each visible concept
+  // Generate winding path coordinates for each concept
   const generateWindingPath = (index: number, total: number) => {
     const progress = index / (total - 1);
     const baseY = progress * 100; // Base vertical progression
@@ -93,9 +82,6 @@ const RoadMap = () => {
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
-      {/* Include topic progress manager */}
-      <TopicProgressManager />
-      
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-golden-yellow animate-organic-pulse"></div>
@@ -136,28 +122,27 @@ const RoadMap = () => {
               </linearGradient>
             </defs>
             
-            {/* Generate smooth winding path for visible concepts */}
-            <path d={`M ${generateWindingPath(0, visibleConcepts.length).x} ${generateWindingPath(0, visibleConcepts.length).y} ${visibleConcepts.map((_, index) => {
-            const point = generateWindingPath(index, visibleConcepts.length);
+            {/* Generate smooth winding path */}
+            <path d={`M ${generateWindingPath(0, allConcepts.length).x} ${generateWindingPath(0, allConcepts.length).y} ${allConcepts.map((_, index) => {
+            const point = generateWindingPath(index, allConcepts.length);
             return index === 0 ? '' : `L ${point.x} ${point.y}`;
           }).join(' ')}`} stroke="url(#roadGradient)" strokeWidth="8" fill="none" className="drop-shadow-2xl" />
             
             {/* Road center line */}
-            <path d={`M ${generateWindingPath(0, visibleConcepts.length).x} ${generateWindingPath(0, visibleConcepts.length).y} ${visibleConcepts.map((_, index) => {
-            const point = generateWindingPath(index, visibleConcepts.length);
+            <path d={`M ${generateWindingPath(0, allConcepts.length).x} ${generateWindingPath(0, allConcepts.length).y} ${allConcepts.map((_, index) => {
+            const point = generateWindingPath(index, allConcepts.length);
             return index === 0 ? '' : `L ${point.x} ${point.y}`;
           }).join(' ')}`} stroke="hsl(var(--cream))" strokeWidth="1" fill="none" strokeDasharray="2 3" className="opacity-60" />
           </svg>
 
           {/* Concept Nodes along the winding path */}
-          {visibleConcepts.map((concept, index) => {
-            const status = getNodeStatus(concept);
-            const position = generateWindingPath(index, visibleConcepts.length);
+          {allConcepts.map((concept, index) => {
+            const status = getNodeStatus(concept.unlocked, concept.completed);
+            const position = generateWindingPath(index, allConcepts.length);
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
-            const visibility = getTopicVisibility(concept.key, concept.topicIndex);
 
             const ConceptCard = ({ children }: { children: React.ReactNode }) => {
-              if (concept.link && visibility.isUnlocked) {
+              if (concept.link && status !== 'locked') {
                 return (
                   <Link to={concept.link} className="block">
                     {children}
@@ -181,16 +166,11 @@ const RoadMap = () => {
                   {/* Concept Card */}
                   <div className={`${isLeft ? 'order-1 mr-8' : 'order-3 ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
                     <ConceptCard>
-                      <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${!visibility.isUnlocked ? 'opacity-60 grayscale' : 'cursor-pointer hover:shadow-2xl'}`}>
+                      <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${status === 'locked' ? 'opacity-60 grayscale' : 'cursor-pointer hover:shadow-2xl'}`}>
                         <div className="text-warm-brown font-bold text-center text-sm">
                           {t(concept.translationKey)}
                         </div>
-                        {visibility.isActive && visibility.deadline && (
-                          <div className="mt-2 text-xs text-center text-golden-yellow font-medium">
-                            Active until {visibility.deadline.toLocaleDateString()}
-                          </div>
-                        )}
-                        {!visibility.isUnlocked && (
+                        {status === 'locked' && (
                           <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
                             <Lock className="w-6 h-6 text-cream" />
                           </div>
@@ -202,7 +182,7 @@ const RoadMap = () => {
                   {/* Central Road Node */}
                   <div className="order-2 relative z-20">
                     <ConceptCard>
-                      <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${status === 'active' ? 'bg-golden-yellow border-cream animate-gentle-bounce' : status === 'unlocked' ? 'bg-sage-green border-cream hover:scale-110 cursor-pointer' : 'bg-warm-brown border-cream opacity-60'}`}>
+                      <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${status === 'completed' ? 'bg-sage-green border-cream animate-gentle-bounce' : status === 'unlocked' ? 'bg-golden-yellow border-cream hover:scale-110 cursor-pointer' : 'bg-warm-brown border-cream opacity-60'}`}>
                         {getNodeIcon(status)}
                       </div>
                     </ConceptCard>
