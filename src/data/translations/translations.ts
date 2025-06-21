@@ -11,6 +11,7 @@ export type TranslationKey =
   | 'common.loading'
   | 'common.startThisTopic'
   | 'common.loginToStart'
+  | 'common.allAssignments'
   | 'roadmap.title'
   | 'leaderboard.viewLeaderboard'
   | 'rhythm.title'
@@ -228,6 +229,10 @@ export const translations = {
     loginToStart: {
       en: "Login to start",
       de: "Einloggen zum Starten"
+    },
+    allAssignments: {
+      en: "All Assignments",
+      de: "Alle Aufgaben"
     }
   },
   roadmap: {
