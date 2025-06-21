@@ -1,12 +1,11 @@
 
 import React, { useState } from 'react';
-import { Accordion } from '@/components/ui/accordion';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 import { useUnlockAll } from '@/hooks/useFeatureFlag';
-import DayItem from '@/components/daily/DayItem';
 import DailyAssignmentsHeader from '@/components/ui/DailyAssignmentsHeader';
+import DailyAccordion from '@/components/ui/DailyAccordion';
 
 interface SmallAndBigDaily1to7Props {
   completedTasks: Record<string, number>;
@@ -85,43 +84,16 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
         unlockAllEnabled={unlockAllEnabled}
       />
 
-      <Accordion type="single" collapsible className="space-y-4">
-        {[1, 2, 3, 4, 5, 6, 7].map(dayNumber => {
-          const isActivated = activatedDaysArray.includes(dayNumber);
-          const isNextToActivate = nextDayToActivate === dayNumber;
-          
-          // When unlockAll is enabled, treat all days as unlocked
-          let status;
-          if (unlockAllEnabled) {
-            status = 'unlocked';
-          } else {
-            status = isActivated ? 'unlocked' : isNextToActivate ? 'tomorrow' : 'locked';
-          }
-          
-          const isCompleted = completedTasks[`day-${dayNumber}-task`] > 0;
-          
-          console.log(`SmallAndBigDaily1to7 - Day ${dayNumber} props:`, {
-            topicName: 'dancing-small-big',
-            topicIndex: 1,
-            status,
-            isCompleted
-          });
-          
-          return (
-            <DayItem
-              key={dayNumber}
-              dayNumber={dayNumber}
-              status={status}
-              isCompleted={isCompleted}
-              completedTasks={completedTasks}
-              onTaskLevelChange={onTaskLevelChange}
-              onDayActivation={user && (isNextToActivate || unlockAllEnabled) ? () => handleDayActivation(dayNumber) : undefined}
-              topicName="dancing-small-big"
-              topicIndex={1}
-            />
-          );
-        })}
-      </Accordion>
+      <DailyAccordion
+        totalDays={totalDays}
+        activatedDays={activatedDaysArray}
+        nextDayToActivate={nextDayToActivate}
+        completedTasks={completedTasks}
+        onTaskLevelChange={onTaskLevelChange}
+        onDayActivation={handleDayActivation}
+        topicName="dancing-small-big"
+        topicIndex={1}
+      />
     </div>
   );
 };

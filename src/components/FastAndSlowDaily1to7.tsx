@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import { Accordion } from '@/components/ui/accordion';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
-import DayItem from '@/components/daily/DayItem';
+import { useUnlockAll } from '@/hooks/useFeatureFlag';
 import DailyAssignmentsHeader from '@/components/ui/DailyAssignmentsHeader';
+import DailyAccordion from '@/components/ui/DailyAccordion';
 
 interface FastAndSlowDaily1to7Props {
   completedTasks: Record<string, number>;
@@ -18,6 +18,7 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
 }) => {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const unlockAllEnabled = useUnlockAll();
   
   const { 
     activatedDays, 
@@ -71,26 +72,16 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
         nextDayToActivate={nextDayToActivate}
       />
 
-      <Accordion type="single" collapsible className="space-y-4">
-        {[1, 2, 3, 4, 5, 6, 7].map(dayNumber => {
-          const isActivated = whichDailiesWereActivated().includes(dayNumber);
-          const isNextToActivate = nextDayToActivate === dayNumber;
-          const status = isActivated ? 'unlocked' : isNextToActivate ? 'tomorrow' : 'locked';
-          const isCompleted = completedTasks[`day-${dayNumber}-task`] > 0;
-          
-          return (
-            <DayItem
-              key={dayNumber}
-              dayNumber={dayNumber}
-              status={status}
-              isCompleted={isCompleted}
-              completedTasks={completedTasks}
-              onTaskLevelChange={onTaskLevelChange}
-              onDayActivation={user && isNextToActivate ? () => handleDayActivation(dayNumber) : undefined}
-            />
-          );
-        })}
-      </Accordion>
+      <DailyAccordion
+        totalDays={totalDays}
+        activatedDays={whichDailiesWereActivated()}
+        nextDayToActivate={nextDayToActivate}
+        completedTasks={completedTasks}
+        onTaskLevelChange={onTaskLevelChange}
+        onDayActivation={handleDayActivation}
+        topicName="dancing-fast-slow"
+        topicIndex={0}
+      />
     </div>
   );
 };
