@@ -67,10 +67,22 @@ const Assignment: React.FC<AssignmentProps> = ({
     }
   };
 
+  // Helper function to render text with line breaks
+  const renderTextWithLineBreaks = (text: string) => {
+    return text.split('\n').map((line, index, array) => (
+      <React.Fragment key={index}>
+        {line}
+        {index < array.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  };
+
+  const translatedText = t(assignment.content);
+
   return (
     <div className={`${getVariantStyles(variant)} backdrop-blur-sm rounded-2xl p-6 border ${className}`}>
       <label className="text-gray-700 text-lg font-medium cursor-pointer block mb-4">
-        {t(assignment.content)}
+        {renderTextWithLineBreaks(translatedText)}
       </label>
       <div className="flex items-center">
         <LevelSelector
