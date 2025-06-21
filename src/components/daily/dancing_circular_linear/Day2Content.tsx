@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
+import TextContent from '@/components/ui/TextContent';
 import { getAssignment } from '@/data/assignments/dancing_circular_linear';
 
 interface Day2ContentProps {
@@ -22,9 +23,9 @@ const Day2Content: React.FC<Day2ContentProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="text-gray-600 leading-relaxed">
+      <TextContent>
         {t('exercises.dancingCircularLinear.daily.day2.content' as any)}
-      </div>
+      </TextContent>
       
       {assignment && (
         <Assignment

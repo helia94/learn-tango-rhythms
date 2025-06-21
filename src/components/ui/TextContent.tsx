@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 export type TextVariant = 'body' | 'lead' | 'subtitle';
 
 interface TextContentProps {
-  children: React.ReactNode;
+  children: string;
   variant?: TextVariant;
   align?: 'left' | 'center' | 'right';
   className?: string;
@@ -29,14 +29,24 @@ const TextContent: React.FC<TextContentProps> = ({
     right: "text-right"
   };
 
+  // Helper function to render text with line breaks
+  const renderTextWithLineBreaks = (text: string) => {
+    return text.split('\n').map((line, index, array) => (
+      <React.Fragment key={index}>
+        {line}
+        {index < array.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  };
+
   return (
-    <p className={cn(
+    <div className={cn(
       variantStyles[variant],
       alignStyles[align],
       className
     )}>
-      {children}
-    </p>
+      {renderTextWithLineBreaks(children)}
+    </div>
   );
 };
 
