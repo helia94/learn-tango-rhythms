@@ -53,7 +53,8 @@ const RoadMap = () => {
       return {
         unlocked: false,
         completed: false,
-        visible: false
+        visible: false,
+        active: false
       };
     }
 
@@ -63,33 +64,49 @@ const RoadMap = () => {
       return {
         unlocked: false,
         completed: false,
-        visible: false
+        visible: false,
+        active: false
       };
     }
 
     return {
       unlocked: topicVisibility.isUnlocked,
       completed: false, // We don't track completion status yet
-      visible: topicVisibility.isVisible
+      visible: topicVisibility.isVisible,
+      active: topicVisibility.isActive
     };
   };
 
-  const getNodeStatus = (unlocked: boolean, completed: boolean, visible: boolean) => {
-    if (!visible) return 'locked';
-    if (completed) return 'completed';
-    if (unlocked) return 'unlocked';
-    return 'locked';
-  };
-  
-  const getNodeIcon = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return <CheckCircle className="w-6 h-6 text-sage-green" />;
-      case 'unlocked':
-        return <Circle className="w-6 h-6 text-golden-yellow" />;
-      default:
-        return <Lock className="w-6 h-6 text-warm-brown opacity-50" />;
+  const getNodeIcon = (unlocked: boolean, active: boolean, visible: boolean) => {
+    if (!visible) {
+      return <Lock className="w-6 h-6 text-warm-brown opacity-50" />;
     }
+    
+    if (active) {
+      return <Circle className="w-6 h-6 text-sage-green animate-gentle-bounce" />;
+    }
+    
+    if (unlocked) {
+      return <Circle className="w-6 h-6 text-golden-yellow" />;
+    }
+    
+    return <Lock className="w-6 h-6 text-warm-brown opacity-50" />;
+  };
+
+  const getNodeBackground = (unlocked: boolean, active: boolean, visible: boolean) => {
+    if (!visible) {
+      return 'bg-warm-brown border-cream opacity-60';
+    }
+    
+    if (active) {
+      return 'bg-sage-green border-cream animate-gentle-bounce';
+    }
+    
+    if (unlocked) {
+      return 'bg-golden-yellow border-cream hover:scale-110 cursor-pointer';
+    }
+    
+    return 'bg-warm-brown border-cream opacity-60';
   };
 
   // Generate winding path coordinates for each concept
@@ -176,7 +193,6 @@ const RoadMap = () => {
           {/* Concept Nodes along the winding path */}
           {allConcepts.map((concept, index) => {
             const conceptStatus = getConceptStatus(concept);
-            const status = getNodeStatus(conceptStatus.unlocked, conceptStatus.completed, conceptStatus.visible);
             const position = generateWindingPath(index, allConcepts.length);
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
             const canRoute = conceptStatus.visible && concept.link;
@@ -206,7 +222,7 @@ const RoadMap = () => {
                   {/* Concept Card */}
                   <div className={`${isLeft ? 'order-1 mr-8' : 'order-3 ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
                     <ConceptCard>
-                      <div className={`game-card ${status} bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${!conceptStatus.visible ? 'opacity-60 grayscale' : canRoute ? 'cursor-pointer hover:shadow-2xl' : ''}`}>
+                      <div className={`game-card bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${!conceptStatus.visible ? 'opacity-60 grayscale' : canRoute ? 'cursor-pointer hover:shadow-2xl' : ''}`}>
                         <div className="text-warm-brown font-bold text-center text-sm">
                           {t(concept.translationKey)}
                         </div>
@@ -222,8 +238,8 @@ const RoadMap = () => {
                   {/* Central Road Node */}
                   <div className="order-2 relative z-20">
                     <ConceptCard>
-                      <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${status === 'completed' ? 'bg-sage-green border-cream animate-gentle-bounce' : status === 'unlocked' ? 'bg-golden-yellow border-cream hover:scale-110 cursor-pointer' : 'bg-warm-brown border-cream opacity-60'}`}>
-                        {getNodeIcon(status)}
+                      <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${getNodeBackground(conceptStatus.unlocked, conceptStatus.active, conceptStatus.visible)}`}>
+                        {getNodeIcon(conceptStatus.unlocked, conceptStatus.active, conceptStatus.visible)}
                       </div>
                     </ConceptCard>
                     
