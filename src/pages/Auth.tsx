@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 
 const Auth: React.FC = () => {
   const { user, signIn, signUp, loading } = useAuth();
+  const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,6 +22,15 @@ const Auth: React.FC = () => {
   if (user && !loading) {
     return <Navigate to="/" replace />;
   }
+
+  const handleBack = () => {
+    // Check if we can go back in history, otherwise go to home
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,6 +95,15 @@ const Auth: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cream via-sandy-beige to-warm-brown p-4">
+      {/* Back Button */}
+      <button
+        onClick={handleBack}
+        className="absolute top-4 left-4 inline-flex items-center gap-2 text-warm-brown bg-cream/80 px-4 py-2 rounded-full hover:bg-cream transition-all duration-300 shadow-lg backdrop-blur-sm z-10"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Back
+      </button>
+
       <Card className="w-full max-w-md p-8 bg-white/90 backdrop-blur-sm border-0 shadow-2xl rounded-organic">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-display text-warm-brown mb-2">
