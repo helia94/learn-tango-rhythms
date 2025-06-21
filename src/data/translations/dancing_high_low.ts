@@ -1,4 +1,3 @@
-
 export const dancingHighLowTranslations = {
   exercises: {
     dancingHighLow: {
@@ -38,22 +37,6 @@ export const dancingHighLowTranslations = {
         en: "Changing the height can build more drama into your dance. Majo Martirena and Rodrigo Fonti are a professional couple who use this element a lot.",
         de: "Das Verändern der Höhe kann mehr Drama in deinen Tanz bringen. Majo Martirena und Rodrigo Fonti sind ein professionelles Paar, das dieses Element viel verwendet."
       },
-      musicalConnectionTitle: {
-        en: "Musical Connection",
-        de: "Musikalische Verbindung"
-      },
-      musicalConnectionText1: {
-        en: "One way to embody the music is by rising as the volume rises. Louder? Taller. Quieter? Lower. Let your body amplify the sound.",
-        de: "Eine Art, die Musik zu verkörpern, ist es, zu steigen, wenn die Lautstärke steigt. Lauter? Größer. Leiser? Niedriger. Lass deinen Körper den Klang verstärken."
-      },
-      musicalConnectionText2: {
-        en: "Another approach is working with pitch - the tone of the melody. As the melody climbs higher, your height can rise with it. Think of it as your body tracing the shape of the violin, the singer, the bandoneon.",
-        de: "Ein anderer Ansatz ist die Arbeit mit der Tonhöhe - dem Ton der Melodie. Wenn die Melodie höher steigt, kann deine Höhe mit ihr steigen. Denke daran, als würde dein Körper die Form der Geige, des Sängers, des Bandoneons nachzeichnen."
-      },
-      musicalConnectionText3: {
-        en: "Use height intentionally to express yourself and build drama into your dance.",
-        de: "Nutze die Höhe bewusst, um dich auszudrücken und Drama in deinen Tanz zu bringen."
-      },
       allAssignments: {
         en: "All High vs Low Assignments",
         de: "Alle Hoch vs Tief Aufgaben"
@@ -62,7 +45,6 @@ export const dancingHighLowTranslations = {
         en: "Complete weekly assignments to master the art of dancing with height variations.",
         de: "Vervollständige wöchentliche Aufgaben, um die Kunst des Tanzens mit Höhenvariationen zu meistern."
       },
-      // Daily content
       daily: {
         day1: {
           content: {
@@ -115,7 +97,6 @@ export const dancingHighLowTranslations = {
           }
         }
       },
-      // Weekly assignments
       assignment1: {
         en: "Practice Volume Dancing: Choose 3 different tangos with varying dynamics. For each song, focus on letting your height respond to volume changes. Record yourself or practice with a partner to observe how your height variations affect the overall expression of the dance.",
         de: "Übe Lautstärke-Tanzen: Wähle 3 verschiedene Tangos mit unterschiedlichen Dynamiken. Konzentriere dich bei jedem Lied darauf, deine Höhe auf Lautstärkeänderungen reagieren zu lassen. Nimm dich auf oder übe mit einem Partner, um zu beobachten, wie deine Höhenvariationen den Gesamtausdruck des Tanzes beeinflussen."
