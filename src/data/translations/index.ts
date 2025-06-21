@@ -56,7 +56,7 @@ export type TranslationKey = MainTranslationKey |
   `exercises.dancingHighLow.daily.day5.content` | `exercises.dancingHighLow.daily.day5.task` |
   `exercises.dancingHighLow.daily.day6.content` | `exercises.dancingHighLow.daily.day6.task` |
   `exercises.dancingHighLow.daily.day7.content` | `exercises.dancingHighLow.daily.day7.task` |
-  `exercises.dancingHighLow.assignment1` | `exercises.dancingHighLow.assignment2` | `exercises.dancingHighLow.assignment3`;
+  `exercises.dancingHighLow.assignment1` | `exercises.dancingHighLow.assignment2` | `exercises.dancingHighLow.assignment3` | `exercises.dancingHighLow.assignment4`;
 
 export const translations = deepMergeTranslations(
   mainTranslations,
