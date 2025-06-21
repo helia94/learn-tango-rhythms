@@ -63,9 +63,11 @@ export type TranslationKey = MainTranslationKey |
   `exercises.dancingCircularLinear.musicalConnectionTitle` | `exercises.dancingCircularLinear.musicalConnectionText1` |
   `exercises.dancingCircularLinear.allAssignments` | `exercises.dancingCircularLinear.assignmentsDescription` |
   `exercises.dancingCircularLinear.assignment1` | `exercises.dancingCircularLinear.assignment2` |
-  `exercises.danc ingCircularLinear.daily.day1.content` | `exercises.dancingCircularLinear.daily.day1.task` |
+  `exercises.dancingCircularLinear.daily.day1.content` | `exercises.dancingCircularLinear.daily.day1.task` |
   `exercises.dancingCircularLinear.daily.day2.content` | `exercises.dancingCircularLinear.daily.day2.task` |
-  `exercises.dancingCircularLinear.daily.day3.content` | `exercises.dancingCircularLinear.daily.day3.task`;
+  `exercises.dancingCircularLinear.daily.day3.content` | `exercises.dancingCircularLinear.daily.day3.task` |
+  // Add missing daily translation keys
+  `daily.dayNotFound` | `daily.topicNotFound`;
 
 export const translations = deepMergeTranslations(
   mainTranslations,

@@ -1,10 +1,11 @@
+
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTopicActivation } from './useTopicActivation';
 import { useUnlockAll } from './useFeatureFlag';
 
-export const useDailyTopicActivation = (topicKey: string, topicIndex: number) => {
+export const useDailyTopicActivation = (topicKey: string, topicIndex: number, totalDays: number) => {
   const [activatedDays, setActivatedDays] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
@@ -82,7 +83,7 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number) =>
   const whichDailiesWereActivated = (): number[] => {
     // If unlockAll is enabled, return all days as activated
     if (unlockAllEnabled) {
-      return [1, 2, 3, 4, 5, 6, 7];
+      return Array.from({ length: totalDays }, (_, i) => i + 1);
     }
     return [...activatedDays].sort((a, b) => a - b);
   };
@@ -94,7 +95,7 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number) =>
     }
     
     // Find the first day that hasn't been activated yet
-    for (let day = 1; day <= 7; day++) {
+    for (let day = 1; day <= totalDays; day++) {
       if (!activatedDays.includes(day)) {
         return day;
       }
@@ -223,8 +224,13 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number) =>
     fetchActivatedDays();
   }, [user, topicKey, topicIndex]);
 
+  // Return nextDayToActivate and unlockAllEnabled that were missing
+  const nextDayToActivate = whichDailyIsNextOnActivationOrder();
+
   return {
     activatedDays,
+    nextDayToActivate,
+    unlockAllEnabled,
     activateDay,
     isLoading,
     refetch: fetchActivatedDays,

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import FastSlowDay1Content from '@/components/daily/fast_and_slow/Day1Content';
@@ -14,11 +15,11 @@ import SmallBigDay4Content from '@/components/daily/small_and_big/Day4Content';
 import SmallBigDay5Content from '@/components/daily/small_and_big/Day5Content';
 import SmallBigDay6Content from '@/components/daily/small_and_big/Day6Content';
 import SmallBigDay7Content from '@/components/daily/small_and_big/Day7Content';
-import HighLowDay1Content from '@/components/daily/high_and_low/Day1Content';
-import HighLowDay2Content from '@/components/daily/high_and_low/Day2Content';
-import HighLowDay3Content from '@/components/daily/high_and_low/Day3Content';
-import HighLowDay4Content from '@/components/daily/high_and_low/Day4Content';
-import HighLowDay5Content from '@/components/daily/high_and_low/Day5Content';
+import HighLowDay1Content from '@/components/daily/dancing_high_low/Day1Content';
+import HighLowDay2Content from '@/components/daily/dancing_high_low/Day2Content';
+import HighLowDay3Content from '@/components/daily/dancing_high_low/Day3Content';
+import HighLowDay4Content from '@/components/daily/dancing_high_low/Day4Content';
+import HighLowDay5Content from '@/components/daily/dancing_high_low/Day5Content';
 import CircularLinearDay1Content from '@/components/daily/dancing_circular_linear/Day1Content';
 import CircularLinearDay2Content from '@/components/daily/dancing_circular_linear/Day2Content';
 import CircularLinearDay3Content from '@/components/daily/dancing_circular_linear/Day3Content';

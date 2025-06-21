@@ -167,6 +167,8 @@ export type TranslationKey =
   | 'daily.availableTomorrow'
   | 'daily.placeholder'
   | 'daily.placeholderTask'
+  | 'daily.dayNotFound'
+  | 'daily.topicNotFound'
   | 'progress.trackingTitle'
   | 'progress.levelInfo'
   | 'progress.notStarted'
@@ -482,7 +484,7 @@ export const translations = {
         de: "Drei Einfache Geschwindigkeiten"
       },
       threeSpeedsText: {
-        en: "Ok, now two simple things you can do:",
+        en: "Ok, now three simple things you can do:",
         de: "Ok, jetzt drei einfache Dinge, die du machen kannst:"
       },
       halfSpeed: {
@@ -886,46 +888,6 @@ export const translations = {
       en: "Available Tomorrow",
       de: "Morgen verfügbar"
     },
-    day1: {
-      content: {
-        en: "assignment content will be added here...",
-        de: "Aufgabeninhalt kommt hier hin..."
-      },
-      task: {
-        en: "practice completed",
-        de: "Übung abgeschlossen"
-      }
-    },
-    day2: {
-      content: {
-        en: "assignment content will be added here...",
-        de: "Aufgabeninhalt kommt hier hin..."
-      },
-      task: {
-        en: "practice completed",
-        de: "Übung abgeschlossen"
-      }
-    },
-    day3: {
-      content: {
-        en: "assignment content will be added here...",
-        de: "Aufgabeninhalt kommt hier hin..."
-      },
-      task: {
-        en: "practice completed",
-        de: "Übung abgeschlossen"
-      }
-    },
-    day6: {
-      content: {
-        en: "assignment content will be added here...",
-        de: "Aufgabeninhalt kommt hier hin..."
-      },
-      task: {
-        en: "practice completed",
-        de: "Übung abgeschlossen"
-      }
-    },
     placeholder: {
       en: "assignment content will be added here...",
       de: "Aufgabeninhalt kommt hier hin..."
@@ -933,6 +895,14 @@ export const translations = {
     placeholderTask: {
       en: "practice completed",
       de: "Übung abgeschlossen"
+    },
+    dayNotFound: {
+      en: "Day not found",
+      de: "Tag nicht gefunden"
+    },
+    topicNotFound: {
+      en: "Topic not found",
+      de: "Thema nicht gefunden"
     }
   },
   progress: {
