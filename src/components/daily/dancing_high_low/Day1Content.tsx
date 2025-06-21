@@ -28,27 +28,27 @@ const Day1Content: React.FC<Day1ContentProps> = ({
   const practiceAudioTracks = [
     {
       key: 'volume-1-pastoral',
-      title: 'Volume 1 - Pastoral - Osvaldo Pugliese',
+      title: 'Pastoral - Osvaldo Pugliese',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750544264/Volume_1_-_Pastoral_-_Instrumental_-_Osvaldo_Pugliese_qd6mit.mp3'
     },
     {
       key: 'volume-2-fuimos',
-      title: 'Volume 2 - Fuimos - Osvaldo Pugliese',
+      title: 'Fuimos - Osvaldo Pugliese',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750544264/volume_2-_Fuimos_-_Osvaldo_Pugliese_wflwif.mp3'
     },
     {
       key: 'volume-3-copas',
-      title: 'Volume 3 - Copas amigos y besos - Orquesta Aníbal Troilo',
+      title: 'Copas amigos y besos - Orquesta Aníbal Troilo',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750544264/volume_3-_Copas_amigos_y_besos_-_Orquesta_Anibal_Troilo_gjwhgl.mp3'
     },
     {
       key: 'volume-4-pasional',
-      title: 'Volume 4 - Pasional - Osvaldo Pugliese',
+      title: 'Pasional - Osvaldo Pugliese',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750544264/volume_4_-_Pasional_-_Osvaldo_Pugliese_unk0wa.mp3'
     },
     {
       key: 'volume-6-sosiego',
-      title: 'Volume 6 - Sosiego En La Noche - Aníbal Troilo Y Su Orquesta Típica',
+      title: 'Sosiego En La Noche - Aníbal Troilo Y Su Orquesta Típica',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750544263/volume_6_-_Sosiego_En_La_Noche_-_An%C3%ADbal_Troilo_Y_Su_Orquesta_T%C3%ADpica_gsdtrm.mp3'
     }
   ];
@@ -60,8 +60,6 @@ const Day1Content: React.FC<Day1ContentProps> = ({
       </p>
 
       <AudioSection
-        title="Practice with Volume Dynamics"
-        description="Listen to these tango tracks and notice how the volume changes throughout each piece. Practice rising and lowering with the volume dynamics."
         tracks={practiceAudioTracks}
         variant="practice"
         spacing="normal"
