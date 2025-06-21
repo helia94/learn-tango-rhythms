@@ -1,9 +1,11 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Lock, Circle } from 'lucide-react';
+import { Lock, Circle, Calendar } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { TranslationKey } from '@/data/translations/index';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNextTopicAvailability } from '@/hooks/useNextTopicAvailability';
 import { generateWindingPath } from './utils/pathUtils';
 
 interface ConceptStatus {
@@ -32,10 +34,15 @@ const ConceptNode: React.FC<ConceptNodeProps> = ({
   conceptStatus 
 }) => {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const { getNextTopicAvailability } = useNextTopicAvailability();
   
   const position = generateWindingPath(index, totalConcepts);
   const isLeft = position.x < 50;
   const canRoute = conceptStatus.visible && concept.link;
+
+  // Get availability date for this topic
+  const availabilityDate = user && concept.topicIndex ? getNextTopicAvailability(concept.topicIndex) : null;
 
   const getNodeIcon = (unlocked: boolean, active: boolean, visible: boolean) => {
     if (!visible) {
@@ -69,6 +76,14 @@ const ConceptNode: React.FC<ConceptNodeProps> = ({
     return 'bg-warm-brown border-cream opacity-60';
   };
 
+  const formatAvailabilityDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
   const ConceptCard = ({ children }: { children: React.ReactNode }) => {
     if (canRoute) {
       return (
@@ -94,10 +109,19 @@ const ConceptNode: React.FC<ConceptNodeProps> = ({
         <div className={`${isLeft ? 'order-1 mr-8' : 'order-3 ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
           <ConceptCard>
             <div className={`game-card bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-4 min-w-[240px] transition-all duration-300 hover:scale-105 ${!conceptStatus.visible ? 'opacity-60 grayscale' : canRoute ? 'cursor-pointer hover:shadow-2xl' : ''}`}>
-              <div className="text-warm-brown font-bold text-center text-sm">
+              <div className="text-warm-brown font-bold text-center text-sm mb-2">
                 {t(concept.translationKey)}
               </div>
-              {!conceptStatus.visible && (
+              
+              {/* Availability date info */}
+              {availabilityDate && !conceptStatus.visible && (
+                <div className="flex items-center justify-center gap-1 text-xs text-warm-brown/70">
+                  <Calendar className="w-3 h-3" />
+                  <span>Available on {formatAvailabilityDate(availabilityDate)}</span>
+                </div>
+              )}
+              
+              {!conceptStatus.visible && !availabilityDate && (
                 <div className="absolute inset-0 flex items-center justify-center bg-warm-brown/80 rounded-2xl">
                   <Lock className="w-6 h-6 text-cream" />
                 </div>
