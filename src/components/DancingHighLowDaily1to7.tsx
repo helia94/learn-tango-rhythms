@@ -17,18 +17,18 @@ const DancingHighLowDaily1to7: React.FC<DancingHighLowDaily1to7Props> = ({
   const { t } = useTranslation();
   const topicKey = 'dancing-high-low';
   const topicIndex = 2;
+  const totalDays = 5;
   
   const {
     activatedDays,
     whichDailiesWereActivated,
     whichDailyIsNextOnActivationOrder,
-  } = useDailyTopicActivation(topicKey, topicIndex);
+  } = useDailyTopicActivation(topicKey, topicIndex, totalDays);
 
   // Calculate data for header
   const activatedDaysList = whichDailiesWereActivated();
   const daysUnlocked = Math.max(...activatedDaysList, 0);
   const nextDayToActivate = whichDailyIsNextOnActivationOrder();
-  const totalDays = 5;
 
   return (
     <div className="space-y-6">

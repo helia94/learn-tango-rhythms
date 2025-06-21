@@ -88,7 +88,6 @@ const DayItem: React.FC<DayItemProps> = ({
       <AccordionContent className="px-6 pb-6">
         <DayContent
           dayNumber={dayNumber}
-          status={status}
           completedTasks={completedTasks}
           onTaskLevelChange={onTaskLevelChange}
           topicName={topicName}

@@ -19,6 +19,7 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
   const { t } = useTranslation();
   const { user } = useAuth();
   const unlockAllEnabled = useUnlockAll();
+  const totalDays = 7;
   
   console.log('SmallAndBigDaily1to7 - Component mounted for dancing-small-big topic');
   
@@ -29,13 +30,12 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
     whichDailiesWereActivated,
     whichDailyIsNextOnActivationOrder,
     canActivateDay
-  } = useDailyTopicActivation('dancing-small-big', 1);
+  } = useDailyTopicActivation('dancing-small-big', 1, totalDays);
 
   // Calculate days unlocked based on activated days or feature flag
   const activatedDaysArray = whichDailiesWereActivated();
   const daysUnlocked = unlockAllEnabled ? 7 : Math.max(...activatedDaysArray, 0);
   const nextDayToActivate = whichDailyIsNextOnActivationOrder();
-  const totalDays = 7;
 
   console.log('SmallAndBigDaily1to7 - Topic info:', {
     topicName: 'dancing-small-big',

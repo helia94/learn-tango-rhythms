@@ -29,9 +29,10 @@ const Day3Content: React.FC<Day3ContentProps> = ({
       {assignment && (
         <Assignment
           assignment={assignment}
-          completedTasks={completedTasks}
-          onTaskLevelChange={onTaskLevelChange}
-          keyPrefix="day-3"
+          taskId="day-3-task"
+          level={completedTasks['day-3-task'] || 0}
+          onLevelChange={onTaskLevelChange}
+          variant="sage"
           topicName={topicName}
           topicIndex={topicIndex}
         />

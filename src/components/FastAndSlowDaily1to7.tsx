@@ -19,6 +19,7 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
   const { t } = useTranslation();
   const { user } = useAuth();
   const unlockAllEnabled = useUnlockAll();
+  const totalDays = 7;
   
   const { 
     activatedDays, 
@@ -27,12 +28,11 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
     whichDailiesWereActivated,
     whichDailyIsNextOnActivationOrder,
     canActivateDay
-  } = useDailyTopicActivation('dancing-fast-slow', 0);
+  } = useDailyTopicActivation('dancing-fast-slow', 0, totalDays);
 
   // Calculate days unlocked based on activated days
   const daysUnlocked = Math.max(...whichDailiesWereActivated(), 0);
   const nextDayToActivate = whichDailyIsNextOnActivationOrder();
-  const totalDays = 7;
 
   const handleDayActivation = async (dayNumber: number) => {
     if (!user) return;
