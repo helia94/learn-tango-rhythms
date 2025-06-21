@@ -110,22 +110,6 @@ const DancingHighLow = () => {
           </div>
         </StorySection>
 
-        {/* Musical Connection */}
-        <StorySection title={t('exercises.dancingHighLow.musicalConnectionTitle' as any)}>
-          <TextContent variant="body" align="center" className="space-y-4">
-            <p>{t('exercises.dancingHighLow.musicalConnectionText1' as any)}</p>
-            <p>{t('exercises.dancingHighLow.musicalConnectionText2' as any)}</p>
-            <p>{t('exercises.dancingHighLow.musicalConnectionText3' as any)}</p>
-          </TextContent>
-        </StorySection>
-
-        {/* Audio Practice Section */}
-        <AudioSection 
-          title={t('exercises.dancingHighLow.practiceTitle' as any)}
-          description={t('exercises.dancingHighLow.practiceDescription' as any)}
-          tracks={practiceAudioTracks}
-        />
-
         {/* See All Assignments Button */}
         <div className="text-center my-12">
           <SeeAllAssignmentsButton 
