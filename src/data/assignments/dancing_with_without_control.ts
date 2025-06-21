@@ -1,7 +1,9 @@
 
-import { Assignment } from './fastAndSlow';
-
-export interface DancingWithWithoutControlAssignment extends Assignment {}
+export interface DancingWithWithoutControlAssignment {
+  id: string;
+  content: string;
+  type: 'practice' | 'weekly';
+}
 
 const assignments: Record<string, DancingWithWithoutControlAssignment> = {
   day1: {
