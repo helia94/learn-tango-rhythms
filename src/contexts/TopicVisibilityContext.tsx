@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
-import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 import { useFeatureFlags } from '@/contexts/FeatureFlagsContext';
 
 interface TopicVisibility {
@@ -65,8 +64,11 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     setIsLoading(true);
     
     try {
+      console.log('TopicVisibilityContext: Starting refreshVisibility...', { user: !!user, unlockAll: flags.unlockAll });
+      
       // Get all unlocked topics
       const unlockedTopicIndices = await getAllUnlockedTopics();
+      console.log('TopicVisibilityContext: Unlocked topics:', unlockedTopicIndices);
       
       // Calculate topic visibility
       const topicVisibilities: TopicVisibility[] = [];
@@ -81,6 +83,13 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
         // 2. Or if unlockAll feature flag is enabled
         const isVisible = isUnlocked || flags.unlockAll;
         
+        console.log(`TopicVisibilityContext: Topic ${topicConfig.topicIndex} (${topicConfig.topicKey}):`, {
+          isUnlocked,
+          isActive,
+          isVisible,
+          unlockAllFlag: flags.unlockAll
+        });
+        
         topicVisibilities.push({
           topicIndex: topicConfig.topicIndex,
           topicKey: topicConfig.topicKey,
@@ -91,47 +100,15 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
         });
       }
       
-      // Calculate subtopic visibility for each topic
-      const subtopicVisibilities: SubtopicVisibility[] = [];
-      
-      for (const topicConfig of AVAILABLE_TOPICS) {
-        const topicVisibility = topicVisibilities.find(t => t.topicIndex === topicConfig.topicIndex);
-        
-        if (topicVisibility?.isVisible) {
-          // Use the daily topic activation hook for this specific topic
-          const { 
-            activatedDays, 
-            canActivateDay, 
-            whenCanNextDailyBeActivated 
-          } = useDailyTopicActivation(topicConfig.topicKey, topicConfig.topicIndex, topicConfig.totalDays);
-          
-          for (let dayIndex = 1; dayIndex <= topicConfig.totalDays; dayIndex++) {
-            const isActivated = activatedDays.includes(dayIndex);
-            const canActivate = await canActivateDay(dayIndex);
-            const nextActivationDate = await whenCanNextDailyBeActivated();
-            
-            // Subtopic is visible if:
-            // 1. The topic is visible
-            // 2. And either it's activated, can be activated, or unlockAll is enabled
-            const isVisible = topicVisibility.isVisible && (isActivated || canActivate || flags.unlockAll);
-            
-            subtopicVisibilities.push({
-              topicIndex: topicConfig.topicIndex,
-              topicKey: topicConfig.topicKey,
-              dayIndex,
-              isVisible,
-              isActivated,
-              canActivate,
-              nextActivationDate
-            });
-          }
-        }
-      }
-      
       setVisibleTopics(topicVisibilities);
-      setVisibleSubtopics(subtopicVisibilities);
+      
+      // For now, we'll skip subtopic visibility calculation to avoid the hook issue
+      // This can be implemented later when needed
+      setVisibleSubtopics([]);
+      
+      console.log('TopicVisibilityContext: Final visible topics:', topicVisibilities);
     } catch (error) {
-      console.error('Error calculating topic visibility:', error);
+      console.error('TopicVisibilityContext: Error calculating topic visibility:', error);
     } finally {
       setIsLoading(false);
     }
@@ -147,6 +124,7 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
 
   // Refresh visibility when user authentication status changes or feature flags change
   useEffect(() => {
+    console.log('TopicVisibilityContext: useEffect triggered, calling refreshVisibility');
     refreshVisibility();
   }, [user, flags.unlockAll]);
 
