@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Map, Lock, CheckCircle, Circle } from 'lucide-react';
@@ -15,63 +16,6 @@ const RoadMap = () => {
   const { getTopicDeadline } = useTopicActivation();
   const [nextAvailableDate, setNextAvailableDate] = useState<Date | null>(null);
   const [nextAvailableTopicIndex, setNextAvailableTopicIndex] = useState<number | null>(null);
-
-  // Log the visibility context when it changes
-  useEffect(() => {
-    console.log('RoadMap: TopicVisibility context updated:', {
-      isLoading,
-      visibleTopicsCount: visibleTopics.length,
-      visibleTopics: visibleTopics.map(t => ({
-        topicIndex: t.topicIndex,
-        topicKey: t.topicKey,
-        isVisible: t.isVisible,
-        isUnlocked: t.isUnlocked,
-        isActive: t.isActive
-      }))
-    });
-  }, [isLoading, visibleTopics]);
-
-  // Memoize the calculation function to prevent infinite loops
-  const calculateNextAvailableDate = useCallback(async () => {
-    if (!user || isLoading || visibleTopics.length === 0) return;
-
-    // Find the first locked topic that isn't visible
-    const lockedTopic = visibleTopics.find(topic => !topic.isVisible && !topic.isUnlocked);
-    if (!lockedTopic) {
-      setNextAvailableDate(null);
-      setNextAvailableTopicIndex(null);
-      return;
-    }
-
-    // Get the previous topic's deadline to calculate availability
-    const previousTopicIndex = lockedTopic.topicIndex - 1;
-    const previousTopic = visibleTopics.find(t => t.topicIndex === previousTopicIndex);
-    
-    if (previousTopic && previousTopic.isActive) {
-      try {
-        const deadline = await getTopicDeadline(previousTopic.topicKey, previousTopic.topicIndex);
-        if (deadline) {
-          setNextAvailableDate(deadline);
-          setNextAvailableTopicIndex(lockedTopic.topicIndex);
-        } else {
-          setNextAvailableDate(null);
-          setNextAvailableTopicIndex(null);
-        }
-      } catch (error) {
-        console.error('Error calculating next available date:', error);
-        setNextAvailableDate(null);
-        setNextAvailableTopicIndex(null);
-      }
-    } else {
-      setNextAvailableDate(null);
-      setNextAvailableTopicIndex(null);
-    }
-  }, [user, isLoading, visibleTopics, getTopicDeadline]);
-
-  // Calculate when the next topic will be available
-  useEffect(() => {
-    calculateNextAvailableDate();
-  }, [calculateNextAvailableDate]);
 
   // All concepts combined into one flowing sequence
   const allConcepts: Array<{
@@ -109,37 +53,84 @@ const RoadMap = () => {
     { key: "danceTheAccents", translationKey: "concepts.danceTheAccents" }
   ], []);
 
-  const getConceptStatus = useCallback((concept: typeof allConcepts[0]) => {
-    // For concepts without topicIndex, use fallback logic
-    if (concept.topicIndex === undefined) {
-      return {
-        unlocked: false,
-        completed: false,
-        visible: false,
-        active: false
-      };
-    }
-
-    const topicVisibility = getTopicVisibility(concept.topicIndex);
+  // Memoize concept statuses to prevent excessive calls to getTopicVisibility
+  const conceptStatuses = useMemo(() => {
+    const statuses = new Map();
     
-    if (!topicVisibility) {
-      return {
-        unlocked: false,
-        completed: false,
-        visible: false,
-        active: false
-      };
-    }
+    allConcepts.forEach(concept => {
+      if (concept.topicIndex === undefined) {
+        statuses.set(concept.key, {
+          unlocked: false,
+          completed: false,
+          visible: false,
+          active: false
+        });
+        return;
+      }
 
-    const status = {
-      unlocked: topicVisibility.isUnlocked,
-      completed: false, // We don't track completion status yet
-      visible: topicVisibility.isVisible,
-      active: topicVisibility.isActive
+      const topicVisibility = getTopicVisibility(concept.topicIndex);
+      
+      if (!topicVisibility) {
+        statuses.set(concept.key, {
+          unlocked: false,
+          completed: false,
+          visible: false,
+          active: false
+        });
+        return;
+      }
+
+      statuses.set(concept.key, {
+        unlocked: topicVisibility.isUnlocked,
+        completed: false,
+        visible: topicVisibility.isVisible,
+        active: topicVisibility.isActive
+      });
+    });
+
+    return statuses;
+  }, [allConcepts, getTopicVisibility, visibleTopics]); // Include visibleTopics to ensure updates
+
+  // Calculate next available date only when needed
+  useEffect(() => {
+    const calculateNextAvailableDate = async () => {
+      if (!user || isLoading || visibleTopics.length === 0) return;
+
+      // Find the first locked topic that isn't visible
+      const lockedTopic = visibleTopics.find(topic => !topic.isVisible && !topic.isUnlocked);
+      if (!lockedTopic) {
+        setNextAvailableDate(null);
+        setNextAvailableTopicIndex(null);
+        return;
+      }
+
+      // Get the previous topic's deadline to calculate availability
+      const previousTopicIndex = lockedTopic.topicIndex - 1;
+      const previousTopic = visibleTopics.find(t => t.topicIndex === previousTopicIndex);
+      
+      if (previousTopic && previousTopic.isActive) {
+        try {
+          const deadline = await getTopicDeadline(previousTopic.topicKey, previousTopic.topicIndex);
+          if (deadline) {
+            setNextAvailableDate(deadline);
+            setNextAvailableTopicIndex(lockedTopic.topicIndex);
+          } else {
+            setNextAvailableDate(null);
+            setNextAvailableTopicIndex(null);
+          }
+        } catch (error) {
+          console.error('Error calculating next available date:', error);
+          setNextAvailableDate(null);
+          setNextAvailableTopicIndex(null);
+        }
+      } else {
+        setNextAvailableDate(null);
+        setNextAvailableTopicIndex(null);
+      }
     };
 
-    return status;
-  }, [getTopicVisibility]);
+    calculateNextAvailableDate();
+  }, [user, isLoading, visibleTopics, getTopicDeadline]);
 
   // Generate winding path coordinates for each concept
   const generateWindingPath = useCallback((index: number, total: number) => {
@@ -203,8 +194,8 @@ const RoadMap = () => {
     return user && 
            concept.topicIndex === nextAvailableTopicIndex && 
            nextAvailableDate && 
-           !getConceptStatus(concept).visible;
-  }, [user, nextAvailableTopicIndex, nextAvailableDate, getConceptStatus]);
+           !conceptStatuses.get(concept.key)?.visible;
+  }, [user, nextAvailableTopicIndex, nextAvailableDate, conceptStatuses]);
 
   if (isLoading) {
     return (
@@ -271,7 +262,7 @@ const RoadMap = () => {
 
           {/* Concept Nodes along the winding path */}
           {allConcepts.map((concept, index) => {
-            const conceptStatus = getConceptStatus(concept);
+            const conceptStatus = conceptStatuses.get(concept.key) || { unlocked: false, completed: false, visible: false, active: false };
             const position = generateWindingPath(index, allConcepts.length);
             const isLeft = position.x < 50; // Determine which side of the road to place the concept
             const canRoute = conceptStatus.visible && concept.link;
