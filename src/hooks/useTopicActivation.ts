@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -5,6 +6,13 @@ import { useAuth } from '@/contexts/AuthContext';
 export const useTopicActivation = () => {
   const [isActivating, setIsActivating] = useState(false);
   const { user } = useAuth();
+
+  // Helper function to get the 7-day cutoff date
+  const getSevenDaysAgo = () => {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    return sevenDaysAgo.toISOString();
+  };
 
   const activateTopic = async (topicKey: string, topicIndex: number) => {
     if (!user) {
@@ -47,9 +55,7 @@ export const useTopicActivation = () => {
     }
 
     try {
-      // Calculate the date 7 days ago
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const sevenDaysAgoISO = getSevenDaysAgo();
 
       const { data, error } = await supabase
         .from('topic_activations')
@@ -57,7 +63,7 @@ export const useTopicActivation = () => {
         .eq('user_id', user.id)
         .eq('topic_key', topicKey)
         .eq('topic_index', topicIndex)
-        .gte('activated_at', sevenDaysAgo.toISOString())
+        .gte('activated_at', sevenDaysAgoISO)
         .order('activated_at', { ascending: false })
         .limit(1);
 
@@ -80,15 +86,13 @@ export const useTopicActivation = () => {
     }
 
     try {
-      // Calculate the date 7 days ago
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const sevenDaysAgoISO = getSevenDaysAgo();
 
       const { data, error } = await supabase
         .from('topic_activations')
         .select('id')
         .eq('user_id', user.id)
-        .gte('activated_at', sevenDaysAgo.toISOString())
+        .gte('activated_at', sevenDaysAgoISO)
         .limit(1);
 
       if (error) {
@@ -109,15 +113,13 @@ export const useTopicActivation = () => {
     }
 
     try {
-      // Calculate the date 7 days ago
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const sevenDaysAgoISO = getSevenDaysAgo();
 
       const { data, error } = await supabase
         .from('topic_activations')
         .select('topic_key, topic_index, activated_at')
         .eq('user_id', user.id)
-        .gte('activated_at', sevenDaysAgo.toISOString())
+        .gte('activated_at', sevenDaysAgoISO)
         .order('activated_at', { ascending: false })
         .limit(1);
 
@@ -139,19 +141,16 @@ export const useTopicActivation = () => {
     }
 
     try {
-      // First check if the topic is activated
-      const isActive = await isTopicActive(topicKey, topicIndex);
-      if (!isActive) {
-        return null;
-      }
+      // First check if the topic is activated within the last 7 days
+      const sevenDaysAgoISO = getSevenDaysAgo();
 
-      // Get the most recent activation for this topic
       const { data, error } = await supabase
         .from('topic_activations')
         .select('activated_at')
         .eq('user_id', user.id)
         .eq('topic_key', topicKey)
         .eq('topic_index', topicIndex)
+        .gte('activated_at', sevenDaysAgoISO)
         .order('activated_at', { ascending: false })
         .limit(1);
 
@@ -161,10 +160,10 @@ export const useTopicActivation = () => {
       }
 
       if (!data || data.length === 0) {
-        return null;
+        return null; // Topic is not active within the last 7 days
       }
 
-      // Calculate deadline: 7 days from the activation date
+      // Calculate deadline: 7 days from the most recent activation date
       const activationDate = new Date(data[0].activated_at);
       const deadline = new Date(activationDate);
       deadline.setDate(deadline.getDate() + 7);
