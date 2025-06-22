@@ -1,7 +1,7 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, Zap } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
 import { ColorChange } from '@/types/rhythm';
 
 interface AudioPlayerProps {
@@ -138,6 +138,66 @@ const AudioPlayer = ({
     });
   };
 
+  // Create progress bar segments based on colorChanges
+  const getProgressSegments = () => {
+    if (!duration || colorChanges.length === 0) {
+      // Single segment with default color
+      return [{
+        percentage: progress,
+        color: 'bg-primary',
+        startPercent: 0,
+        endPercent: 100
+      }];
+    }
+
+    const durationMs = duration * 1000;
+    const segments = [];
+    
+    // Sort color changes by timestamp
+    const sortedChanges = [...colorChanges].sort((a, b) => a.timestamp - b.timestamp);
+    
+    let lastTimestamp = 0;
+    let defaultColor = 'bg-primary';
+    
+    for (let i = 0; i <= sortedChanges.length; i++) {
+      const currentChange = sortedChanges[i];
+      const endTimestamp = currentChange ? currentChange.timestamp : durationMs;
+      
+      // Calculate percentages for this segment
+      const startPercent = (lastTimestamp / durationMs) * 100;
+      const endPercent = (endTimestamp / durationMs) * 100;
+      
+      // Determine how much of this segment should be filled based on current progress
+      const segmentProgress = Math.max(0, Math.min(progress, endPercent) - startPercent);
+      
+      if (segmentProgress > 0) {
+        segments.push({
+          percentage: segmentProgress,
+          color: i === 0 ? defaultColor : getProgressColor(sortedChanges[i - 1].color),
+          startPercent,
+          endPercent,
+          width: endPercent - startPercent
+        });
+      }
+      
+      lastTimestamp = endTimestamp;
+    }
+    
+    return segments;
+  };
+
+  // Convert background color to progress color
+  const getProgressColor = (bgColor: string) => {
+    const colorMap: { [key: string]: string } = {
+      'bg-dusty-rose': 'bg-pink-500',
+      'bg-terracotta': 'bg-orange-600',
+      'bg-golden-yellow': 'bg-yellow-500',
+      'bg-sage-green': 'bg-green-500',
+      'bg-deep-teal': 'bg-teal-600'
+    };
+    return colorMap[bgColor] || 'bg-primary';
+  };
+
   return (
     <div className={`${currentColor} backdrop-blur-sm rounded-2xl p-6 border border-cream/20 transition-colors duration-500 ${className}`}>
       <div className="flex items-center justify-between mb-4">
@@ -154,10 +214,19 @@ const AudioPlayer = ({
       </div>
       
       <div className="w-full relative">
-        <Progress 
-          value={progress} 
-          className="h-6 bg-cream/20"
-        />
+        {/* Custom segmented progress bar */}
+        <div className="h-6 w-full bg-cream/20 rounded-full overflow-hidden relative">
+          {getProgressSegments().map((segment, index) => (
+            <div
+              key={index}
+              className={`absolute top-0 h-full ${segment.color} transition-all duration-200`}
+              style={{
+                left: `${segment.startPercent}%`,
+                width: `${segment.percentage}%`
+              }}
+            />
+          ))}
+        </div>
         
         {/* Event markers on progress bar */}
         <div className="absolute inset-0 pointer-events-none">
