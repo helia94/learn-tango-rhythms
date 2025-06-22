@@ -58,7 +58,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return;
       }
 
-      setProfile(data);
+      // Ensure the profile includes the preferred_language field
+      const profileWithDefaults = {
+        ...data,
+        preferred_language: data?.preferred_language || 'de'
+      };
+      
+      setProfile(profileWithDefaults);
     } catch (error) {
       console.error('Error fetching profile:', error);
     }

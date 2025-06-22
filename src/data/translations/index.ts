@@ -1,3 +1,4 @@
+
 import { translations as mainTranslations, TranslationKey as MainTranslationKey } from './translations';
 import { otherTranslations } from './other';
 import { homeTranslations } from './home';
@@ -23,6 +24,7 @@ export type TranslationKey = MainTranslationKey |
   // Profile translation keys
   `profile.title` | `profile.subtitle` | `profile.back` | `profile.rhythmLab` | `profile.roadMap` |
   `profile.sections.username` | `profile.sections.fullName` | `profile.sections.bio` | `profile.sections.memberSince` |
+  `profile.sections.preferredLanguage` |
   `profile.sections.edit` | `profile.sections.cancel` | `profile.sections.signOut` | `profile.sections.saveChanges` | `profile.sections.saving` |
   `profile.sections.placeholders.fullName` | `profile.sections.placeholders.username` | `profile.sections.placeholders.bio` |
   `profile.sections.messages.profileUpdated` | `profile.sections.messages.usernameTaken` | `profile.sections.messages.updateFailed` |
@@ -88,4 +90,3 @@ export const translations = deepMergeTranslations(
   dancingCircularLinearTranslations,
   dancingWithWithoutControlTranslations
 );
-
