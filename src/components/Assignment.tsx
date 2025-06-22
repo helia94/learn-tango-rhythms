@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Assignment as AssignmentType } from '@/data/assignments/fastAndSlow';
@@ -93,10 +94,10 @@ const Assignment: React.FC<AssignmentProps> = ({
 
   const renderTextWithLineBreaks = (text: string) => {
     return text.split('\n').map((line, index, array) => (
-      <React.Fragment key={index}>
+      <span key={index}>
         {line}
         {index < array.length - 1 && <br />}
-      </React.Fragment>
+      </span>
     ));
   };
 
