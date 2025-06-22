@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
@@ -7,6 +7,7 @@ import AssignmentList from '@/components/AssignmentList';
 import TextContent from '@/components/ui/TextContent';
 import { getDayStatus } from '@/components/daily/DayStatus';
 import { Assignment } from '@/data/assignments/fastAndSlow';
+import { useAssignmentProgressLoader } from '@/hooks/useAssignmentProgressLoader';
 
 interface AllAssignmentsPageProps {
   /** Title translation key for the page header */
@@ -38,17 +39,14 @@ const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
   totalDays = 7
 }) => {
   const { t, currentLanguage } = useTranslation();
-  const [completedTasks, setCompletedTasks] = useState<Record<string, number>>({});
+  const { 
+    completedTasks, 
+    handleTaskLevelChange, 
+    isLoading: progressLoading 
+  } = useAssignmentProgressLoader(topicName, topicIndex);
 
   // Simulate user progress (unlock all days for assignments page)
   const daysUnlocked = totalDays;
-
-  const handleTaskLevelChange = (taskId: string, level: number) => {
-    setCompletedTasks(prev => ({
-      ...prev,
-      [taskId]: level
-    }));
-  };
 
   // Create daily assignments based on actual totalDays
   const dailyAssignments: Assignment[] = [];
@@ -86,6 +84,22 @@ const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
       };
     })
   ];
+
+  if (progressLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
+        <PageHeader 
+          title={t(titleKey as any)} 
+          backRoute={backRoute}
+        />
+        <div className="max-w-4xl mx-auto px-4 pb-8">
+          <div className="text-center">
+            <p className="text-gray-600 mt-8">{t('common.loading')}...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div key={currentLanguage} className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
