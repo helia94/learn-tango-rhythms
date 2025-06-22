@@ -47,8 +47,8 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <LanguageProvider>
           <SpotifyProvider>
             <FeatureFlagsProvider>
               <TopicVisibilityProvider>
@@ -103,8 +103,8 @@ const App = () => {
               </TopicVisibilityProvider>
             </FeatureFlagsProvider>
           </SpotifyProvider>
-        </AuthProvider>
-      </LanguageProvider>
+        </LanguageProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };
