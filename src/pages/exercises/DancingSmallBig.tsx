@@ -97,13 +97,8 @@ const DancingSmallBig = () => {
           </TextContent>
         </StorySection>
 
-        {/* Audio Practice Section */}
-        <AudioSection 
-          title={t('exercises.dancingSmallBig.practiceTitle' as any)}
-          description={t('exercises.dancingSmallBig.practiceDescription' as any)}
-          tracks={practiceAudioTracks}
-        />
-
+        <LegatoStaccatoSamples />
+        
         {/* See All Assignments Button */}
         <div className="text-center my-12">
           <SeeAllAssignmentsButton 
