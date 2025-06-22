@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { renderTextWithLineBreaks } from '@/utils/textUtils';
 
 export type TextVariant = 'body' | 'lead' | 'subtitle';
 
@@ -27,16 +28,6 @@ const TextContent: React.FC<TextContentProps> = ({
     left: "text-left",
     center: "text-center", 
     right: "text-right"
-  };
-
-  // Helper function to render text with line breaks
-  const renderTextWithLineBreaks = (text: string) => {
-    return text.split('\n').map((line, index, array) => (
-      <span key={index}>
-        {line}
-        {index < array.length - 1 && <br />}
-      </span>
-    ));
   };
 
   return (

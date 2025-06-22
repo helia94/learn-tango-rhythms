@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { getThemeClasses, themePresets, type ThemeVariant } from '@/utils/themeSystem';
+import { renderTextWithLineBreaks } from '@/utils/textUtils';
 
 interface TipsInfoBoxProps {
   title: string;
@@ -37,7 +38,7 @@ const TipsInfoBox: React.FC<TipsInfoBoxProps> = ({
       <h4 className="text-lg font-display text-gray-700 mb-4">{title}</h4>
       <ul className="text-gray-600 space-y-2 text-base">
         {tips.map((tip, index) => (
-          <li key={index}>• {tip}</li>
+          <li key={index}>• {renderTextWithLineBreaks(tip)}</li>
         ))}
       </ul>
     </div>
