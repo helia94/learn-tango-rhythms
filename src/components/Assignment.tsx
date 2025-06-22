@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Assignment as AssignmentType } from '@/data/assignments/fastAndSlow';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
+import { useAuth } from '@/contexts/AuthContext';
 import LevelSelector from './LevelSelector';
 import InfoModal from './InfoModal';
 
@@ -29,6 +30,7 @@ const Assignment: React.FC<AssignmentProps> = ({
 }) => {
   const { t, currentLanguage } = useTranslation();
   const { reportAssignmentLevel, isLoading } = useAssignmentReporting();
+  const { user } = useAuth();
 
   // Add null check for assignment
   if (!assignment || !assignment.content) {
@@ -41,6 +43,9 @@ const Assignment: React.FC<AssignmentProps> = ({
   }
 
   const handleLevelChange = async (newLevel: number) => {
+    // Only allow level changes if user is logged in
+    if (!user) return;
+    
     // Update local state immediately for responsiveness
     onLevelChange(taskId, newLevel);
     
@@ -80,7 +85,7 @@ const Assignment: React.FC<AssignmentProps> = ({
   const translatedText = t(assignment.content);
 
   return (
-    <div className={`${getVariantStyles(variant)} backdrop-blur-sm rounded-2xl p-6 border ${className}`}>
+    <div className={`${getVariantStyles(variant)} backdrop-blur-sm rounded-2xl p-6 border ${className} ${!user ? 'opacity-75' : ''}`}>
       <label className="text-gray-700 text-lg font-medium cursor-pointer block mb-4">
         {renderTextWithLineBreaks(translatedText)}
       </label>
@@ -88,9 +93,13 @@ const Assignment: React.FC<AssignmentProps> = ({
         <LevelSelector
           level={level}
           onLevelChange={handleLevelChange}
+          disabled={!user}
         />
         <InfoModal />
-        {isLoading && (
+        {!user && (
+          <span className="ml-2 text-sm text-gray-500">Sign in to track progress</span>
+        )}
+        {isLoading && user && (
           <span className="ml-2 text-sm text-gray-500">Saving...</span>
         )}
       </div>
