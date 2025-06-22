@@ -36,6 +36,27 @@ const DayItem: React.FC<DayItemProps> = ({
     status
   });
 
+  // For locked days, don't make them expandable
+  if (status === 'locked') {
+    return (
+      <div className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden">
+        <div className="px-6 py-4">
+          <div className="flex items-center gap-4 w-full">
+            <div className="flex items-center gap-3">
+              <Lock className="w-5 h-5 text-gray-400" />
+              <span className="text-xl font-display text-gray-700">
+                Day {dayNumber}
+              </span>
+            </div>
+            <span className="text-sm text-gray-400 font-medium ml-auto">
+              {t('daily.locked')}
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <AccordionItem 
       value={`day-${dayNumber}`} 
@@ -44,8 +65,8 @@ const DayItem: React.FC<DayItemProps> = ({
       <AccordionTrigger className="px-6 py-4 hover:no-underline">
         <div className="flex items-center gap-4 w-full">
           <div className="flex items-center gap-3">
-            {status === 'locked' || status === 'tomorrow' ? (
-              <Lock className={`w-5 h-5 ${status === 'tomorrow' ? 'text-golden-yellow' : 'text-gray-400'}`} />
+            {status === 'tomorrow' ? (
+              <Lock className="w-5 h-5 text-golden-yellow" />
             ) : isCompleted ? (
               <CheckCircle className="w-5 h-5 text-sage-green" />
             ) : (
@@ -74,12 +95,6 @@ const DayItem: React.FC<DayItemProps> = ({
           {status === 'tomorrow' && !onDayActivation && (
             <span className="text-sm text-golden-yellow font-medium ml-auto mr-4">
               {t('daily.availableTomorrow')}
-            </span>
-          )}
-          
-          {status === 'locked' && (
-            <span className="text-sm text-gray-400 font-medium ml-auto mr-4">
-              {t('daily.locked')}
             </span>
           )}
         </div>
