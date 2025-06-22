@@ -2,6 +2,7 @@
 import React from 'react';
 import { TranslationKey } from '@/data/translations/index';
 import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import RoadMapPath from './RoadMapPath';
 import ConceptNode from './ConceptNode';
 
@@ -50,31 +51,35 @@ const RoadMapContainer: React.FC<RoadMapContainerProps> = ({ concepts }) => {
   };
 
   return (
-    <div className="relative z-10 max-w-6xl mx-auto px-4">
-      <div className="relative min-h-[3000px]">
-        {/* Winding Road Background - SVG Path */}
-        <RoadMapPath conceptsCount={concepts.length} />
+    <div className="relative z-10 w-full">
+      <ScrollArea className="w-full">
+        <div className="max-w-6xl mx-auto px-4 min-w-[800px]">
+          <div className="relative min-h-[3000px]">
+            {/* Winding Road Background - SVG Path */}
+            <RoadMapPath conceptsCount={concepts.length} />
 
-        {/* Concept Nodes along the winding path */}
-        {concepts.map((concept, index) => {
-          const conceptStatus = getConceptStatus(concept);
+            {/* Concept Nodes along the winding path */}
+            {concepts.map((concept, index) => {
+              const conceptStatus = getConceptStatus(concept);
 
-          return (
-            <ConceptNode
-              key={concept.key}
-              concept={concept}
-              index={index}
-              totalConcepts={concepts.length}
-              conceptStatus={conceptStatus}
-            />
-          );
-        })}
-      </div>
+              return (
+                <ConceptNode
+                  key={concept.key}
+                  concept={concept}
+                  index={index}
+                  totalConcepts={concepts.length}
+                  conceptStatus={conceptStatus}
+                />
+              );
+            })}
+          </div>
 
-      {/* Call to Action - Game Style */}
-      <div className="text-center mb-16 mt-16">
-        
-      </div>
+          {/* Call to Action - Game Style */}
+          <div className="text-center mb-16 mt-16">
+            
+          </div>
+        </div>
+      </ScrollArea>
     </div>
   );
 };

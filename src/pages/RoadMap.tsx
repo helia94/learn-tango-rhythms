@@ -41,8 +41,10 @@ const RoadMap = () => {
 
       <RoadMapHeader />
 
-      {/* Winding Road Container */}
-      <RoadMapContainer concepts={allConcepts} />
+      {/* Winding Road Container with horizontal scroll */}
+      <div className="overflow-x-auto overflow-y-hidden">
+        <RoadMapContainer concepts={allConcepts} />
+      </div>
     </div>
   );
 };
