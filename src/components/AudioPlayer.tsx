@@ -125,13 +125,13 @@ const AudioPlayer = ({
   // Convert background color to damped/passive color for non-playing state
   const getDampedColor = (bgColor: string) => {
     const dampedColorMap: { [key: string]: string } = {
-      'bg-dusty-rose': 'bg-pink-200/40',
-      'bg-terracotta': 'bg-orange-200/40',
-      'bg-golden-yellow': 'bg-yellow-200/40',
-      'bg-sage-green': 'bg-green-200/40',
-      'bg-deep-teal': 'bg-teal-200/40'
+      'bg-dusty-rose': 'bg-pink-300/70',
+      'bg-terracotta': 'bg-orange-300/70',
+      'bg-golden-yellow': 'bg-yellow-300/70',
+      'bg-sage-green': 'bg-green-300/70',
+      'bg-deep-teal': 'bg-teal-300/70'
     };
-    return dampedColorMap[bgColor] || 'bg-gray-200/40';
+    return dampedColorMap[bgColor] || 'bg-gray-300/70';
   };
 
   // Convert background color to progress color
@@ -218,7 +218,7 @@ const AudioPlayer = ({
       const width = endPercent - startPercent;
       
       segments.push({
-        color: i === 0 ? 'bg-gray-200/40' : getDampedColor(sortedChanges[i - 1].color),
+        color: i === 0 ? 'bg-gray-300/70' : getDampedColor(sortedChanges[i - 1].color),
         startPercent,
         width
       });
