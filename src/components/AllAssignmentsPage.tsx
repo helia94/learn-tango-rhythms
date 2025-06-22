@@ -65,25 +65,31 @@ const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
     ...dailyAssignments
   ];
 
-  // Create assignment metadata for locked status
+  // Create assignment metadata for locked status - FIXED: Use consistent task IDs
   const assignmentMetadata = [
-    // Weekly assignments metadata (always unlocked)
+    // Weekly assignments metadata (match database pattern: assignment-0, assignment-1, etc.)
     ...weeklyAssignments.map((_, index) => ({ 
       isLocked: false, 
       dayNumber: null,
-      taskIdPrefix: `weekly-assignment-${index + 1}`
+      taskIdPrefix: `assignment-${index}` // Changed from weekly-assignment-{index+1}
     })),
-    // Daily assignments metadata (check lock status, only for existing assignments)
+    // Daily assignments metadata (match database pattern: day-X-task)
     ...dailyAssignments.map((_, index) => {
       const dayNumber = index + 1;
       const status = getDayStatus(dayNumber, daysUnlocked);
       return {
         isLocked: status === 'locked' || status === 'tomorrow',
         dayNumber: null, // No day number display
-        taskIdPrefix: `day${dayNumber}`
+        taskIdPrefix: `day-${dayNumber}-task` // Changed from dayX to match database
       };
     })
   ];
+
+  console.log('🔧 AllAssignmentsPage - Fixed task IDs:', {
+    weeklyTaskIds: weeklyAssignments.map((_, index) => `assignment-${index}`),
+    dailyTaskIds: dailyAssignments.map((_, index) => `day-${index + 1}-task`),
+    completedTasks
+  });
 
   if (progressLoading) {
     return (
