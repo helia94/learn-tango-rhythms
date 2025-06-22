@@ -10,6 +10,7 @@ import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import AssignmentList from '@/components/AssignmentList';
 import DancingCircularLinearDaily1to3 from '@/components/DancingCircularLinearDaily1to3';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_circular_linear';
+import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
 
 const DancingCircularLinear = () => {
   const { t } = useTranslation();
@@ -60,6 +61,8 @@ const DancingCircularLinear = () => {
             {t('exercises.dancingCircularLinear.musicalConnectionText1' as any)}
           </TextContent>
         </StorySection>
+
+        <LegatoStaccatoSamples />
 
         {/* Weekly Assignment Section */}
         <StorySection>
