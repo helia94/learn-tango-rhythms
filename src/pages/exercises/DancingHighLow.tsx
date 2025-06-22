@@ -27,11 +27,11 @@ const DancingHighLow = () => {
   const weeklyAssignmentsData = getWeeklyAssignments();
   const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
 
-  // Practice playlist data for high/low movements
+  // Practice playlist data for high/low movements - Updated with correct Spotify URL
   const practicePlaylistData = {
     title: t('exercises.dancingHighLow.practiceSongs' as any),
     description: t('exercises.dancingHighLow.practiceSongsText' as any),
-    spotifySrc: "https://open.spotify.com/embed/playlist/37i9dQZF1DWXRqgorJj26U?utm_source=generator&theme=0",
+    spotifySrc: "https://open.spotify.com/embed/playlist/59a9ECiGhkJ6t35KXC1DeP?utm_source=generator&theme=0",
     infoBoxes: [
       {
         title: t('exercises.dancingHighLow.songs1And2' as any),

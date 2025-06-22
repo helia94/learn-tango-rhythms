@@ -27,11 +27,11 @@ const DancingWithWithoutControl = () => {
   const weeklyAssignmentsData = getWeeklyAssignments();
   const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
 
-  // Practice playlist data for control/freedom movements
+  // Practice playlist data for control/freedom movements - Updated with correct Spotify URL
   const practicePlaylistData = {
     title: t('exercises.dancingWithWithoutControl.practiceSongs' as any),
     description: t('exercises.dancingWithWithoutControl.practiceSongsText' as any),
-    spotifySrc: "https://open.spotify.com/embed/playlist/37i9dQZF1DWZd79rJ6a7lp?utm_source=generator&theme=0",
+    spotifySrc: "https://open.spotify.com/embed/playlist/1WgzC5smCEn5obaBK9h8Tn?utm_source=generator&theme=0",
     infoBoxes: [
       {
         title: t('exercises.dancingWithWithoutControl.songs1And2' as any),

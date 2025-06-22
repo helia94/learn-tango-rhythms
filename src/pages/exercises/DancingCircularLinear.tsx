@@ -28,11 +28,11 @@ const DancingCircularLinear = () => {
   const weeklyAssignmentsData = getWeeklyAssignments();
   const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
 
-  // Practice playlist data for circular/linear movements
+  // Practice playlist data for circular/linear movements - Updated with correct Spotify URL
   const practicePlaylistData = {
     title: t('exercises.dancingCircularLinear.practiceSongs' as any),
     description: t('exercises.dancingCircularLinear.practiceSongsText' as any),
-    spotifySrc: "https://open.spotify.com/embed/playlist/37i9dQZF1DX0kbJZpiYdZl?utm_source=generator&theme=0",
+    spotifySrc: "https://open.spotify.com/embed/playlist/7GPljRTrndvp2oFOlKrn40?utm_source=generator&theme=0",
     infoBoxes: [
       {
         title: t('exercises.dancingCircularLinear.songs1And2' as any),

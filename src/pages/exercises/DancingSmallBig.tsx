@@ -27,11 +27,11 @@ const DancingSmallBig = () => {
   const weeklyAssignmentsData = getWeeklyAssignments();
   const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
 
-  // Practice playlist data for small/big movements
+  // Practice playlist data for small/big movements - Updated with correct Spotify URL
   const practicePlaylistData = {
     title: t('exercises.dancingSmallBig.practiceSongs' as any),
     description: t('exercises.dancingSmallBig.practiceSongsText' as any),
-    spotifySrc: "https://open.spotify.com/embed/playlist/37i9dQZF1DX1rVvRgjX59F?utm_source=generator&theme=0",
+    spotifySrc: "https://open.spotify.com/embed/playlist/18Qhg7v2D5MQZOUPYnwWDw?utm_source=generator&theme=0",
     infoBoxes: [
       {
         title: t('exercises.dancingSmallBig.songs1And2' as any),
