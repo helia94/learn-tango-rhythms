@@ -50,7 +50,7 @@ const RoadMapContainer: React.FC<RoadMapContainerProps> = ({ concepts }) => {
   };
 
   return (
-    <div className="relative z-10 max-w-6xl mx-auto px-4">
+    <div className="relative z-10 max-w-6xl mx-auto px-4 min-w-[800px]">
       <div className="relative min-h-[3000px]">
         {/* Winding Road Background - SVG Path */}
         <RoadMapPath conceptsCount={concepts.length} />

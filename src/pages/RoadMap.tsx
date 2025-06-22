@@ -5,7 +5,6 @@ import RoadMapBackground from '@/components/roadmap/RoadMapBackground';
 import RoadMapHeader from '@/components/roadmap/RoadMapHeader';
 import RoadMapContainer from '@/components/roadmap/RoadMapContainer';
 import { allConcepts } from '@/components/roadmap/conceptsData';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 const RoadMap = () => {
   const { isLoading, visibleTopics } = useTopicVisibility();
@@ -36,17 +35,15 @@ const RoadMap = () => {
   }
   
   return (
-    <ScrollArea className="min-h-screen w-full">
-      <div className="min-h-screen min-w-[800px] bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
-        {/* Animated background elements */}
-        <RoadMapBackground />
+    <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-x-auto overflow-y-hidden">
+      {/* Animated background elements */}
+      <RoadMapBackground />
 
-        <RoadMapHeader />
+      <RoadMapHeader />
 
-        {/* Winding Road Container */}
-        <RoadMapContainer concepts={allConcepts} />
-      </div>
-    </ScrollArea>
+      {/* Winding Road Container */}
+      <RoadMapContainer concepts={allConcepts} />
+    </div>
   );
 };
 
