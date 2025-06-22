@@ -57,6 +57,43 @@ const DayItem: React.FC<DayItemProps> = ({
     );
   }
 
+  // For 'tomorrow' days (ready to activate), don't make them expandable either
+  if (status === 'tomorrow') {
+    return (
+      <div className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden">
+        <div className="px-6 py-4">
+          <div className="flex items-center gap-4 w-full">
+            <div className="flex items-center gap-3">
+              <Lock className="w-5 h-5 text-golden-yellow" />
+              <span className="text-xl font-display text-gray-700">
+                Day {dayNumber}
+              </span>
+            </div>
+            
+            {onDayActivation && (
+              <Button
+                onClick={onDayActivation}
+                size="sm"
+                variant="outline"
+                className="ml-auto bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-golden-yellow"
+              >
+                <Play className="w-4 h-4 mr-1" />
+                {t('daily.unlockDay')}
+              </Button>
+            )}
+            
+            {!onDayActivation && (
+              <span className="text-sm text-golden-yellow font-medium ml-auto">
+                {t('daily.availableTomorrow')}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Only unlocked days are expandable
   return (
     <AccordionItem 
       value={`day-${dayNumber}`} 
@@ -65,9 +102,7 @@ const DayItem: React.FC<DayItemProps> = ({
       <AccordionTrigger className="px-6 py-4 hover:no-underline">
         <div className="flex items-center gap-4 w-full">
           <div className="flex items-center gap-3">
-            {status === 'tomorrow' ? (
-              <Lock className="w-5 h-5 text-golden-yellow" />
-            ) : isCompleted ? (
+            {isCompleted ? (
               <CheckCircle className="w-5 h-5 text-sage-green" />
             ) : (
               <div className="w-5 h-5 rounded-full border-2 border-gray-400" />
@@ -76,27 +111,6 @@ const DayItem: React.FC<DayItemProps> = ({
               Day {dayNumber}
             </span>
           </div>
-          
-          {status === 'tomorrow' && onDayActivation && (
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                onDayActivation();
-              }}
-              size="sm"
-              variant="outline"
-              className="ml-auto mr-4 bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-golden-yellow"
-            >
-              <Play className="w-4 h-4 mr-1" />
-              {t('daily.unlockDay')}
-            </Button>
-          )}
-          
-          {status === 'tomorrow' && !onDayActivation && (
-            <span className="text-sm text-golden-yellow font-medium ml-auto mr-4">
-              {t('daily.availableTomorrow')}
-            </span>
-          )}
         </div>
       </AccordionTrigger>
       
