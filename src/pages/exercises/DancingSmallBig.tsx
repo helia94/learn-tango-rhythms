@@ -24,8 +24,8 @@ const DancingSmallBig = () => {
     }));
   };
 
-  const weeklyAssignmentsData = getWeeklyAssignments();
-  const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
+  // Fix: getWeeklyAssignments() returns Assignment[] directly, not objects with .assignment property
+  const weeklyAssignments = getWeeklyAssignments();
 
   // Practice playlist data for small/big movements - Updated with correct Spotify URL
   const practicePlaylistData = {
