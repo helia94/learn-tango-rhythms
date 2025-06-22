@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -178,13 +177,13 @@ const DancingFastSlow = () => {
 
         {/* Simple Start Section */}
         <StorySection title={t('exercises.dancingFastSlow.letStartSimple')}>
-          <div className="flex flex-col items-center gap-4 mb-8">
+          <div className="flex flex-col items-center gap-6 mb-8">
             <TextContent variant="body" align="center">
               {t('exercises.dancingFastSlow.simpleText1')}
             </TextContent>
-            <div className="flex items-center gap-4">
-              <span className="text-gray-700 text-lg">Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4]</span>
-              <BeatIllustration />
+            <div className="text-center">
+              <p className="text-gray-700 text-lg mb-4">Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4]</p>
+              <BeatIllustration className="justify-center" />
             </div>
           </div>
           
