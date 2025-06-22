@@ -105,14 +105,31 @@ const DancingSmallBig = () => {
           </TextContent>
         </StorySection>
 
-        <LegatoStaccatoSamples />
+        <LegatoStaccatoSamples />        
         
-        {/* See All Assignments Button */}
-        <div className="text-center my-12">
-          <SeeAllAssignmentsButton 
-            to="/exercises/dancing-small-big/assignments"
+        
+        {/* Weekly Assignment Section */}
+        <StorySection>
+          <div className="text-center mb-8">
+            <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
+            <h2 className="text-3xl font-display text-gray-800 mb-6">{t('exercises.dancingCircularLinear.allAssignments' as any)}</h2>
+            
+            {/* Prominent "See All Assignments" Button */}
+            <div className="mb-6">
+              <SeeAllAssignmentsButton to="/exercises/dancing-small-big/assignments"/>
+            </div>
+          </div>
+          
+          <AssignmentList
+            assignments={weeklyAssignments}
+            completedTasks={completedTasks}
+            onTaskLevelChange={handleTaskLevelChange}
+            keyPrefix="assignment"
+            topicName="dancing-small-big"
+            topicIndex={3}
           />
-        </div>
+        </StorySection>
+        
         {/* Practice Playlist Section */}
         <PracticePlaylistSection 
           title={practicePlaylistData.title}
