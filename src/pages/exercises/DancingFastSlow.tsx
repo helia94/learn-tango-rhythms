@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -19,6 +20,7 @@ import InteractiveRhythmPlayer from '@/components/ui/InteractiveRhythmPlayer';
 import TextContent from '@/components/ui/TextContent';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TopicStartButton from '@/components/ui/TopicStartButton';
+import BeatIllustration from '@/components/ui/BeatIllustration';
 import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments/fastAndSlow';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
@@ -176,9 +178,15 @@ const DancingFastSlow = () => {
 
         {/* Simple Start Section */}
         <StorySection title={t('exercises.dancingFastSlow.letStartSimple')}>
-          <TextContent variant="body" align="center" className="mb-8">
-            {t('exercises.dancingFastSlow.simpleText1')}
-          </TextContent>
+          <div className="flex flex-col items-center gap-4 mb-8">
+            <TextContent variant="body" align="center">
+              {t('exercises.dancingFastSlow.simpleText1')}
+            </TextContent>
+            <div className="flex items-center gap-4">
+              <span className="text-gray-700 text-lg">Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4]</span>
+              <BeatIllustration />
+            </div>
+          </div>
           
           <div className="mb-8">
             <AudioPlayer 
