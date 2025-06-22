@@ -40,7 +40,8 @@ export const playSound = async (soundType: string, isHalfBeat = false) => {
       await playDragBeatSound(ctx, masterGain);
     }
 
-    masterGain.gain.setValueAtTime(0.8, ctx.currentTime);
+    // Increased master volume from 0.8 to 1.2 for louder output
+    masterGain.gain.setValueAtTime(1.2, ctx.currentTime);
   } catch (error) {
     console.error('Audio playback error:', error);
   }
@@ -49,7 +50,8 @@ export const playSound = async (soundType: string, isHalfBeat = false) => {
 const playBassSound = async (audioContext: AudioContext, masterGain: GainNode) => {
   const fundamentalFreq = 73.42;
   const duration = 0.5;
-  const volumeMultiplier = 1;
+  // Increased volume multiplier from 1 to 1.5
+  const volumeMultiplier = 1.5;
 
   // Main bass oscillator
   const osc1 = audioContext.createOscillator();
@@ -109,7 +111,8 @@ const playBassSound = async (audioContext: AudioContext, masterGain: GainNode) =
 const playSoftBassSound = async (audioContext: AudioContext, masterGain: GainNode) => {
   const fundamentalFreq = 82.41;
   const duration = 0.4;
-  const volumeMultiplier = 1.2;
+  // Increased volume multiplier from 1.2 to 1.8
+  const volumeMultiplier = 1.8;
 
   // Main bass oscillator - using sawtooth for bass character
   const osc1 = audioContext.createOscillator();
@@ -153,7 +156,8 @@ const playSoftBassSound = async (audioContext: AudioContext, masterGain: GainNod
 const playDragBeatSound = async (audioContext: AudioContext, masterGain: GainNode) => {
   const fundamentalFreq = 55.00;
   const duration = 0.8;
-  const volumeMultiplier = 1.2;
+  // Increased volume multiplier from 1.2 to 1.8
+  const volumeMultiplier = 1.8;
   const arrestreDelay = -0.05;
 
   // Main drag oscillator
