@@ -106,10 +106,10 @@ const ConceptNode: React.FC<ConceptNodeProps> = ({
       {/* Road Node */}
       <div className="relative flex items-center">
         {/* Concept Card */}
-        <div className={`${isLeft ? 'order-1 mr-2 sm:mr-8' : 'order-3 ml-2 sm:ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
+        <div className={`${isLeft ? 'order-1 mr-1 sm:mr-8' : 'order-3 ml-1 sm:ml-8'} transform ${isLeft ? 'rotate-2' : '-rotate-2'}`}>
           <ConceptCard>
-            <div className={`game-card bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-3 sm:p-4 min-w-[180px] sm:min-w-[240px] max-w-[200px] sm:max-w-none transition-all duration-300 hover:scale-105 ${!conceptStatus.visible ? 'opacity-60 grayscale' : canRoute ? 'cursor-pointer hover:shadow-2xl' : ''}`}>
-              <div className="text-warm-brown font-bold text-center text-xs sm:text-sm mb-2 leading-tight sm:leading-normal whitespace-normal break-words">
+            <div className={`game-card bg-gradient-to-br from-cream to-sandy-beige border-4 border-warm-brown shadow-xl rounded-2xl p-2 sm:p-4 min-w-[160px] sm:min-w-[240px] max-w-[180px] sm:max-w-none transition-all duration-300 hover:scale-105 ${!conceptStatus.visible ? 'opacity-60 grayscale' : canRoute ? 'cursor-pointer hover:shadow-2xl' : ''}`}>
+              <div className="text-warm-brown font-bold text-center text-xs sm:text-sm mb-1 sm:mb-2 leading-tight sm:leading-normal whitespace-normal break-words">
                 {t(concept.translationKey)}
               </div>
               
