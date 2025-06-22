@@ -75,16 +75,16 @@ const DancingCircularLinear = () => {
             title="Tango Brujo - Juan D'Arienzo Orchestra"
             audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750588894/Complex_L_and_S_-_Tango_Brujo_-_Juan_D_Arienzo_and_his_Orchestra_k0kar2.mp3"
             colorChanges={[
-              { timestamp: 4110, color: 'bg-dusty-rose' },
-              { timestamp: 5480, color: 'bg-terracotta' },
-              { timestamp: 7550, color: 'bg-golden-yellow' },
+              { timestamp: 4110, color: 'bg-terracotta' },
+              { timestamp: 5480, color: 'bg-sage-green' },
+              { timestamp: 7550, color: 'bg-terracotta' },
               { timestamp: 10030, color: 'bg-sage-green' },
-              { timestamp: 13560, color: 'bg-deep-teal' },
-              { timestamp: 15050, color: 'bg-dusty-rose' },
+              { timestamp: 13560, color: 'bg-terracotta' },
+              { timestamp: 15050, color: 'bg-sage-green' },
               { timestamp: 18300, color: 'bg-terracotta' },
-              { timestamp: 23290, color: 'bg-golden-yellow' },
-              { timestamp: 26220, color: 'bg-sage-green' },
-              { timestamp: 27560, color: 'bg-deep-teal' }
+              { timestamp: 23290, color: 'bg-sage-green' },
+              { timestamp: 26220, color: 'bg-terracotta' },
+              { timestamp: 27560, color: 'bg-sage-green' }
             ]}
           />
         </StorySection>
