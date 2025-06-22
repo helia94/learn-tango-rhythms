@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, Zap } from 'lucide-react';
@@ -125,7 +126,7 @@ const AudioPlayer = ({
   // Convert background color to damped/passive color for non-playing state
   const getDampedColor = (bgColor: string) => {
     const dampedColorMap: { [key: string]: string } = {
-      'bg-dusty-rose': 'bg-pink-300/70',
+      'bg-dusty-rose': 'bg-blue-300/70',
       'bg-terracotta': 'bg-orange-300/70',
       'bg-golden-yellow': 'bg-yellow-300/70',
       'bg-sage-green': 'bg-green-300/70',
@@ -137,7 +138,7 @@ const AudioPlayer = ({
   // Convert background color to progress color
   const getProgressColor = (bgColor: string) => {
     const colorMap: { [key: string]: string } = {
-      'bg-dusty-rose': 'bg-pink-500',
+      'bg-dusty-rose': 'bg-blue-500',
       'bg-terracotta': 'bg-orange-600',
       'bg-golden-yellow': 'bg-yellow-500',
       'bg-sage-green': 'bg-green-500',
