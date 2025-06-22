@@ -134,11 +134,14 @@ const AudioPlayer = ({
     return dampedColorMap[bgColor] || 'bg-gray-300/70';
   };
 
-  // Convert background color to progress color - using only 2 colors now
+  // Convert background color to progress color
   const getProgressColor = (bgColor: string) => {
     const colorMap: { [key: string]: string } = {
+      'bg-dusty-rose': 'bg-pink-500',
       'bg-terracotta': 'bg-orange-600',
-      'bg-sage-green': 'bg-primary' // Using default color instead of green
+      'bg-golden-yellow': 'bg-yellow-500',
+      'bg-sage-green': 'bg-green-500',
+      'bg-deep-teal': 'bg-teal-600'
     };
     return colorMap[bgColor] || 'bg-primary';
   };
@@ -146,10 +149,10 @@ const AudioPlayer = ({
   // Create progress bar segments based on colorChanges
   const getProgressSegments = () => {
     if (!duration || colorChanges.length === 0) {
-      // Single segment with orange color (our first designated color)
+      // Single segment with default color
       return [{
         percentage: progress,
-        color: 'bg-orange-600',
+        color: 'bg-primary',
         startPercent: 0,
         endPercent: 100
       }];
@@ -162,6 +165,7 @@ const AudioPlayer = ({
     const sortedChanges = [...colorChanges].sort((a, b) => a.timestamp - b.timestamp);
     
     let lastTimestamp = 0;
+    let defaultColor = 'bg-primary';
     
     for (let i = 0; i <= sortedChanges.length; i++) {
       const currentChange = sortedChanges[i];
@@ -175,12 +179,9 @@ const AudioPlayer = ({
       const segmentProgress = Math.max(0, Math.min(progress, endPercent) - startPercent);
       
       if (segmentProgress > 0) {
-        // Use orange for first segment and alternate between orange and primary for subsequent segments
-        const color = i === 0 ? 'bg-orange-600' : getProgressColor(sortedChanges[i - 1].color);
-        
         segments.push({
           percentage: segmentProgress,
-          color,
+          color: i === 0 ? defaultColor : getProgressColor(sortedChanges[i - 1].color),
           startPercent,
           endPercent,
           width: endPercent - startPercent
@@ -217,7 +218,7 @@ const AudioPlayer = ({
       const width = endPercent - startPercent;
       
       segments.push({
-        color: i === 0 ? 'bg-orange-300/70' : getDampedColor(sortedChanges[i - 1].color),
+        color: i === 0 ? 'bg-gray-300/70' : getDampedColor(sortedChanges[i - 1].color),
         startPercent,
         width
       });
