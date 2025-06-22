@@ -11,6 +11,7 @@ import AssignmentList from '@/components/AssignmentList';
 import DancingCircularLinearDaily1to3 from '@/components/DancingCircularLinearDaily1to3';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_circular_linear';
 import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
+import AudioPlayer from '@/components/AudioPlayer';
 
 const DancingCircularLinear = () => {
   const { t } = useTranslation();
@@ -63,6 +64,30 @@ const DancingCircularLinear = () => {
         </StorySection>
 
         <LegatoStaccatoSamples />
+
+        {/* Complex Tango Example */}
+        <StorySection title="Complex Tango Example" variant="practice">
+          <TextContent variant="body" align="center" className="mb-6">
+            Listen to this complex tango piece and notice how the rhythm shifts between linear and circular patterns throughout the song.
+          </TextContent>
+          
+          <AudioPlayer
+            title="Tango Brujo - Juan D'Arienzo Orchestra"
+            audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750588894/Complex_L_and_S_-_Tango_Brujo_-_Juan_D_Arienzo_and_his_Orchestra_k0kar2.mp3"
+            colorChanges={[
+              { timestamp: 4110, color: 'bg-dusty-rose' },
+              { timestamp: 5480, color: 'bg-terracotta' },
+              { timestamp: 7550, color: 'bg-golden-yellow' },
+              { timestamp: 10030, color: 'bg-sage-green' },
+              { timestamp: 13560, color: 'bg-deep-teal' },
+              { timestamp: 15050, color: 'bg-dusty-rose' },
+              { timestamp: 18300, color: 'bg-terracotta' },
+              { timestamp: 23290, color: 'bg-golden-yellow' },
+              { timestamp: 26220, color: 'bg-sage-green' },
+              { timestamp: 27560, color: 'bg-deep-teal' }
+            ]}
+          />
+        </StorySection>
 
         {/* Weekly Assignment Section */}
         <StorySection>
