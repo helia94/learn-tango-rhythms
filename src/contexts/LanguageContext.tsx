@@ -1,5 +1,6 @@
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export type Language = 'en' | 'de';
 
@@ -16,6 +17,18 @@ interface LanguageProviderProps {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [currentLanguage, setCurrentLanguage] = useState<Language>('de');
+  const { profile, loading } = useAuth();
+
+  // Update language when profile loads or changes
+  useEffect(() => {
+    if (!loading && profile?.preferred_language) {
+      const preferredLang = profile.preferred_language as Language;
+      if (preferredLang !== currentLanguage) {
+        setCurrentLanguage(preferredLang);
+        console.log(`Language set from profile preference: ${preferredLang}`);
+      }
+    }
+  }, [profile, loading]);
 
   const setLanguage = (language: Language) => {
     setCurrentLanguage(language);

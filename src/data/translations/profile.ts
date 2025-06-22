@@ -1,3 +1,4 @@
+
 export const profileTranslations = {
   profile: {
     title: {
@@ -117,6 +118,10 @@ export const profileTranslations = {
         en: "Bio",
         de: "Bio"
       },
+      preferredLanguage: {
+        en: "Preferred Language",
+        de: "Bevorzugte Sprache"
+      },
       memberSince: {
         en: "Member Since",
         de: "Mitglied seit"
@@ -184,4 +189,3 @@ export const profileTranslations = {
     }
   }
 };
-

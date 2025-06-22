@@ -2,21 +2,25 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useLanguageContext, Language } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { User, Settings, LogOut } from 'lucide-react';
+import { User, Settings, LogOut, Globe } from 'lucide-react';
 
 const ProfileSection: React.FC = () => {
   const { user, profile, updateProfile, signOut } = useAuth();
   const { t } = useTranslation();
+  const { currentLanguage, setLanguage } = useLanguageContext();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
     username: profile?.username || '',
     full_name: profile?.full_name || '',
     bio: profile?.bio || '',
+    preferred_language: profile?.preferred_language || currentLanguage,
   });
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -32,6 +36,10 @@ const ProfileSection: React.FC = () => {
           toast.error(t('profile.sections.messages.updateFailed'));
         }
       } else {
+        // Update the current language if it changed
+        if (editForm.preferred_language !== currentLanguage) {
+          setLanguage(editForm.preferred_language as Language);
+        }
         toast.success(t('profile.sections.messages.profileUpdated'));
         setIsEditing(false);
       }
@@ -47,6 +55,7 @@ const ProfileSection: React.FC = () => {
       username: profile?.username || '',
       full_name: profile?.full_name || '',
       bio: profile?.bio || '',
+      preferred_language: profile?.preferred_language || currentLanguage,
     });
     setIsEditing(false);
   };
@@ -143,6 +152,24 @@ const ProfileSection: React.FC = () => {
             />
           </div>
 
+          <div className="space-y-2">
+            <Label htmlFor="preferred_language" className="text-warm-brown font-medium">
+              {t('profile.sections.preferredLanguage')}
+            </Label>
+            <Select
+              value={editForm.preferred_language}
+              onValueChange={(value) => setEditForm({ ...editForm, preferred_language: value })}
+            >
+              <SelectTrigger className="border-sage-green/30 focus:border-terracotta focus:ring-terracotta/20">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en">🇺🇸 English</SelectItem>
+                <SelectItem value="de">🇩🇪 Deutsch</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="flex gap-3 pt-2">
             <Button
               onClick={handleSave}
@@ -175,6 +202,16 @@ const ProfileSection: React.FC = () => {
               <p className="text-gray-700">{profile.bio}</p>
             </div>
           )}
+
+          <div>
+            <Label className="text-warm-brown font-medium text-sm flex items-center gap-2">
+              <Globe className="w-4 h-4" />
+              {t('profile.sections.preferredLanguage')}
+            </Label>
+            <p className="text-gray-700">
+              {profile.preferred_language === 'de' ? '🇩🇪 Deutsch' : '🇺🇸 English'}
+            </p>
+          </div>
           
           <div>
             <Label className="text-warm-brown font-medium text-sm">{t('profile.sections.memberSince')}</Label>
