@@ -35,7 +35,7 @@ const RoadMap = () => {
   }
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-x-auto overflow-y-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
       {/* Animated background elements */}
       <RoadMapBackground />
 
