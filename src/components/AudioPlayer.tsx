@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, Zap } from 'lucide-react';
@@ -123,19 +122,28 @@ const AudioPlayer = ({
     }
   };
 
-  // Calculate positions for event markers on progress bar
-  const getEventMarkers = () => {
-    if (!duration) return [];
-    
-    return colorEvents.map((timestamp, index) => {
-      const percentage = (timestamp / 1000 / duration) * 100;
-      return {
-        id: index,
-        position: percentage,
-        timestamp,
-        isActive: activeEvents.includes(timestamp)
-      };
-    });
+  // Convert background color to damped/passive color for non-playing state
+  const getDampedColor = (bgColor: string) => {
+    const dampedColorMap: { [key: string]: string } = {
+      'bg-dusty-rose': 'bg-pink-200/40',
+      'bg-terracotta': 'bg-orange-200/40',
+      'bg-golden-yellow': 'bg-yellow-200/40',
+      'bg-sage-green': 'bg-green-200/40',
+      'bg-deep-teal': 'bg-teal-200/40'
+    };
+    return dampedColorMap[bgColor] || 'bg-gray-200/40';
+  };
+
+  // Convert background color to progress color
+  const getProgressColor = (bgColor: string) => {
+    const colorMap: { [key: string]: string } = {
+      'bg-dusty-rose': 'bg-pink-500',
+      'bg-terracotta': 'bg-orange-600',
+      'bg-golden-yellow': 'bg-yellow-500',
+      'bg-sage-green': 'bg-green-500',
+      'bg-deep-teal': 'bg-teal-600'
+    };
+    return colorMap[bgColor] || 'bg-primary';
   };
 
   // Create progress bar segments based on colorChanges
@@ -186,16 +194,54 @@ const AudioPlayer = ({
     return segments;
   };
 
-  // Convert background color to progress color
-  const getProgressColor = (bgColor: string) => {
-    const colorMap: { [key: string]: string } = {
-      'bg-dusty-rose': 'bg-pink-500',
-      'bg-terracotta': 'bg-orange-600',
-      'bg-golden-yellow': 'bg-yellow-500',
-      'bg-sage-green': 'bg-green-500',
-      'bg-deep-teal': 'bg-teal-600'
-    };
-    return colorMap[bgColor] || 'bg-primary';
+  // Create background segments for passive mode (showing color structure when not playing)
+  const getBackgroundSegments = () => {
+    if (!duration || colorChanges.length === 0) {
+      return [];
+    }
+
+    const durationMs = duration * 1000;
+    const segments = [];
+    
+    // Sort color changes by timestamp
+    const sortedChanges = [...colorChanges].sort((a, b) => a.timestamp - b.timestamp);
+    
+    let lastTimestamp = 0;
+    
+    for (let i = 0; i <= sortedChanges.length; i++) {
+      const currentChange = sortedChanges[i];
+      const endTimestamp = currentChange ? currentChange.timestamp : durationMs;
+      
+      // Calculate percentages for this segment
+      const startPercent = (lastTimestamp / durationMs) * 100;
+      const endPercent = (endTimestamp / durationMs) * 100;
+      const width = endPercent - startPercent;
+      
+      segments.push({
+        color: i === 0 ? 'bg-gray-200/40' : getDampedColor(sortedChanges[i - 1].color),
+        startPercent,
+        width
+      });
+      
+      lastTimestamp = endTimestamp;
+    }
+    
+    return segments;
+  };
+
+  // Calculate positions for event markers on progress bar
+  const getEventMarkers = () => {
+    if (!duration) return [];
+    
+    return colorEvents.map((timestamp, index) => {
+      const percentage = (timestamp / 1000 / duration) * 100;
+      return {
+        id: index,
+        position: percentage,
+        timestamp,
+        isActive: activeEvents.includes(timestamp)
+      };
+    });
   };
 
   return (
@@ -216,9 +262,22 @@ const AudioPlayer = ({
       <div className="w-full relative">
         {/* Custom segmented progress bar */}
         <div className="h-6 w-full bg-cream/20 rounded-full overflow-hidden relative">
+          {/* Background segments (passive mode colors) */}
+          {getBackgroundSegments().map((segment, index) => (
+            <div
+              key={`bg-${index}`}
+              className={`absolute top-0 h-full ${segment.color} transition-all duration-200`}
+              style={{
+                left: `${segment.startPercent}%`,
+                width: `${segment.width}%`
+              }}
+            />
+          ))}
+          
+          {/* Progress segments (active colors on top) */}
           {getProgressSegments().map((segment, index) => (
             <div
-              key={index}
+              key={`progress-${index}`}
               className={`absolute top-0 h-full ${segment.color} transition-all duration-200`}
               style={{
                 left: `${segment.startPercent}%`,
