@@ -65,29 +65,22 @@ const DancingCircularLinear = () => {
 
         <LegatoStaccatoSamples />
 
-        {/* Complex Tango Example */}
-        <StorySection title="Complex Tango Example" variant="practice">
-          <TextContent variant="body" align="center" className="mb-6">
-            Listen to this complex tango piece and notice how the rhythm shifts between linear and circular patterns throughout the song.
-          </TextContent>
+
           
           <AudioPlayer
             title="Tango Brujo - Juan D'Arienzo Orchestra"
             audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750588894/Complex_L_and_S_-_Tango_Brujo_-_Juan_D_Arienzo_and_his_Orchestra_k0kar2.mp3"
             colorChanges={[
+              { timestamp: 0, color: 'bg-sage-green' },
               { timestamp: 4110, color: 'bg-terracotta' },
               { timestamp: 5480, color: 'bg-sage-green' },
               { timestamp: 7550, color: 'bg-terracotta' },
               { timestamp: 10030, color: 'bg-sage-green' },
-              { timestamp: 13560, color: 'bg-terracotta' },
-              { timestamp: 15050, color: 'bg-sage-green' },
-              { timestamp: 18300, color: 'bg-terracotta' },
+              { timestamp: 15050, color: 'bg-terracotta' },
               { timestamp: 23290, color: 'bg-sage-green' },
               { timestamp: 26220, color: 'bg-terracotta' },
-              { timestamp: 27560, color: 'bg-sage-green' }
             ]}
           />
-        </StorySection>
 
         {/* Weekly Assignment Section */}
         <StorySection>
