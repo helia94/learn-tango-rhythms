@@ -87,9 +87,7 @@ const AudioPlayer = ({
       .find(change => currentTimeMs >= change.timestamp);
     
     if (currentSegment) {
-      if (currentSegment.color !== currentColor) {
-        setCurrentColor(currentSegment.color);
-      }
+      setCurrentColor(currentSegment.color);
     }
 
     // Handle event detection - show active events with symbols
@@ -98,7 +96,7 @@ const AudioPlayer = ({
     );
 
     setActiveEvents(currentActiveEvents);
-  }, [currentTime, isPlaying, colorChanges, colorEvents, currentColor]);
+  }, [currentTime, isPlaying, colorChanges, colorEvents]);
 
   const togglePlayback = async () => {
     if (!audioRef.current) return;
