@@ -51,13 +51,11 @@ export const useTopicActivation = () => {
 
   const isTopicActive = useCallback(async (topicKey: string, topicIndex: number): Promise<boolean> => {
     if (!user) {
-      console.log(`isTopicActive: No user logged in, returning false for topic ${topicKey}`);
       return false;
     }
 
     try {
       const sevenDaysAgoISO = getSevenDaysAgo();
-      console.log(`isTopicActive: Checking topic ${topicKey} (${topicIndex}) for activations since ${sevenDaysAgoISO}`);
 
       const { data, error } = await supabase
         .from('topic_activations')
@@ -74,13 +72,8 @@ export const useTopicActivation = () => {
         return false;
       }
 
-      console.log(`isTopicActive: Query result for topic ${topicKey}:`, data);
-
       // Topic is active if there's at least one activation within the last 7 days
-      const isActive = data && data.length > 0;
-      console.log(`isTopicActive: Topic ${topicKey} is ${isActive ? 'ACTIVE' : 'NOT ACTIVE'}`);
-      
-      return isActive;
+      return data && data.length > 0;
     } catch (error) {
       console.error('Error checking topic activation:', error);
       return false;

@@ -68,16 +68,8 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
   } = useTopicActivation();
 
   const refreshVisibility = async () => {
-    console.log('TopicVisibilityContext: Starting refreshVisibility...', { 
-      user: !!user, 
-      unlockAll: flags?.unlockAll,
-      userEmail: user?.email,
-      hasInitialized: hasInitialized.current
-    });
-    
     // Prevent multiple concurrent calls
     if (hasInitialized.current) {
-      console.log('TopicVisibilityContext: Already initialized, skipping refresh');
       return;
     }
     
@@ -87,7 +79,6 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     try {
       // Get all unlocked topics
       const unlockedTopicIndices = await getAllUnlockedTopics();
-      console.log('TopicVisibilityContext: Unlocked topics from hook:', unlockedTopicIndices);
       
       // Calculate topic visibility
       const topicVisibilities: TopicVisibility[] = [];
@@ -97,9 +88,7 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
           const isUnlocked = unlockedTopicIndices.includes(topicConfig.topicIndex);
           
           // Check if topic is active
-          console.log(`TopicVisibilityContext: Checking if topic ${topicConfig.topicIndex} (${topicConfig.topicKey}) is active...`);
           const isActive = await isTopicActive(topicConfig.topicKey, topicConfig.topicIndex);
-          console.log(`TopicVisibilityContext: Topic ${topicConfig.topicIndex} active status:`, isActive);
           
           const deadline = await getTopicDeadline(topicConfig.topicKey, topicConfig.topicIndex);
           
@@ -117,14 +106,6 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
             deadline
           };
           
-          console.log(`TopicVisibilityContext: Topic ${topicConfig.topicIndex} (${topicConfig.topicKey}):`, {
-            isUnlocked,
-            isActive,
-            isVisible,
-            unlockAllFlag: flags?.unlockAll,
-            deadline
-          });
-          
           topicVisibilities.push(topicVisibility);
         } catch (topicError) {
           console.error(`TopicVisibilityContext: Error processing topic ${topicConfig.topicIndex}:`, topicError);
@@ -140,15 +121,11 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
         }
       }
       
-      console.log('TopicVisibilityContext: New topic visibilities calculated:', topicVisibilities);
-      
       // Only update state if the data has actually changed
       setVisibleTopics(prevVisibleTopics => {
         if (!deepEqual(prevVisibleTopics, topicVisibilities)) {
-          console.log('TopicVisibilityContext: Topics data changed, updating state');
           return topicVisibilities;
         } else {
-          console.log('TopicVisibilityContext: Topics data unchanged, keeping previous state');
           return prevVisibleTopics;
         }
       });
@@ -157,7 +134,6 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
       setVisibleSubtopics([]);
       
       hasInitialized.current = true;
-      console.log('TopicVisibilityContext: Refresh complete. Marked as initialized.');
     } catch (error) {
       console.error('TopicVisibilityContext: Error calculating topic visibility:', error);
       setError(error instanceof Error ? error.message : 'Unknown error occurred');
@@ -172,19 +148,15 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
         deadline: null
       }));
       
-      console.log('TopicVisibilityContext: Using fallback topics:', fallbackTopics);
       setVisibleTopics(fallbackTopics);
       setVisibleSubtopics([]);
     } finally {
       setIsLoading(false);
-      console.log('TopicVisibilityContext: Refresh visibility complete, isLoading set to false');
     }
   };
 
   const getTopicVisibility = (topicIndex: number): TopicVisibility | null => {
-    const visibility = visibleTopics.find(t => t.topicIndex === topicIndex) || null;
-    console.log(`TopicVisibilityContext: getTopicVisibility(${topicIndex}):`, visibility);
-    return visibility;
+    return visibleTopics.find(t => t.topicIndex === topicIndex) || null;
   };
 
   const getSubtopicVisibility = (topicIndex: number, dayIndex: number): SubtopicVisibility | null => {
@@ -193,7 +165,6 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
 
   // Refresh visibility when user authentication status changes or feature flags change
   useEffect(() => {
-    console.log('TopicVisibilityContext: useEffect triggered, calling refreshVisibility');
     // Reset initialization flag when dependencies change
     hasInitialized.current = false;
     refreshVisibility().catch(error => {
@@ -209,13 +180,6 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     getTopicVisibility,
     getSubtopicVisibility
   };
-
-  console.log('TopicVisibilityContext: Providing context with:', {
-    visibleTopicsCount: visibleTopics.length,
-    isLoading,
-    error,
-    firstTopicVisibility: visibleTopics[0]
-  });
 
   // Always provide the context, even if there's an error
   return (
