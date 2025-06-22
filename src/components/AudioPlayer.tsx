@@ -134,14 +134,11 @@ const AudioPlayer = ({
     return dampedColorMap[bgColor] || 'bg-gray-300/70';
   };
 
-  // Convert background color to progress color
+  // Convert background color to progress color - using only 2 colors now
   const getProgressColor = (bgColor: string) => {
     const colorMap: { [key: string]: string } = {
-      'bg-dusty-rose': 'bg-pink-500',
       'bg-terracotta': 'bg-orange-600',
-      'bg-golden-yellow': 'bg-yellow-500',
-      'bg-sage-green': 'bg-green-500',
-      'bg-deep-teal': 'bg-teal-600'
+      'bg-sage-green': 'bg-primary' // Using default color instead of green
     };
     return colorMap[bgColor] || 'bg-primary';
   };
