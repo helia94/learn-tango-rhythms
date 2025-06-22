@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -9,7 +10,6 @@ import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import AssignmentList from '@/components/AssignmentList';
 import DancingWithWithoutControlDaily1to4 from '@/components/DancingWithWithoutControlDaily1to4';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_with_without_control';
-import AudioPlayer from '@/components/AudioPlayer';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
 const DancingWithWithoutControl = () => {
@@ -32,7 +32,6 @@ const DancingWithWithoutControl = () => {
     description: t('exercises.dancingWithWithoutControl.practiceSongsText' as any),
     spotifySrc: "https://open.spotify.com/embed/playlist/1WgzC5smCEn5obaBK9h8Tn?utm_source=generator&theme=0"
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       <PageHeader title={t('exercises.dancingWithWithoutControl.title' as any)} />
@@ -57,28 +56,10 @@ const DancingWithWithoutControl = () => {
           <TextContent variant="body" align="center">
             {t('exercises.dancingWithWithoutControl.introText2' as any)}
           </TextContent>
-        </StorySection>
-
-        {/* Musical Connection Section */}
-        <StorySection>
-          <h2 className="text-3xl font-display text-gray-800 mb-6 text-center">
-            {t('exercises.dancingWithWithoutControl.musicalConnectionTitle' as any)}
-          </h2>
-          <TextContent variant="body" align="center">
-            {t('exercises.dancingWithWithoutControl.musicalConnectionText1' as any)}
+          <TextContent variant="body" align="center" className="mb-8">
+            {t('exercises.dancingWithWithoutControl.introText3' as any)}
           </TextContent>
         </StorySection>
-
-        <AudioPlayer
-          title="Control Example - Structure vs Freedom"
-          audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750588894/Control_Example_Structure_vs_Freedom.mp3"
-          colorChanges={[
-            { timestamp: 0, color: 'bg-sage-green' },
-            { timestamp: 7000, color: 'bg-terracotta' },
-            { timestamp: 14000, color: 'bg-sage-green' },
-            { timestamp: 21000, color: 'bg-terracotta' },
-          ]}
-        />
 
         {/* Weekly Assignment Section */}
         <StorySection>

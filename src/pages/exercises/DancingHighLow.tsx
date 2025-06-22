@@ -1,15 +1,16 @@
+
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
+import TipsInfoBox from '@/components/ui/TipsInfoBox';
+import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
-import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import AssignmentList from '@/components/AssignmentList';
 import DancingHighLowDaily1to7 from '@/components/DancingHighLowDaily1to7';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_high_low';
-import AudioPlayer from '@/components/AudioPlayer';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
 const DancingHighLow = () => {
@@ -25,6 +26,13 @@ const DancingHighLow = () => {
 
   const weeklyAssignmentsData = getWeeklyAssignments();
   const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
+
+
+  const tips = [
+    t('exercises.dancingHighLow.tip1' as any),
+    t('exercises.dancingHighLow.tip2' as any), 
+    t('exercises.dancingHighLow.tip3' as any)
+  ];
 
   // Practice playlist data for high/low movements - Updated with correct Spotify URL
   const practicePlaylistData = {
@@ -59,26 +67,46 @@ const DancingHighLow = () => {
           </TextContent>
         </StorySection>
 
-        {/* Musical Connection Section */}
+        {/* Tips for Height Tools */}
         <StorySection>
-          <h2 className="text-3xl font-display text-gray-800 mb-6 text-center">
-            {t('exercises.dancingHighLow.musicalConnectionTitle' as any)}
-          </h2>
+          <TipsInfoBox
+            title={t('exercises.dancingHighLow.tipsTitle' as any)}
+            tips={tips}
+          />
+        </StorySection>
+
+        {/* Why Change Height Section */}
+        <StorySection title="">
           <TextContent variant="body" align="center">
-            {t('exercises.dancingHighLow.musicalConnectionText1' as any)}
+            {t('exercises.dancingHighLow.tip4' as any)}
           </TextContent>
         </StorySection>
 
-        <AudioPlayer
-          title="High-Low Example - Orchestra Variation"
-          audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750588894/High_Low_Example_Orchestra_Variation.mp3"
-          colorChanges={[
-            { timestamp: 0, color: 'bg-sage-green' },
-            { timestamp: 5000, color: 'bg-terracotta' },
-            { timestamp: 10000, color: 'bg-sage-green' },
-            { timestamp: 15000, color: 'bg-terracotta' },
-          ]}
-        />
+        {/* Height Drama Text */}
+        <StorySection>
+          <TextContent variant="body" align="center" className="mb-6">
+            {t('exercises.dancingHighLow.heightDramaText' as any)}
+          </TextContent>
+          
+          {/* Professional Example Video */}
+          <div className="flex justify-center">
+            <div className="w-full max-w-2xl">
+              <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-2xl shadow-2xl">
+                <iframe
+                  src="https://www.youtube.com/embed/UiAic0aBKdk?si=0TlLs7TSAb4eYGoc"
+                  title="Majo Martirena and Rodrigo Fonti - Height Variation Example"
+                  className="absolute top-0 left-0 w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              <p className="text-center text-sm text-gray-600 mt-2">
+                Majo Martirena and Rodrigo Fonti demonstrating height variations
+              </p>
+            </div>
+          </div>
+        </StorySection>
 
         {/* Weekly Assignment Section */}
         <StorySection>
