@@ -56,6 +56,7 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
         <DailyAssignmentsHeader
           daysUnlocked={0}
           totalDays={totalDays}
+          isUserLoggedIn={!!user}
         />
         <div className="text-center">
           <p className="text-gray-600 mt-2">{t('common.loading')}...</p>
@@ -70,6 +71,7 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
         daysUnlocked={daysUnlocked}
         totalDays={totalDays}
         nextDayToActivate={nextDayToActivate}
+        isUserLoggedIn={!!user}
       />
 
       <DailyAccordion
