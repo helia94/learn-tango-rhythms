@@ -1,4 +1,3 @@
-
 export const profileTranslations = {
   profile: {
     title: {
@@ -145,7 +144,7 @@ export const profileTranslations = {
       placeholders: {
         fullName: {
           en: "Enter your full name",
-          de: "Gib deinen vollständigen Namen ein"
+          de: "Gib Deinen vollständigen Namen ein"
         },
         username: {
           en: "Choose a username",
@@ -153,7 +152,7 @@ export const profileTranslations = {
         },
         bio: {
           en: "Tell us about yourself",
-          de: "Erzähl uns von dir"
+          de: "Erzähl uns von Dir"
         }
       },
       messages: {
@@ -185,3 +184,4 @@ export const profileTranslations = {
     }
   }
 };
+

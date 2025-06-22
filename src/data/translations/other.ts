@@ -1,4 +1,3 @@
-
 export const otherTranslations = {
   common: {
     en: {
@@ -22,7 +21,7 @@ export const otherTranslations = {
       info: "Info"
     },
     de: {
-      loading: "Laden",
+      loading: "Lädt",
       save: "Speichern",
       cancel: "Abbrechen",
       confirm: "Bestätigen",
@@ -91,7 +90,7 @@ export const otherTranslations = {
       alreadyHaveAccount: "Bereits ein Konto?",
       dontHaveAccount: "Noch kein Konto?",
       resetPassword: "Passwort zurücksetzen",
-      checkEmail: "Überprüfen Sie Ihre E-Mail für Anweisungen"
+      checkEmail: "Überprüfe Deine E-Mail für Anweisungen"
     }
   },
   tips: {
@@ -118,24 +117,25 @@ export const otherTranslations = {
     },
     de: {
       extremeSlowness: "Extreme Langsamkeit",
-      extremeSlownessTip1: "Bewegen Sie sich, als wären Sie unter Wasser - jede Bewegung sollte bewusst und kontrolliert sein",
-      extremeSlownessTip2: "Konzentrieren Sie sich auf die Verbindung zwischen den Partnern - langsame Bewegungen erfordern Vertrauen",
-      extremeSlownessTip3: "Nutzen Sie die Langsamkeit, um subtile Gewichtsverlagerungen und Mikro-Bewegungen zu erkunden",
-      extremeSlownessTip4: "Hetzen Sie die Pausen nicht - Stille und Stillstand sind Teil des Tanzes",
+      extremeSlownessTip1: "Bewege Dich, als wärst Du unter Wasser – jede Bewegung sollte bewusst und kontrolliert sein",
+      extremeSlownessTip2: "Konzentriere Dich auf die Verbindung zwischen den Partnern – langsame Bewegungen erfordern Vertrauen",
+      extremeSlownessTip3: "Nutze die Langsamkeit, um subtile Gewichtsverlagerungen und Mikro-Bewegungen zu erkunden",
+      extremeSlownessTip4: "Hetze die Pausen nicht – Stille und Stillstand sind Teil des Tanzes",
       extremeSpeed: "Extreme Geschwindigkeit",
-      extremeSpeedTip1: "Behalten Sie die Kontrolle auch bei hohen Geschwindigkeiten - Präzision vor reiner Geschwindigkeit",
-      extremeSpeedTip2: "Behalten Sie Ihr Zentrum und opfern Sie nicht die Technik für Geschwindigkeit",
+      extremeSpeedTip1: "Behalte die Kontrolle auch bei hohen Geschwindigkeiten – Präzision vor reiner Geschwindigkeit",
+      extremeSpeedTip2: "Behalte Dein Zentrum und opfere nicht die Technik für Geschwindigkeit",
       backOchoChallengeTitle: "Back Ocho Herausforderung",
-      backOchoChallengeTip1: "Konzentrieren Sie sich auf die Qualität der Drehung - saubere, kontrollierte Rotationen",
-      backOchoChallengeTip2: "Nutzen Sie die Geschwindigkeitsänderungen, um verschiedene Teile der Bewegung zu betonen",
-      backOchoChallengeTip3: "Leader: geben Sie klare Richtungsänderungen",
-      backOchoChallengeTip4: "Follower: behalten Sie Ihre Achse während der Geschwindigkeitsvariationen bei",
+      backOchoChallengeTip1: "Konzentriere Dich auf die Qualität der Drehung – saubere, kontrollierte Rotationen",
+      backOchoChallengeTip2: "Nutze die Geschwindigkeitsänderungen, um verschiedene Teile der Bewegung zu betonen",
+      backOchoChallengeTip3: "Leader: Gib klare Richtungsänderungen",
+      backOchoChallengeTip4: "Follower: Behalte Deine Achse während der Geschwindigkeitsvariationen bei",
       ochoCortadoChallengeTitle: "Ocho Cortado Herausforderung",
       ochoCortadoChallengeTip1: "Der 'Schnitt' sollte präzise und musikalisch sein",
-      ochoCortadoChallengeTip2: "Üben Sie den Übergang von kreisförmiger zu linearer Bewegung",
-      ochoCortadoChallengeTip3: "Leader: Das Timing der Cortada ist entscheidend",
-      ochoCortadoChallengeTip4: "Follower: Seien Sie bereit für den Richtungswechsel",
-      ochoCortadoChallengeTip5: "Nutzen Sie Geschwindigkeitsvariationen für dramatische Effekte"
+      ochoCortadoChallengeTip2: "Übe den Übergang von kreisförmiger zu linearer Bewegung",
+      ochoCortadoChallengeTip3: "Leader: Das Timing der cortada ist entscheidend",
+      ochoCortadoChallengeTip4: "Follower: Sei bereit für den Richtungswechsel",
+      ochoCortadoChallengeTip5: "Nutze Geschwindigkeitsvariationen für dramatische Effekte"
     }
   }
 };
+

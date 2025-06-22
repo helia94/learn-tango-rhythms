@@ -1,4 +1,3 @@
-
 export const homeTranslations = {
   hero: {
     title: {
@@ -53,11 +52,11 @@ export const homeTranslations = {
     },
     trackProgress: {
       en: "Track Your Progress - Repeat, Repeat, And Then Repeat - Until You Can Forget It",
-      de: "Verfolge deinen Fortschritt - Wiederhole, wiederhole und dann wiederhole - bis du es vergessen kannst"
+      de: "Verfolge Deinen Fortschritt – Wiederhole, wiederhole und dann wiederhole – bis Du es vergessen kannst"
     },
     buildingContrast: {
       en: "Most Topics Are About Building More Contrast Into Your Dancing And Breaking Your Habits",
-      de: "Die meisten Themen handeln davon, mehr Kontrast in dein Tanzen zu bringen und deine Gewohnheiten zu durchbrechen"
+      de: "Die meisten Themen handeln davon, mehr Kontrast in Dein Tanzen zu bringen und Deine Gewohnheiten zu durchbrechen"
     },
     exampleTopics: {
       en: "Example Topics: Dancing Fast And Slow, Dancing Small And Big, Dancing High And Low...",
@@ -76,7 +75,7 @@ export const homeTranslations = {
       },
       reason2: {
         en: "Because each workshop was 3-4 days, way too much information at once, and I hardly ever went back to practicing them",
-        de: "Weil jeder Workshop 3-4 Tage dauerte, viel zu viele Informationen auf einmal, und ich bin kaum jemals zum Üben zurückgekehrt"
+        de: "Weil jeder Workshop 3-4 Tage dauerte – viel zu viele Informationen auf einmal – und ich bin kaum jemals zum Üben zurückgekehrt"
       },
       reason3: {
         en: "Because I needed a little inspiration continuously instead of a lot at once",
@@ -90,7 +89,7 @@ export const homeTranslations = {
       },
       content: {
         en: "For now, yes, but paying even a little amount will increase your motivation and commitment at least fivefold. All the content will remain free, only if you want to build a habit and track your mastery of topics, we will charge a small amount in the future.",
-        de: "Vorerst ja, aber schon ein kleiner Betrag wird deine Motivation und dein Engagement mindestens verfünffachen. Alle Inhalte bleiben kostenlos - nur wenn du eine Gewohnheit aufbauen und deine Beherrschung der Themen verfolgen möchtest, werden wir in Zukunft einen kleinen Betrag verlangen."
+        de: "Vorerst ja, aber schon ein kleiner Betrag wird Deine Motivation und Dein Engagement mindestens verfünffachen. Alle Inhalte bleiben kostenlos – nur wenn Du eine Gewohnheit aufbauen und Deine Beherrschung der Themen verfolgen möchtest, werden wir in Zukunft einen kleinen Betrag verlangen."
       }
     },
     concept: {
@@ -100,7 +99,7 @@ export const homeTranslations = {
       },
       content: {
         en: "For now, this is just a proof of concept. I made it because I had a hunch that others might also need what I needed. I am testing that hunch. In fact, if you are reading this, you are already part of this test. I will commit to finishing it if I find people who really really really want it :) If you kind of want it, this is not for you yet!",
-        de: "Vorerst ist das nur ein Machbarkeitsnachweis. Ich habe es gemacht, weil ich die Vermutung hatte, dass andere vielleicht auch brauchen, was ich brauchte. Ich teste diese Vermutung. Wenn du das hier liest, bist du bereits Teil dieses Tests. Ich werde mich verpflichten, es zu Ende zu bringen, wenn ich Leute finde, die es wirklich, wirklich, wirklich wollen :) Wenn du es nur irgendwie willst, ist das noch nichts für dich!"
+        de: "Vorerst ist das nur ein Machbarkeitsnachweis. Ich habe es gemacht, weil ich die Vermutung hatte, dass andere vielleicht auch brauchen, was ich brauchte. Ich teste diese Vermutung. Wenn Du das hier liest, bist Du bereits Teil dieses Tests. Ich werde mich verpflichten, es zu Ende zu bringen, wenn ich Leute finde, die es wirklich, wirklich, wirklich wollen :) Wenn Du es nur irgendwie willst, ist das noch nichts für Dich!"
       }
     },
     credits: {
@@ -137,3 +136,4 @@ export const homeTranslations = {
     }
   }
 };
+

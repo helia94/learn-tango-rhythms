@@ -1,4 +1,3 @@
-
 export const smallAndBigTranslations = {
   exercises: {
     dancingSmallBig: {
@@ -8,15 +7,15 @@ export const smallAndBigTranslations = {
       },
       introText1: {
         en: "This is an option only when the milonga is not very crowded and you even have the option. Realize what is your normal stepping size, and also when you tend to change it.",
-        de: "Das ist nur eine Option, wenn die Milonga nicht sehr überfüllt ist und du überhaupt die Möglichkeit hast. Erkenne deine normale Schrittgröße und auch, wann du dazu neigst, sie zu ändern."
+        de: "Das ist nur eine Option, wenn die Milonga nicht sehr überfüllt ist und Du überhaupt die Möglichkeit hast. Erkenne Deine normale Schrittgröße und auch, wann Du dazu neigst, sie zu ändern."
       },
       introText2: {
         en: "Now try with your partner to walk in your usual size. Then try going smaller and smaller to the tiniest walking step possible.",
-        de: "Versuche nun mit deinem Partner in deiner gewohnten Größe zu gehen. Dann versuche kleiner und kleiner zu werden bis zum winzigsten möglichen Gehschritt."
+        de: "Versuche nun mit Deinem Partner in Deiner gewohnten Größe zu gehen. Dann versuche kleiner und kleiner zu werden bis zum winzigsten möglichen Gehschritt."
       },
       introText3: {
         en: "Then reset, start from your normal step and try making it bigger. If you have just started with tango, larger steps might not work at all - they need more control, technique and experience.",
-        de: "Dann setze zurück, beginne von deinem normalen Schritt und versuche ihn größer zu machen. Wenn du gerade erst mit Tango angefangen hast, funktionieren größere Schritte möglicherweise gar nicht - sie brauchen mehr Kontrolle, Technik und Erfahrung."
+        de: "Dann setze zurück, beginne von Deinem normalen Schritt und versuche ihn größer zu machen. Wenn Du gerade erst mit Tango angefangen hast, funktionieren größere Schritte möglicherweise gar nicht – sie brauchen mehr Kontrolle, Technik und Erfahrung."
       },
       tipsTitle: {
         en: "Tips for Larger Steps",
@@ -32,7 +31,7 @@ export const smallAndBigTranslations = {
       },
       tip3: {
         en: "Go a bit lower in your posture",
-        de: "Gehe etwas tiefer in deine Haltung"
+        de: "Gehe etwas tiefer in Deine Haltung"
       },
       tip4: {
         en: "Your follower needs three times more patience than usual",
@@ -52,7 +51,7 @@ export const smallAndBigTranslations = {
       },
       musicalConnectionText3: {
         en: "Now try changing the size of your step - much smaller and much bigger - when the music changes.",
-        de: "Versuche nun die Größe deines Schrittes zu ändern - viel kleiner und viel größer - wenn sich die Musik ändert."
+        de: "Versuche nun die Größe Deines Schrittes zu ändern – viel kleiner und viel größer – wenn sich die Musik ändert."
       },
       practiceTitle: {
         en: "Practice with Different Musical Characters",
@@ -60,15 +59,15 @@ export const smallAndBigTranslations = {
       },
       practiceDescription: {
         en: "Listen to these examples and practice changing your step size based on the musical character.",
-        de: "Höre dir diese Beispiele an und übe, deine Schrittgröße basierend auf dem musikalischen Charakter zu ändern."
+        de: "Höre Dir diese Beispiele an und übe, Deine Schrittgröße basierend auf dem musikalischen Charakter zu ändern."
       },
       staccatoExampleTitle: {
         en: "Staccato Example - Small Steps",
-        de: "Staccato Beispiel - Kleine Schritte"
+        de: "Staccato Beispiel – Kleine Schritte"
       },
       legatoExampleTitle: {
         en: "Legato Example - Varied Steps",
-        de: "Legato Beispiel - Verschiedene Schritte"
+        de: "Legato Beispiel – Verschiedene Schritte"
       },
       assignment1: {
         en: "Making bigger steps with a partner without music.",
@@ -84,11 +83,11 @@ export const smallAndBigTranslations = {
       },
       allAssignments: {
         en: "All Assignments - Dancing Small and Big",
-        de: "Alle Aufgaben - Klein und Groß tanzen"
+        de: "Alle Aufgaben – Klein und Groß tanzen"
       },
       assignmentsDescription: {
         en: "Practice these assignments to master the art of varying step sizes in your tango dancing.",
-        de: "Übe diese Aufgaben, um die Kunst des Variierens von Schrittgrößen in deinem Tango-Tanz zu meistern."
+        de: "Übe diese Aufgaben, um die Kunst des Variierens von Schrittgrößen in Deinem Tango-Tanz zu meistern."
       },
       daily: {
         day1: {
@@ -104,11 +103,11 @@ export const smallAndBigTranslations = {
         day2: {
           content: {
             en: "Listen to accents in the melody, accents are a beautiful way to show off with a very long step.",
-            de: "Höre auf Akzente in der Melodie, Akzente sind eine schöne Möglichkeit, sich mit einem sehr langen Schritt zu zeigen."
+            de: "Höre auf Akzente in der Melodie – Akzente sind eine wunderbare Möglichkeit, sich mit einem sehr langen Schritt zu zeigen."
           },
           task: {
             en: "Listen to some examples of accents in the music and practice highlighting them with larger steps.",
-            de: "Höre dir einige Beispiele von Akzenten in der Musik an und übe, sie mit größeren Schritten hervorzuheben."
+            de: "Höre Dir einige Beispiele von Akzenten in der Musik an und übe, sie mit größeren Schritten hervorzuheben."
           },
           audioExamplesTitle: {
             en: "Musical Accent Examples",
@@ -116,7 +115,7 @@ export const smallAndBigTranslations = {
           },
           accent1Title: {
             en: "Single Powerful Accent - Recuerdo",
-            de: "Einzelner kraftvoller Akzent - Recuerdo"
+            de: "Einzelner kraftvoller Akzent – Recuerdo"
           },
           accent1Description: {
             en: "A single powerful accent before the start of the phrase",
@@ -124,7 +123,7 @@ export const smallAndBigTranslations = {
           },
           accent2Title: {
             en: "Seven Melodical Accents - Recuerdo",
-            de: "Sieben melodische Akzente - Recuerdo"
+            de: "Sieben melodische Akzente – Recuerdo"
           },
           accent2Description: {
             en: "Same song, 7 melodical accents that look like a conversation between instruments",
@@ -132,15 +131,15 @@ export const smallAndBigTranslations = {
           },
           accent3Title: {
             en: "First Beat Accent - D'Arienzo",
-            de: "Erster Schlag Akzent - D'Arienzo"
+            de: "Erster Schlag Akzent – D'Arienzo"
           },
           accent3Description: {
             en: "A typical and easy place to put the accent is on the first beat, listen to it in D'Arienzo Orchestra",
-            de: "Ein typischer und einfacher Ort für den Akzent ist auf dem ersten Schlag, höre es im D'Arienzo Orchester"
+            de: "Ein typischer und einfacher Ort für den Akzent ist auf dem ersten Schlag – höre es im D'Arienzo Orchester"
           },
           accent4Title: {
             en: "First Beat Accent - Pedro Laurenz",
-            de: "Erster Schlag Akzent - Pedro Laurenz"
+            de: "Erster Schlag Akzent – Pedro Laurenz"
           },
           accent4Description: {
             en: "Also in the first beat from Pedro Laurenz Orchestra",
@@ -148,7 +147,7 @@ export const smallAndBigTranslations = {
           },
           accent5Title: {
             en: "First Beat Accent - Canaro",
-            de: "Erster Schlag Akzent - Canaro"
+            de: "Erster Schlag Akzent – Canaro"
           },
           accent5Description: {
             en: "Again in the first beat from Canaro Orchestra",
@@ -158,21 +157,21 @@ export const smallAndBigTranslations = {
         day3: {
           content: {
             en: "Listen to syncopations in the rhythm, they are also a good opportunity to highlight it with one large step and small one, or the reverse?",
-            de: "Höre auf Synkopen im Rhythmus, sie sind auch eine gute Gelegenheit, es mit einem großen Schritt und einem kleinen zu betonen, oder umgekehrt?"
+            de: "Höre auf Synkopen im Rhythmus – sie sind auch eine gute Gelegenheit, es mit einem großen Schritt und einem kleinen zu betonen, oder umgekehrt?"
           },
           task: {
             en: "Practice highlighting syncopations with contrasting step sizes - try large step with small one, then reverse. How does each feel?",
-            de: "Übe das Hervorheben von Synkopen mit kontrastierenden Schrittgrößen - versuche großer Schritt mit kleinem, dann umgekehrt. Wie fühlt sich jedes an?"
+            de: "Übe das Hervorheben von Synkopen mit kontrastierenden Schrittgrößen – versuche großer Schritt mit kleinem, dann umgekehrt. Wie fühlt sich jedes an?"
           }
         },
         day4: {
           content: {
             en: "To achieve larger steps in an open embrace is to have more elasticity in the arm and embrace instead of it being rigid, and also having more disassociation and separation from your partner.",
-            de: "Um größere Schritte in einer offenen Umarmung zu erreichen, musst du mehr Elastizität im Arm und in der Umarmung haben, anstatt dass sie starr ist, und auch mehr Disassoziation und Trennung von deinem Partner."
+            de: "Um größere Schritte in einer offenen Umarmung zu erreichen, musst Du mehr Elastizität im Arm und in der Umarmung haben, anstatt dass sie starr ist, und auch mehr Dissoziation und Trennung von Deinem Partner."
           },
           task: {
             en: "Practice larger steps with more elasticity in your embrace, focusing on disassociation and maintaining connection while allowing separation.",
-            de: "Übe größere Schritte mit mehr Elastizität in deiner Umarmung, konzentriere dich auf Disassoziation und das Aufrechterhalten der Verbindung bei gleichzeitiger Trennung."
+            de: "Übe größere Schritte mit mehr Elastizität in Deiner Umarmung – konzentriere Dich auf Dissoziation und das Aufrechterhalten der Verbindung bei gleichzeitiger Trennung."
           }
         },
         day5: {
@@ -192,20 +191,21 @@ export const smallAndBigTranslations = {
           },
           task: {
             en: "Slow down as much as you can or the music allows, then make a very small very slow step, try the same with a very big very slow step.",
-            de: "Verlangsame so sehr wie du kannst oder die Musik erlaubt, dann mache einen sehr kleinen sehr langsamen Schritt, versuche dasselbe mit einem sehr großen sehr langsamen Schritt."
+            de: "Verlangsame so sehr wie Du kannst oder die Musik erlaubt, dann mache einen sehr kleinen sehr langsamen Schritt – versuche dasselbe mit einem sehr großen sehr langsamen Schritt."
           }
         },
         day7: {
           content: {
             en: "Allow follower to do many small steps on the bridges in the music. Bridge is the fun short improvisation that one instrument will play to connect two phrases.",
-            de: "Erlaube dem Follower, viele kleine Schritte auf den Brücken in der Musik zu machen. Brücke ist die lustige kurze Improvisation, die ein Instrument spielen wird, um zwei Phrasen zu verbinden."
+            de: "Erlaube dem Follower, viele kleine Schritte auf den Brücken in der Musik zu machen. Eine Brücke ist die lustige kurze Improvisation, die ein Instrument spielen wird, um zwei Phrasen zu verbinden."
           },
           task: {
             en: "Listen to some examples of bridges in the music and practice allowing your follower to do many small steps during these musical moments.",
-            de: "Höre dir einige Beispiele von Brücken in der Musik an und übe, deinem Follower zu erlauben, viele kleine Schritte während dieser musikalischen Momente zu machen."
+            de: "Höre Dir einige Beispiele von Brücken in der Musik an und übe, Deinem Follower zu erlauben, viele kleine Schritte während dieser musikalischen Momente zu machen."
           }
         }
       }
     }
   }
 };
+
