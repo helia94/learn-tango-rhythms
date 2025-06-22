@@ -1,9 +1,6 @@
 
 import React from 'react';
-import { useTranslation } from '@/hooks/useTranslation';
-import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
-import DailyAccordion from '@/components/ui/DailyAccordion';
-import { getDayStatus } from '@/components/daily/DayStatus';
+import DailyExerciseWrapper from '@/components/ui/DailyExerciseWrapper';
 
 interface DancingWithWithoutControlDaily1to4Props {
   completedTasks: Record<string, number>;
@@ -14,28 +11,13 @@ const DancingWithWithoutControlDaily1to4: React.FC<DancingWithWithoutControlDail
   completedTasks,
   onTaskLevelChange
 }) => {
-  const { t } = useTranslation();
-  const topicKey = 'dancing-with-without-control';
-  const topicIndex = 4;
-  const totalDays = 4;
-  
-  const { 
-    activatedDays,
-    nextDayToActivate,
-    unlockAllEnabled,
-    activateDay
-  } = useDailyTopicActivation(topicKey, topicIndex, totalDays);
-
   return (
-    <DailyAccordion
-      totalDays={totalDays}
-      activatedDays={activatedDays}
-      nextDayToActivate={nextDayToActivate}
+    <DailyExerciseWrapper
+      topicKey="dancing-with-without-control"
+      topicIndex={4}
+      totalDays={4}
       completedTasks={completedTasks}
       onTaskLevelChange={onTaskLevelChange}
-      onDayActivation={activateDay}
-      topicName={topicKey}
-      topicIndex={topicIndex}
     />
   );
 };
