@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -31,27 +30,7 @@ const DancingSmallBig = () => {
   const practicePlaylistData = {
     title: t('exercises.dancingSmallBig.practiceSongs' as any),
     description: t('exercises.dancingSmallBig.practiceSongsText' as any),
-    spotifySrc: "https://open.spotify.com/embed/playlist/18Qhg7v2D5MQZOUPYnwWDw?utm_source=generator&theme=0",
-    infoBoxes: [
-      {
-        title: t('exercises.dancingSmallBig.songs1And2' as any),
-        subtitle: 'Small Movement Focus',
-        description: t('exercises.dancingSmallBig.songs1And2Text' as any),
-        theme: 'terracotta' as const
-      },
-      {
-        title: t('exercises.dancingSmallBig.songs3And4' as any),
-        subtitle: 'Big Movement Focus',
-        description: t('exercises.dancingSmallBig.songs3And4Text' as any),
-        theme: 'golden' as const
-      },
-      {
-        title: t('exercises.dancingSmallBig.songs5And6' as any),
-        subtitle: 'Size Contrast',
-        description: t('exercises.dancingSmallBig.songs5And6Text' as any),
-        theme: 'dusty-rose' as const
-      }
-    ]
+    spotifySrc: "https://open.spotify.com/embed/playlist/18Qhg7v2D5MQZOUPYnwWDw?utm_source=generator&theme=0"
   };
 
   return (
@@ -128,7 +107,6 @@ const DancingSmallBig = () => {
           title={practicePlaylistData.title}
           description={practicePlaylistData.description}
           spotifySrc={practicePlaylistData.spotifySrc}
-          infoBoxes={practicePlaylistData.infoBoxes}
         />
       </div>
 

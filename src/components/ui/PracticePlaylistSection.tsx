@@ -17,7 +17,7 @@ interface PracticePlaylistSectionProps {
   title: string;
   description: string;
   spotifySrc: string;
-  infoBoxes: InfoBox[];
+  infoBoxes?: InfoBox[];
   className?: string;
 }
 
@@ -39,7 +39,9 @@ const PracticePlaylistSection: React.FC<PracticePlaylistSectionProps> = ({
         className="rounded-2xl overflow-hidden shadow-2xl mb-8"
       />
 
-      <InfoBoxSection infoBoxes={infoBoxes} />
+      {infoBoxes && infoBoxes.length > 0 && (
+        <InfoBoxSection infoBoxes={infoBoxes} />
+      )}
     </StorySection>
   );
 };
