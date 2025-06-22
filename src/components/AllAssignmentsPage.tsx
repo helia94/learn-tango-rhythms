@@ -8,6 +8,7 @@ import TextContent from '@/components/ui/TextContent';
 import { getDayStatus } from '@/components/daily/DayStatus';
 import { Assignment } from '@/data/assignments/fastAndSlow';
 import { useAssignmentProgressLoader } from '@/hooks/useAssignmentProgressLoader';
+import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 
 interface AllAssignmentsPageProps {
   /** Title translation key for the page header */
@@ -45,53 +46,57 @@ const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
     isLoading: progressLoading 
   } = useAssignmentProgressLoader(topicName, topicIndex);
 
-  // Simulate user progress (unlock all days for assignments page)
-  const daysUnlocked = totalDays;
+  // Get activated days from the daily topic activation hook
+  const { whichDailiesWereActivated, isLoading: dailyLoading } = useDailyTopicActivation(topicName, topicIndex, totalDays);
+  const activatedDays = whichDailiesWereActivated();
 
-  // Create daily assignments based on actual totalDays
+  // Create daily assignments only for unlocked days
   const dailyAssignments: Assignment[] = [];
   for (let dayNumber = 1; dayNumber <= totalDays; dayNumber++) {
-    const assignment = getAssignment(`day${dayNumber}`);
-    if (assignment) {
-      dailyAssignments.push(assignment);
+    // Only include assignments from activated/unlocked days
+    if (activatedDays.includes(dayNumber)) {
+      const assignment = getAssignment(`day${dayNumber}`);
+      if (assignment) {
+        dailyAssignments.push(assignment);
+      }
     }
   }
 
-  // Create all assignments in one array - WEEKLY FIRST, then DAILY
+  // Create all assignments in one array - WEEKLY FIRST, then DAILY (filtered)
   const allAssignments: Assignment[] = [
-    // Weekly assignments first (same order as main page)
+    // Weekly assignments first (always shown)
     ...weeklyAssignments,
-    // Daily assignments second (only existing ones)
+    // Daily assignments second (only from unlocked days)
     ...dailyAssignments
   ];
 
-  // Create assignment metadata for locked status - FIXED: Use consistent task IDs
+  // Create assignment metadata for locked status - only for shown assignments
   const assignmentMetadata = [
-    // Weekly assignments metadata (match database pattern: assignment-0, assignment-1, etc.)
+    // Weekly assignments metadata (always unlocked)
     ...weeklyAssignments.map((_, index) => ({ 
       isLocked: false, 
       dayNumber: null,
-      taskIdPrefix: `assignment-${index}` // Changed from weekly-assignment-{index+1}
+      taskIdPrefix: `assignment-${index}`
     })),
-    // Daily assignments metadata (match database pattern: day-X-task)
-    ...dailyAssignments.map((_, index) => {
-      const dayNumber = index + 1;
-      const status = getDayStatus(dayNumber, daysUnlocked);
+    // Daily assignments metadata (only for unlocked days)
+    ...dailyAssignments.map((_, filteredIndex) => {
+      // Find the actual day number for this filtered assignment
+      const actualDayNumber = activatedDays[filteredIndex];
       return {
-        isLocked: status === 'locked' || status === 'tomorrow',
-        dayNumber: null, // No day number display
-        taskIdPrefix: `day-${dayNumber}-task` // Changed from dayX to match database
+        isLocked: false, // These are already filtered to be unlocked
+        dayNumber: null,
+        taskIdPrefix: `day-${actualDayNumber}-task`
       };
     })
   ];
 
-  console.log('🔧 AllAssignmentsPage - Fixed task IDs:', {
-    weeklyTaskIds: weeklyAssignments.map((_, index) => `assignment-${index}`),
-    dailyTaskIds: dailyAssignments.map((_, index) => `day-${index + 1}-task`),
-    completedTasks
+  console.log('🔧 AllAssignmentsPage - Filtered assignments:', {
+    activatedDays,
+    dailyAssignmentsCount: dailyAssignments.length,
+    totalAssignments: allAssignments.length
   });
 
-  if (progressLoading) {
+  if (progressLoading || dailyLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
         <PageHeader 
