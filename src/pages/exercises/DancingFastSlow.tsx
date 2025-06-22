@@ -173,6 +173,7 @@ const DancingFastSlow = () => {
           <TextContent variant="body" align="center">
             {t('exercises.dancingFastSlow.introText2')}
           </TextContent>
+          <BeatIllustration className="justify-center" />
         </StorySection>
 
         {/* Simple Start Section */}
@@ -181,10 +182,6 @@ const DancingFastSlow = () => {
             <TextContent variant="body" align="center">
               {t('exercises.dancingFastSlow.simpleText1')}
             </TextContent>
-            <div className="text-center">
-              <p className="text-gray-700 text-lg mb-4">Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4]</p>
-              <BeatIllustration className="justify-center" />
-            </div>
           </div>
           
           <div className="mb-8">

@@ -457,7 +457,7 @@ export const translations = {
       },
       introText1: {
         en: "Most dancers always dance with the same tempo, but forcing yourself to dance at different speeds is one of the easiest ways to add diversity to your tango life.",
-        de: "Die meisten Tänzer*innen tanzen immer im gleichen Tempo – wie langweilig! Aber sich selbst zu verschiedenen Geschwindigkeiten zu 'zwingen' ist einer der einfachsten Wege, Abwechslung ins Tangoleben zu bringen."
+        de: "Die meisten Tänzer*innen tanzen immer im gleichen Tempo. Aber sich selbst zu verschiedenen Geschwindigkeiten zu 'zwingen' ist einer der einfachsten Wege, Abwechslung ins Tangoleben zu bringen."
       },
       introText2: {
         en: "Good beginners dance on the down beat [also known as the strong beat] [numbers 1 and 3 if we count to 4].",
@@ -489,7 +489,7 @@ export const translations = {
       },
       halfSpeed: {
         en: "Half Speed",
-        de: "Halbtempo (für Faultiere)"
+        de: "Halbtempo"
       },
       normalSpeed: {
         en: "Normal Speed",
@@ -497,7 +497,7 @@ export const translations = {
       },
       doubleSpeed: {
         en: "Double Speed",
-        de: "Doppeltes Tempo (für Energiebündel)"
+        de: "Doppeltes Tempo"
       },
       fullSongText: {
         en: "Do one full song at all three speeds, just walking on your own. Here is a song to do it:",
