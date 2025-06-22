@@ -1,11 +1,12 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lock, CheckCircle, Play } from 'lucide-react';
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
 import DayContent from './DayContent';
 import { DayStatus } from './DayStatus';
+import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 
 interface DayItemProps {
   dayNumber: number;
@@ -29,6 +30,70 @@ const DayItem: React.FC<DayItemProps> = ({
   topicIndex = 0
 }) => {
   const { t } = useTranslation();
+  const [timeUntilUnlock, setTimeUntilUnlock] = useState<string | null>(null);
+  const [canActivateNow, setCanActivateNow] = useState(false);
+  
+  const { getTimeUntilNextActivation, canActivateDay } = useDailyTopicActivation(
+    topicName, 
+    topicIndex, 
+    7 // totalDays - this could be made dynamic if needed
+  );
+
+  // Fetch unlock time only once when component mounts and status is 'tomorrow'
+  useEffect(() => {
+    if (status !== 'tomorrow') return;
+
+    let isMounted = true;
+    
+    const fetchUnlockInfo = async () => {
+      try {
+        // Check if day can be activated now
+        const canActivate = await canActivateDay(dayNumber);
+        if (!isMounted) return;
+        
+        if (canActivate) {
+          setCanActivateNow(true);
+          setTimeUntilUnlock(null);
+          return;
+        }
+
+        // Get time until next activation
+        const timeMs = await getTimeUntilNextActivation();
+        if (!isMounted) return;
+        
+        if (timeMs === null || timeMs <= 0) {
+          setCanActivateNow(true);
+          setTimeUntilUnlock(null);
+        } else {
+          setCanActivateNow(false);
+          
+          // Convert milliseconds to hours and minutes
+          const hours = Math.floor(timeMs / (1000 * 60 * 60));
+          const minutes = Math.floor((timeMs % (1000 * 60 * 60)) / (1000 * 60));
+          
+          if (hours > 0) {
+            setTimeUntilUnlock(`unlock in ${hours}h ${minutes}m`);
+          } else if (minutes > 0) {
+            setTimeUntilUnlock(`unlock in ${minutes}m`);
+          } else {
+            setTimeUntilUnlock('unlock soon');
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching unlock info:', error);
+        if (isMounted) {
+          setTimeUntilUnlock('unlock time unavailable');
+          setCanActivateNow(false);
+        }
+      }
+    };
+
+    fetchUnlockInfo();
+    
+    return () => {
+      isMounted = false;
+    };
+  }, [status, dayNumber, topicName, topicIndex]); // Only depend on static values
 
   console.log(`DayItem - Day ${dayNumber} received props:`, {
     topicName,
@@ -70,7 +135,7 @@ const DayItem: React.FC<DayItemProps> = ({
               </span>
             </div>
             
-            {onDayActivation && (
+            {canActivateNow && onDayActivation && (
               <Button
                 onClick={onDayActivation}
                 size="sm"
@@ -82,7 +147,13 @@ const DayItem: React.FC<DayItemProps> = ({
               </Button>
             )}
             
-            {!onDayActivation && (
+            {!canActivateNow && timeUntilUnlock && (
+              <span className="text-sm text-golden-yellow font-medium ml-auto">
+                {timeUntilUnlock}
+              </span>
+            )}
+            
+            {!canActivateNow && !timeUntilUnlock && (
               <span className="text-sm text-golden-yellow font-medium ml-auto">
                 {t('daily.availableTomorrow')}
               </span>
