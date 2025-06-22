@@ -11,14 +11,16 @@ const RoadMapHeader: React.FC = () => {
   return (
     <>
       {/* Navigation */}
-      <div className="relative z-10 p-2 sm:p-4 flex justify-between items-center">
-        <Link to="/" className="inline-flex items-center gap-1 sm:gap-2 text-cream bg-warm-brown/80 px-2 py-1 sm:px-4 sm:py-2 rounded-full hover:bg-warm-brown transition-all duration-300 shadow-lg backdrop-blur-sm text-sm sm:text-base">
-          <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4" />
-          <span className="hidden xs:inline">{t('common.backToHome')}</span>
-          <span className="xs:hidden">Back</span>
+      <div className="relative z-10 p-2 sm:p-4 flex justify-between items-start gap-2">
+        <Link to="/" className="inline-flex items-center gap-1 sm:gap-2 text-cream bg-warm-brown/80 px-2 py-1 sm:px-4 sm:py-2 rounded-full hover:bg-warm-brown transition-all duration-300 shadow-lg backdrop-blur-sm text-xs sm:text-base max-w-[120px] sm:max-w-none">
+          <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+          <span className="hidden xs:inline whitespace-nowrap">{t('common.backToHome')}</span>
+          <span className="xs:hidden text-center leading-tight">Back</span>
         </Link>
         
-        <LanguageSelector />
+        <div className="max-w-[120px] sm:max-w-none">
+          <LanguageSelector />
+        </div>
       </div>
 
       {/* Header */}
