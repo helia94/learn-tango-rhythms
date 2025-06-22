@@ -25,13 +25,13 @@ const Day2Content: React.FC<Day2ContentProps> = ({
   const audioTracks = [
     {
       key: 'bridge-adios-arrabal',
-      title: 'Bridge 1 - Adios Arrabal - Angel D\'Agostino',
+      title: 'Adios Arrabal - Angel D\'Agostino',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750625264/Bridge_1_-_Adios_Arrabal_-_Angel_D_Agostino_jgj8mo.mp3',
       colorEvents: [7000, 14500, 22000]
     },
     {
       key: 'bridge-compadron',
-      title: 'Bridge 2 - Compadrón - Juan D\'Arienzo',
+      title: 'Compadrón - Juan D\'Arienzo',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750625264/bridge_2_-_Compadr%C3%B3n_-_Juan_D_Arienzo_aouzxg.mp3',
       colorEvents: [6500, 13900, 21300]
     }
