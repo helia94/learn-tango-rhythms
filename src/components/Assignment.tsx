@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Assignment as AssignmentType } from '@/data/assignments/fastAndSlow';
@@ -32,6 +31,15 @@ const Assignment: React.FC<AssignmentProps> = ({
   const { reportAssignmentLevel, isLoading } = useAssignmentReporting();
   const { user } = useAuth();
 
+  console.log('🎯 Assignment component:', {
+    taskId,
+    level,
+    topicName,
+    topicIndex,
+    user: user?.id,
+    assignmentContent: assignment?.content
+  });
+
   // Add null check for assignment
   if (!assignment || !assignment.content) {
     console.error('Assignment is missing or has no content:', assignment);
@@ -43,18 +51,29 @@ const Assignment: React.FC<AssignmentProps> = ({
   }
 
   const handleLevelChange = async (newLevel: number) => {
+    console.log('🔄 Assignment level change:', {
+      taskId,
+      oldLevel: level,
+      newLevel,
+      user: user?.id
+    });
+    
     // Only allow level changes if user is logged in
-    if (!user) return;
+    if (!user) {
+      console.log('❌ Cannot change level - user not logged in');
+      return;
+    }
     
     // Update local state immediately for responsiveness
     onLevelChange(taskId, newLevel);
     
     // Report to database
     try {
+      console.log('📤 Reporting to database:', { topicName, topicIndex, taskId, newLevel });
       await reportAssignmentLevel(topicName, topicIndex, taskId, newLevel);
+      console.log('✅ Successfully reported level change');
     } catch (error) {
-      console.error('Failed to report assignment level:', error);
-      // You could add a toast notification here if needed
+      console.error('❌ Failed to report assignment level:', error);
     }
   };
 
@@ -72,7 +91,6 @@ const Assignment: React.FC<AssignmentProps> = ({
     }
   };
 
-  // Helper function to render text with line breaks
   const renderTextWithLineBreaks = (text: string) => {
     return text.split('\n').map((line, index, array) => (
       <React.Fragment key={index}>

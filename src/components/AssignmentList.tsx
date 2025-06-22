@@ -34,6 +34,10 @@ const AssignmentList: React.FC<AssignmentListProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  console.log('🎯 AssignmentList - completedTasks:', completedTasks);
+  console.log('🎯 AssignmentList - assignments count:', assignments.length);
+  console.log('🎯 AssignmentList - assignmentMetadata:', assignmentMetadata);
+
   return (
     <div className={`space-y-6 ${className}`}>
       {assignments.map((assignment, index) => {
@@ -41,6 +45,13 @@ const AssignmentList: React.FC<AssignmentListProps> = ({
         const taskId = metadata ? 
           (metadata.dayNumber ? `${metadata.taskIdPrefix}-task` : metadata.taskIdPrefix) :
           `${keyPrefix}-${index}`;
+
+        console.log(`📝 Assignment ${index}:`, {
+          taskId,
+          metadata,
+          level: completedTasks[taskId] || 0,
+          assignment: assignment.content
+        });
 
         // Handle locked assignments - simple lock display
         if (metadata?.isLocked) {
