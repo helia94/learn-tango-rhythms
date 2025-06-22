@@ -22,8 +22,13 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     console.log(`Language switched to: ${language}`);
   };
 
+  const value = {
+    currentLanguage,
+    setLanguage
+  };
+
   return (
-    <LanguageContext.Provider value={{ currentLanguage, setLanguage }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
