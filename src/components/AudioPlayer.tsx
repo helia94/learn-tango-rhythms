@@ -25,6 +25,19 @@ const AudioPlayer = ({
   const [currentColor, setCurrentColor] = useState('bg-warm-brown/20');
   const [activeEvents, setActiveEvents] = useState<number[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  // Stabilize incoming arrays with refs to prevent infinite re-renders
+  const colorChangesRef = useRef<ColorChange[]>([]);
+  const colorEventsRef = useRef<number[]>([]);
+
+  // Update refs when prop arrays actually change
+  useEffect(() => {
+    colorChangesRef.current = colorChanges;
+  }, [colorChanges]);
+
+  useEffect(() => {
+    colorEventsRef.current = colorEvents;
+  }, [colorEvents]);
 
   useEffect(() => {
     const audio = new Audio(audioUrl);
@@ -67,7 +80,7 @@ const AudioPlayer = ({
     };
   }, [audioUrl]);
 
-  // Handle color changes based on timestamps
+  // Rewritten timeline coloring effect with stable dependencies
   useEffect(() => {
     if (!isPlaying) return;
 
@@ -75,28 +88,35 @@ const AudioPlayer = ({
 
     // Reset to initial color when starting from beginning
     if (currentTime < 0.1) {
-      setCurrentColor('bg-warm-brown/20');
-      setActiveEvents([]);
+      setCurrentColor(prev => prev !== 'bg-warm-brown/20' ? 'bg-warm-brown/20' : prev);
+      setActiveEvents(prev => prev.length > 0 ? [] : prev);
       return;
     }
 
     // Handle segment color changes - find the most recent color change that has passed
-    const currentSegment = colorChanges
+    const currentSegment = colorChangesRef.current
       .slice()
       .reverse()
       .find(change => currentTimeMs >= change.timestamp);
     
     if (currentSegment) {
-      setCurrentColor(currentSegment.color);
+      setCurrentColor(prev => prev !== currentSegment.color ? currentSegment.color : prev);
     }
 
     // Handle event detection - show active events with symbols
-    const currentActiveEvents = colorEvents.filter(
+    const currentActiveEvents = colorEventsRef.current.filter(
       timestamp => Math.abs(currentTimeMs - timestamp) <= 200
     );
 
-    setActiveEvents(currentActiveEvents);
-  }, [currentTime, isPlaying, colorChanges, colorEvents]);
+    setActiveEvents(prev => {
+      // Guard against unnecessary state writes
+      if (prev.length !== currentActiveEvents.length || 
+          !prev.every((event, index) => event === currentActiveEvents[index])) {
+        return currentActiveEvents;
+      }
+      return prev;
+    });
+  }, [currentTime, isPlaying]);
 
   const togglePlayback = async () => {
     if (!audioRef.current) return;
@@ -146,7 +166,7 @@ const AudioPlayer = ({
 
   // Create progress bar segments based on colorChanges
   const getProgressSegments = () => {
-    if (!duration || colorChanges.length === 0) {
+    if (!duration || colorChangesRef.current.length === 0) {
       // Single segment with default color
       return [{
         percentage: progress,
@@ -160,7 +180,7 @@ const AudioPlayer = ({
     const segments = [];
     
     // Sort color changes by timestamp
-    const sortedChanges = [...colorChanges].sort((a, b) => a.timestamp - b.timestamp);
+    const sortedChanges = [...colorChangesRef.current].sort((a, b) => a.timestamp - b.timestamp);
     
     let lastTimestamp = 0;
     let defaultColor = 'bg-primary';
@@ -194,7 +214,7 @@ const AudioPlayer = ({
 
   // Create background segments for passive mode (showing color structure when not playing)
   const getBackgroundSegments = () => {
-    if (!duration || colorChanges.length === 0) {
+    if (!duration || colorChangesRef.current.length === 0) {
       return [];
     }
 
@@ -202,7 +222,7 @@ const AudioPlayer = ({
     const segments = [];
     
     // Sort color changes by timestamp
-    const sortedChanges = [...colorChanges].sort((a, b) => a.timestamp - b.timestamp);
+    const sortedChanges = [...colorChangesRef.current].sort((a, b) => a.timestamp - b.timestamp);
     
     let lastTimestamp = 0;
     
@@ -231,7 +251,7 @@ const AudioPlayer = ({
   const getEventMarkers = () => {
     if (!duration) return [];
     
-    return colorEvents.map((timestamp, index) => {
+    return colorEventsRef.current.map((timestamp, index) => {
       const percentage = (timestamp / 1000 / duration) * 100;
       return {
         id: index,
