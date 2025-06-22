@@ -69,7 +69,7 @@ export const dancingWithWithoutControlTranslations = {
           },
           task: {
             en: "Dance ending Variacion of these songs without control, just following the flow of your bodies as a couple.",
-            de: "Tanze die Schluss-Variacion dieser Lieder ohne Kontrolle – folge einfach dem Fluss Eurer Körper als Paar."
+            de: "Tanze die Schluss-Variation dieser Lieder ohne Kontrolle – folge einfach dem Fluss Eurer Körper als Paar."
           }
         },
         day4: {
@@ -82,8 +82,15 @@ export const dancingWithWithoutControlTranslations = {
             de: "Versuche sowohl voreinander zu gehen als auch nebeneinander und versuche, mit weniger Kontrolle zu tanzen."
           }
         }
+      },
+      practiceSongs: {
+        en: "Practice Songs",
+        de: "Übungslieder"
+      },
+      practiceSongsText: {
+        en: "Here are some carefully selected songs to practice the concepts you've learned. Listen to the music and apply the techniques from this week's exercises.",
+        de: "Hier sind einige sorgfältig ausgewählte Lieder, um die Konzepte zu üben, die Du gelernt hast. Höre die Musik und wende die Techniken aus den Übungen dieser Woche an."
       }
     }
   }
 };
-

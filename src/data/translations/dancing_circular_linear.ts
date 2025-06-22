@@ -68,8 +68,15 @@ export const dancingCircularLinearTranslations = {
             de: "Tanze ein paar ochos und bemerke, wie lange es dauert, vollständig zu pivotieren. Wie stabil fühlst Du Dich auf Deiner Achse, bevor Du anfängst zu drehen?\n\nDann wechsle zu linearen Schritten wie rebounds und spiele mit schnellen Gewichtsverlagerungen. Wie fühlt sich das Timing anders an?\n\nJetzt erkunde die Seite des Followers: Führe einen Pivot und lass ihn sich Zeit nehmen. Bemerke, was sich ändert, wenn Du Raum gibst, im Vergleich dazu, wenn Du das Timing mehr kontrollierst.\n\nVersuche schließlich, scharfe musikalische Akzente mit linearen Schritten zu treffen, dann versuche dasselbe mit kreisförmiger Bewegung. Was funktioniert wo besser? Lass Deinen Körper antworten."
           }
         }
+      },
+      practiceSongs: {
+        en: "Practice Songs",
+        de: "Übungslieder"
+      },
+      practiceSongsText: {
+        en: "Here are some carefully selected songs to practice the concepts you've learned. Listen to the music and apply the techniques from this week's exercises.",
+        de: "Hier sind einige sorgfältig ausgewählte Lieder, um die Konzepte zu üben, die Du gelernt hast. Höre die Musik und wende die Techniken aus den Übungen dieser Woche an."
       }
     }
   }
 };
-

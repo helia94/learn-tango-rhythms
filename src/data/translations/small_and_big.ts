@@ -204,8 +204,15 @@ export const smallAndBigTranslations = {
             de: "Höre Dir einige Beispiele von Brücken in der Musik an und übe, Deinem Follower zu erlauben, viele kleine Schritte während dieser musikalischen Momente zu machen."
           }
         }
+      },
+      practiceSongs: {
+        en: "Practice Songs",
+        de: "Übungslieder"
+      },
+      practiceSongsText: {
+        en: "Here are some carefully selected songs to practice the concepts you've learned. Listen to the music and apply the techniques from this week's exercises.",
+        de: "Hier sind einige sorgfältig ausgewählte Lieder, um die Konzepte zu üben, die Du gelernt hast. Höre die Musik und wende die Techniken aus den Übungen dieser Woche an."
       }
     }
   }
 };
-
