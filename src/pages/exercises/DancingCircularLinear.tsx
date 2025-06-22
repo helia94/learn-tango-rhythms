@@ -12,6 +12,7 @@ import DancingCircularLinearDaily1to3 from '@/components/DancingCircularLinearDa
 import { getWeeklyAssignments } from '@/data/assignments/dancing_circular_linear';
 import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
 import AudioPlayer from '@/components/AudioPlayer';
+import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
 const DancingCircularLinear = () => {
   const { t } = useTranslation();
@@ -26,6 +27,33 @@ const DancingCircularLinear = () => {
 
   const weeklyAssignmentsData = getWeeklyAssignments();
   const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
+
+  // Practice playlist data for circular/linear movements
+  const practicePlaylistData = {
+    title: t('exercises.dancingCircularLinear.practiceSongs' as any),
+    description: t('exercises.dancingCircularLinear.practiceSongsText' as any),
+    spotifySrc: "https://open.spotify.com/embed/playlist/37i9dQZF1DX0kbJZpiYdZl?utm_source=generator&theme=0",
+    infoBoxes: [
+      {
+        title: t('exercises.dancingCircularLinear.songs1And2' as any),
+        subtitle: 'Circular Movement Focus',
+        description: t('exercises.dancingCircularLinear.songs1And2Text' as any),
+        theme: 'terracotta' as const
+      },
+      {
+        title: t('exercises.dancingCircularLinear.songs3And4' as any),
+        subtitle: 'Linear Movement Focus',
+        description: t('exercises.dancingCircularLinear.songs3And4Text' as any),
+        theme: 'golden' as const
+      },
+      {
+        title: t('exercises.dancingCircularLinear.songs5And6' as any),
+        subtitle: 'Mixed Movement Patterns',
+        description: t('exercises.dancingCircularLinear.songs5And6Text' as any),
+        theme: 'dusty-rose' as const
+      }
+    ]
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
@@ -65,22 +93,20 @@ const DancingCircularLinear = () => {
 
         <LegatoStaccatoSamples />
 
-
-          
-          <AudioPlayer
-            title="Tango Brujo - Juan D'Arienzo Orchestra"
-            audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750588894/Complex_L_and_S_-_Tango_Brujo_-_Juan_D_Arienzo_and_his_Orchestra_k0kar2.mp3"
-            colorChanges={[
-              { timestamp: 0, color: 'bg-sage-green' },
-              { timestamp: 4110, color: 'bg-terracotta' },
-              { timestamp: 5480, color: 'bg-sage-green' },
-              { timestamp: 7550, color: 'bg-terracotta' },
-              { timestamp: 10030, color: 'bg-sage-green' },
-              { timestamp: 15050, color: 'bg-terracotta' },
-              { timestamp: 23290, color: 'bg-sage-green' },
-              { timestamp: 26220, color: 'bg-terracotta' },
-            ]}
-          />
+        <AudioPlayer
+          title="Tango Brujo - Juan D'Arienzo Orchestra"
+          audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750588894/Complex_L_and_S_-_Tango_Brujo_-_Juan_D_Arienzo_and_his_Orchestra_k0kar2.mp3"
+          colorChanges={[
+            { timestamp: 0, color: 'bg-sage-green' },
+            { timestamp: 4110, color: 'bg-terracotta' },
+            { timestamp: 5480, color: 'bg-sage-green' },
+            { timestamp: 7550, color: 'bg-terracotta' },
+            { timestamp: 10030, color: 'bg-sage-green' },
+            { timestamp: 15050, color: 'bg-terracotta' },
+            { timestamp: 23290, color: 'bg-sage-green' },
+            { timestamp: 26220, color: 'bg-terracotta' },
+          ]}
+        />
 
         {/* Weekly Assignment Section */}
         <StorySection>
@@ -103,6 +129,14 @@ const DancingCircularLinear = () => {
             topicIndex={3}
           />
         </StorySection>
+
+        {/* Practice Playlist Section */}
+        <PracticePlaylistSection 
+          title={practicePlaylistData.title}
+          description={practicePlaylistData.description}
+          spotifySrc={practicePlaylistData.spotifySrc}
+          infoBoxes={practicePlaylistData.infoBoxes}
+        />
       </div>
 
       {/* Daily System */}

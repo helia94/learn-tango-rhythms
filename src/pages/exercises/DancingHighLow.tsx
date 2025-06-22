@@ -4,13 +4,14 @@ import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
-import TipsInfoBox from '@/components/ui/TipsInfoBox';
-import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
+import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import AssignmentList from '@/components/AssignmentList';
 import DancingHighLowDaily1to7 from '@/components/DancingHighLowDaily1to7';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_high_low';
+import AudioPlayer from '@/components/AudioPlayer';
+import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 
 const DancingHighLow = () => {
   const { t } = useTranslation();
@@ -26,11 +27,32 @@ const DancingHighLow = () => {
   const weeklyAssignmentsData = getWeeklyAssignments();
   const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
 
-  const tips = [
-    t('exercises.dancingHighLow.tip1' as any),
-    t('exercises.dancingHighLow.tip2' as any), 
-    t('exercises.dancingHighLow.tip3' as any)
-  ];
+  // Practice playlist data for high/low movements
+  const practicePlaylistData = {
+    title: t('exercises.dancingHighLow.practiceSongs' as any),
+    description: t('exercises.dancingHighLow.practiceSongsText' as any),
+    spotifySrc: "https://open.spotify.com/embed/playlist/37i9dQZF1DWXRqgorJj26U?utm_source=generator&theme=0",
+    infoBoxes: [
+      {
+        title: t('exercises.dancingHighLow.songs1And2' as any),
+        subtitle: 'High Energy Focus',
+        description: t('exercises.dancingHighLow.songs1And2Text' as any),
+        theme: 'terracotta' as const
+      },
+      {
+        title: t('exercises.dancingHighLow.songs3And4' as any),
+        subtitle: 'Low Energy Focus',
+        description: t('exercises.dancingHighLow.songs3And4Text' as any),
+        theme: 'golden' as const
+      },
+      {
+        title: t('exercises.dancingHighLow.songs5And6' as any),
+        subtitle: 'Dynamic Contrast',
+        description: t('exercises.dancingHighLow.songs5And6Text' as any),
+        theme: 'dusty-rose' as const
+      }
+    ]
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
@@ -41,7 +63,7 @@ const DancingHighLow = () => {
         <div className="text-center">
           <TopicStartButton 
             topicKey="dancing-high-low"
-            topicIndex={2}
+            topicIndex={1}
           />
         </div>
       </div>
@@ -58,46 +80,26 @@ const DancingHighLow = () => {
           </TextContent>
         </StorySection>
 
-        {/* Tips for Height Tools */}
+        {/* Musical Connection Section */}
         <StorySection>
-          <TipsInfoBox
-            title={t('exercises.dancingHighLow.tipsTitle' as any)}
-            tips={tips}
-          />
-        </StorySection>
-
-        {/* Why Change Height Section */}
-        <StorySection title="">
+          <h2 className="text-3xl font-display text-gray-800 mb-6 text-center">
+            {t('exercises.dancingHighLow.musicalConnectionTitle' as any)}
+          </h2>
           <TextContent variant="body" align="center">
-            {t('exercises.dancingHighLow.tip4' as any)}
+            {t('exercises.dancingHighLow.musicalConnectionText1' as any)}
           </TextContent>
         </StorySection>
 
-        {/* Height Drama Text */}
-        <StorySection>
-          <TextContent variant="body" align="center" className="mb-6">
-            {t('exercises.dancingHighLow.heightDramaText' as any)}
-          </TextContent>
-          
-          {/* Professional Example Video */}
-          <div className="flex justify-center">
-            <div className="w-full max-w-2xl">
-              <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-2xl shadow-2xl">
-                <iframe
-                  src="https://www.youtube.com/embed/UiAic0aBKdk?si=0TlLs7TSAb4eYGoc"
-                  title="Majo Martirena and Rodrigo Fonti - Height Variation Example"
-                  className="absolute top-0 left-0 w-full h-full"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              <p className="text-center text-sm text-gray-600 mt-2">
-                Majo Martirena and Rodrigo Fonti demonstrating height variations
-              </p>
-            </div>
-          </div>
-        </StorySection>
+        <AudioPlayer
+          title="High-Low Example - Orchestra Variation"
+          audioUrl="https://res.cloudinary.com/dl9xg597r/video/upload/v1750588894/High_Low_Example_Orchestra_Variation.mp3"
+          colorChanges={[
+            { timestamp: 0, color: 'bg-sage-green' },
+            { timestamp: 5000, color: 'bg-terracotta' },
+            { timestamp: 10000, color: 'bg-sage-green' },
+            { timestamp: 15000, color: 'bg-terracotta' },
+          ]}
+        />
 
         {/* Weekly Assignment Section */}
         <StorySection>
@@ -117,9 +119,17 @@ const DancingHighLow = () => {
             onTaskLevelChange={handleTaskLevelChange}
             keyPrefix="assignment"
             topicName="dancing-high-low"
-            topicIndex={2}
+            topicIndex={1}
           />
         </StorySection>
+
+        {/* Practice Playlist Section */}
+        <PracticePlaylistSection 
+          title={practicePlaylistData.title}
+          description={practicePlaylistData.description}
+          spotifySrc={practicePlaylistData.spotifySrc}
+          infoBoxes={practicePlaylistData.infoBoxes}
+        />
       </div>
 
       {/* Daily System */}
