@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -7,40 +8,9 @@ import { useUnlockAll } from './useFeatureFlag';
 export const useDailyTopicActivation = (topicKey: string, topicIndex: number, totalDays: number) => {
   const [activatedDays, setActivatedDays] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
   const { getActiveTopic } = useTopicActivation();
   const unlockAllEnabled = useUnlockAll();
-
-  // Check if current user has admin unlock all activated
-  const checkAdminUnlockAll = async (): Promise<boolean> => {
-    if (!profile?.username) return false;
-
-    try {
-      // First check if user is admin
-      const { data: adminData, error: adminError } = await supabase
-        .from('admin_users')
-        .select('username')
-        .eq('username', profile.username)
-        .single();
-
-      if (adminError || !adminData) {
-        return false; // Not an admin
-      }
-
-      // Then check if unlock all is activated for this admin
-      const { data: unlockData, error: unlockError } = await supabase
-        .from('unlock_all_activated')
-        .select('id')
-        .eq('username', profile.username)
-        .eq('index_activated', 1)
-        .single();
-
-      return !unlockError && !!unlockData;
-    } catch (error) {
-      console.error('Error checking admin unlock all:', error);
-      return false;
-    }
-  };
 
   const fetchActivatedDays = async () => {
     if (!user) {
@@ -78,11 +48,8 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
       throw new Error('User must be logged in to activate day');
     }
 
-    // Check if admin unlock all is active or regular unlock all is enabled
-    const isAdminUnlockAllActive = await checkAdminUnlockAll();
-    
-    // If unlockAll or admin unlock all is enabled, skip time restrictions
-    if (!unlockAllEnabled && !isAdminUnlockAllActive) {
+    // If unlockAll is enabled, skip time restrictions
+    if (!unlockAllEnabled) {
       // Check if we can activate this day
       const canActivate = await canActivateDay(dayIndex);
       if (!canActivate) {
@@ -113,23 +80,17 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
     }
   };
 
-  const whichDailiesWereActivated = async (): Promise<number[]> => {
-    // Check if admin unlock all is active
-    const isAdminUnlockAllActive = await checkAdminUnlockAll();
-    
-    // If unlockAll or admin unlock all is enabled, return all days as activated
-    if (unlockAllEnabled || isAdminUnlockAllActive) {
+  const whichDailiesWereActivated = (): number[] => {
+    // If unlockAll is enabled, return all days as activated
+    if (unlockAllEnabled) {
       return Array.from({ length: totalDays }, (_, i) => i + 1);
     }
     return [...activatedDays].sort((a, b) => a - b);
   };
 
-  const whichDailyIsNextOnActivationOrder = async (): Promise<number | null> => {
-    // Check if admin unlock all is active
-    const isAdminUnlockAllActive = await checkAdminUnlockAll();
-    
-    // If unlockAll or admin unlock all is enabled, all days are available
-    if (unlockAllEnabled || isAdminUnlockAllActive) {
+  const whichDailyIsNextOnActivationOrder = (): number | null => {
+    // If unlockAll is enabled, all days are available
+    if (unlockAllEnabled) {
       return null; // All days are unlocked
     }
     
@@ -183,15 +144,12 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
   };
 
   const whenCanNextDailyBeActivated = async (): Promise<Date | null> => {
-    // Check if admin unlock all is active
-    const isAdminUnlockAllActive = await checkAdminUnlockAll();
-    
-    // If unlockAll or admin unlock all is enabled, next daily can always be activated
-    if (unlockAllEnabled || isAdminUnlockAllActive) {
+    // If unlockAll is enabled, next daily can always be activated
+    if (unlockAllEnabled) {
       return new Date(); // Immediate activation
     }
 
-    const nextDay = await whichDailyIsNextOnActivationOrder();
+    const nextDay = whichDailyIsNextOnActivationOrder();
     if (nextDay === null) {
       return null; // All days activated
     }
@@ -223,11 +181,8 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
   };
 
   const canActivateDay = async (dayIndex: number): Promise<boolean> => {
-    // Check if admin unlock all is active
-    const isAdminUnlockAllActive = await checkAdminUnlockAll();
-    
-    // If unlockAll or admin unlock all is enabled, any day can be activated
-    if (unlockAllEnabled || isAdminUnlockAllActive) {
+    // If unlockAll is enabled, any day can be activated
+    if (unlockAllEnabled) {
       return !activatedDays.includes(dayIndex); // Only prevent if already activated
     }
 
@@ -235,7 +190,7 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
       return false; // Already activated
     }
 
-    const nextDay = await whichDailyIsNextOnActivationOrder();
+    const nextDay = whichDailyIsNextOnActivationOrder();
     if (nextDay !== dayIndex) {
       return false; // Not the next day in order
     }
@@ -250,11 +205,8 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
   };
 
   const getTimeUntilNextActivation = async (): Promise<number | null> => {
-    // Check if admin unlock all is active
-    const isAdminUnlockAllActive = await checkAdminUnlockAll();
-    
-    // If unlockAll or admin unlock all is enabled, no waiting time
-    if (unlockAllEnabled || isAdminUnlockAllActive) {
+    // If unlockAll is enabled, no waiting time
+    if (unlockAllEnabled) {
       return 0;
     }
 
@@ -272,8 +224,8 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
     fetchActivatedDays();
   }, [user, topicKey, topicIndex]);
 
-  // Return all required values, but use async versions for functions that check admin unlock all
-  const nextDayToActivate = null; // This will be calculated async now
+  // Return nextDayToActivate and unlockAllEnabled that were missing
+  const nextDayToActivate = whichDailyIsNextOnActivationOrder();
 
   return {
     activatedDays,

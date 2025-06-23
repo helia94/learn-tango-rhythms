@@ -3,7 +3,6 @@ import React, { createContext, useContext, useState, useEffect, ReactNode, useRe
 import { useAuth } from '@/contexts/AuthContext';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
 import { useFeatureFlags } from '@/contexts/FeatureFlagsContext';
-import { supabase } from '@/integrations/supabase/client';
 
 interface TopicVisibility {
   topicIndex: number;
@@ -60,44 +59,13 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
   const [error, setError] = useState<string | null>(null);
   const hasInitialized = useRef(false);
   
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
   const { flags } = useFeatureFlags();
   const { 
     getAllUnlockedTopics, 
     isTopicActive, 
     getTopicDeadline 
   } = useTopicActivation();
-
-  // Check if current user has admin unlock all activated
-  const checkAdminUnlockAll = async (): Promise<boolean> => {
-    if (!profile?.username) return false;
-
-    try {
-      // First check if user is admin
-      const { data: adminData, error: adminError } = await supabase
-        .from('admin_users')
-        .select('username')
-        .eq('username', profile.username)
-        .single();
-
-      if (adminError || !adminData) {
-        return false; // Not an admin
-      }
-
-      // Then check if unlock all is activated for this admin
-      const { data: unlockData, error: unlockError } = await supabase
-        .from('unlock_all_activated')
-        .select('id')
-        .eq('username', profile.username)
-        .eq('index_activated', 1)
-        .single();
-
-      return !unlockError && !!unlockData;
-    } catch (error) {
-      console.error('Error checking admin unlock all:', error);
-      return false;
-    }
-  };
 
   const refreshVisibility = async () => {
     // Prevent multiple concurrent calls
@@ -109,9 +77,6 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     setError(null);
     
     try {
-      // Check if admin unlock all is active
-      const isAdminUnlockAllActive = await checkAdminUnlockAll();
-      
       // Get all unlocked topics
       const unlockedTopicIndices = await getAllUnlockedTopics();
       
@@ -128,10 +93,9 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
           const deadline = await getTopicDeadline(topicConfig.topicKey, topicConfig.topicIndex);
           
           // Topic is visible if:
-          // 1. It's unlocked naturally
-          // 2. Or if unlockAll feature flag is enabled  
-          // 3. Or if admin unlock all is activated
-          const isVisible = isUnlocked || (flags?.unlockAll === true) || isAdminUnlockAllActive;
+          // 1. It's unlocked (either naturally or via feature flag)
+          // 2. Or if unlockAll feature flag is enabled
+          const isVisible = isUnlocked || (flags?.unlockAll === true);
           
           const topicVisibility: TopicVisibility = {
             topicIndex: topicConfig.topicIndex,
@@ -199,14 +163,14 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     return visibleSubtopics.find(s => s.topicIndex === topicIndex && s.dayIndex === dayIndex) || null;
   };
 
-  // Refresh visibility when user authentication status changes, feature flags change, or profile changes
+  // Refresh visibility when user authentication status changes or feature flags change
   useEffect(() => {
     // Reset initialization flag when dependencies change
     hasInitialized.current = false;
     refreshVisibility().catch(error => {
       console.error('TopicVisibilityContext: Error in useEffect refreshVisibility:', error);
     });
-  }, [user, profile?.username, flags?.unlockAll]);
+  }, [user, flags?.unlockAll]);
 
   const value: TopicVisibilityContextValue = {
     visibleTopics,

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import PageHeader from '@/components/ui/PageHeader';
 import StorySection from '@/components/ui/StorySection';
@@ -48,24 +48,7 @@ const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
 
   // Get activated days from the daily topic activation hook
   const { whichDailiesWereActivated, isLoading: dailyLoading } = useDailyTopicActivation(topicName, topicIndex, totalDays);
-  
-  // State for async activated days
-  const [activatedDays, setActivatedDays] = useState<number[]>([]);
-
-  // Fetch activated days asynchronously
-  useEffect(() => {
-    const fetchActivatedDays = async () => {
-      try {
-        const result = await whichDailiesWereActivated();
-        setActivatedDays(result);
-      } catch (error) {
-        console.error('Error fetching activated days:', error);
-        setActivatedDays([]);
-      }
-    };
-
-    fetchActivatedDays();
-  }, [whichDailiesWereActivated]);
+  const activatedDays = whichDailiesWereActivated();
 
   // Create daily assignments only for unlocked days
   const dailyAssignments: Assignment[] = [];

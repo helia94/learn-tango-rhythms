@@ -47,7 +47,7 @@ const DailyAssignmentsHeader: React.FC<DailyAssignmentsHeaderProps> = ({
         {t('daily.subtitle')} ({daysUnlocked}/{totalDays} days unlocked)
         {unlockAllEnabled && (
           <span className="block text-sm text-green-600 font-medium mt-1">
-            🚀 All content unlocked (Admin Mode)
+            🚀 All content unlocked (Dev Mode)
           </span>
         )}
       </p>
