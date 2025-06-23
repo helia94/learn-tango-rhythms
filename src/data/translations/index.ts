@@ -7,6 +7,7 @@ import { smallAndBigTranslations } from './small_and_big';
 import { dancingHighLowTranslations } from './dancing_high_low';
 import { dancingCircularLinearTranslations } from './dancing_circular_linear';
 import { dancingWithWithoutControlTranslations } from './dancing_with_without_control';
+import { adminTranslations } from './admin';
 import { deepMergeTranslations } from '@/utils/mergeTranslations';
 
 // Export the main TranslationKey type and extend it with home keys and missing exercise keys
@@ -78,7 +79,10 @@ export type TranslationKey = MainTranslationKey |
   `exercises.dancingWithWithoutControl.daily.day3.content` | `exercises.dancingWithWithoutControl.daily.day3.task` |
   `exercises.dancingWithWithoutControl.daily.day4.content` | `exercises.dancingWithWithoutControl.daily.day4.task` |
   // Add missing daily translation keys
-  `daily.dayNotFound` | `daily.topicNotFound`;
+  `daily.dayNotFound` | `daily.topicNotFound` |
+  // Add admin translation keys
+  `admin.controls` | `admin.unlockAllDescription` | `admin.activateUnlockAll` | `admin.deactivateUnlockAll` |
+  `admin.processing` | `admin.unlockAllActiveWarning`;
 
 export const translations = deepMergeTranslations(
   mainTranslations,
@@ -88,5 +92,6 @@ export const translations = deepMergeTranslations(
   smallAndBigTranslations,
   dancingHighLowTranslations,
   dancingCircularLinearTranslations,
-  dancingWithWithoutControlTranslations
+  dancingWithWithoutControlTranslations,
+  adminTranslations
 );

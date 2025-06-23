@@ -19,8 +19,8 @@ const UnlockAllButton: React.FC = () => {
       await toggleUnlockAll();
       toast.success(
         isUnlockAllActive 
-          ? 'Unlock All deactivated' 
-          : 'Unlock All activated'
+          ? t('admin.deactivateUnlockAll')
+          : t('admin.activateUnlockAll')
       );
     } catch (error) {
       toast.error('Failed to toggle Unlock All');
@@ -38,8 +38,8 @@ const UnlockAllButton: React.FC = () => {
           )}
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-warm-brown">Admin Controls</h3>
-          <p className="text-sm text-mushroom">Unlock all content for testing</p>
+          <h3 className="text-lg font-semibold text-warm-brown">{t('admin.controls')}</h3>
+          <p className="text-sm text-mushroom">{t('admin.unlockAllDescription')}</p>
         </div>
       </div>
       
@@ -53,16 +53,16 @@ const UnlockAllButton: React.FC = () => {
         } rounded-organic transition-all duration-300`}
       >
         {isLoading ? (
-          'Processing...'
+          t('admin.processing')
         ) : isUnlockAllActive ? (
           <>
             <Lock className="w-4 h-4 mr-2" />
-            Deactivate Unlock All
+            {t('admin.deactivateUnlockAll')}
           </>
         ) : (
           <>
             <Unlock className="w-4 h-4 mr-2" />
-            Activate Unlock All
+            {t('admin.activateUnlockAll')}
           </>
         )}
       </Button>
@@ -70,7 +70,7 @@ const UnlockAllButton: React.FC = () => {
       {isUnlockAllActive && (
         <div className="mt-3 p-3 bg-golden-yellow/20 rounded-lg">
           <p className="text-xs text-warm-brown font-medium">
-            ⚠️ Unlock All is currently active - all content is accessible
+            {t('admin.unlockAllActiveWarning')}
           </p>
         </div>
       )}
