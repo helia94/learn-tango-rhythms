@@ -748,8 +748,8 @@ export const translations = {
         },
         day6: {
           content: {
-            en: "Do back ochos in all 3 speeds, without changing the speed in the middle. Like the ocho cortado from Day 7, this challenges your ability to maintain consistent speed throughout the entire movement.",
-            de: "Mache Rück-ochos in allen 3 Geschwindigkeiten, ohne das Tempo mittendrin zu ändern. Wie das ocho cortado von Tag 7 fordert das Deine Fähigkeit heraus, konstante Geschwindigkeit durch die ganze Bewegung zu halten."
+            en: "Do back ochos in all 3 speeds, without changing the speed in the middle.",
+            de: "Mache Rück-ochos in allen 3 Geschwindigkeiten, ohne das Tempo mittendrin zu ändern."
           },
           task: {
             en: "I practiced back ochos at all three speeds without changing speed mid-movement",
