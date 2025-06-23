@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
@@ -30,9 +30,31 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
     canActivateDay
   } = useDailyTopicActivation('dancing-fast-slow', 0, totalDays);
 
-  // Calculate days unlocked based on activated days
-  const daysUnlocked = Math.max(...whichDailiesWereActivated(), 0);
-  const nextDayToActivate = whichDailyIsNextOnActivationOrder();
+  // State for async calculations
+  const [daysUnlocked, setDaysUnlocked] = useState(0);
+  const [nextDayToActivate, setNextDayToActivate] = useState<number | null>(null);
+  const [activatedDaysList, setActivatedDaysList] = useState<number[]>([]);
+
+  // Calculate async values
+  useEffect(() => {
+    const calculateAsyncValues = async () => {
+      try {
+        const activatedDaysResult = await whichDailiesWereActivated();
+        const nextDayResult = await whichDailyIsNextOnActivationOrder();
+        
+        setActivatedDaysList(activatedDaysResult);
+        setDaysUnlocked(activatedDaysResult.length > 0 ? Math.max(...activatedDaysResult) : 0);
+        setNextDayToActivate(nextDayResult);
+      } catch (error) {
+        console.error('Error calculating async values:', error);
+        setActivatedDaysList([]);
+        setDaysUnlocked(0);
+        setNextDayToActivate(null);
+      }
+    };
+
+    calculateAsyncValues();
+  }, [activatedDays, unlockAllEnabled, whichDailiesWereActivated, whichDailyIsNextOnActivationOrder]);
 
   const handleDayActivation = async (dayNumber: number) => {
     if (!user) return;
@@ -71,12 +93,13 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
         daysUnlocked={daysUnlocked}
         totalDays={totalDays}
         nextDayToActivate={nextDayToActivate}
+        unlockAllEnabled={unlockAllEnabled}
         isUserLoggedIn={!!user}
       />
 
       <DailyAccordion
         totalDays={totalDays}
-        activatedDays={whichDailiesWereActivated()}
+        activatedDays={activatedDaysList}
         nextDayToActivate={nextDayToActivate}
         completedTasks={completedTasks}
         onTaskLevelChange={onTaskLevelChange}
