@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -20,7 +21,7 @@ const Auth: React.FC = () => {
 
   // Redirect if already authenticated
   if (user && !loading) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/roadmap" replace />;
   }
 
   const handleBack = () => {
@@ -68,6 +69,8 @@ const Auth: React.FC = () => {
           }
         } else {
           toast.success('Welcome back!');
+          // Redirect to roadmap after successful sign in
+          navigate('/roadmap');
         }
       }
     } catch (error) {
