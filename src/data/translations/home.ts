@@ -1,8 +1,8 @@
 export const homeTranslations = {
   hero: {
     title: {
-      en: "TANGO A DIARIO",
-      de: "TANGO A DIARIO"
+      en: "TANGO DIARIO",
+      de: "TANGO DIARIO"
     },
     subtitle: {
       en: "(Daily Tango)",
@@ -119,8 +119,8 @@ export const homeTranslations = {
   },
   footer: {
     copyright: {
-      en: "TANGO A DIARIO © 2025",
-      de: "TANGO A DIARIO © 2025"
+      en: "TANGO DIARIO © 2025",
+      de: "TANGO DIARIO © 2025"
     },
     terms: {
       en: "Terms",

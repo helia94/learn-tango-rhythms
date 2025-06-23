@@ -15,21 +15,21 @@ const Terms = () => {
             <section>
               <h3 className="text-lg font-semibold mb-3">1. Acceptance of Terms</h3>
               <p className="leading-relaxed">
-                By accessing and using Tango a Diario, you accept and agree to be bound by the terms and provision of this agreement.
+                By accessing and using Tango Diario, you accept and agree to be bound by the terms and provision of this agreement.
               </p>
             </section>
             
             <section>
               <h3 className="text-lg font-semibold mb-3">2. Use License</h3>
               <p className="leading-relaxed">
-                Permission is granted to temporarily download one copy of Tango a Diario for personal, non-commercial transitory viewing only.
+                Permission is granted to temporarily download one copy of Tango Diario for personal, non-commercial transitory viewing only.
               </p>
             </section>
             
             <section>
               <h3 className="text-lg font-semibold mb-3">3. Disclaimer</h3>
               <p className="leading-relaxed">
-                The materials on Tango a Diario are provided on an 'as is' basis. Tango a Diario makes no warranties, expressed or implied.
+                The materials on Tango Diario are provided on an 'as is' basis. Tango Diario makes no warranties, expressed or implied.
               </p>
             </section>
             

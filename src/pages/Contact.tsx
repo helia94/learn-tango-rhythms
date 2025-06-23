@@ -55,7 +55,7 @@ const Contact = () => {
             <section className="bg-gradient-to-br from-warm-brown/10 to-caramel/5 rounded-[20px] p-6">
               <h3 className="text-lg font-semibold mb-3">About the Creator</h3>
               <p className="leading-relaxed">
-                Tango a Diario was created by Helia, a passionate tango dancer who wanted to make musicality learning more accessible. 
+                Tango Diario was created by Helia, a passionate tango dancer who wanted to make musicality learning more accessible. 
                 This project is a labor of love, designed to help dancers develop their musical understanding through daily practice.
               </p>
             </section>
