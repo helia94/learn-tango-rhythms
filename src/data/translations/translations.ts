@@ -12,6 +12,7 @@ export type TranslationKey =
   | 'common.startThisTopic'
   | 'common.loginToStart'
   | 'common.allAssignments'
+  | 'common.availableOn'
   | 'roadmap.title'
   | 'leaderboard.viewLeaderboard'
   | 'rhythm.title'
@@ -235,6 +236,10 @@ export const translations = {
     allAssignments: {
       en: "All Assignments",
       de: "Alle Aufgaben"
+    },
+    availableOn: {
+      en: "Available on",
+      de: "Verfügbar am"
     }
   },
   roadmap: {
@@ -956,4 +961,3 @@ export const translations = {
     }
   }
 };
-

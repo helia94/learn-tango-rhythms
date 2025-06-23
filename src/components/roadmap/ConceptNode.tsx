@@ -117,7 +117,7 @@ const ConceptNode: React.FC<ConceptNodeProps> = ({
               {availabilityDate && !conceptStatus.visible && (
                 <div className="flex items-center justify-center gap-1 text-xs text-warm-brown/70 flex-wrap">
                   <Calendar className="w-3 h-3 flex-shrink-0" />
-                  <span className="text-center">Available on {formatAvailabilityDate(availabilityDate)}</span>
+                  <span className="text-center">{t('common.availableOn')} {formatAvailabilityDate(availabilityDate)}</span>
                 </div>
               )}
               
