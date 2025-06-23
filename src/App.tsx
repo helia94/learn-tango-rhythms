@@ -14,6 +14,7 @@ import Daily from '@/pages/Daily';
 import Exercises from '@/pages/Exercises';
 import Topic from '@/pages/Topic';
 import Quiz from '@/pages/Quiz';
+import RoadMap from '@/pages/RoadMap';
 import { AudioPlayerProvider } from '@/contexts/AudioPlayerContext';
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ function App() {
                       <Route path="/exercises" element={<Exercises />} />
                       <Route path="/topic/:topicKey/:topicIndex" element={<Topic />} />
                       <Route path="/quiz" element={<Quiz />} />
+                      <Route path="/roadmap" element={<RoadMap />} />
                     </Routes>
                   </DailyExerciseProvider>
                 </AudioPlayerProvider>
