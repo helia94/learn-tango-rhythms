@@ -16,7 +16,7 @@ const FeatureFlagsContext = createContext<FeatureFlagsContextValue | undefined>(
 // Default configuration from environment variables
 const getDefaultFlags = (): FeatureFlags => {
   return {
-    unlockAll: import.meta.env.VITE_UNLOCK_ALL === 'true' || true, // Changed back to true
+    unlockAll: import.meta.env.VITE_UNLOCK_ALL === 'true' || false, // Changed from true to false
   };
 };
 
