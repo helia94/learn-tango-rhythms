@@ -30,7 +30,7 @@ const GameProfileDashboard: React.FC = () => {
     updateDailyEngagement(1, 5, 0);
   }, []);
 
-  // Calculate mastery for all activated topics
+  // Calculate mastery for all topics ever activated
   useEffect(() => {
     const fetchAllTopicsMastery = async () => {
       if (!user) {
@@ -39,18 +39,14 @@ const GameProfileDashboard: React.FC = () => {
       }
 
       try {
-        // Get all activated topics from the database
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
+        // Get all topics that have ever been activated (no time restriction)
         const { data: activatedTopics, error } = await supabase
           .from('topic_activations')
           .select('topic_key, topic_index')
-          .eq('user_id', user.id)
-          .gte('activated_at', sevenDaysAgo.toISOString());
+          .eq('user_id', user.id);
 
         if (error) {
-          console.error('Error fetching activated topics:', error);
+          console.error('Error fetching all activated topics:', error);
           return;
         }
 
@@ -62,7 +58,10 @@ const GameProfileDashboard: React.FC = () => {
         // Define topic names mapping
         const topicNames: Record<string, string> = {
           'dancing-fast-slow': 'Fast & Slow Dancing',
-          'dancing-small-big': 'Small & Big Dancing'
+          'dancing-small-big': 'Small & Big Dancing',
+          'dancing-high-low': 'High & Low Dancing',
+          'dancing-circular-linear': 'Circular & Linear Dancing',
+          'dancing-with-without-control': 'With & Without Control Dancing'
         };
 
         const masteryData = [];
@@ -104,6 +103,9 @@ const GameProfileDashboard: React.FC = () => {
             });
           }
         }
+
+        // Sort topics by mastery percentage (highest first)
+        masteryData.sort((a, b) => b.masteryPercentage - a.masteryPercentage);
 
         setTopicsMastery(masteryData);
       } catch (error) {
