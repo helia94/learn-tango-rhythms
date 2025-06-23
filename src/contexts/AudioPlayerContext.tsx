@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useRef, ReactNode } from 'react';
 
 interface AudioPlayerState {
@@ -40,7 +41,6 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const playersRef = useRef<Map<string, string>>(new Map());
-  const loopTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const registerPlayer = (playerId: string, audioUrl: string) => {
     playersRef.current.set(playerId, audioUrl);
@@ -50,12 +50,6 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
-    }
-    
-    // Clear any pending loop timeout
-    if (loopTimeoutRef.current) {
-      clearTimeout(loopTimeoutRef.current);
-      loopTimeoutRef.current = null;
     }
     
     setAudioState({
@@ -116,13 +110,6 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
   const pauseAudio = (playerId: string) => {
     if (audioState.currentPlayerId === playerId && audioRef.current) {
       audioRef.current.pause();
-      
-      // Clear any pending loop timeout when pausing
-      if (loopTimeoutRef.current) {
-        clearTimeout(loopTimeoutRef.current);
-        loopTimeoutRef.current = null;
-      }
-      
       setAudioState(prev => ({
         ...prev,
         isPlaying: false
@@ -155,35 +142,16 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
   };
 
   const handleEnded = () => {
-    const currentPlayerId = audioState.currentPlayerId;
-    
-    // Set state to show track has ended but keep it "playing" for the loop
     setAudioState(prev => ({
       ...prev,
-      currentTime: prev.duration,
-      progress: 100
+      isPlaying: false,
+      currentTime: 0,
+      progress: 0
     }));
-
-    // Schedule the next loop iteration after 1 second pause
-    loopTimeoutRef.current = setTimeout(() => {
-      if (audioRef.current && currentPlayerId) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play().catch(error => {
-          console.error('Failed to restart audio loop:', error);
-        });
-      }
-    }, 1000);
   };
 
   const handleError = (e: any) => {
     console.error('Audio playback error:', e);
-    
-    // Clear any pending loop timeout on error
-    if (loopTimeoutRef.current) {
-      clearTimeout(loopTimeoutRef.current);
-      loopTimeoutRef.current = null;
-    }
-    
     setAudioState(prev => ({
       ...prev,
       isPlaying: false,
