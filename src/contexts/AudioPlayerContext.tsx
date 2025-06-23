@@ -7,6 +7,7 @@ interface AudioPlayerState {
   currentTime: number;
   duration: number;
   progress: number;
+  isLooping: boolean;
 }
 
 interface AudioPlayerContextType {
@@ -18,6 +19,7 @@ interface AudioPlayerContextType {
   playAudio: (playerId: string) => Promise<void>;
   pauseAudio: (playerId: string) => void;
   stopAllAudio: () => void;
+  setLooping: (looping: boolean) => void;
   
   // Checks
   isPlayerActive: (playerId: string) => boolean;
@@ -36,14 +38,23 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
     isPlaying: false,
     currentTime: 0,
     duration: 0,
-    progress: 0
+    progress: 0,
+    isLooping: true // Default to looping enabled
   });
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const playersRef = useRef<Map<string, string>>(new Map());
+  const loopTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const registerPlayer = (playerId: string, audioUrl: string) => {
     playersRef.current.set(playerId, audioUrl);
+  };
+
+  const setLooping = (looping: boolean) => {
+    setAudioState(prev => ({
+      ...prev,
+      isLooping: looping
+    }));
   };
 
   const stopAllAudio = () => {
@@ -52,13 +63,20 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
       audioRef.current.currentTime = 0;
     }
     
-    setAudioState({
+    // Clear any pending loop timeout
+    if (loopTimeoutRef.current) {
+      clearTimeout(loopTimeoutRef.current);
+      loopTimeoutRef.current = null;
+    }
+    
+    setAudioState(prev => ({
+      ...prev,
       currentPlayerId: null,
       isPlaying: false,
       currentTime: 0,
       duration: 0,
       progress: 0
-    });
+    }));
   };
 
   const playAudio = async (playerId: string) => {
@@ -110,6 +128,13 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
   const pauseAudio = (playerId: string) => {
     if (audioState.currentPlayerId === playerId && audioRef.current) {
       audioRef.current.pause();
+      
+      // Clear any pending loop timeout when pausing
+      if (loopTimeoutRef.current) {
+        clearTimeout(loopTimeoutRef.current);
+        loopTimeoutRef.current = null;
+      }
+      
       setAudioState(prev => ({
         ...prev,
         isPlaying: false
@@ -142,12 +167,40 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
   };
 
   const handleEnded = () => {
-    setAudioState(prev => ({
-      ...prev,
-      isPlaying: false,
-      currentTime: 0,
-      progress: 0
-    }));
+    console.log('Audio ended, looping enabled:', audioState.isLooping);
+    
+    if (audioState.isLooping && audioState.currentPlayerId) {
+      // Set playing to false temporarily during the pause
+      setAudioState(prev => ({
+        ...prev,
+        isPlaying: false,
+        currentTime: 0,
+        progress: 0
+      }));
+      
+      // Restart playback after 1 second pause
+      loopTimeoutRef.current = setTimeout(() => {
+        if (audioRef.current && audioState.currentPlayerId) {
+          audioRef.current.currentTime = 0;
+          audioRef.current.play().then(() => {
+            setAudioState(prev => ({
+              ...prev,
+              isPlaying: true
+            }));
+          }).catch(error => {
+            console.error('Failed to restart audio loop:', error);
+          });
+        }
+      }, 1000);
+    } else {
+      // No looping, just stop
+      setAudioState(prev => ({
+        ...prev,
+        isPlaying: false,
+        currentTime: 0,
+        progress: 0
+      }));
+    }
   };
 
   const handleError = (e: any) => {
@@ -173,6 +226,7 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
     playAudio,
     pauseAudio,
     stopAllAudio,
+    setLooping,
     isPlayerActive,
     isPlayerPlaying
   };
