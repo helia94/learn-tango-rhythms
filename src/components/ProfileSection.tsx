@@ -75,44 +75,22 @@ const ProfileSection: React.FC = () => {
 
   return (
     <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-terracotta/20 rounded-full flex items-center justify-center">
-            <User className="w-6 h-6 text-terracotta" />
-          </div>
-          <div>
-            <h2 className="text-xl font-display text-warm-brown">
-              {profile.full_name || profile.username || 'Anonymous User'}
-            </h2>
-            <p className="text-sm text-mushroom">{user.email}</p>
-          </div>
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-12 h-12 bg-terracotta/20 rounded-full flex items-center justify-center">
+          <User className="w-6 h-6 text-terracotta" />
         </div>
-        
-        <div className="flex items-center gap-2">
-          <Button
-            onClick={() => setIsEditing(!isEditing)}
-            variant="outline"
-            size="sm"
-            className="border-sage-green/30 text-sage-green hover:bg-sage-green/10"
-          >
-            <Settings className="w-4 h-4 mr-1" />
-            {isEditing ? t('profile.sections.cancel') : t('profile.sections.edit')}
-          </Button>
-          
-          <Button
-            onClick={handleSignOut}
-            variant="outline"
-            size="sm"
-            className="border-terracotta/30 text-terracotta hover:bg-terracotta/10"
-          >
-            <LogOut className="w-4 h-4 mr-1" />
-            {t('profile.sections.signOut')}
-          </Button>
+        <div>
+          <h2 className="text-xl font-display text-warm-brown">
+            {profile.full_name || profile.username || 'Anonymous User'}
+          </h2>
+          <p className="text-sm text-mushroom">{user.email}</p>
         </div>
       </div>
 
+      {/* Content */}
       {isEditing ? (
-        <div className="space-y-4">
+        <div className="space-y-4 mb-6">
           <div className="space-y-2">
             <Label htmlFor="full_name" className="text-warm-brown font-medium">
               {t('profile.sections.fullName')}
@@ -169,26 +147,9 @@ const ProfileSection: React.FC = () => {
               </SelectContent>
             </Select>
           </div>
-
-          <div className="flex gap-3 pt-2">
-            <Button
-              onClick={handleSave}
-              disabled={isUpdating}
-              className="bg-terracotta hover:bg-burnt-orange text-white rounded-organic"
-            >
-              {isUpdating ? t('profile.sections.saving') : t('profile.sections.saveChanges')}
-            </Button>
-            <Button
-              onClick={handleCancel}
-              variant="outline"
-              className="border-sage-green/30 text-sage-green hover:bg-sage-green/10 rounded-organic"
-            >
-              {t('profile.sections.cancel')}
-            </Button>
-          </div>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3 mb-6">
           {profile.username && (
             <div>
               <Label className="text-warm-brown font-medium text-sm">{t('profile.sections.username')}</Label>
@@ -223,6 +184,48 @@ const ProfileSection: React.FC = () => {
               })}
             </p>
           </div>
+        </div>
+      )}
+
+      {/* Action Buttons - Now at the bottom */}
+      {isEditing ? (
+        <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-sage-green/20">
+          <Button
+            onClick={handleSave}
+            disabled={isUpdating}
+            className="bg-terracotta hover:bg-burnt-orange text-white rounded-organic w-full sm:w-auto"
+          >
+            {isUpdating ? t('profile.sections.saving') : t('profile.sections.saveChanges')}
+          </Button>
+          <Button
+            onClick={handleCancel}
+            variant="outline"
+            className="border-sage-green/30 text-sage-green hover:bg-sage-green/10 rounded-organic w-full sm:w-auto"
+          >
+            {t('profile.sections.cancel')}
+          </Button>
+        </div>
+      ) : (
+        <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-sage-green/20">
+          <Button
+            onClick={() => setIsEditing(!isEditing)}
+            variant="outline"
+            size="sm"
+            className="border-sage-green/30 text-sage-green hover:bg-sage-green/10 w-full sm:w-auto"
+          >
+            <Settings className="w-4 h-4 mr-1" />
+            {t('profile.sections.edit')}
+          </Button>
+          
+          <Button
+            onClick={handleSignOut}
+            variant="outline"
+            size="sm"
+            className="border-terracotta/30 text-terracotta hover:bg-terracotta/10 w-full sm:w-auto"
+          >
+            <LogOut className="w-4 h-4 mr-1" />
+            {t('profile.sections.signOut')}
+          </Button>
         </div>
       )}
     </Card>
