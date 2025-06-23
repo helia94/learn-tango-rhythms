@@ -1,7 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, Zap } from 'lucide-react';
 import { ColorChange } from '@/types/rhythm';
+import { useAudioPlayer } from '@/contexts/AudioPlayerContext';
 
 interface AudioPlayerProps {
   title: string;
@@ -18,14 +20,19 @@ const AudioPlayer = ({
   colorEvents = [],
   className = ""
 }: AudioPlayerProps) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
   const [currentColor, setCurrentColor] = useState('bg-warm-brown/20');
   const [activeEvents, setActiveEvents] = useState<number[]>([]);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const playerIdRef = useRef(`player-${Math.random().toString(36).substr(2, 9)}`);
   
+  const {
+    audioState,
+    registerPlayer,
+    playAudio,
+    pauseAudio,
+    isPlayerActive,
+    isPlayerPlaying
+  } = useAudioPlayer();
+
   // Stabilize incoming arrays with refs to prevent infinite re-renders
   const colorChangesRef = useRef<ColorChange[]>([]);
   const colorEventsRef = useRef<number[]>([]);
@@ -39,50 +46,24 @@ const AudioPlayer = ({
     colorEventsRef.current = colorEvents;
   }, [colorEvents]);
 
+  // Register this player when component mounts
   useEffect(() => {
-    const audio = new Audio(audioUrl);
-    audioRef.current = audio;
+    registerPlayer(playerIdRef.current, audioUrl);
+  }, [audioUrl, registerPlayer]);
 
-    const handleLoadedMetadata = () => {
-      setDuration(audio.duration);
-    };
-
-    const handleTimeUpdate = () => {
-      const current = audio.currentTime;
-      setCurrentTime(current);
-      setProgress((current / audio.duration) * 100);
-    };
-
-    const handleEnded = () => {
-      setIsPlaying(false);
-      setProgress(0);
-      setCurrentTime(0);
-      setCurrentColor('bg-warm-brown/20');
-      setActiveEvents([]);
-    };
-
-    const handleError = (e: any) => {
-      console.error(`Audio error for ${audioUrl}:`, e);
-      setIsPlaying(false);
-    };
-
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-    audio.addEventListener('timeupdate', handleTimeUpdate);
-    audio.addEventListener('ended', handleEnded);
-    audio.addEventListener('error', handleError);
-
-    return () => {
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      audio.removeEventListener('timeupdate', handleTimeUpdate);
-      audio.removeEventListener('ended', handleEnded);
-      audio.removeEventListener('error', handleError);
-      audio.pause();
-    };
-  }, [audioUrl]);
+  const isActive = isPlayerActive(playerIdRef.current);
+  const isPlaying = isPlayerPlaying(playerIdRef.current);
+  const currentTime = isActive ? audioState.currentTime : 0;
+  const duration = isActive ? audioState.duration : 0;
+  const progress = isActive ? audioState.progress : 0;
 
   // Rewritten timeline coloring effect with stable dependencies
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || !isActive) {
+      setCurrentColor('bg-warm-brown/20');
+      setActiveEvents([]);
+      return;
+    }
 
     const currentTimeMs = currentTime * 1000;
 
@@ -116,27 +97,22 @@ const AudioPlayer = ({
       }
       return prev;
     });
-  }, [currentTime, isPlaying]);
+  }, [currentTime, isPlaying, isActive]);
 
   const togglePlayback = async () => {
-    if (!audioRef.current) return;
-
     try {
-      if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
+      if (isPlaying && isActive) {
+        pauseAudio(playerIdRef.current);
       } else {
         // Reset color when starting playback
         if (currentTime < 0.1) {
           setCurrentColor('bg-warm-brown/20');
           setActiveEvents([]);
         }
-        await audioRef.current.play();
-        setIsPlaying(true);
+        await playAudio(playerIdRef.current);
       }
     } catch (error) {
-      console.error(`Failed to play audio ${audioUrl}:`, error);
-      setIsPlaying(false);
+      console.error(`Failed to toggle playback for ${audioUrl}:`, error);
     }
   };
 
@@ -273,7 +249,7 @@ const AudioPlayer = ({
           className="bg-terracotta hover:bg-terracotta/80 text-white border-none transition-all duration-200"
           size="sm"
         >
-          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+          {isPlaying && isActive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
         </Button>
       </div>
       
