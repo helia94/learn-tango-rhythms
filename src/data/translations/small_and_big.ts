@@ -96,8 +96,8 @@ export const smallAndBigTranslations = {
             de: "Versuche nun verschiedene Variationen von klein und groß innerhalb derselben Phrase, immer mit gleicher Zeit."
           },
           task: {
-            en: "Try these four variations each multiple times: [big small small small] [small big small small] [small small big small] [small small small big]. How does each of them feel?",
-            de: "Versuche diese vier Variationen jeweils mehrmals: [groß klein klein klein] [klein groß klein klein] [klein klein groß klein] [klein klein klein groß]. Wie fühlt sich jede davon an?"
+            en: "Try these four variations each multiple times: \n\n[big small small small]  \n[small big small small]  \n[small small big small]  \n[small small small big].  \n\nHow does each of them feel?",
+            de: "Versuche diese vier Variationen jeweils mehrmals: \n\n[groß klein klein klein]  \n[klein groß klein klein]  \n[klein klein groß klein]  \n[klein klein klein groß].  \n\nWie fühlt sich jede davon an?"
           }
         },
         day2: {
