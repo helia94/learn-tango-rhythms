@@ -42,9 +42,9 @@ const DailyAssignmentsHeader: React.FC<DailyAssignmentsHeaderProps> = ({
             onClick={handleSignInClick}
             size="sm"
             variant="outline"
-            className="bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-golden-yellow font-medium"
+            className="bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-warm-brown hover:text-warm-brown font-medium"
           >
-            Sign in to unlock daily topics
+            {t('common.signInToUnlock')}
           </Button>
         )}
       </div>
