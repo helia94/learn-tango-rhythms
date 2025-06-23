@@ -28,12 +28,6 @@ const Day3Content: React.FC<Day3ContentProps> = ({
       colorEvents: [3400, 7648, 11296]
     },
     {
-      title: 'Seguime, Si Podes - Osvaldo Pugliese',
-      description: 'Strong syncopation, typical for Pugliese.',
-      audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277190/SYNCOPA_4_-_Seguime_Si_Podes_-_Osvaldo_Pugliese-_AudioTrimmer.com_hnx50k.mp3',
-      colorEvents: [3900]
-    },
-    {
       title: 'La Rayuela - Osvaldo Pugliese Orquesta',
       description: 'Single strong syncopation in Pugliese style.',
       audioUrl: 'https://res.cloudinary.com/dl9xg597r/video/upload/v1750277189/SYNCOPA_5_-_La_Rayuela_-_Osvaldo_Pugliese-_AudioTrimmer.com_xvpc2s.mp3',
