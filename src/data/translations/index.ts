@@ -1,4 +1,3 @@
-
 import { translations as mainTranslations, TranslationKey as MainTranslationKey } from './translations';
 import { otherTranslations } from './other';
 import { homeTranslations } from './home';
@@ -83,8 +82,8 @@ export type TranslationKey = MainTranslationKey |
   // Add admin translation keys
   `admin.controls` | `admin.unlockAllDescription` | `admin.activateUnlockAll` | `admin.deactivateUnlockAll` |
   `admin.processing` | `admin.unlockAllActiveWarning` |
-  // Add common availableOn and signInToUnlock translation keys
-  `common.availableOn` | `common.signInToUnlock`;
+  // Add common availableOn translation key
+  `common.availableOn`;
 
 export const translations = deepMergeTranslations(
   mainTranslations,
