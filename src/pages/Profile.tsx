@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import ProfileSection from '@/components/ProfileSection';
 import GameProfileDashboard from '@/components/profile/GameProfileDashboard';
+import UnlockAllButton from '@/components/profile/UnlockAllButton';
 import SpotifyConnection from '@/components/SpotifyConnection';
 import LanguageSelector from '@/components/LanguageSelector';
 import ProtectedRoute from '@/components/ProtectedRoute';
@@ -53,6 +54,11 @@ const Profile = () => {
           {/* Game Dashboard */}
           <div className="mb-8">
             <GameProfileDashboard />
+          </div>
+
+          {/* Admin Controls - Unlock All Button */}
+          <div className="mb-8">
+            <UnlockAllButton />
           </div>
 
           {/* Spotify Integration */}
