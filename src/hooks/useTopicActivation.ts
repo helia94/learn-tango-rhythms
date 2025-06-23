@@ -1,4 +1,3 @@
-
 import { useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -22,12 +21,14 @@ export const useTopicActivation = () => {
     setIsActivating(true);
     
     try {
-      // First check if there's already an active topic
-      const existingActiveTopic = await hasActiveTopic();
-      if (existingActiveTopic) {
+      // Check if there's already an active topic (different from the one being activated)
+      const existingActiveTopic = await getActiveTopic();
+      if (existingActiveTopic && 
+          (existingActiveTopic.topic_key !== topicKey || existingActiveTopic.topic_index !== topicIndex)) {
         throw new Error('Another topic is already active. Only one topic can be activated at a time.');
       }
 
+      // Allow reactivation of the same topic or activation of a new topic
       const { error } = await supabase
         .from('topic_activations')
         .insert({
@@ -37,7 +38,14 @@ export const useTopicActivation = () => {
         });
 
       if (error) {
-        throw error;
+        // Handle specific database errors more gracefully
+        if (error.code === '23505') {
+          // This shouldn't happen anymore since we removed the unique constraint,
+          // but keeping this for backwards compatibility
+          console.log('Topic reactivation - this is expected behavior');
+        } else {
+          throw error;
+        }
       }
 
       console.log(`Topic ${topicKey} activated successfully`);
