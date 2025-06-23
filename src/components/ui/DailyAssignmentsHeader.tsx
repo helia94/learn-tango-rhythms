@@ -4,6 +4,7 @@ import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
 
 interface DailyAssignmentsHeaderProps {
   daysUnlocked: number;
@@ -22,10 +23,14 @@ const DailyAssignmentsHeader: React.FC<DailyAssignmentsHeaderProps> = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isAdminUnlockActive } = useTopicVisibility();
 
   const handleSignInClick = () => {
     navigate('/auth');
   };
+
+  // Show admin unlock status if active
+  const showAdminMode = isAdminUnlockActive || unlockAllEnabled;
 
   return (
     <div className="text-center mb-8">
@@ -45,13 +50,13 @@ const DailyAssignmentsHeader: React.FC<DailyAssignmentsHeaderProps> = ({
       </div>
       <p className="text-gray-600 mt-2">
         {t('daily.subtitle')} ({daysUnlocked}/{totalDays} days unlocked)
-        {unlockAllEnabled && (
+        {showAdminMode && (
           <span className="block text-sm text-green-600 font-medium mt-1">
-            🚀 All content unlocked (Dev Mode)
+            🚀 All content unlocked {isAdminUnlockActive ? '(Admin Mode)' : '(Dev Mode)'}
           </span>
         )}
       </p>
-      {nextDayToActivate && !unlockAllEnabled && isUserLoggedIn && (
+      {nextDayToActivate && !showAdminMode && isUserLoggedIn && (
         <p className="text-sm text-golden-yellow mt-1">
           Next day to unlock: Day {nextDayToActivate}
         </p>
