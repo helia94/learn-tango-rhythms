@@ -75,8 +75,7 @@ const ProfileSection: React.FC = () => {
 
   return (
     <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg rounded-organic p-6">
-      {/* Header Section */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-terracotta/20 rounded-full flex items-center justify-center">
             <User className="w-6 h-6 text-terracotta" />
@@ -89,35 +88,29 @@ const ProfileSection: React.FC = () => {
           </div>
         </div>
         
-        {/* Action Buttons - Fixed positioning */}
-        <div className="flex items-center gap-2 flex-shrink-0">
-          {!isEditing ? (
-            <>
-              <Button
-                onClick={() => setIsEditing(true)}
-                variant="outline"
-                size="sm"
-                className="border-sage-green/30 text-sage-green hover:bg-sage-green/10"
-              >
-                <Settings className="w-4 h-4 mr-1" />
-                {t('profile.sections.edit')}
-              </Button>
-              
-              <Button
-                onClick={handleSignOut}
-                variant="outline"
-                size="sm"
-                className="border-terracotta/30 text-terracotta hover:bg-terracotta/10"
-              >
-                <LogOut className="w-4 h-4 mr-1" />
-                {t('profile.sections.signOut')}
-              </Button>
-            </>
-          ) : null}
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={() => setIsEditing(!isEditing)}
+            variant="outline"
+            size="sm"
+            className="border-sage-green/30 text-sage-green hover:bg-sage-green/10"
+          >
+            <Settings className="w-4 h-4 mr-1" />
+            {isEditing ? t('profile.sections.cancel') : t('profile.sections.edit')}
+          </Button>
+          
+          <Button
+            onClick={handleSignOut}
+            variant="outline"
+            size="sm"
+            className="border-terracotta/30 text-terracotta hover:bg-terracotta/10"
+          >
+            <LogOut className="w-4 h-4 mr-1" />
+            {t('profile.sections.signOut')}
+          </Button>
         </div>
       </div>
 
-      {/* Content Section */}
       {isEditing ? (
         <div className="space-y-4">
           <div className="space-y-2">
@@ -177,21 +170,20 @@ const ProfileSection: React.FC = () => {
             </Select>
           </div>
 
-          {/* Edit Mode Action Buttons */}
-          <div className="flex justify-end gap-3 pt-4 border-t border-sage-green/20">
-            <Button
-              onClick={handleCancel}
-              variant="outline"
-              className="border-sage-green/30 text-sage-green hover:bg-sage-green/10 rounded-organic"
-            >
-              {t('profile.sections.cancel')}
-            </Button>
+          <div className="flex gap-3 pt-2">
             <Button
               onClick={handleSave}
               disabled={isUpdating}
               className="bg-terracotta hover:bg-burnt-orange text-white rounded-organic"
             >
               {isUpdating ? t('profile.sections.saving') : t('profile.sections.saveChanges')}
+            </Button>
+            <Button
+              onClick={handleCancel}
+              variant="outline"
+              className="border-sage-green/30 text-sage-green hover:bg-sage-green/10 rounded-organic"
+            >
+              {t('profile.sections.cancel')}
             </Button>
           </div>
         </div>
