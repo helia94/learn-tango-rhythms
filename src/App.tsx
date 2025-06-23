@@ -1,5 +1,6 @@
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { QueryClient } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
@@ -15,9 +16,11 @@ import Topic from '@/pages/Topic';
 import Quiz from '@/pages/Quiz';
 import { AudioPlayerProvider } from '@/contexts/AudioPlayerContext';
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <QueryClient>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Toaster />
         <AuthProvider>
@@ -42,7 +45,7 @@ function App() {
           </LanguageProvider>
         </AuthProvider>
       </BrowserRouter>
-    </QueryClient>
+    </QueryClientProvider>
   );
 }
 
