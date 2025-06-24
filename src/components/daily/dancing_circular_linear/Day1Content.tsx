@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import TextContent from '@/components/ui/TextContent';
+import VideoGuideNotice from '@/components/ui/VideoGuideNotice';
 import { getAssignment } from '@/data/assignments/dancing_circular_linear';
 
 interface Day1ContentProps {
@@ -26,6 +27,8 @@ const Day1Content: React.FC<Day1ContentProps> = ({
       <TextContent>
         {t('exercises.dancingCircularLinear.daily.day1.content' as any)}
       </TextContent>
+
+      <VideoGuideNotice className="mb-6" />
       
       {assignment && (
         <Assignment
