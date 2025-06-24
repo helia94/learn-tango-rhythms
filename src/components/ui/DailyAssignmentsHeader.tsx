@@ -2,6 +2,7 @@
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
@@ -11,19 +12,20 @@ interface DailyAssignmentsHeaderProps {
   totalDays: number;
   nextDayToActivate?: number;
   unlockAllEnabled?: boolean;
-  isUserLoggedIn?: boolean;
 }
 
 const DailyAssignmentsHeader: React.FC<DailyAssignmentsHeaderProps> = ({
   daysUnlocked,
   totalDays,
   nextDayToActivate,
-  unlockAllEnabled = false,
-  isUserLoggedIn = false
+  unlockAllEnabled = false
 }) => {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { isAdminUnlockActive } = useTopicVisibility();
+
+  const isUserLoggedIn = !!user;
 
   const handleSignInClick = () => {
     navigate('/auth');
