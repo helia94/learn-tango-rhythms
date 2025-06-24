@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -42,7 +41,7 @@ const DailyAssignmentsHeader: React.FC<DailyAssignmentsHeaderProps> = ({
             onClick={handleSignInClick}
             size="sm"
             variant="outline"
-            className="bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-gray-800 hover:text-gray-900 font-semibold"
+            className="bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-golden-yellow hover:text-golden-yellow/80"
           >
             Sign in to unlock daily topics
           </Button>
