@@ -129,7 +129,7 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
     }
     
     if (isActive && deadline) {
-      const activeText = `Active Until ${formatDeadline(deadline)} - Click to Restart`;
+      const activeText = `Active Until ${formatDeadline(deadline)}`;
       console.log('TopicStartButton: Returning active text:', activeText);
       return activeText;
     }
