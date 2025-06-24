@@ -142,8 +142,8 @@ const ProfileSection: React.FC = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="en">🇺🇸 English</SelectItem>
-                <SelectItem value="de">🇩🇪 Deutsch</SelectItem>
+                <SelectItem value="en">English</SelectItem>
+                <SelectItem value="de">Deutsch</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -170,7 +170,7 @@ const ProfileSection: React.FC = () => {
               {t('profile.sections.preferredLanguage')}
             </Label>
             <p className="text-gray-700">
-              {profile.preferred_language === 'de' ? '🇩🇪 Deutsch' : '🇺🇸 English'}
+              {profile.preferred_language === 'de' ? 'Deutsch' : 'English'}
             </p>
           </div>
           

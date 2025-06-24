@@ -14,8 +14,8 @@ const LanguageSelector = () => {
   const { currentLanguage, setLanguage } = useLanguageContext();
 
   const languages = [
-    { code: 'en' as Language, name: 'English', flag: '🇺🇸' },
-    { code: 'de' as Language, name: 'Deutsch', flag: '🇩🇪' }
+    { code: 'en' as Language, name: 'English' },
+    { code: 'de' as Language, name: 'Deutsch' }
   ];
 
   const currentLang = languages.find(lang => lang.code === currentLanguage);
@@ -25,8 +25,8 @@ const LanguageSelector = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2">
           <Languages className="w-4 h-4" />
-          <span className="hidden sm:inline">{currentLang?.flag} {currentLang?.name}</span>
-          <span className="sm:hidden">{currentLang?.flag}</span>
+          <span className="hidden sm:inline">{currentLang?.name}</span>
+          <span className="sm:hidden">{currentLang?.code.toUpperCase()}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -38,7 +38,6 @@ const LanguageSelector = () => {
               currentLanguage === language.code ? 'bg-accent' : ''
             }`}
           >
-            <span className="mr-2">{language.flag}</span>
             {language.name}
           </DropdownMenuItem>
         ))}
