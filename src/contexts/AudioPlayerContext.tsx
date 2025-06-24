@@ -167,8 +167,6 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
   };
 
   const handleEnded = () => {
-    console.log('Audio ended, looping enabled:', audioState.isLooping);
-    
     if (audioState.isLooping && audioState.currentPlayerId) {
       // Set playing to false temporarily during the pause
       setAudioState(prev => ({

@@ -32,15 +32,6 @@ const Assignment: React.FC<AssignmentProps> = ({
   const { reportAssignmentLevel, isLoading } = useAssignmentReporting();
   const { user } = useAuth();
 
-  console.log('🎯 Assignment component:', {
-    taskId,
-    level,
-    topicName,
-    topicIndex,
-    user: user?.id,
-    assignmentContent: assignment?.content
-  });
-
   // Add null check for assignment
   if (!assignment || !assignment.content) {
     console.error('Assignment is missing or has no content:', assignment);
@@ -52,16 +43,8 @@ const Assignment: React.FC<AssignmentProps> = ({
   }
 
   const handleLevelChange = async (newLevel: number) => {
-    console.log('🔄 Assignment level change:', {
-      taskId,
-      oldLevel: level,
-      newLevel,
-      user: user?.id
-    });
-    
     // Only allow level changes if user is logged in
     if (!user) {
-      console.log('❌ Cannot change level - user not logged in');
       return;
     }
     
@@ -70,11 +53,9 @@ const Assignment: React.FC<AssignmentProps> = ({
     
     // Report to database
     try {
-      console.log('📤 Reporting to database:', { topicName, topicIndex, taskId, newLevel });
       await reportAssignmentLevel(topicName, topicIndex, taskId, newLevel);
-      console.log('✅ Successfully reported level change');
     } catch (error) {
-      console.error('❌ Failed to report assignment level:', error);
+      console.error('Failed to report assignment level:', error);
     }
   };
 

@@ -93,13 +93,7 @@ const DayItem: React.FC<DayItemProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [status, dayNumber, topicName, topicIndex]); // Only depend on static values
-
-  console.log(`DayItem - Day ${dayNumber} received props:`, {
-    topicName,
-    topicIndex,
-    status
-  });
+  }, [status, dayNumber, topicName, topicIndex]);
 
   // For locked days, don't make them expandable
   if (status === 'locked') {

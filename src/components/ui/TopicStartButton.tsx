@@ -29,10 +29,7 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
   // Move async calls to useEffect to prevent render loops
   useEffect(() => {
     const checkTopicStatus = async () => {
-      console.log('TopicStartButton: Checking topic status...', { user: !!user, topicKey, topicIndex });
-      
       if (!user) {
-        console.log('TopicStartButton: No user, setting inactive');
         setIsActive(false);
         setDeadline(null);
         return;
@@ -45,29 +42,23 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
       setIsCheckingStatus(true);
       
       try {
-        console.log('TopicStartButton: Calling isTopicActive...');
         const active = await isTopicActive(topicKey, topicIndex);
-        console.log('TopicStartButton: Topic active status:', active);
         setIsActive(active);
         
         if (active) {
-          console.log('TopicStartButton: Topic is active, getting deadline...');
           const topicDeadline = await getTopicDeadline(topicKey, topicIndex);
-          console.log('TopicStartButton: Topic deadline:', topicDeadline);
           setDeadline(topicDeadline);
         } else {
-          console.log('TopicStartButton: Topic is not active');
           setDeadline(null);
         }
         
         hasInitialized.current = true;
       } catch (error) {
-        console.error('TopicStartButton: Error checking topic status:', error);
+        console.error('Error checking topic status:', error);
         setIsActive(false);
         setDeadline(null);
       } finally {
         setIsCheckingStatus(false);
-        console.log('TopicStartButton: Finished checking status');
       }
     };
 
@@ -75,16 +66,11 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
   }, [user, topicKey, topicIndex, isTopicActive, getTopicDeadline]);
 
   const handleTopicAction = async () => {
-    console.log('TopicStartButton: Handle topic action clicked', { user: !!user, isActive });
-    
     if (!user) {
-      console.log('TopicStartButton: No user, navigating to auth');
       navigate('/auth');
     } else {
       try {
-        console.log('TopicStartButton: Activating/reactivating topic...');
         await activateTopic(topicKey, topicIndex);
-        console.log('TopicStartButton: Topic activated/reactivated, updating status...');
         
         // Reset and refresh status
         hasInitialized.current = false;
@@ -94,7 +80,7 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
         const newDeadline = await getTopicDeadline(topicKey, topicIndex);
         setDeadline(newDeadline);
       } catch (error) {
-        console.error('TopicStartButton: Failed to activate topic:', error);
+        console.error('Failed to activate topic:', error);
       }
     }
   };
@@ -108,47 +94,22 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
   };
 
   const getButtonText = () => {
-    console.log('TopicStartButton: Getting button text...', { 
-      isCheckingStatus, 
-      isActivating, 
-      user: !!user, 
-      isActive, 
-      deadline: !!deadline
-    });
-    
     if (isCheckingStatus || isActivating) {
-      const loadingText = t('common.loading') || 'Loading...';
-      console.log('TopicStartButton: Returning loading text:', loadingText);
-      return loadingText;
+      return t('common.loading') || 'Loading...';
     }
     
     if (!user) {
-      const loginText = t('common.loginToStart');
-      console.log('TopicStartButton: Returning login text:', loginText);
-      return loginText;
+      return t('common.loginToStart');
     }
     
     if (isActive && deadline) {
-      const activeText = `Active Until ${formatDeadline(deadline)}`;
-      console.log('TopicStartButton: Returning active text:', activeText);
-      return activeText;
+      return `Active Until ${formatDeadline(deadline)}`;
     }
     
-    const startText = t('common.startThisTopic');
-    console.log('TopicStartButton: Returning start text:', startText);
-    return startText;
+    return t('common.startThisTopic');
   };
 
   const isButtonDisabled = isCheckingStatus || isActivating;
-  
-  console.log('TopicStartButton: Render state:', {
-    isCheckingStatus,
-    isActivating,
-    isActive,
-    deadline: !!deadline,
-    isButtonDisabled,
-    buttonText: getButtonText()
-  });
 
   return (
     <Button
