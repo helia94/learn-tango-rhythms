@@ -1,4 +1,3 @@
-
 export const commonTranslations = {
   common: {
     backToHome: {
@@ -72,6 +71,10 @@ export const commonTranslations = {
     connectSpotifyPremium: {
       en: "Connect your Spotify Premium",
       de: "Verbinde dein Spotify Premium"
+    },
+    videoGuideComingSoon: {
+      en: "Video guide coming soon, stay tuned!",
+      de: "Video-Anleitung kommt bald, bleibt dran!"
     }
   },
   errors: {

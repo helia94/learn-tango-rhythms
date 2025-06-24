@@ -35,6 +35,7 @@ export type TranslationKey =
   | 'common.availableOn'
   | 'common.spotifyConnect'
   | 'common.connectSpotifyPremium'
+  | 'common.videoGuideComingSoon'
   // Navigation translations
   | 'roadmap.title'
   | 'leaderboard.viewLeaderboard'
