@@ -9,8 +9,8 @@ export const homeTranslations = {
       de: "(Täglicher Tango)"
     },
     tagline: {
-      en: "EN: Practice Tango Musicality Like Brushing Your Teeth.\nDE: Tango Musikalität üben. Wie Zähneputzen.",
-      de: "EN: Practice Tango Musicality Like Brushing Your Teeth.\nDE: Tango Musikalität üben. Wie Zähneputzen."
+      en: "Practice Tango Musicality Like Brushing Your Teeth.",
+      de: "Tango Musikalität üben. Wie Zähneputzen."
     }
   },
   about: {
