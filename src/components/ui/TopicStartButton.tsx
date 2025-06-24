@@ -20,10 +20,11 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { activateTopic, isActivating, isTopicActive, getTopicDeadline } = useTopicActivation();
+  const { activateTopic, isActivating, isTopicActive, getTopicDeadline, getActiveTopic } = useTopicActivation();
   const [isActive, setIsActive] = useState(false);
   const [deadline, setDeadline] = useState<Date | null>(null);
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
+  const [shouldShowButton, setShouldShowButton] = useState(true);
   const hasInitialized = useRef(false);
 
   // Move async calls to useEffect to prevent render loops
@@ -32,6 +33,7 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
       if (!user) {
         setIsActive(false);
         setDeadline(null);
+        setShouldShowButton(true); // Show button for non-logged in users
         return;
       }
 
@@ -42,14 +44,27 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
       setIsCheckingStatus(true);
       
       try {
+        // Check if this specific topic is active
         const active = await isTopicActive(topicKey, topicIndex);
         setIsActive(active);
         
         if (active) {
           const topicDeadline = await getTopicDeadline(topicKey, topicIndex);
           setDeadline(topicDeadline);
+          setShouldShowButton(true); // Show button if this topic is active
         } else {
           setDeadline(null);
+          
+          // Check if user has any other active topic
+          const activeTopic = await getActiveTopic();
+          if (activeTopic && 
+              (activeTopic.topic_key !== topicKey || activeTopic.topic_index !== topicIndex)) {
+            // User has a different active topic, hide the button
+            setShouldShowButton(false);
+          } else {
+            // No active topic or this is the active topic, show the button
+            setShouldShowButton(true);
+          }
         }
         
         hasInitialized.current = true;
@@ -57,13 +72,14 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
         console.error('Error checking topic status:', error);
         setIsActive(false);
         setDeadline(null);
+        setShouldShowButton(true); // Show button on error as fallback
       } finally {
         setIsCheckingStatus(false);
       }
     };
 
     checkTopicStatus();
-  }, [user, topicKey, topicIndex, isTopicActive, getTopicDeadline]);
+  }, [user, topicKey, topicIndex, isTopicActive, getTopicDeadline, getActiveTopic]);
 
   const handleTopicAction = async () => {
     if (!user) {
@@ -75,6 +91,7 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
         // Reset and refresh status
         hasInitialized.current = false;
         setIsActive(true); // Optimistically set to true
+        setShouldShowButton(true); // Show button since this topic is now active
         
         // Refresh the deadline
         const newDeadline = await getTopicDeadline(topicKey, topicIndex);
@@ -108,6 +125,11 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
     
     return t('common.startThisTopic');
   };
+
+  // Don't render the button if it shouldn't be shown
+  if (!shouldShowButton) {
+    return null;
+  }
 
   const isButtonDisabled = isCheckingStatus || isActivating;
 
