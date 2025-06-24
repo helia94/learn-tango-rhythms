@@ -44,7 +44,7 @@ const DailyAssignmentsHeader: React.FC<DailyAssignmentsHeaderProps> = ({
             variant="outline"
             className="bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-warm-brown font-medium"
           >
-            Sign in to unlock daily topics
+            {t('common.signInToUnlockDaily')}
           </Button>
         )}
       </div>

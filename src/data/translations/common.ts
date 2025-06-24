@@ -1,3 +1,4 @@
+
 export const commonTranslations = {
   common: {
     backToHome: {
@@ -48,6 +49,14 @@ export const commonTranslations = {
       en: "Login to start",
       de: "Einloggen zum Starten"
     },
+    signInToUnlockDaily: {
+      en: "Sign in to unlock daily topics",
+      de: "Anmelden um tägliche Themen freizuschalten"
+    },
+    signInToTrackProgress: {
+      en: "Sign in to track progress",
+      de: "Anmelden um Fortschritt zu verfolgen"
+    },
     allAssignments: {
       en: "All Assignments",
       de: "Alle Aufgaben"
@@ -88,4 +97,3 @@ export const commonTranslations = {
     }
   }
 };
-

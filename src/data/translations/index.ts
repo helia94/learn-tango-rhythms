@@ -1,3 +1,4 @@
+
 import { commonTranslations } from './common';
 import { navigationTranslations } from './navigation';
 import { interactiveTranslations } from './interactive';
@@ -29,6 +30,8 @@ export type TranslationKey =
   | 'common.loading'
   | 'common.startThisTopic'
   | 'common.loginToStart'
+  | 'common.signInToUnlockDaily'
+  | 'common.signInToTrackProgress'
   | 'common.allAssignments'
   | 'common.availableOn'
   // Navigation translations
@@ -295,4 +298,3 @@ export const translations = deepMergeTranslations(
   dancingWithWithoutControlTranslations,
   adminTranslations
 );
-

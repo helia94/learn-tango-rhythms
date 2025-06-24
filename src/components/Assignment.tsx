@@ -116,7 +116,7 @@ const Assignment: React.FC<AssignmentProps> = ({
         />
         <InfoModal />
         {!user && (
-          <span className="ml-2 text-sm text-gray-500">Sign in to track progress</span>
+          <span className="ml-2 text-sm text-gray-500">{t('common.signInToTrackProgress')}</span>
         )}
         {isLoading && user && (
           <span className="ml-2 text-sm text-gray-500">Saving...</span>
