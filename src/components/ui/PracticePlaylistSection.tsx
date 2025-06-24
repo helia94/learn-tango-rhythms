@@ -54,16 +54,15 @@ const PracticePlaylistSection: React.FC<PracticePlaylistSectionProps> = ({
       {/* Spotify Connection Notice */}
       {user && !isConnected && (
         <div className="text-center mt-6">
-          <TextContent variant="body" align="center" className="text-sm text-gray-600">
-            {t('common.spotifyConnect').split(t('common.connectSpotifyPremium'))[0]}
+          <p className="text-sm text-gray-600">
+            {t('common.spotifyConnect' as any)}{' '}
             <Link 
               to="/profile" 
               className="text-sage-green hover:text-deep-teal underline font-medium"
             >
-              {t('common.connectSpotifyPremium')}
+              {t('common.connectSpotifyPremium' as any)}
             </Link>
-            {t('common.spotifyConnect').split(t('common.connectSpotifyPremium'))[1]}
-          </TextContent>
+          </p>
         </div>
       )}
     </StorySection>

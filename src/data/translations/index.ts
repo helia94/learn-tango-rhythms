@@ -1,4 +1,3 @@
-
 import { commonTranslations } from './common';
 import { navigationTranslations } from './navigation';
 import { interactiveTranslations } from './interactive';
@@ -34,6 +33,8 @@ export type TranslationKey =
   | 'common.signInToTrackProgress'
   | 'common.allAssignments'
   | 'common.availableOn'
+  | 'common.spotifyConnect'
+  | 'common.connectSpotifyPremium'
   // Navigation translations
   | 'roadmap.title'
   | 'leaderboard.viewLeaderboard'
