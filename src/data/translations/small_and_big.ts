@@ -156,12 +156,12 @@ export const smallAndBigTranslations = {
         },
         day3: {
           content: {
-            en: "Listen to syncopations in the rhythm, they are also a good opportunity to highlight it with one large step and small one, or the reverse?",
-            de: "Höre auf Synkopen im Rhythmus – sie sind auch eine gute Gelegenheit, es mit einem großen Schritt und einem kleinen zu betonen, oder umgekehrt?"
+            en: "Syncopations are little rhythmic surprises, perfect for playing with step size. Try highlighting them with: a big step then a tight close, or a bold step into a cross. If that’s familiar, experiment: what about a strong forward step followed by a subtle side step? Or reverse the energy—small preparation, then big statement. See what feels right in your body.",
+            de: "Synkopen sind rhythmische Überraschungen, ideal um mit Schrittgrößen zu spielen. Betone sie mit: großem Schritt gefolgt von engem Close, oder kräftigem Schritt in einen Cross. Wenn das bekannt ist: Probier mal einen kräftigen Vorwärtsschritt mit kleinem Seitschritt. Oder umgekehrt—klein anfangen, dann groß rauskommen. Spür was sich natürlich anfühlt."
           },
           task: {
-            en: "Practice highlighting syncopations with contrasting step sizes - try large step with small one, then reverse. How does each feel?",
-            de: "Übe das Hervorheben von Synkopen mit kontrastierenden Schrittgrößen – versuche großer Schritt mit kleinem, dann umgekehrt. Wie fühlt sich jedes an?"
+            en: "Practice highlighting syncopations with contrasting step sizes, try large step with small one, then reverse. How does each feel?",
+            de: "Übe das Hervorheben von Synkopen mit kontrastierenden Schrittgrößen, versuche großer Schritt mit kleinem, dann umgekehrt. Wie fühlt sich jedes an?"
           }
         },
         day4: {
@@ -171,7 +171,7 @@ export const smallAndBigTranslations = {
           },
           task: {
             en: "Practice larger steps with more elasticity in your embrace, focusing on disassociation and maintaining connection while allowing separation.",
-            de: "Übe größere Schritte mit mehr Elastizität in Deiner Umarmung – konzentriere Dich auf Dissoziation und das Aufrechterhalten der Verbindung bei gleichzeitiger Trennung."
+            de: "Übe größere Schritte mit mehr Elastizität in Deiner Umarmung, konzentriere Dich auf Dissoziation und das Aufrechterhalten der Verbindung bei gleichzeitiger Trennung."
           }
         },
         day5: {
