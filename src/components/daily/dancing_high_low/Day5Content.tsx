@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
+import VideoGuideNotice from '@/components/ui/VideoGuideNotice';
 import { getAssignment } from '@/data/assignments/dancing_high_low';
 
 interface Day5ContentProps {
@@ -29,6 +30,8 @@ const Day5Content: React.FC<Day5ContentProps> = ({
       <p className="text-gray-700 text-lg leading-relaxed">
         {t('exercises.dancingHighLow.daily.day5.content' as any)}
       </p>
+
+      <VideoGuideNotice className="mb-6" />
       
       <Assignment
         assignment={assignment}
