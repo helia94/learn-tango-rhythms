@@ -55,13 +55,13 @@ const PracticePlaylistSection: React.FC<PracticePlaylistSectionProps> = ({
       {user && !isConnected && (
         <div className="text-center mt-6">
           <p className="text-sm text-gray-600">
-            {t('common.spotifyConnect' as any)}{' '}
             <Link 
               to="/profile" 
-              className="text-sage-green hover:text-deep-teal underline font-medium"
+              className="text-green hover:text-deep-teal underline font-medium"
             >
               {t('common.connectSpotifyPremium' as any)}
             </Link>
+            {t('common.spotifyConnect' as any)}
           </p>
         </div>
       )}

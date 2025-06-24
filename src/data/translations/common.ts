@@ -66,12 +66,12 @@ export const commonTranslations = {
       de: "Verfügbar am"
     },
     spotifyConnect: {
-      en: "You can connect your Spotify Premium to listen to full songs.",
-      de: "Du kannst dein Spotify Premium verbinden, um ganze Songs zu hören."
+      en: ", to listen to full songs.",
+      de: ", um ganze Songs zu hören."
     },
     connectSpotifyPremium: {
-      en: "connect your Spotify Premium",
-      de: "verbinde dein Spotify Premium"
+      en: "Connect your Spotify Premium",
+      de: "Verbinde dein Spotify Premium"
     }
   },
   errors: {
