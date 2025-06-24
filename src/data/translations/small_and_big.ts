@@ -1,3 +1,4 @@
+
 export const smallAndBigTranslations = {
   exercises: {
     dancingSmallBig: {
@@ -156,12 +157,50 @@ export const smallAndBigTranslations = {
         },
         day3: {
           content: {
-            en: "Syncopations are little rhythmic surprises, perfect for playing with step size. Try highlighting them with: a big step then a tight close, or a bold step into a cross. If that’s familiar, experiment: what about a strong forward step followed by a subtle side step? Or reverse the energy—small preparation, then big statement. See what feels right in your body.",
+            en: "Syncopations are little rhythmic surprises, perfect for playing with step size. Try highlighting them with: a big step then a tight close, or a bold step into a cross. If that's familiar, experiment: what about a strong forward step followed by a subtle side step? Or reverse the energy—small preparation, then big statement. See what feels right in your body.",
             de: "Synkopen sind rhythmische Überraschungen, ideal um mit Schrittgrößen zu spielen. Betone sie mit: großem Schritt gefolgt von engem Close, oder kräftigem Schritt in einen Cross. Wenn das bekannt ist: Probier mal einen kräftigen Vorwärtsschritt mit kleinem Seitschritt. Oder umgekehrt—klein anfangen, dann groß rauskommen. Spür was sich natürlich anfühlt."
           },
           task: {
             en: "Practice highlighting syncopations with contrasting step sizes, try large step with small one, then reverse. How does each feel?",
             de: "Übe das Hervorheben von Synkopen mit kontrastierenden Schrittgrößen, versuche großer Schritt mit kleinem, dann umgekehrt. Wie fühlt sich jedes an?"
+          },
+          syncopationExamplesTitle: {
+            en: "Syncopation Examples",
+            de: "Synkopen-Beispiele"
+          },
+          differentTimingTitle: {
+            en: "Different Timing Syncopations",
+            de: "Synkopen mit unterschiedlichem Timing"
+          },
+          differentTimingDescription: {
+            en: "Syncopation, but it has another timing, do you feel any different in your impulse to dance them?",
+            de: "Synkopen, aber mit anderem Timing – spürst Du einen Unterschied in Deinem Impuls, sie zu tanzen?"
+          },
+          exampleDescriptions: {
+            donJuan: {
+              en: "Classic syncopation, easy to listen to, in the beginning of the song.",
+              de: "Klassische Synkope, leicht zu hören, am Anfang des Liedes."
+            },
+            laRayuela: {
+              en: "Single strong syncopation in Pugliese style.",
+              de: "Einzelne starke Synkope im Pugliese-Stil."
+            },
+            torrente: {
+              en: "A series of syncopations.",
+              de: "Eine Serie von Synkopen."
+            },
+            tresAmigos: {
+              en: "Three syncopations, typical in Troilo Orquesta.",
+              de: "Drei Synkopen, typisch im Troilo Orchester."
+            },
+            elChoclo: {
+              en: "Different timing syncopation example.",
+              de: "Synkopen-Beispiel mit anderem Timing."
+            },
+            laCachila: {
+              en: "Another example with different timing.",
+              de: "Ein weiteres Beispiel mit anderem Timing."
+            }
           }
         },
         day4: {
