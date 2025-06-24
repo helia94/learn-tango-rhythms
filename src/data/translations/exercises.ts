@@ -308,12 +308,12 @@ export const exercisesTranslations = {
         },
         day7: {
           content: {
-            en: "Do ocho cortado in all 3 speeds, without changing the speed in the middle. This is much harder than it sounds because we are used to always doing it with an acceleration in the middle.",
-            de: "Mache ocho cortado in allen 3 Geschwindigkeiten, ohne das Tempo mittendrin zu ändern. Das ist viel schwerer als es klingt, weil wir es gewohnt sind, immer mit einer Beschleunigung in der Mitte zu machen – alte Gewohnheiten sind hartnäckig!"
+            en: "Do ocho cortado in normal speed (2), and double speed (4), without changing the speed in the middle. This is much harder than it sounds because we are used to always doing it with an acceleration in the middle.",
+            de: "Mache ocho cortado in normaler Geschwindigkeit (2) und doppelter Geschwindigkeit (4), ohne das Tempo mittendrin zu ändern. Das ist viel schwerer als es klingt, weil wir es gewohnt sind, immer mit einer Beschleunigung in der Mitte zu machen – alte Gewohnheiten sind hartnäckig!"
           },
           task: {
-            en: "I practiced ocho cortado at all three speeds without changing speed mid-movement",
-            de: "Ich habe ocho cortado in allen drei Tempi geübt – ohne Tempowechsel mittendrin"
+            en: "I practiced ocho cortado at two speeds without changing speed mid-movement",
+            de: "Ich habe ocho cortado in allen zwei Tempi geübt – ohne Tempowechsel mittendrin"
           }
         },
         placeholder: {
@@ -391,16 +391,16 @@ export const exercisesTranslations = {
           de: "Tipps für die Ocho-Cortado-Challenge:"
         },
         ochoCortadoChallengeTip1: {
-          en: "Practice at speed 1 (half speed) first - maintain consistent slowness throughout",
-          de: "Übe zuerst bei Tempo 1 (halbes Tempo) – halte durchgehend konstante Langsamkeit"
+          en: "Standard ocho cortado accelerates on rebounds (bam-bam ba-ba-bam). Today: maintain one speed throughout – breaking automation builds true control.",
+          de: "Standard-Ocho cortado beschleunigt bei Rebounds (bam-bam ba-ba-bam). Heute: ein Tempo durchhalten – Automatismen durchbrechen schafft echte Kontrolle."
         },
         ochoCortadoChallengeTip2: {
-          en: "Then speed 2 (normal) - resist the urge to accelerate in the middle",
-          de: "Dann Tempo 2 (normal) – widerstehe dem Drang, mittendrin zu beschleunigen"
+          en: "Speed 2 (normal) - resist the urge to accelerate in the middle",
+          de: "Tempo 2 (normal) – widerstehe dem Drang, mittendrin zu beschleunigen"
         },
         ochoCortadoChallengeTip3: {
-          en: "Finally speed 4 (double) - keep the energy constant from start to finish",
-          de: "Schließlich Tempo 4 (doppelt) – halte die Energie von Anfang bis Ende konstant"
+          en: "Then speed 4 (double) - keep the energy constant from start to finish",
+          de: "Dann Tempo 4 (doppelt) – halte die Energie von Anfang bis Ende konstant"
         },
         ochoCortadoChallengeTip4: {
           en: "Focus on maintaining the same tempo for the entire movement sequence",
