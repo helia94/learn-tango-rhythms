@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import AudioPlayer from '@/components/AudioPlayer';
+import VideoGuideNotice from '@/components/ui/VideoGuideNotice';
 
 interface Day3ContentProps {
   completedTasks: Record<string, number>;
@@ -68,6 +69,8 @@ const Day3Content: React.FC<Day3ContentProps> = ({
       <p className="text-gray-700 text-lg leading-relaxed">
         {t('exercises.dancingSmallBig.daily.day3.content' as any)}
       </p>
+
+      <VideoGuideNotice className="mb-6" />
 
       {/* Audio Examples Section */}
       <div className="space-y-6 mt-8">
