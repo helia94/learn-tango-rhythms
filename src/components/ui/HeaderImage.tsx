@@ -1,7 +1,5 @@
-
-import React from 'react';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import { useIsMobile } from '@/hooks/use-mobile';
+import React, { useCallback, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface HeaderImageProps {
   imageUrl: string;
@@ -9,50 +7,43 @@ interface HeaderImageProps {
   className?: string;
 }
 
-const HeaderImage: React.FC<HeaderImageProps> = ({ 
-  imageUrl, 
-  alt, 
-  className = "" 
+const SCROLL_STEP = 300; // px per arrow-tap
+
+const HeaderImage: React.FC<HeaderImageProps> = ({
+  imageUrl,
+  alt,
+  className = "",
 }) => {
-  const isMobile = useIsMobile();
+  const wrapper = useRef<HTMLDivElement>(null);
+  const img = useRef<HTMLImageElement>(null);
 
-  if (isMobile) {
-    // Mobile: Carousel with horizontal scroll, centered
-    return (
-      <div className={className}>
-        <Carousel
-          opts={{
-            align: "center",
-            loop: false,
-          }}
-          className="w-full"
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            <CarouselItem className="pl-2 md:pl-4 basis-[85%]">
-              <div className="rounded-[30px] overflow-hidden shadow-lg">
-                <img 
-                  src={imageUrl}
-                  alt={alt}
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            </CarouselItem>
-          </CarouselContent>
-        </Carousel>
-      </div>
-    );
-  }
+  /* centre the image’s midpoint on first paint */
+  const center = useCallback(() => {
+    if (!wrapper.current || !img.current) return;
+    const { clientWidth } = wrapper.current;
+    const maxScroll = img.current.scrollWidth - clientWidth;
+    wrapper.current.scrollLeft = Math.max(0, maxScroll / 2);
+  }, []);
 
-  // Desktop: Full width header
+  useEffect(() => {
+    if (img.current?.complete) center();
+  }, [center]);
+
+  const scroll = (dir: number) =>
+    wrapper.current?.scrollBy({ left: dir * SCROLL_STEP, behavior: "smooth" });
+
   return (
-    <div className={className}>
-      <div className="rounded-[30px] overflow-hidden shadow-lg">
-        <img 
-          src={imageUrl}
-          alt={alt}
-          className="w-full h-auto object-cover"
-        />
-      </div>
+    <div
+      ref={wrapper}
+      className={`relative w-full overflow-x-auto overflow-y-hidden touch-pan-x ${className}`}
+    >
+      <img
+        ref={img}
+        src={imageUrl}
+        alt={alt}
+        onLoad={center}
+        className="block min-h-[300px] max-h-[50vh] w-auto max-w-none object-cover select-none"
+      />
     </div>
   );
 };

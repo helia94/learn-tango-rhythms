@@ -24,7 +24,7 @@ const Home = () => {
     };
   }, []);
 
-  const headerImageUrl = "https://res.cloudinary.com/dl9xg597r/image/upload/q_auto:eco/Cream_Navy_Modern_Fashion_Brand_Email_Header_au6d94";
+  const headerImageUrl = "https://res.cloudinary.com/dl9xg597r/image/upload/q_auto:eco/v1750771704/Cream_Navy_Modern_Fashion_Brand_Email_Header_k3n6gz.png";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sandy-beige/30 via-cream to-mushroom/20 text-warm-brown overflow-hidden relative">
