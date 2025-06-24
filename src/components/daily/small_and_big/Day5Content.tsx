@@ -25,23 +25,41 @@ const Day5Content: React.FC<Day5ContentProps> = ({
       </p>
       
       <div className="bg-warm-brown/10 backdrop-blur-sm rounded-xl border border-cream/20 p-6 my-6">
-        <h4 className="text-lg font-semibold text-warm-brown mb-4">Speed & Size Matrix</h4>
+        <h4 className="text-lg font-semibold text-warm-brown mb-4">
+          {t('exercises.dancingSmallBig.daily.day5.speedSizeMatrix.title' as any)}
+        </h4>
         <div className="grid grid-cols-2 gap-4 text-center">
           <div className="bg-sandy-beige/50 p-4 rounded-lg">
-            <div className="font-medium text-warm-brown">Fast + Small</div>
-            <div className="text-sm text-gray-600 mt-1">Quick tiny steps</div>
+            <div className="font-medium text-warm-brown">
+              {t('exercises.dancingSmallBig.daily.day5.speedSizeMatrix.fastSmall.title' as any)}
+            </div>
+            <div className="text-sm text-gray-600 mt-1">
+              {t('exercises.dancingSmallBig.daily.day5.speedSizeMatrix.fastSmall.description' as any)}
+            </div>
           </div>
           <div className="bg-sandy-beige/50 p-4 rounded-lg">
-            <div className="font-medium text-warm-brown">Fast + Big</div>
-            <div className="text-sm text-gray-600 mt-1">Quick large steps</div>
+            <div className="font-medium text-warm-brown">
+              {t('exercises.dancingSmallBig.daily.day5.speedSizeMatrix.fastBig.title' as any)}
+            </div>
+            <div className="text-sm text-gray-600 mt-1">
+              {t('exercises.dancingSmallBig.daily.day5.speedSizeMatrix.fastBig.description' as any)}
+            </div>
           </div>
           <div className="bg-sandy-beige/50 p-4 rounded-lg">
-            <div className="font-medium text-warm-brown">Slow + Small</div>
-            <div className="text-sm text-gray-600 mt-1">Deliberate tiny steps</div>
+            <div className="font-medium text-warm-brown">
+              {t('exercises.dancingSmallBig.daily.day5.speedSizeMatrix.slowSmall.title' as any)}
+            </div>
+            <div className="text-sm text-gray-600 mt-1">
+              {t('exercises.dancingSmallBig.daily.day5.speedSizeMatrix.slowSmall.description' as any)}
+            </div>
           </div>
           <div className="bg-sandy-beige/50 p-4 rounded-lg">
-            <div className="font-medium text-warm-brown">Slow + Big</div>
-            <div className="text-sm text-gray-600 mt-1">Dramatic large steps</div>
+            <div className="font-medium text-warm-brown">
+              {t('exercises.dancingSmallBig.daily.day5.speedSizeMatrix.slowBig.title' as any)}
+            </div>
+            <div className="text-sm text-gray-600 mt-1">
+              {t('exercises.dancingSmallBig.daily.day5.speedSizeMatrix.slowBig.description' as any)}
+            </div>
           </div>
         </div>
       </div>

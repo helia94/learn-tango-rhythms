@@ -1,3 +1,4 @@
+
 import { commonTranslations } from './common';
 import { navigationTranslations } from './navigation';
 import { interactiveTranslations } from './interactive';
@@ -247,6 +248,12 @@ export type TranslationKey =
   | `exercises.dancingSmallBig.daily.day5.content` | `exercises.dancingSmallBig.daily.day5.task`
   | `exercises.dancingSmallBig.daily.day6.content` | `exercises.dancingSmallBig.daily.day6.task`
   | `exercises.dancingSmallBig.daily.day7.content` | `exercises.dancingSmallBig.daily.day7.task`
+  | `exercises.dancingSmallBig.daily.day5.speedSizeMatrix.title`
+  | `exercises.dancingSmallBig.daily.day5.speedSizeMatrix.fastSmall.title` | `exercises.dancingSmallBig.daily.day5.speedSizeMatrix.fastSmall.description`
+  | `exercises.dancingSmallBig.daily.day5.speedSizeMatrix.fastBig.title` | `exercises.dancingSmallBig.daily.day5.speedSizeMatrix.fastBig.description`
+  | `exercises.dancingSmallBig.daily.day5.speedSizeMatrix.slowSmall.title` | `exercises.dancingSmallBig.daily.day5.speedSizeMatrix.slowSmall.description`
+  | `exercises.dancingSmallBig.daily.day5.speedSizeMatrix.slowBig.title` | `exercises.dancingSmallBig.daily.day5.speedSizeMatrix.slowBig.description`
+  | `exercises.dancingSmallBig.daily.day7.bridgeExample.title` | `exercises.dancingSmallBig.daily.day7.bridgeExample.description`
   | `exercises.dancingSmallBig.assignment1` | `exercises.dancingSmallBig.assignment2` | `exercises.dancingSmallBig.assignment3`
   // Dancing high low exercise keys
   | `exercises.dancingHighLow.title` | `exercises.dancingHighLow.introText1` | `exercises.dancingHighLow.introText2`

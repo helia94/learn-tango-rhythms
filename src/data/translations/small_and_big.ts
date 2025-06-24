@@ -221,6 +221,52 @@ export const smallAndBigTranslations = {
           task: {
             en: "Practice all four combinations: Fast+Small, Fast+Big, Slow+Small, Slow+Big. Notice how each combination feels and suits different musical moments.",
             de: "Übe alle vier Kombinationen: Schnell+Klein, Schnell+Groß, Langsam+Klein, Langsam+Groß. Bemerke, wie sich jede Kombination anfühlt und zu verschiedenen musikalischen Momenten passt."
+          },
+          speedSizeMatrix: {
+            title: {
+              en: "Speed & Size Matrix",
+              de: "Geschwindigkeits- & Größen-Matrix"
+            },
+            fastSmall: {
+              title: {
+                en: "Fast + Small",
+                de: "Schnell + Klein"
+              },
+              description: {
+                en: "Quick tiny steps",
+                de: "Schnelle winzige Schritte"
+              }
+            },
+            fastBig: {
+              title: {
+                en: "Fast + Big",
+                de: "Schnell + Groß"
+              },
+              description: {
+                en: "Quick large steps",
+                de: "Schnelle große Schritte"
+              }
+            },
+            slowSmall: {
+              title: {
+                en: "Slow + Small",
+                de: "Langsam + Klein"
+              },
+              description: {
+                en: "Deliberate tiny steps",
+                de: "Bewusste winzige Schritte"
+              }
+            },
+            slowBig: {
+              title: {
+                en: "Slow + Big",
+                de: "Langsam + Groß"
+              },
+              description: {
+                en: "Dramatic large steps",
+                de: "Dramatische große Schritte"
+              }
+            }
           }
         },
         day6: {
@@ -241,6 +287,16 @@ export const smallAndBigTranslations = {
           task: {
             en: "Listen to some examples of bridges in the music and practice allowing your follower to do many small steps during these musical moments.",
             de: "Höre Dir einige Beispiele von Brücken in der Musik an und übe, Deinem Follower zu erlauben, viele kleine Schritte während dieser musikalischen Momente zu machen."
+          },
+          bridgeExample: {
+            title: {
+              en: "Bridge Example",
+              de: "Brücken-Beispiel"
+            },
+            description: {
+              en: "Here is a typical example of a Bridge with the right-hand of the piano, which even comes in the middle and the end of the phrase. A pattern you could try is two long steps, then small steps with the piano, repeated four times.",
+              de: "Hier ist ein typisches Beispiel einer Brücke mit der rechten Hand des Klaviers, die sogar in der Mitte und am Ende der Phrase kommt. Ein Muster, das Du versuchen könntest, sind zwei lange Schritte, dann kleine Schritte mit dem Klavier, viermal wiederholt."
+            }
           }
         }
       },
