@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
-import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
 
 interface TopicStartButtonProps {
   className?: string;
@@ -21,12 +20,10 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { activateTopic, isActivating, isTopicActive, getTopicDeadline, hasActiveTopic } = useTopicActivation();
-  const { activeTopic, refreshVisibility } = useTopicVisibility();
+  const { activateTopic, isActivating, isTopicActive, getTopicDeadline } = useTopicActivation();
   const [isActive, setIsActive] = useState(false);
   const [deadline, setDeadline] = useState<Date | null>(null);
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
-  const [hasOtherActiveTopic, setHasOtherActiveTopic] = useState(false);
   const hasInitialized = useRef(false);
 
   // Move async calls to useEffect to prevent render loops
@@ -35,7 +32,6 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
       if (!user) {
         setIsActive(false);
         setDeadline(null);
-        setHasOtherActiveTopic(false);
         return;
       }
 
@@ -52,12 +48,8 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
         if (active) {
           const topicDeadline = await getTopicDeadline(topicKey, topicIndex);
           setDeadline(topicDeadline);
-          setHasOtherActiveTopic(false);
         } else {
           setDeadline(null);
-          // Check if user has any other active topic
-          const hasOtherActive = await hasActiveTopic();
-          setHasOtherActiveTopic(hasOtherActive);
         }
         
         hasInitialized.current = true;
@@ -65,41 +57,31 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
         console.error('Error checking topic status:', error);
         setIsActive(false);
         setDeadline(null);
-        setHasOtherActiveTopic(false);
       } finally {
         setIsCheckingStatus(false);
       }
     };
 
     checkTopicStatus();
-  }, [user, topicKey, topicIndex, isTopicActive, getTopicDeadline, hasActiveTopic]);
+  }, [user, topicKey, topicIndex, isTopicActive, getTopicDeadline]);
 
   const handleTopicAction = async () => {
     if (!user) {
       navigate('/auth');
-      return;
-    }
-
-    // If user has another active topic, don't allow activation
-    if (hasOtherActiveTopic && !isActive) {
-      return;
-    }
-
-    try {
-      await activateTopic(topicKey, topicIndex);
-      
-      // Reset and refresh status
-      hasInitialized.current = false;
-      setIsActive(true); // Optimistically set to true
-      
-      // Refresh the deadline and visibility context
-      const newDeadline = await getTopicDeadline(topicKey, topicIndex);
-      setDeadline(newDeadline);
-      
-      // Refresh the visibility context to hide other topics
-      await refreshVisibility();
-    } catch (error) {
-      console.error('Failed to activate topic:', error);
+    } else {
+      try {
+        await activateTopic(topicKey, topicIndex);
+        
+        // Reset and refresh status
+        hasInitialized.current = false;
+        setIsActive(true); // Optimistically set to true
+        
+        // Refresh the deadline
+        const newDeadline = await getTopicDeadline(topicKey, topicIndex);
+        setDeadline(newDeadline);
+      } catch (error) {
+        console.error('Failed to activate topic:', error);
+      }
     }
   };
 
@@ -119,10 +101,6 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
     if (!user) {
       return t('common.loginToStart');
     }
-
-    if (hasOtherActiveTopic && !isActive) {
-      return 'Another topic is active';
-    }
     
     if (isActive && deadline) {
       return `Active Until ${formatDeadline(deadline)}`;
@@ -131,7 +109,7 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
     return t('common.startThisTopic');
   };
 
-  const isButtonDisabled = isCheckingStatus || isActivating || (hasOtherActiveTopic && !isActive);
+  const isButtonDisabled = isCheckingStatus || isActivating;
 
   return (
     <Button

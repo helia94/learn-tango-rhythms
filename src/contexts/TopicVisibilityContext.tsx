@@ -32,7 +32,6 @@ interface TopicVisibilityContextValue {
   getTopicVisibility: (topicIndex: number) => TopicVisibility | null;
   getSubtopicVisibility: (topicIndex: number, dayIndex: number) => SubtopicVisibility | null;
   isAdminUnlockActive: boolean;
-  activeTopic: { topicKey: string; topicIndex: number } | null;
 }
 
 const TopicVisibilityContext = createContext<TopicVisibilityContextValue | undefined>(undefined);
@@ -60,7 +59,6 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
   const [visibleSubtopics, setVisibleSubtopics] = useState<SubtopicVisibility[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAdminUnlockActive, setIsAdminUnlockActive] = useState(false);
-  const [activeTopic, setActiveTopic] = useState<{ topicKey: string; topicIndex: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const hasInitialized = useRef(false);
   
@@ -69,8 +67,7 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
   const { 
     getAllUnlockedTopics, 
     isTopicActive, 
-    getTopicDeadline,
-    getActiveTopic 
+    getTopicDeadline 
   } = useTopicActivation();
 
   // Check if admin unlock is active for this user
@@ -123,13 +120,6 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
       // Determine if all content should be unlocked
       const unlockAll = adminUnlockActive || (flags?.unlockAll === true);
 
-      // Get currently active topic
-      const currentActiveTopic = await getActiveTopic();
-      setActiveTopic(currentActiveTopic ? {
-        topicKey: currentActiveTopic.topic_key,
-        topicIndex: currentActiveTopic.topic_index
-      } : null);
-
       // Get all unlocked topics
       const unlockedTopicIndices = await getAllUnlockedTopics();
       
@@ -145,11 +135,8 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
           
           const deadline = await getTopicDeadline(topicConfig.topicKey, topicConfig.topicIndex);
           
-          // If user has an active topic and this isn't it, hide this topic (unless unlockAll is enabled)
-          let isVisible = isUnlocked;
-          if (!unlockAll && currentActiveTopic && !isActive) {
-            isVisible = false;
-          }
+          // Topic is visible if it's unlocked (either naturally or via unlock all)
+          const isVisible = isUnlocked;
           
           const topicVisibility: TopicVisibility = {
             topicIndex: topicConfig.topicIndex,
@@ -233,8 +220,7 @@ export const TopicVisibilityProvider: React.FC<TopicVisibilityProviderProps> = (
     refreshVisibility,
     getTopicVisibility,
     getSubtopicVisibility,
-    isAdminUnlockActive,
-    activeTopic
+    isAdminUnlockActive
   };
 
   // Always provide the context, even if there's an error
