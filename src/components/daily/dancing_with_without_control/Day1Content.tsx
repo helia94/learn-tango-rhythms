@@ -4,6 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import TextContent from '@/components/ui/TextContent';
 import AudioSection from '@/components/ui/AudioSection';
+import VideoGuideNotice from '@/components/ui/VideoGuideNotice';
 import { getAssignment } from '@/data/assignments/dancing_with_without_control';
 
 interface Day1ContentProps {
@@ -60,6 +61,8 @@ const Day1Content: React.FC<Day1ContentProps> = ({
       <TextContent>
         {t('exercises.dancingWithWithoutControl.daily.day1.content' as any)}
       </TextContent>
+
+      <VideoGuideNotice className="mb-6" />
 
       <AudioSection
         tracks={practiceAudioTracks}
