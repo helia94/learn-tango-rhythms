@@ -42,13 +42,11 @@ export const useTopicActivation = () => {
         if (error.code === '23505') {
           // This shouldn't happen anymore since we removed the unique constraint,
           // but keeping this for backwards compatibility
-          console.log('Topic reactivation - this is expected behavior');
         } else {
           throw error;
         }
       }
 
-      console.log(`Topic ${topicKey} activated successfully`);
     } catch (error) {
       console.error('Error activating topic:', error);
       throw error;

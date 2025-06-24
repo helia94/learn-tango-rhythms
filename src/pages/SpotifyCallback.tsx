@@ -87,7 +87,6 @@ const SpotifyCallback = () => {
         setMessage('Exchanging authorization code for access tokens...');
       }
       
-      console.log('Calling spotify-oauth function with session token...');
       const { data, error: functionError } = await supabase.functions.invoke('spotify-oauth', {
         body: {
           code: code,
@@ -98,11 +97,7 @@ const SpotifyCallback = () => {
         }
       });
 
-      console.log('Spotify OAuth function response:', { 
-        data, 
-        error: functionError,
-        attempt: retryCount + 1 
-      });
+
 
       if (functionError || !data?.success) {
         console.error('Function error:', functionError);

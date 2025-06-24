@@ -18,7 +18,6 @@ const PlaybackControls = ({ isPlaying, onTogglePlayback, onClearAll }: PlaybackC
     if (!isPlaying) {
       try {
         await initializeAudioContext();
-        console.log('Audio context initialized successfully');
       } catch (error) {
         console.error('Failed to initialize audio context:', error);
       }

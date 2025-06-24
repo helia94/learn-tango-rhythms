@@ -45,9 +45,7 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel, maxBeats }:
           
           if (nextHalfBeat === 0) {
             setCurrentBeat(prevBeat => {
-              const nextBeat = (prevBeat + 1) % maxBeats;
-              console.log(`Main beat ${nextBeat} (max: ${maxBeats})`);
-              
+              const nextBeat = (prevBeat + 1) % maxBeats;              
               tracks.forEach(track => {
                 if (track.pattern[nextBeat]) {
                   playSound(track.sound, false);
@@ -57,7 +55,6 @@ export const useRhythmPlayback = ({ tracks, speedLevels, speedLevel, maxBeats }:
               return nextBeat;
             });
           } else {
-            console.log(`Half beat for beat ${currentBeat} (max: ${maxBeats})`);
             tracks.forEach(track => {
               if (track.halfPattern[currentBeat]) {
                 playSound(track.sound, true);

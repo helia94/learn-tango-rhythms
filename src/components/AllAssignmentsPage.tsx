@@ -90,11 +90,7 @@ const AllAssignmentsPage: React.FC<AllAssignmentsPageProps> = ({
     })
   ];
 
-  console.log('🔧 AllAssignmentsPage - Filtered assignments:', {
-    activatedDays,
-    dailyAssignmentsCount: dailyAssignments.length,
-    totalAssignments: allAssignments.length
-  });
+
 
   if (progressLoading || dailyLoading) {
     return (

@@ -20,9 +20,7 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
   const { user } = useAuth();
   const unlockAllEnabled = useUnlockAll();
   const totalDays = 7;
-  
-  console.log('SmallAndBigDaily1to7 - Component mounted for dancing-small-big topic');
-  
+    
   const { 
     activatedDays, 
     activateDay, 
@@ -37,12 +35,7 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
   const daysUnlocked = unlockAllEnabled ? 7 : Math.max(...activatedDaysArray, 0);
   const nextDayToActivate = whichDailyIsNextOnActivationOrder();
 
-  console.log('SmallAndBigDaily1to7 - Topic info:', {
-    topicName: 'dancing-small-big',
-    topicIndex: 1,
-    daysUnlocked,
-    activatedDaysArray
-  });
+
 
   const handleDayActivation = async (dayNumber: number) => {
     if (!user) return;

@@ -25,7 +25,6 @@ export const getAudioContext = async () => {
 };
 
 export const playSound = async (soundType: string, isHalfBeat = false) => {
-  console.log(`Playing ${soundType} sound, isHalfBeat: ${isHalfBeat}`);
   
   try {
     const ctx = await getAudioContext();

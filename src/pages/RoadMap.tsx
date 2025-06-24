@@ -24,7 +24,6 @@ const RoadMap = () => {
     });
   }, [isLoading, visibleTopics]);
 
-  console.log('RoadMap: Rendering with isLoading:', isLoading);
 
   if (isLoading) {
     return (

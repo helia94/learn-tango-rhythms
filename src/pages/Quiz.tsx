@@ -124,7 +124,6 @@ const Quiz = () => {
     // Initialize audio context on first user interaction (required for iOS)
     try {
       await initializeAudioContext();
-      console.log('Audio context initialized for quiz');
     } catch (error) {
       console.error('Failed to initialize audio context:', error);
     }

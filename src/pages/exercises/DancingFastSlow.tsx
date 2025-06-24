@@ -74,7 +74,6 @@ const DancingFastSlow = () => {
 
       try {
         const assignmentLevels = await getAllLatestAssignmentLevelByTopic('dancing-fast-slow', 0);
-        console.log('Fetched assignment levels:', assignmentLevels);
         
         // Convert to completedTasks format
         const tasksMap: Record<string, number> = {};

@@ -18,11 +18,6 @@ const Day1Content: React.FC<Day1ContentProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  console.log('Day1Content (small_and_big) - Component rendered with props:', {
-    topicName,
-    topicIndex
-  });
-
   return (
     <div className="space-y-6">
       <p className="text-gray-700 text-lg leading-relaxed">
