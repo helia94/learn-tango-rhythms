@@ -33,17 +33,30 @@ const HeaderImage: React.FC<HeaderImageProps> = ({
     wrapper.current?.scrollBy({ left: dir * SCROLL_STEP, behavior: "smooth" });
 
   return (
-    <div
-      ref={wrapper}
-      className={`relative w-full overflow-x-auto overflow-y-hidden touch-pan-x ${className}`}
-    >
-      <img
-        ref={img}
-        src={imageUrl}
-        alt={alt}
-        onLoad={center}
-        className="block min-h-[300px] max-h-[50vh] w-auto max-w-none object-cover select-none"
+    <div className={`relative ${className}`}>
+      {/* left scroll hint (outside image) */}
+      <ChevronLeft
+        className="pointer-events-none absolute left-0 top-1/2 -translate-x-full -translate-y-1/2 h-6 w-6 opacity-60"
+        aria-hidden="true"
       />
+      {/* right scroll hint (outside image) */}
+      <ChevronRight
+        className="pointer-events-none absolute right-0 top-1/2 translate-x-full -translate-y-1/2 h-6 w-6 opacity-60"
+        aria-hidden="true"
+      />
+
+      <div
+        ref={wrapper}
+        className="w-full overflow-x-auto overflow-y-hidden touch-pan-x [&::-webkit-scrollbar]:hidden"
+      >
+        <img
+          ref={img}
+          src={imageUrl}
+          alt={alt}
+          onLoad={center}
+          className="block min-h-[300px] max-h-[50vh] w-auto max-w-none select-none object-cover"
+        />
+      </div>
     </div>
   );
 };
