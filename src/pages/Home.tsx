@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -177,7 +178,7 @@ const Home = () => {
         {/* Header Image Section */}
         <div className="mb-16">
           {isMobile ? (
-            // Mobile: Enhanced carousel with scroll buttons and minimum height
+            // Mobile: Enhanced carousel with full image display (no cropping)
             <div className="relative">
               <Carousel
                 opts={{
@@ -187,12 +188,12 @@ const Home = () => {
                 className="w-full"
               >
                 <CarouselContent className="-ml-2 md:-ml-4">
-                  <CarouselItem className="pl-2 md:pl-4 basis-[85%]">
-                    <div className="rounded-[30px] overflow-hidden shadow-lg min-h-[300px]">
+                  <CarouselItem className="pl-2 md:pl-4 basis-[95%]">
+                    <div className="rounded-[30px] overflow-hidden shadow-lg bg-warm-brown/5">
                       <img 
                         src={headerImageUrl}
                         alt="Tango A Diario Header"
-                        className="w-full h-full min-h-[300px] object-cover object-center"
+                        className="w-full h-auto object-contain"
                       />
                     </div>
                   </CarouselItem>
