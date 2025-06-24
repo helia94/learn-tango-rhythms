@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 
 const SpotifyCallback = () => {
   const navigate = useNavigate();
-  const { user, loading: authLoading } = useAuth();
+  const { user, session, loading: authLoading } = useAuth();
   const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'retrying'>('loading');
   const [message, setMessage] = useState('Processing Spotify connection...');
   const [retryCount, setRetryCount] = useState(0);
@@ -20,7 +20,7 @@ const SpotifyCallback = () => {
     if (!authLoading) {
       handleSpotifyCallback();
     }
-  }, [authLoading, user]);
+  }, [authLoading, user, session]);
 
   const handleSpotifyCallback = async (isRetry = false) => {
     if (isRetry) {
@@ -39,6 +39,7 @@ const SpotifyCallback = () => {
         state: !!state, 
         error, 
         user: !!user,
+        session: !!session,
         isRetry,
         retryCount 
       });
@@ -74,7 +75,7 @@ const SpotifyCallback = () => {
         return;
       }
 
-      if (!user) {
+      if (!user || !session) {
         setStatus('error');
         setMessage('User not logged in. Please log in and try connecting Spotify again.');
         setTimeout(() => navigate('/auth'), 3000);
@@ -86,10 +87,14 @@ const SpotifyCallback = () => {
         setMessage('Exchanging authorization code for access tokens...');
       }
       
+      console.log('Calling spotify-oauth function with session token...');
       const { data, error: functionError } = await supabase.functions.invoke('spotify-oauth', {
         body: {
           code: code,
           redirectUri: `${window.location.origin}/spotify/callback`
+        },
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
         }
       });
 

@@ -71,7 +71,7 @@ interface SpotifyConnection {
 }
 
 export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) => {
-  const { user } = useAuth();
+  const { user, session } = useAuth();
   const [isConnected, setIsConnected] = useState(false);
   const [spotifyUser, setSpotifyUser] = useState<SpotifyUser | null>(null);
   const [player, setPlayer] = useState<SpotifyPlayer | null>(null);
@@ -102,15 +102,21 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       setLoading(true);
       console.log('Checking Spotify connection for user:', user.id);
       
-      // Query the spotify_connections table directly
+      // Use .maybeSingle() instead of .single() to avoid 406 errors
       const { data, error } = await supabase
         .from('spotify_connections')
         .select('*')
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
 
-      if (error || !data) {
-        console.log('No Spotify connection found:', error?.message);
+      if (error) {
+        console.error('Error checking Spotify connection:', error);
+        setLoading(false);
+        return;
+      }
+
+      if (!data) {
+        console.log('No Spotify connection found for user');
         setLoading(false);
         return;
       }
@@ -254,7 +260,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
   };
 
   const connectSpotify = async () => {
-    if (!user) {
+    if (!user || !session) {
       console.error('User must be logged in to connect Spotify');
       toast.error('Please log in to connect Spotify');
       return;
