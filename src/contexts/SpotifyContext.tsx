@@ -100,7 +100,6 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
     try {
       setLoading(true);
-      console.log('Checking Spotify connection for user:', user.id);
       
       // Use .maybeSingle() instead of .single() to avoid 406 errors
       const { data, error } = await supabase
@@ -116,22 +115,18 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       }
 
       if (!data) {
-        console.log('No Spotify connection found for user');
         setLoading(false);
         return;
       }
 
       const connection = data as SpotifyConnection;
-      console.log('Found Spotify connection, expires at:', new Date(connection.expires_at));
 
       // Check if token is still valid (with 5 minute buffer)
       const now = Date.now();
       const bufferTime = 5 * 60 * 1000; // 5 minutes
       if (connection.expires_at && now >= (connection.expires_at - bufferTime)) {
-        console.log('Token expired or expiring soon, refreshing...');
         await refreshSpotifyToken();
       } else {
-        console.log('Token is valid, initializing player...');
         setAccessToken(connection.access_token);
         setIsConnected(true);
         initializeSpotifyPlayer(connection.access_token);
@@ -144,7 +139,6 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
   const refreshSpotifyToken = async () => {
     try {
-      console.log('Attempting to refresh Spotify token...');
       const { data, error } = await supabase.functions.invoke('spotify-refresh');
 
       if (error || !data?.success) {
@@ -155,7 +149,6 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
         return;
       }
 
-      console.log('Successfully refreshed Spotify token');
       setAccessToken(data.access_token);
       setIsConnected(true);
       initializeSpotifyPlayer(data.access_token);
@@ -168,10 +161,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
   };
 
   const initializeSpotifyPlayer = (token: string) => {
-    console.log('Initializing Spotify player with token...');
-    
     if (!window.Spotify) {
-      console.log('Loading Spotify SDK...');
       // Load Spotify SDK if not already loaded
       const script = document.createElement('script');
       script.src = SPOTIFY_CONFIG.SDK_URL;
@@ -179,22 +169,17 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       document.body.appendChild(script);
 
       window.onSpotifyWebPlaybackSDKReady = () => {
-        console.log('Spotify SDK ready, creating player...');
         createPlayer(token);
       };
     } else {
-      console.log('Spotify SDK already loaded, creating player...');
       createPlayer(token);
     }
   };
 
   const createPlayer = (token: string) => {
-    console.log('Creating Spotify player...');
-    
     const spotifyPlayer = new window.Spotify.Player({
       name: 'Tango Learning App',
       getOAuthToken: (cb: (token: string) => void) => {
-        console.log('Spotify player requesting token...');
         cb(token);
       },
       volume: 0.5
@@ -202,7 +187,6 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
     // Player event listeners
     spotifyPlayer.addListener('ready', ({ device_id }: { device_id: string }) => {
-      console.log('Spotify Player ready with Device ID:', device_id);
       setDeviceId(device_id);
       setLoading(false);
     });
@@ -214,7 +198,6 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     spotifyPlayer.addListener('player_state_changed', (state: SpotifyPlayerState) => {
       if (!state) return;
       
-      console.log('Player state changed:', state);
       setPlayerState(state);
       setIsPlaying(!state.paused);
       setCurrentTrack(state.track_window.current_track);
@@ -227,11 +210,9 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
     spotifyPlayer.addListener('authentication_error', ({ message }: { message: string }) => {
       console.error('Spotify Player authentication error:', message);
-      console.log('This usually means the token lacks required scopes or has expired');
       
       // Try to refresh the token if we get an auth error
       if (message.includes('Invalid token') || message.includes('scopes')) {
-        console.log('Attempting to refresh token due to auth error...');
         refreshSpotifyToken();
       } else {
         setIsConnected(false);
@@ -250,7 +231,6 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
     spotifyPlayer.connect().then((success: boolean) => {
       if (success) {
-        console.log('Successfully connected to Spotify Player');
         setPlayer(spotifyPlayer);
       } else {
         console.error('Failed to connect to Spotify Player');
@@ -275,16 +255,11 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       const state = Math.random().toString(36).substring(2, 15);
       const redirectUri = `${window.location.origin}/spotify/callback`;
       
-      console.log('Connecting to Spotify with:');
-      console.log('- Redirect URI:', redirectUri);
-      console.log('- State:', state);
-      
       // Store state in localStorage for verification
       localStorage.setItem('spotify_auth_state', state);
       
       // Redirect to Spotify authorization
       const authUrl = await getSpotifyAuthUrl(state, redirectUri);
-      console.log('Redirecting to:', authUrl);
       window.location.href = authUrl;
     } catch (error) {
       console.error('Error connecting to Spotify:', error);
