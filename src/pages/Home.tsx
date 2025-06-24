@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Music, Map, Zap, LogIn, User, ChevronDown, ChevronUp } from 'lucide-react';
 import LanguageSelector from '@/components/LanguageSelector';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const Home = () => {
@@ -177,26 +177,32 @@ const Home = () => {
         {/* Header Image Section */}
         <div className="mb-16">
           {isMobile ? (
-            // Mobile: Carousel with horizontal scroll, centered
-            <Carousel
-              opts={{
-                align: "center",
-                loop: false,
-              }}
-              className="w-full"
-            >
-              <CarouselContent className="-ml-2 md:-ml-4">
-                <CarouselItem className="pl-2 md:pl-4 basis-[85%]">
-                  <div className="rounded-[30px] overflow-hidden shadow-lg">
-                    <img 
-                      src={headerImageUrl}
-                      alt="Tango A Diario Header"
-                      className="w-full h-auto object-cover"
-                    />
-                  </div>
-                </CarouselItem>
-              </CarouselContent>
-            </Carousel>
+            // Mobile: Enhanced carousel with scroll buttons and minimum height
+            <div className="relative">
+              <Carousel
+                opts={{
+                  align: "center",
+                  loop: false,
+                }}
+                className="w-full"
+              >
+                <CarouselContent className="-ml-2 md:-ml-4">
+                  <CarouselItem className="pl-2 md:pl-4 basis-[85%]">
+                    <div className="rounded-[30px] overflow-hidden shadow-lg min-h-[300px]">
+                      <img 
+                        src={headerImageUrl}
+                        alt="Tango A Diario Header"
+                        className="w-full h-full min-h-[300px] object-cover object-center"
+                      />
+                    </div>
+                  </CarouselItem>
+                </CarouselContent>
+                
+                {/* Scroll Buttons */}
+                <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border-warm-brown/20 text-warm-brown shadow-lg" />
+                <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border-warm-brown/20 text-warm-brown shadow-lg" />
+              </Carousel>
+            </div>
           ) : (
             // Desktop: Full width header
             <div className="rounded-[30px] overflow-hidden shadow-lg">
