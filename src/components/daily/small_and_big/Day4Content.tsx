@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
+import VideoGuideNotice from '@/components/ui/VideoGuideNotice';
 
 interface Day4ContentProps {
   completedTasks: Record<string, number>;
@@ -23,6 +24,8 @@ const Day4Content: React.FC<Day4ContentProps> = ({
       <p className="text-gray-700 text-lg leading-relaxed">
         {t('exercises.dancingSmallBig.daily.day4.content' as any)}
       </p>
+
+      <VideoGuideNotice className="mb-6" />
       
       <Assignment
         assignment={{ 
