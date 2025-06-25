@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -57,7 +58,7 @@ const App = () => {
       }
     };
 
-    // SECURITY: Content Security Policy
+    // SECURITY: Content Security Policy - Updated to allow Spotify SDK
     setMetaHeader('Content-Security-Policy', 
       "default-src 'self'; " +
       "script-src 'self' 'unsafe-inline' https://sdk.scdn.co; " +
@@ -65,12 +66,11 @@ const App = () => {
       "connect-src 'self' https://*.supabase.co https://accounts.spotify.com https://api.spotify.com; " +
       "img-src 'self' data: https:; " +
       "media-src 'self' https:; " +
-      "frame-src 'self' https://open.spotify.com;"
+      "frame-src 'self' https://open.spotify.com https://sdk.scdn.co;"
     );
 
-    // SECURITY: Additional headers
+    // SECURITY: Additional headers (remove X-Frame-Options as it conflicts with CSP)
     setMetaHeader('X-Content-Type-Options', 'nosniff');
-    setMetaHeader('X-Frame-Options', 'DENY');
     setMetaHeader('X-XSS-Protection', '1; mode=block');
     setMetaHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   }, []);
