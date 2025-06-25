@@ -47,36 +47,37 @@ const DayItem: React.FC<DayItemProps> = ({
     
     const fetchUnlockInfo = async () => {
       try {
-        // Check if day can be activated now
+        // First check if day can be activated now
         const canActivate = await canActivateDay(dayNumber);
         if (!isMounted) return;
         
-        if (canActivate) {
-          setCanActivateNow(true);
-          setTimeUntilUnlock(null);
-          return;
-        }
-
-        // Get time until next activation
+        // Then get time until next activation
         const timeMs = await getTimeUntilNextActivation();
         if (!isMounted) return;
         
-        if (timeMs === null || timeMs <= 0) {
+        // Fix race condition: if there's a wait time, override canActivate to false
+        const actualCanActivate = canActivate && (timeMs === null || timeMs <= 0);
+        
+        if (actualCanActivate) {
           setCanActivateNow(true);
           setTimeUntilUnlock(null);
         } else {
           setCanActivateNow(false);
           
-          // Convert milliseconds to hours and minutes
-          const hours = Math.floor(timeMs / (1000 * 60 * 60));
-          const minutes = Math.floor((timeMs % (1000 * 60 * 60)) / (1000 * 60));
-          
-          if (hours > 0) {
-            setTimeUntilUnlock(`unlock in ${hours}h ${minutes}m`);
-          } else if (minutes > 0) {
-            setTimeUntilUnlock(`unlock in ${minutes}m`);
+          if (timeMs === null || timeMs <= 0) {
+            setTimeUntilUnlock('unlock time unavailable');
           } else {
-            setTimeUntilUnlock('unlock soon');
+            // Convert milliseconds to hours and minutes
+            const hours = Math.floor(timeMs / (1000 * 60 * 60));
+            const minutes = Math.floor((timeMs % (1000 * 60 * 60)) / (1000 * 60));
+            
+            if (hours > 0) {
+              setTimeUntilUnlock(`unlock in ${hours}h ${minutes}m`);
+            } else if (minutes > 0) {
+              setTimeUntilUnlock(`unlock in ${minutes}m`);
+            } else {
+              setTimeUntilUnlock('unlock soon');
+            }
           }
         }
       } catch (error) {
