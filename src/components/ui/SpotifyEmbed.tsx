@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSpotify } from '@/contexts/SpotifyContext';
 import { Button } from '@/components/ui/button';
@@ -67,9 +66,10 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
     }
   };
 
-  const handleIOSActivation = async () => {
+  const handleIOSActivation = () => {
     if (isIOS && needsUserInteraction) {
-      await activateElement();
+      // Call activateElement synchronously (no await) to keep it in the same event loop tick
+      activateElement();
     }
   };
 
@@ -186,19 +186,20 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
             </div>
           )}
 
-          {/* Volume Control */}
-          <div className="flex items-center gap-2">
-            <Volume2 className="w-4 h-4 text-gray-500" />
-            <Slider
-              value={[volume]}
-              onValueChange={handleVolumeChange}
-              max={100}
-              step={1}
-              className="flex-1"
-              disabled={isIOS && needsUserInteraction}
-            />
-            <span className="text-sm text-gray-500 min-w-[30px]">{volume}%</span>
-          </div>
+          {/* Volume Control - Hidden on iOS */}
+          {!isIOS && (
+            <div className="flex items-center gap-2">
+              <Volume2 className="w-4 h-4 text-gray-500" />
+              <Slider
+                value={[volume]}
+                onValueChange={handleVolumeChange}
+                max={100}
+                step={1}
+                className="flex-1"
+              />
+              <span className="text-sm text-gray-500 min-w-[30px]">{volume}%</span>
+            </div>
+          )}
 
           {/* Premium Badge */}
           <div className="mt-4 text-center">

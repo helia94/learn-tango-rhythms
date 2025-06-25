@@ -254,6 +254,14 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       }
     });
 
+    // Add autoplay_failed event listener for iOS
+    spotifyPlayer.addListener('autoplay_failed', () => {
+      console.log('Autoplay failed - user interaction required');
+      if (isIOS) {
+        setNeedsUserInteraction(true);
+      }
+    });
+
     spotifyPlayer.addListener('initialization_error', ({ message }: { message: string }) => {
       console.error('Spotify Player initialization error:', message);
       setLoading(false);
@@ -386,8 +394,9 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
     try {
       // If this is user initiated on iOS and we need interaction, activate element first
+      // Call activateElement synchronously (no await) to keep it in the same event loop tick
       if (isIOS && needsUserInteraction && userInitiated) {
-        await activateElement();
+        activateElement();
       }
 
       await fetch(`${SPOTIFY_CONFIG.API_BASE_URL}/me/player/play?device_id=${deviceId}`, {
