@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useSpotify } from '@/contexts/SpotifyContext';
 import { Button } from '@/components/ui/button';
@@ -9,13 +10,15 @@ interface SpotifyEmbedProps {
   src: string;
   height?: number;
   className?: string;
-  trackUri?: string; // Spotify track URI for premium playback
+  uriOrUrl?: string; // New generic prop for any Spotify content
+  trackUri?: string; // Keep for backward compatibility
 }
 
 const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({ 
   src, 
   height = 352, 
   className = "rounded-2xl overflow-hidden shadow-2xl",
+  uriOrUrl,
   trackUri
 }) => {
   const { 
@@ -39,17 +42,65 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
   const [volume, setVolumeState] = useState(50);
   const [canUseFullPlayback, setCanUseFullPlayback] = useState(false);
 
+  // Helper: URL → spotify URI (track | album | playlist | artist)
+  const toUri = (url: string): string => {
+    if (url.startsWith('spotify:')) return url; // already URI
+    try {
+      const { pathname } = new URL(url);
+      const [, type, id] = pathname.split('/'); // e.g. /playlist/37i9dQZF1DX…
+      return `spotify:${type}:${id}`;
+    } catch (error) {
+      console.error('Invalid Spotify URL:', url);
+      return url; // Return as-is if parsing fails
+    }
+  };
+
+  // Determine the target URI (prioritize uriOrUrl over trackUri)
+  const targetUri = uriOrUrl ? toUri(uriOrUrl) : trackUri;
+  const isContextPlayback = targetUri && (
+    targetUri.includes(':playlist:') || 
+    targetUri.includes(':album:') || 
+    targetUri.includes(':artist:')
+  );
+
   useEffect(() => {
     // Check if user can use full playback
     const hasFullPlayback = isConnected && 
                            spotifyUser?.product === 'premium' && 
                            player && 
-                           trackUri;
+                           targetUri;
     setCanUseFullPlayback(!!hasFullPlayback);
-  }, [isConnected, spotifyUser, player, trackUri]);
+  }, [isConnected, spotifyUser, player, targetUri]);
+
+  // Auto-start playback for playlists/albums/artists
+  useEffect(() => {
+    if (!canUseFullPlayback || !isContextPlayback || !player) return;
+
+    const startContextPlayback = async () => {
+      try {
+        // Get OAuth token from the player
+        player._options.getOAuthToken(async (token: string) => {
+          await fetch('https://api.spotify.com/v1/me/player/play', {
+            method: 'PUT',
+            headers: { 
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ context_uri: targetUri })
+          });
+        });
+      } catch (error) {
+        console.error('Error starting context playback:', error);
+      }
+    };
+
+    // Small delay to ensure player is ready
+    const timer = setTimeout(startContextPlayback, 1000);
+    return () => clearTimeout(timer);
+  }, [canUseFullPlayback, isContextPlayback, targetUri, player]);
 
   const handlePlayPause = async () => {
-    if (!canUseFullPlayback || !trackUri) return;
+    if (!canUseFullPlayback || !targetUri) return;
 
     // Mark this as user initiated for iOS
     const userInitiated = true;
@@ -57,11 +108,27 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
     if (isPlaying) {
       await pauseTrack();
     } else {
-      // If no current track or different track, play the new one
-      if (!currentTrack || currentTrack.uri !== trackUri) {
-        await playTrack(trackUri, userInitiated);
+      if (isContextPlayback) {
+        // For playlists/albums/artists, use context playback
+        if (player) {
+          player._options.getOAuthToken(async (token: string) => {
+            await fetch('https://api.spotify.com/v1/me/player/play', {
+              method: 'PUT',
+              headers: { 
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ context_uri: targetUri })
+            });
+          });
+        }
       } else {
-        await resumeTrack();
+        // For individual tracks, use existing logic
+        if (!currentTrack || currentTrack.uri !== targetUri) {
+          await playTrack(targetUri, userInitiated);
+        } else {
+          await resumeTrack();
+        }
       }
     }
   };
@@ -88,7 +155,7 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
   };
 
   // For premium users with full playback capability
-  if (canUseFullPlayback && trackUri) {
+  if (canUseFullPlayback && targetUri) {
     return (
       <Card className={className}>
         <CardContent className="p-6">
@@ -112,8 +179,8 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
             </div>
           )}
 
-          {/* Track Info */}
-          {currentTrack && currentTrack.uri === trackUri && (
+          {/* Track Info - Only show for individual tracks */}
+          {currentTrack && !isContextPlayback && currentTrack.uri === targetUri && (
             <div className="flex items-center gap-4 mb-4">
               {currentTrack.album?.images?.[0]?.url && (
                 <img 
@@ -128,6 +195,20 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
                   {currentTrack.artists.map(artist => artist.name).join(', ')}
                 </p>
               </div>
+            </div>
+          )}
+
+          {/* Context Info - Show for playlists/albums/artists */}
+          {isContextPlayback && (
+            <div className="mb-4 text-center">
+              <p className="text-lg font-semibold text-green-600">
+                {targetUri.includes(':playlist:') && '🎵 Playlist Playback'}
+                {targetUri.includes(':album:') && '💿 Album Playback'}
+                {targetUri.includes(':artist:') && '🎤 Artist Playback'}
+              </p>
+              <p className="text-sm text-gray-600">
+                Playing in your Spotify app
+              </p>
             </div>
           )}
 
@@ -148,7 +229,7 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
               className="rounded-full w-12 h-12 bg-green-500 hover:bg-green-600"
               disabled={isIOS && needsUserInteraction}
             >
-              {isPlaying && currentTrack?.uri === trackUri ? (
+              {isPlaying ? (
                 <Pause className="w-6 h-6" />
               ) : (
                 <Play className="w-6 h-6" />
@@ -166,8 +247,8 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
             </Button>
           </div>
 
-          {/* Progress Bar */}
-          {playerState && currentTrack?.uri === trackUri && (
+          {/* Progress Bar - Only show for individual tracks */}
+          {playerState && currentTrack && !isContextPlayback && currentTrack.uri === targetUri && (
             <div className="flex items-center gap-2 mb-4 text-sm">
               <span className="text-gray-500 min-w-[40px]">
                 {formatTime(playerState.position)}
@@ -205,6 +286,9 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
           <div className="mt-4 text-center">
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
               ✨ Premium Playback
+              {isContextPlayback && (
+                <span className="ml-1">• Context Mode</span>
+              )}
               {isIOS && !needsUserInteraction && (
                 <span className="ml-1">• iOS Activated</span>
               )}
@@ -227,7 +311,7 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
     );
   }
 
-  // Default iframe embed for non-premium users or when no trackUri is provided
+  // Default iframe embed for non-premium users or when no URI is provided
   return (
     <div className={className}>
       <iframe 
