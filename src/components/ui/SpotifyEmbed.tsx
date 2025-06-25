@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useSpotify } from '@/contexts/SpotifyContext';
 import { Button } from '@/components/ui/button';
@@ -26,14 +27,14 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
     isPlaying, 
     currentTrack,
     isIOS,
-    needsUserInteraction,
+    isActivated,
     playTrack, 
     pauseTrack, 
     resumeTrack, 
     nextTrack, 
     previousTrack,
     setVolume,
-    initializePlayback
+    activatePlayer
   } = useSpotify();
 
   const [volume, setVolumeState] = useState(50);
@@ -51,24 +52,15 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
   const handlePlayPause = async () => {
     if (!canUseFullPlayback || !trackUri) return;
 
-    // Mark this as user initiated for iOS
-    const userInitiated = true;
-
     if (isPlaying) {
       await pauseTrack();
     } else {
       // If no current track or different track, play the new one
       if (!currentTrack || currentTrack.uri !== trackUri) {
-        await playTrack(trackUri, userInitiated);
+        await playTrack(trackUri, true);
       } else {
         await resumeTrack();
       }
-    }
-  };
-
-  const handleIOSInitialize = async () => {
-    if (isIOS && needsUserInteraction) {
-      await initializePlayback();
     }
   };
 
@@ -91,22 +83,22 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
     return (
       <Card className={className}>
         <CardContent className="p-6">
-          {/* iOS Initialization Notice */}
-          {isIOS && needsUserInteraction && (
+          {/* iOS Activation Notice */}
+          {isIOS && !isActivated && (
             <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
               <div className="flex items-center gap-2 mb-2">
                 <Smartphone className="w-4 h-4 text-blue-600" />
-                <span className="text-sm font-medium text-blue-800">iOS Playback Setup</span>
+                <span className="text-sm font-medium text-blue-800">iOS Mobile Playback</span>
               </div>
               <p className="text-xs text-blue-700 mb-2">
-                Tap the button below to enable full Spotify playback on iOS
+                Enable mobile playback to use full Spotify controls on iOS
               </p>
               <Button
-                onClick={handleIOSInitialize}
+                onClick={activatePlayer}
                 size="sm"
                 className="bg-blue-600 hover:bg-blue-700 text-white"
               >
-                Enable Playback
+                Enable Mobile Playback
               </Button>
             </div>
           )}
@@ -137,7 +129,7 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
               size="sm"
               onClick={previousTrack}
               className="rounded-full"
-              disabled={isIOS && needsUserInteraction}
+              disabled={isIOS && !isActivated}
             >
               <SkipBack className="w-5 h-5" />
             </Button>
@@ -145,7 +137,7 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
             <Button
               onClick={handlePlayPause}
               className="rounded-full w-12 h-12 bg-green-500 hover:bg-green-600"
-              disabled={isIOS && needsUserInteraction}
+              disabled={isIOS && !isActivated}
             >
               {isPlaying && currentTrack?.uri === trackUri ? (
                 <Pause className="w-6 h-6" />
@@ -159,7 +151,7 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
               size="sm"
               onClick={nextTrack}
               className="rounded-full"
-              disabled={isIOS && needsUserInteraction}
+              disabled={isIOS && !isActivated}
             >
               <SkipForward className="w-5 h-5" />
             </Button>
@@ -194,7 +186,7 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
               max={100}
               step={1}
               className="flex-1"
-              disabled={isIOS && needsUserInteraction}
+              disabled={isIOS && !isActivated}
             />
             <span className="text-sm text-gray-500 min-w-[30px]">{volume}%</span>
           </div>
@@ -203,19 +195,19 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
           <div className="mt-4 text-center">
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
               ✨ Premium Playback
-              {isIOS && !needsUserInteraction && (
-                <span className="ml-1">• iOS Ready</span>
+              {isIOS && isActivated && (
+                <span className="ml-1">• iOS Activated</span>
               )}
             </span>
           </div>
 
-          {/* iOS Help Text */}
+          {/* iOS Status Text */}
           {isIOS && (
             <div className="mt-2 text-center">
               <p className="text-xs text-gray-500">
-                {needsUserInteraction 
-                  ? "Tap 'Enable Playback' above to start full audio on iOS"
-                  : "Full Spotify playback enabled for iOS"
+                {isActivated 
+                  ? "Mobile playback ready for iOS"
+                  : "Tap 'Enable Mobile Playback' above for full controls on iOS"
                 }
               </p>
             </div>
@@ -244,7 +236,7 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
         <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-center">
           <p className="text-xs text-blue-700">
             <Smartphone className="w-3 h-3 inline mr-1" />
-            For full playback on iOS, use the controls above instead of the embedded player
+            For full playback on iOS, use the premium controls above
           </p>
         </div>
       )}
@@ -253,4 +245,3 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
 };
 
 export default SpotifyEmbed;
-
