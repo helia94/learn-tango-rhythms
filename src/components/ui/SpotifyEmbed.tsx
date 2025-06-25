@@ -239,16 +239,6 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
         loading="lazy"
       />
-      
-      {/* Show iOS notice for iframe embeds too */}
-      {isIOS && isConnected && spotifyUser?.product === 'premium' && (
-        <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-center">
-          <p className="text-xs text-blue-700">
-            <Smartphone className="w-3 h-3 inline mr-1" />
-            For full playback on iOS, use the controls above instead of the embedded player
-          </p>
-        </div>
-      )}
     </div>
   );
 };
