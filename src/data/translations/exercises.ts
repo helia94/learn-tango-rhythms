@@ -161,10 +161,6 @@ export const exercisesTranslations = {
         en: "From Troilo Orquestra - Music changes between playing 4 similar beats, to strong beats. Many chances to change the speed of the dance.",
         de: "Von Troilo Orquestra – Musik wechselt zwischen 4 ähnlichen Schlägen und starken Schlägen. Viele Gelegenheiten für Tempowechsel – ein Spielplatz für Geschwindigkeitsfreaks!"
       },
-      progressNote: {
-        en: "At the end of the week, you will be asked how many times you did each assignment. The goal of 5min Tango is three things: repeat, repeat, and repeat. More ideas and assignments will unfold on the same topic during the week.",
-        de: "Am Ende der Woche wirst Du gefragt, wie oft Du jede Aufgabe gemacht hast. Das Ziel von 5min Tango sind drei Dinge: wiederholen, wiederholen und... na? Richtig! Weitere Ideen zum Thema folgen während der Woche."
-      },
       commentsTitle: {
         en: "Comments & Discussion",
         de: "Kommentare & Diskussion"

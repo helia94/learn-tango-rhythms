@@ -310,13 +310,6 @@ const DancingFastSlow = () => {
           infoBoxes={practicePlaylistData.infoBoxes}
         />
 
-        {/* Progress Note Section */}
-        <StorySection variant="note">
-          <TextContent variant="body" align="center">
-            {t('exercises.dancingFastSlow.progressNote')}
-          </TextContent>
-        </StorySection>
-
         {/* Daily Assignments Section */}
         <FastAndSlowDaily1to7 
           completedTasks={completedTasks}

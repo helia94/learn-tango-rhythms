@@ -129,7 +129,6 @@ export type TranslationKey =
   | 'exercises.dancingFastSlow.songs3And4Text'
   | 'exercises.dancingFastSlow.songs5And6'
   | 'exercises.dancingFastSlow.songs5And6Text'
-  | 'exercises.dancingFastSlow.progressNote'
   | 'exercises.dancingFastSlow.commentsTitle'
   | 'exercises.dancingFastSlow.commentsPlaceholder'
   | 'exercises.dancingFastSlow.rateTitle'
