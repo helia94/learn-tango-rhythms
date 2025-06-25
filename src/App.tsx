@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -30,6 +31,7 @@ import DancingCircularLinearAssignments from "./pages/exercises/DancingCircularL
 import DancingWithWithoutControl from "./pages/exercises/DancingWithWithoutControl";
 import DancingWithWithoutControlAssignments from "./pages/exercises/DancingWithWithoutControlAssignments";
 import SpotifyCallback from "./pages/SpotifyCallback";
+import SecurityAuditPage from "./pages/SecurityAudit";
 import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
 import Contact from '@/pages/Contact';
@@ -69,6 +71,9 @@ const App = () => {
                         
                         {/* Road Map page */}
                         <Route path="/roadmap" element={<RoadMap />} />
+                        
+                        {/* Security Audit page */}
+                        <Route path="/security-audit" element={<SecurityAuditPage />} />
                         
                         {/* Spotify callback */}
                         <Route path="/spotify/callback" element={<SpotifyCallback />} />
