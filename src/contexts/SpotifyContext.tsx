@@ -24,7 +24,7 @@ interface SpotifyContextType {
   nextTrack: () => Promise<void>;
   previousTrack: () => Promise<void>;
   setVolume: (volume: number) => Promise<void>;
-  initializePlayback: () => Promise<void>;
+  activateElement: () => Promise<void>;
 }
 
 // Create context with default values to prevent undefined errors
@@ -47,7 +47,7 @@ const defaultContextValue: SpotifyContextType = {
   nextTrack: async () => {},
   previousTrack: async () => {},
   setVolume: async () => {},
-  initializePlayback: async () => {}
+  activateElement: async () => {}
 };
 
 const SpotifyContext = createContext<SpotifyContextType>(defaultContextValue);
@@ -361,18 +361,17 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     }
   };
 
-  // Initialize playback - must be called from user interaction on iOS
-  const initializePlayback = async () => {
-    if (!player || !isIOS) return;
+  // Official Spotify activateElement method for iOS support
+  const activateElement = async () => {
+    if (!player) return;
 
     try {
-      // Start with a very brief pause/resume to initialize audio context
-      await player.pause();
-      await new Promise(resolve => setTimeout(resolve, 100));
-      await player.resume();
+      console.log('Activating Spotify player element for iOS compatibility');
+      await player.activateElement();
       setNeedsUserInteraction(false);
+      console.log('Spotify player element activated successfully');
     } catch (error) {
-      console.error('Error initializing playback:', error);
+      console.error('Error activating Spotify player element:', error);
     }
   };
 
@@ -386,9 +385,9 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     }
 
     try {
-      // If this is user initiated on iOS and we need interaction, initialize first
+      // If this is user initiated on iOS and we need interaction, activate element first
       if (isIOS && needsUserInteraction && userInitiated) {
-        await initializePlayback();
+        await activateElement();
       }
 
       await fetch(`${SPOTIFY_CONFIG.API_BASE_URL}/me/player/play?device_id=${deviceId}`, {
@@ -456,7 +455,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     nextTrack,
     previousTrack,
     setVolume,
-    initializePlayback
+    activateElement
   };
 
   // Only render children when the provider is properly initialized
