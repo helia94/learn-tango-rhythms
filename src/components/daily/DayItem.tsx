@@ -41,30 +41,57 @@ const DayItem: React.FC<DayItemProps> = ({
 
   // Fetch unlock time only once when component mounts and status is 'tomorrow'
   useEffect(() => {
-    if (status !== 'tomorrow') return;
+    console.log(`[DayItem ${dayNumber}] useEffect triggered`, {
+      status,
+      topicName,
+      topicIndex,
+      dayNumber
+    });
+
+    if (status !== 'tomorrow') {
+      console.log(`[DayItem ${dayNumber}] Status is not 'tomorrow', skipping unlock info fetch`);
+      return;
+    }
 
     let isMounted = true;
     
     const fetchUnlockInfo = async () => {
+      console.log(`[DayItem ${dayNumber}] Starting fetchUnlockInfo`);
+      
       try {
         // Check if day can be activated now
+        console.log(`[DayItem ${dayNumber}] Checking if day can be activated...`);
         const canActivate = await canActivateDay(dayNumber);
-        if (!isMounted) return;
+        console.log(`[DayItem ${dayNumber}] canActivateDay result:`, canActivate);
+        
+        if (!isMounted) {
+          console.log(`[DayItem ${dayNumber}] Component unmounted, returning early`);
+          return;
+        }
         
         if (canActivate) {
+          console.log(`[DayItem ${dayNumber}] Day can be activated - setting canActivateNow to true`);
           setCanActivateNow(true);
           setTimeUntilUnlock(null);
           return;
         }
 
+        console.log(`[DayItem ${dayNumber}] Day cannot be activated, checking time until next activation...`);
         // Get time until next activation
         const timeMs = await getTimeUntilNextActivation();
-        if (!isMounted) return;
+        console.log(`[DayItem ${dayNumber}] getTimeUntilNextActivation result:`, timeMs);
+        
+        if (!isMounted) {
+          console.log(`[DayItem ${dayNumber}] Component unmounted after getTimeUntilNextActivation, returning early`);
+          return;
+        }
         
         if (timeMs === null || timeMs <= 0) {
+          console.log(`[DayItem ${dayNumber}] Time is null or <= 0, setting canActivateNow to true`);
           setCanActivateNow(true);
           setTimeUntilUnlock(null);
         } else {
+          console.log(`[DayItem ${dayNumber}] Time remaining: ${timeMs}ms, setting canActivateNow to false`);
           setCanActivateNow(false);
           
           // Convert milliseconds to hours and minutes
@@ -78,12 +105,15 @@ const DayItem: React.FC<DayItemProps> = ({
           } else {
             setTimeUntilUnlock('unlock soon');
           }
+          
+          console.log(`[DayItem ${dayNumber}] Set timeUntilUnlock:`, `unlock in ${hours}h ${minutes}m`);
         }
       } catch (error) {
-        console.error('Error fetching unlock info:', error);
+        console.error(`[DayItem ${dayNumber}] Error fetching unlock info:`, error);
         if (isMounted) {
           setTimeUntilUnlock('unlock time unavailable');
           setCanActivateNow(false);
+          console.log(`[DayItem ${dayNumber}] Error occurred - set canActivateNow to false`);
         }
       }
     };
@@ -91,12 +121,24 @@ const DayItem: React.FC<DayItemProps> = ({
     fetchUnlockInfo();
     
     return () => {
+      console.log(`[DayItem ${dayNumber}] Component cleanup`);
       isMounted = false;
     };
-  }, [status, dayNumber, topicName, topicIndex]);
+  }, [status, dayNumber, topicName, topicIndex, canActivateDay, getTimeUntilNextActivation]);
+
+  // Additional logging for state changes
+  useEffect(() => {
+    console.log(`[DayItem ${dayNumber}] State update:`, {
+      canActivateNow,
+      timeUntilUnlock,
+      status,
+      hasOnDayActivation: !!onDayActivation
+    });
+  }, [canActivateNow, timeUntilUnlock, status, onDayActivation, dayNumber]);
 
   // For locked days, don't make them expandable
   if (status === 'locked') {
+    console.log(`[DayItem ${dayNumber}] Rendering locked day`);
     return (
       <div className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden">
         <div className="px-6 py-4">
@@ -118,6 +160,12 @@ const DayItem: React.FC<DayItemProps> = ({
 
   // For 'tomorrow' days (ready to activate), don't make them expandable either
   if (status === 'tomorrow') {
+    console.log(`[DayItem ${dayNumber}] Rendering tomorrow day`, {
+      canActivateNow,
+      hasOnDayActivation: !!onDayActivation,
+      timeUntilUnlock
+    });
+    
     return (
       <div className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden">
         <div className="px-6 py-4">
@@ -130,27 +178,39 @@ const DayItem: React.FC<DayItemProps> = ({
             </div>
             
             {canActivateNow && onDayActivation && (
-              <Button
-                onClick={onDayActivation}
-                size="sm"
-                variant="outline"
-                className="ml-auto bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-golden-yellow"
-              >
-                <Play className="w-4 h-4 mr-1" />
-                {t('daily.unlockDay')}
-              </Button>
+              <>
+                {console.log(`[DayItem ${dayNumber}] Rendering unlock button - canActivateNow: ${canActivateNow}, onDayActivation: ${!!onDayActivation}`)}
+                <Button
+                  onClick={() => {
+                    console.log(`[DayItem ${dayNumber}] Unlock button clicked`);
+                    onDayActivation();
+                  }}
+                  size="sm"
+                  variant="outline"
+                  className="ml-auto bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-golden-yellow"
+                >
+                  <Play className="w-4 h-4 mr-1" />
+                  {t('daily.unlockDay')}
+                </Button>
+              </>
             )}
             
             {!canActivateNow && timeUntilUnlock && (
-              <span className="text-sm text-golden-yellow font-medium ml-auto">
-                {timeUntilUnlock}
-              </span>
+              <>
+                {console.log(`[DayItem ${dayNumber}] Rendering time until unlock: ${timeUntilUnlock}`)}
+                <span className="text-sm text-golden-yellow font-medium ml-auto">
+                  {timeUntilUnlock}
+                </span>
+              </>
             )}
             
             {!canActivateNow && !timeUntilUnlock && (
-              <span className="text-sm text-golden-yellow font-medium ml-auto">
-                {t('daily.availableTomorrow')}
-              </span>
+              <>
+                {console.log(`[DayItem ${dayNumber}] Rendering 'available tomorrow' message`)}
+                <span className="text-sm text-golden-yellow font-medium ml-auto">
+                  {t('daily.availableTomorrow')}
+                </span>
+              </>
             )}
           </div>
         </div>
@@ -159,6 +219,7 @@ const DayItem: React.FC<DayItemProps> = ({
   }
 
   // Only unlocked days are expandable
+  console.log(`[DayItem ${dayNumber}] Rendering unlocked/expandable day`);
   return (
     <AccordionItem 
       value={`day-${dayNumber}`} 
