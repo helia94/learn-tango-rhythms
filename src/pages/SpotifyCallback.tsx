@@ -6,6 +6,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { SPOTIFY_CONFIG } from '@/config/spotify';
 
 const SpotifyCallback = () => {
   const navigate = useNavigate();
@@ -16,11 +17,54 @@ const SpotifyCallback = () => {
   const maxRetries = 3;
 
   useEffect(() => {
+    // SECURITY: Force HTTPS
+    if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
+      window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
+      return;
+    }
+
     // Wait for auth to finish loading before processing callback
     if (!authLoading) {
       handleSpotifyCallback();
     }
   }, [authLoading, user, session]);
+
+  const validateSecurityState = (receivedState: string): boolean => {
+    try {
+      const storedStateData = sessionStorage.getItem('spotify_auth_state');
+      if (!storedStateData) {
+        console.error('No stored state found');
+        return false;
+      }
+
+      const { state: storedState, timestamp, userId } = JSON.parse(storedStateData);
+      
+      // SECURITY: Validate state matches
+      if (receivedState !== storedState) {
+        console.error('State mismatch');
+        return false;
+      }
+
+      // SECURITY: Check timestamp (5 minute window)
+      const now = Date.now();
+      const fiveMinutes = 5 * 60 * 1000;
+      if (now - timestamp > fiveMinutes) {
+        console.error('State expired');
+        return false;
+      }
+
+      // SECURITY: Validate user ID matches
+      if (user && userId !== user.id) {
+        console.error('User ID mismatch');
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Error validating state:', error);
+      return false;
+    }
+  };
 
   const handleSpotifyCallback = async (isRetry = false) => {
     if (isRetry) {
@@ -56,17 +100,18 @@ const SpotifyCallback = () => {
         return;
       }
 
-      // Verify state parameter for security
-      const storedState = localStorage.getItem('spotify_auth_state');
-      if (!state || state !== storedState) {
+      // SECURITY: Enhanced state validation
+      if (!state || !validateSecurityState(state)) {
         setStatus('error');
-        setMessage('Invalid state parameter. Please try connecting again.');
+        setMessage('Security validation failed. Please try connecting again.');
+        // Clear potentially compromised state
+        sessionStorage.removeItem('spotify_auth_state');
         setTimeout(() => navigate('/profile'), 3000);
         return;
       }
 
-      // Clear stored state
-      localStorage.removeItem('spotify_auth_state');
+      // Clear used state
+      sessionStorage.removeItem('spotify_auth_state');
 
       if (!code) {
         setStatus('error');
@@ -82,6 +127,17 @@ const SpotifyCallback = () => {
         return;
       }
 
+      // SECURITY: Validate redirect URI matches exactly
+      const currentUrl = new URL(window.location.href);
+      const expectedUrl = new URL(SPOTIFY_CONFIG.REDIRECT_URI);
+      
+      if (currentUrl.origin !== expectedUrl.origin || currentUrl.pathname !== expectedUrl.pathname) {
+        setStatus('error');
+        setMessage('Invalid redirect URL. Security check failed.');
+        setTimeout(() => navigate('/profile'), 3000);
+        return;
+      }
+
       // Call Supabase Edge Function to exchange code for tokens
       if (!isRetry) {
         setMessage('Exchanging authorization code for access tokens...');
@@ -90,14 +146,12 @@ const SpotifyCallback = () => {
       const { data, error: functionError } = await supabase.functions.invoke('spotify-oauth', {
         body: {
           code: code,
-          redirectUri: `${window.location.origin}/spotify/callback`
+          redirectUri: SPOTIFY_CONFIG.REDIRECT_URI // SECURITY: Use fixed redirect URI
         },
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
         }
       });
-
-
 
       if (functionError || !data?.success) {
         console.error('Function error:', functionError);

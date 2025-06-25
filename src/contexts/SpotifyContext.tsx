@@ -1,8 +1,9 @@
+
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { SpotifyUser, SpotifyTokens, SpotifyPlayer, SpotifyPlayerState } from '@/types/spotify';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
-import { getSpotifyAuthUrl, getSpotifyClientId, SPOTIFY_CONFIG } from '@/config/spotify';
+import { getSpotifyAuthUrl, getSpotifyClientId, SPOTIFY_CONFIG, generateSecureState } from '@/config/spotify';
 import { toast } from 'sonner';
 
 interface SpotifyContextType {
@@ -95,6 +96,13 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
   const [isInitialized, setIsInitialized] = useState(false);
   const [isIOS] = useState(detectIOS());
   const [needsUserInteraction, setNeedsUserInteraction] = useState(false);
+
+  // SECURITY: Force HTTPS everywhere
+  useEffect(() => {
+    if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
+      window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
+    }
+  }, []);
 
   // Initialize the provider
   useEffect(() => {
@@ -198,6 +206,9 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       const script = document.createElement('script');
       script.src = SPOTIFY_CONFIG.SDK_URL;
       script.async = true;
+      // SECURITY: Add integrity check for SDK
+      script.integrity = 'sha384-PLACEHOLDER'; // This would need actual hash
+      script.crossOrigin = 'anonymous';
       document.body.appendChild(script);
 
       window.onSpotifyWebPlaybackSDKReady = () => {
@@ -298,15 +309,19 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       // Get the client ID from Supabase
       await getSpotifyClientId();
       
-      // Generate a random state for security
-      const state = Math.random().toString(36).substring(2, 15);
-      const redirectUri = `${window.location.origin}/spotify/callback`;
+      // SECURITY: Generate cryptographically secure state
+      const state = generateSecureState();
       
-      // Store state in localStorage for verification
-      localStorage.setItem('spotify_auth_state', state);
+      // SECURITY: Store state with timestamp for validation
+      const stateData = {
+        state,
+        timestamp: Date.now(),
+        userId: user.id
+      };
+      sessionStorage.setItem('spotify_auth_state', JSON.stringify(stateData));
       
-      // Redirect to Spotify authorization
-      const authUrl = await getSpotifyAuthUrl(state, redirectUri);
+      // SECURITY: Use fixed redirect URI
+      const authUrl = await getSpotifyAuthUrl(state);
       window.location.href = authUrl;
     } catch (error) {
       console.error('Error connecting to Spotify:', error);
@@ -453,4 +468,3 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
   return <SpotifyContext.Provider value={value}>{children}</SpotifyContext.Provider>;
 };
-

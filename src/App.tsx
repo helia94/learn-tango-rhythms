@@ -1,10 +1,9 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { FeatureFlagsProvider } from "@/contexts/FeatureFlagsContext";
@@ -37,6 +36,45 @@ import Privacy from '@/pages/Privacy';
 import Contact from '@/pages/Contact';
 
 const App = () => {
+  // SECURITY: Implement security headers and HTTPS enforcement
+  useEffect(() => {
+    // Force HTTPS redirect
+    if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
+      window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
+      return;
+    }
+
+    // Set security headers via meta tags (limited effectiveness but helps)
+    const setMetaHeader = (httpEquiv: string, content: string) => {
+      const existing = document.querySelector(`meta[http-equiv="${httpEquiv}"]`);
+      if (existing) {
+        existing.setAttribute('content', content);
+      } else {
+        const meta = document.createElement('meta');
+        meta.httpEquiv = httpEquiv;
+        meta.content = content;
+        document.head.appendChild(meta);
+      }
+    };
+
+    // SECURITY: Content Security Policy
+    setMetaHeader('Content-Security-Policy', 
+      "default-src 'self'; " +
+      "script-src 'self' 'unsafe-inline' https://sdk.scdn.co; " +
+      "style-src 'self' 'unsafe-inline'; " +
+      "connect-src 'self' https://*.supabase.co https://accounts.spotify.com https://api.spotify.com; " +
+      "img-src 'self' data: https:; " +
+      "media-src 'self' https:; " +
+      "frame-src 'self' https://open.spotify.com;"
+    );
+
+    // SECURITY: Additional headers
+    setMetaHeader('X-Content-Type-Options', 'nosniff');
+    setMetaHeader('X-Frame-Options', 'DENY');
+    setMetaHeader('X-XSS-Protection', '1; mode=block');
+    setMetaHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  }, []);
+
   // Create QueryClient inside component to avoid context issues
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {

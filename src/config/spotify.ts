@@ -11,7 +11,9 @@ export const SPOTIFY_CONFIG = {
   ].join(' '),
   SDK_URL: 'https://sdk.scdn.co/spotify-player.js',
   API_BASE_URL: 'https://api.spotify.com/v1',
-  ACCOUNTS_BASE_URL: 'https://accounts.spotify.com'
+  ACCOUNTS_BASE_URL: 'https://accounts.spotify.com',
+  // SECURITY: Single locked redirect URI
+  REDIRECT_URI: 'https://tango-diario.com/spotify/callback'
 };
 
 // Cache for the client ID to avoid multiple calls
@@ -44,7 +46,15 @@ export const getSpotifyClientId = async (): Promise<string> => {
   }
 };
 
-export const getSpotifyAuthUrl = async (state: string, redirectUri: string): Promise<string> => {
+// SECURITY: Cryptographic state generation
+export const generateSecureState = (): string => {
+  // Generate cryptographically secure random state
+  const array = new Uint8Array(32);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+};
+
+export const getSpotifyAuthUrl = async (state: string): Promise<string> => {
   try {
     const clientId = await getSpotifyClientId();
     
@@ -57,14 +67,12 @@ export const getSpotifyAuthUrl = async (state: string, redirectUri: string): Pro
       response_type: 'code',
       client_id: clientId,
       scope: SPOTIFY_CONFIG.SCOPES,
-      redirect_uri: redirectUri,
+      redirect_uri: SPOTIFY_CONFIG.REDIRECT_URI, // SECURITY: Fixed redirect URI
       state: state,
       show_dialog: 'true'
     });
 
     const authUrl = `${SPOTIFY_CONFIG.ACCOUNTS_BASE_URL}/authorize?${params.toString()}`;
-
-    
     return authUrl;
   } catch (error) {
     console.error('Error generating Spotify auth URL:', error);
