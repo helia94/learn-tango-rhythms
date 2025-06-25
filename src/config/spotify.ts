@@ -7,7 +7,9 @@ export const SPOTIFY_CONFIG = {
     'streaming',
     'user-read-playback-state',
     'user-modify-playback-state',
-    'user-read-currently-playing'
+    'user-read-currently-playing',
+    'user-read-email',
+    'user-read-private'
   ].join(' '),
   SDK_URL: 'https://sdk.scdn.co/spotify-player.js',
   API_BASE_URL: 'https://api.spotify.com/v1',
@@ -43,6 +45,63 @@ export const getSpotifyClientId = async (): Promise<string> => {
   } catch (error) {
     console.error('Error getting Spotify Client ID:', error);
     throw error;
+  }
+};
+
+// Enhanced iOS detection including iPad Pro detection
+export const detectIOS = (): boolean => {
+  const userAgent = navigator.userAgent;
+  const platform = navigator.platform;
+  
+  // Traditional iOS devices
+  if (/iPad|iPhone|iPod/.test(userAgent)) {
+    return true;
+  }
+  
+  // iPad Pro and newer iPads that report as Mac
+  if (platform === 'MacIntel' && navigator.maxTouchPoints > 1) {
+    return true;
+  }
+  
+  // iOS 13+ iPad detection
+  if (platform === 'MacIntel' && 'ontouchend' in document) {
+    return true;
+  }
+  
+  return false;
+};
+
+// Audio context management for iOS
+export const createIOSAudioContext = (): AudioContext | null => {
+  try {
+    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContextClass) {
+      console.warn('AudioContext not supported');
+      return null;
+    }
+    
+    const audioContext = new AudioContextClass();
+    console.log('iOS AudioContext created:', audioContext.state);
+    return audioContext;
+  } catch (error) {
+    console.error('Error creating iOS AudioContext:', error);
+    return null;
+  }
+};
+
+// Initialize audio context for iOS
+export const initializeIOSAudio = async (audioContext: AudioContext): Promise<boolean> => {
+  try {
+    if (audioContext.state === 'suspended') {
+      console.log('Resuming suspended AudioContext for iOS...');
+      await audioContext.resume();
+    }
+    
+    console.log('iOS AudioContext state after resume:', audioContext.state);
+    return audioContext.state === 'running';
+  } catch (error) {
+    console.error('Error initializing iOS audio:', error);
+    return false;
   }
 };
 
