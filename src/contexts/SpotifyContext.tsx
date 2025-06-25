@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { SpotifyUser, SpotifyTokens, SpotifyPlayer, SpotifyPlayerState } from '@/types/spotify';
 import { useAuth } from '@/contexts/AuthContext';
@@ -15,14 +14,17 @@ interface SpotifyContextType {
   isPlaying: boolean;
   currentTrack: any | null;
   loading: boolean;
+  isIOS: boolean;
+  needsUserInteraction: boolean;
   connectSpotify: () => void;
   disconnectSpotify: () => Promise<void>;
-  playTrack: (trackUri: string) => Promise<void>;
+  playTrack: (trackUri: string, userInitiated?: boolean) => Promise<void>;
   pauseTrack: () => Promise<void>;
   resumeTrack: () => Promise<void>;
   nextTrack: () => Promise<void>;
   previousTrack: () => Promise<void>;
   setVolume: (volume: number) => Promise<void>;
+  initializePlayback: () => Promise<void>;
 }
 
 // Create context with default values to prevent undefined errors
@@ -35,6 +37,8 @@ const defaultContextValue: SpotifyContextType = {
   isPlaying: false,
   currentTrack: null,
   loading: false,
+  isIOS: false,
+  needsUserInteraction: false,
   connectSpotify: () => {},
   disconnectSpotify: async () => {},
   playTrack: async () => {},
@@ -42,7 +46,8 @@ const defaultContextValue: SpotifyContextType = {
   resumeTrack: async () => {},
   nextTrack: async () => {},
   previousTrack: async () => {},
-  setVolume: async () => {}
+  setVolume: async () => {},
+  initializePlayback: async () => {}
 };
 
 const SpotifyContext = createContext<SpotifyContextType>(defaultContextValue);
@@ -70,6 +75,12 @@ interface SpotifyConnection {
   updated_at: string;
 }
 
+// Utility function to detect iOS
+const detectIOS = (): boolean => {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+};
+
 export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) => {
   const { user, session } = useAuth();
   const [isConnected, setIsConnected] = useState(false);
@@ -82,6 +93,8 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
   const [loading, setLoading] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isIOS] = useState(detectIOS());
+  const [needsUserInteraction, setNeedsUserInteraction] = useState(false);
 
   // Initialize the provider
   useEffect(() => {
@@ -129,11 +142,29 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       } else {
         setAccessToken(connection.access_token);
         setIsConnected(true);
+        await fetchSpotifyUser(connection.access_token);
         initializeSpotifyPlayer(connection.access_token);
       }
     } catch (error) {
       console.error('Error checking Spotify connection:', error);
       setLoading(false);
+    }
+  };
+
+  const fetchSpotifyUser = async (token: string) => {
+    try {
+      const response = await fetch(`${SPOTIFY_CONFIG.API_BASE_URL}/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setSpotifyUser(userData);
+      }
+    } catch (error) {
+      console.error('Error fetching Spotify user:', error);
     }
   };
 
@@ -151,6 +182,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
       setAccessToken(data.access_token);
       setIsConnected(true);
+      await fetchSpotifyUser(data.access_token);
       initializeSpotifyPlayer(data.access_token);
     } catch (error) {
       console.error('Error refreshing Spotify token:', error);
@@ -189,6 +221,11 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     spotifyPlayer.addListener('ready', ({ device_id }: { device_id: string }) => {
       setDeviceId(device_id);
       setLoading(false);
+      
+      // On iOS, we need user interaction before we can play
+      if (isIOS) {
+        setNeedsUserInteraction(true);
+      }
     });
 
     spotifyPlayer.addListener('not_ready', ({ device_id }: { device_id: string }) => {
@@ -201,6 +238,11 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       setPlayerState(state);
       setIsPlaying(!state.paused);
       setCurrentTrack(state.track_window.current_track);
+      
+      // If playback started successfully on iOS, user interaction is no longer needed
+      if (isIOS && !state.paused) {
+        setNeedsUserInteraction(false);
+      }
     });
 
     spotifyPlayer.addListener('initialization_error', ({ message }: { message: string }) => {
@@ -227,6 +269,11 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
     spotifyPlayer.addListener('playback_error', ({ message }: { message: string }) => {
       console.error('Spotify Player playback error:', message);
+      
+      // On iOS, playback errors often mean we need user interaction
+      if (isIOS && message.includes('The player must be initialized')) {
+        setNeedsUserInteraction(true);
+      }
     });
 
     spotifyPlayer.connect().then((success: boolean) => {
@@ -293,6 +340,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       setIsPlaying(false);
       setCurrentTrack(null);
       setAccessToken(null);
+      setNeedsUserInteraction(false);
     } catch (error) {
       console.error('Error disconnecting Spotify:', error);
     } finally {
@@ -300,10 +348,36 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     }
   };
 
-  const playTrack = async (trackUri: string) => {
-    if (!accessToken || !deviceId) return;
+  // Initialize playback - must be called from user interaction on iOS
+  const initializePlayback = async () => {
+    if (!player || !isIOS) return;
 
     try {
+      // Start with a very brief pause/resume to initialize audio context
+      await player.pause();
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await player.resume();
+      setNeedsUserInteraction(false);
+    } catch (error) {
+      console.error('Error initializing playback:', error);
+    }
+  };
+
+  const playTrack = async (trackUri: string, userInitiated: boolean = false) => {
+    if (!accessToken || !deviceId) return;
+
+    // On iOS, if we need user interaction and this wasn't user initiated, show a message
+    if (isIOS && needsUserInteraction && !userInitiated) {
+      toast.info('Tap the play button to start playback on iOS');
+      return;
+    }
+
+    try {
+      // If this is user initiated on iOS and we need interaction, initialize first
+      if (isIOS && needsUserInteraction && userInitiated) {
+        await initializePlayback();
+      }
+
       await fetch(`${SPOTIFY_CONFIG.API_BASE_URL}/me/player/play?device_id=${deviceId}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -359,6 +433,8 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     isPlaying,
     currentTrack,
     loading,
+    isIOS,
+    needsUserInteraction,
     connectSpotify,
     disconnectSpotify,
     playTrack,
@@ -366,7 +442,8 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
     resumeTrack,
     nextTrack,
     previousTrack,
-    setVolume
+    setVolume,
+    initializePlayback
   };
 
   // Only render children when the provider is properly initialized
@@ -376,3 +453,4 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
 
   return <SpotifyContext.Provider value={value}>{children}</SpotifyContext.Provider>;
 };
+
