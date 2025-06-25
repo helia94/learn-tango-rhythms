@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -217,10 +216,7 @@ const DancingFastSlow = () => {
             <TextContent variant="body" align="center" className="mb-6">
               {t('exercises.dancingFastSlow.fullSongText')}
             </TextContent>
-            <SpotifyEmbed 
-              src="https://open.spotify.com/embed/track/4FMWYCgSUTyLXCoX3GK8We?utm_source=generator&theme=0"
-              trackUri="spotify:track:4FMWYCgSUTyLXCoX3GK8We"
-            />
+            <SpotifyEmbed src="https://open.spotify.com/embed/track/4FMWYCgSUTyLXCoX3GK8We?utm_source=generator&theme=0" />
           </div>
 
           {/* Interactive Rhythm Player */}
