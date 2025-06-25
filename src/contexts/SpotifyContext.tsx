@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { SpotifyUser, SpotifyTokens, SpotifyPlayer, SpotifyPlayerState } from '@/types/spotify';
 import { useAuth } from '@/contexts/AuthContext';
@@ -206,8 +205,7 @@ export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) =>
       const script = document.createElement('script');
       script.src = SPOTIFY_CONFIG.SDK_URL;
       script.async = true;
-      // SECURITY: Add integrity check for SDK
-      script.integrity = 'sha384-PLACEHOLDER'; // This would need actual hash
+      // SECURITY: Remove problematic integrity check that was blocking the script
       script.crossOrigin = 'anonymous';
       document.body.appendChild(script);
 
