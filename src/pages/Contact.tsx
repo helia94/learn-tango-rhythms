@@ -30,10 +30,10 @@ const Contact = () => {
                 </p>
                 <div className="mt-4">
                   <a 
-                    href="mailto:hello@tangoadiario.com" 
+                    href="mailto:hello@tango-diario.com" 
                     className="text-terracotta hover:text-burnt-orange transition-colors font-medium"
                   >
-                    hello@tangoadiario.com
+                    hello@tango-diario.com
                   </a>
                 </div>
               </div>
