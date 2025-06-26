@@ -268,6 +268,20 @@ const Home = () => {
               </AccordionContent>
             </AccordionItem>
 
+            {/* NEW SECTION: Is it just for Leaders? */}
+            <AccordionItem value="forLeaders" className="border-b border-terracotta/20">
+              <AccordionTrigger className="py-4 hover:no-underline">
+                <span className="text-2xl font-medium text-terracotta/90">
+                  {t('home.accordion.forLeaders.title')}
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <p className="leading-relaxed text-warm-brown/90">
+                  {t('home.accordion.forLeaders.content')}
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+
             {/* Proof of Concept Section */}
             <AccordionItem value="concept" className="border-b border-terracotta/20">
               <AccordionTrigger className="py-4 hover:no-underline">

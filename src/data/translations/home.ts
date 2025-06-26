@@ -1,3 +1,4 @@
+
 export const homeTranslations = {
   hero: {
     title: {
@@ -90,6 +91,16 @@ export const homeTranslations = {
       content: {
         en: "For now, yes, but paying even a little amount will increase your motivation and commitment at least fivefold. All the content will remain free, only if you want to build a habit and track your mastery of topics, we will charge a small amount in the future.",
         de: "Vorerst ja, aber schon ein kleiner Betrag wird Deine Motivation und Dein Engagement mindestens verfünffachen. Alle Inhalte bleiben kostenlos – nur wenn Du eine Gewohnheit aufbauen und Deine Beherrschung der Themen verfolgen möchtest, werden wir in Zukunft einen kleinen Betrag verlangen."
+      }
+    },
+    forLeaders: {
+      title: {
+        en: "IS IT JUST FOR LEADERS?",
+        de: "IST ES NUR FÜR LEADER?"
+      },
+      content: {
+        en: "I am a double-role myself, and my best dances as a leader are always with followers who are also musical. So yes, musicality is 100% for both roles. The topics of the app are for both roles, but when it comes to assignments, I have to do a better job in the future to offer examples that followers need.",
+        de: "Ich tanze selbst beide Rollen, und meine besten Tänze als Leader sind immer mit Followern, die auch musikalisch sind. Also ja, Musikalität ist zu 100% für beide Rollen. Die Themen der App sind für beide Rollen, aber bei den Aufgaben muss ich in Zukunft bessere Arbeit leisten, um Beispiele anzubieten, die Follower brauchen."
       }
     },
     concept: {
