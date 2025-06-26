@@ -221,6 +221,7 @@ export type TranslationKey =
   | `home.description.buildingContrast` | `home.description.exampleTopics`
   | `home.accordion.why.title` | `home.accordion.why.reason1` | `home.accordion.why.reason2` | `home.accordion.why.reason3`
   | `home.accordion.pricing.title` | `home.accordion.pricing.content`
+  | `home.accordion.forLeaders.title` | `home.accordion.forLeaders.content`
   | `home.accordion.concept.title` | `home.accordion.concept.content`
   | `home.accordion.credits.title` | `home.accordion.credits.intro` | `home.accordion.credits.teachers`
   | `home.footer.copyright` | `home.footer.terms` | `home.footer.privacy` | `home.footer.contact`
