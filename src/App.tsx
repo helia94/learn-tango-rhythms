@@ -32,6 +32,7 @@ import DancingWithWithoutControl from "./pages/exercises/DancingWithWithoutContr
 import DancingWithWithoutControlAssignments from "./pages/exercises/DancingWithWithoutControlAssignments";
 import SpotifyCallback from "./pages/SpotifyCallback";
 import SecurityAuditPage from "./pages/SecurityAudit";
+import Report from "./pages/Report";
 import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
 import Contact from '@/pages/Contact';
