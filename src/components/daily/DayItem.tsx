@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Lock, CheckCircle, Play } from 'lucide-react';
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -31,6 +32,7 @@ const DayItem: React.FC<DayItemProps> = ({
   const { t } = useTranslation();
   const [timeUntilUnlock, setTimeUntilUnlock] = useState<string | null>(null);
   const [canActivateNow, setCanActivateNow] = useState(false);
+  const [isCheckingActivation, setIsCheckingActivation] = useState(false);
   
   const { getTimeUntilNextActivation, canActivateDay } = useDailyTopicActivation(
     topicName, 
@@ -38,61 +40,70 @@ const DayItem: React.FC<DayItemProps> = ({
     7 // totalDays - this could be made dynamic if needed
   );
 
-  // Fetch unlock time only once when component mounts and status is 'tomorrow'
+  // Check activation status only for 'tomorrow' status days
   useEffect(() => {
-    if (status !== 'tomorrow') return;
+    if (status !== 'tomorrow') {
+      setCanActivateNow(false);
+      setTimeUntilUnlock(null);
+      return;
+    }
 
     let isMounted = true;
     
-    const fetchUnlockInfo = async () => {
+    const checkActivationStatus = async () => {
+      setIsCheckingActivation(true);
+      
       try {
-        // Check if day can be activated - this is our authoritative source
+        // First check if day can be activated - this is our primary check
         const canActivate = await canActivateDay(dayNumber);
         if (!isMounted) return;
         
-        // If canActivateDay says yes, we can activate regardless of timing
         if (canActivate) {
+          // Day can be activated immediately
           setCanActivateNow(true);
           setTimeUntilUnlock(null);
-          return;
-        }
-        
-        // If canActivateDay says no, then check timing for display message
-        setCanActivateNow(false);
-        
-        const timeMs = await getTimeUntilNextActivation();
-        if (!isMounted) return;
-        
-        if (timeMs === null || timeMs <= 0) {
-          setTimeUntilUnlock('unlock time unavailable');
         } else {
-          // Convert milliseconds to hours and minutes
-          const hours = Math.floor(timeMs / (1000 * 60 * 60));
-          const minutes = Math.floor((timeMs % (1000 * 60 * 60)) / (1000 * 60));
+          // Day cannot be activated yet, get timing info
+          setCanActivateNow(false);
           
-          if (hours > 0) {
-            setTimeUntilUnlock(`unlock in ${hours}h ${minutes}m`);
-          } else if (minutes > 0) {
-            setTimeUntilUnlock(`unlock in ${minutes}m`);
+          const timeMs = await getTimeUntilNextActivation();
+          if (!isMounted) return;
+          
+          if (timeMs === null || timeMs <= 0) {
+            setTimeUntilUnlock('available soon');
           } else {
-            setTimeUntilUnlock('unlock soon');
+            // Convert milliseconds to hours and minutes
+            const hours = Math.floor(timeMs / (1000 * 60 * 60));
+            const minutes = Math.floor((timeMs % (1000 * 60 * 60)) / (1000 * 60));
+            
+            if (hours > 0) {
+              setTimeUntilUnlock(`unlock in ${hours}h ${minutes}m`);
+            } else if (minutes > 0) {
+              setTimeUntilUnlock(`unlock in ${minutes}m`);
+            } else {
+              setTimeUntilUnlock('unlock soon');
+            }
           }
         }
       } catch (error) {
-        console.error('Error fetching unlock info:', error);
+        console.error('Error checking activation status:', error);
         if (isMounted) {
-          setTimeUntilUnlock('unlock time unavailable');
           setCanActivateNow(false);
+          setTimeUntilUnlock('check back later');
+        }
+      } finally {
+        if (isMounted) {
+          setIsCheckingActivation(false);
         }
       }
     };
 
-    fetchUnlockInfo();
+    checkActivationStatus();
     
     return () => {
       isMounted = false;
     };
-  }, [status, dayNumber, topicName, topicIndex]);
+  }, [status, dayNumber, topicName, topicIndex, canActivateDay, getTimeUntilNextActivation]);
 
   // For locked days, don't make them expandable
   if (status === 'locked') {
@@ -128,7 +139,13 @@ const DayItem: React.FC<DayItemProps> = ({
               </span>
             </div>
             
-            {canActivateNow && onDayActivation && (
+            {isCheckingActivation && (
+              <span className="text-sm text-golden-yellow font-medium ml-auto">
+                checking...
+              </span>
+            )}
+            
+            {!isCheckingActivation && canActivateNow && onDayActivation && (
               <Button
                 onClick={onDayActivation}
                 size="sm"
@@ -140,13 +157,13 @@ const DayItem: React.FC<DayItemProps> = ({
               </Button>
             )}
             
-            {!canActivateNow && timeUntilUnlock && (
+            {!isCheckingActivation && !canActivateNow && timeUntilUnlock && (
               <span className="text-sm text-golden-yellow font-medium ml-auto">
                 {timeUntilUnlock}
               </span>
             )}
             
-            {!canActivateNow && !timeUntilUnlock && (
+            {!isCheckingActivation && !canActivateNow && !timeUntilUnlock && (
               <span className="text-sm text-golden-yellow font-medium ml-auto">
                 {t('daily.availableTomorrow')}
               </span>
