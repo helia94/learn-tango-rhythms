@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import TipsSection from '@/components/TipsSection';
 import Assignment from '@/components/Assignment';
+import TextContent from '@/components/ui/TextContent';
 
 interface Day5ContentProps {
   completedTasks: Record<string, number>;
@@ -21,9 +22,9 @@ const Day5Content: React.FC<Day5ContentProps> = ({
 
   return (
     <div className="space-y-6">
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <TextContent>
         {t('exercises.dancingFastSlow.daily.day5.content')}
-      </p>
+      </TextContent>
       
       <TipsSection 
         title={t('exercises.dancingFastSlow.tips.extremeSpeed')}

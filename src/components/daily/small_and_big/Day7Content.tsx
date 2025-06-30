@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import AudioPlayer from '@/components/AudioPlayer';
+import TextContent from '@/components/ui/TextContent';
 
 interface Day7ContentProps {
   completedTasks: Record<string, number>;
@@ -29,9 +30,9 @@ const Day7Content: React.FC<Day7ContentProps> = ({
 
   return (
     <div className="space-y-6">
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <TextContent>
         {t('exercises.dancingSmallBig.daily.day7.content' as any)}
-      </p>
+      </TextContent>
 
       {/* Bridge Example Section */}
       <div className="space-y-6 mt-8">

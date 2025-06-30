@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import AudioPlayer from '@/components/AudioPlayer';
+import TextContent from '@/components/ui/TextContent';
 
 interface Day2ContentProps {
   completedTasks: Record<string, number>;
@@ -55,9 +56,9 @@ const Day2Content: React.FC<Day2ContentProps> = ({
 
   return (
     <div className="space-y-6">
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <TextContent>
         {t('exercises.dancingSmallBig.daily.day2.content' as any)}
-      </p>
+      </TextContent>
 
       {/* Audio Examples Section */}
       <div className="space-y-6 mt-8">

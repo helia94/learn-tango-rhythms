@@ -4,6 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import AudioSection from '@/components/ui/AudioSection';
 import { getAssignment } from '@/data/assignments/dancing_high_low';
+import TextContent from '@/components/ui/TextContent';
 
 interface Day2ContentProps {
   completedTasks: Record<string, number>;
@@ -45,9 +46,9 @@ const Day2Content: React.FC<Day2ContentProps> = ({
 
   return (
     <div className="space-y-6">
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <TextContent>
         {t('exercises.dancingHighLow.daily.day2.content' as any)}
-      </p>
+      </TextContent>
 
       <AudioSection
         tracks={practiceAudioTracks}

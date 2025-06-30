@@ -4,6 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
 import AudioPlayer from '@/components/AudioPlayer';
 import VideoGuideNotice from '@/components/ui/VideoGuideNotice';
+import TextContent from '@/components/ui/TextContent';
 
 interface Day3ContentProps {
   completedTasks: Record<string, number>;
@@ -66,9 +67,9 @@ const Day3Content: React.FC<Day3ContentProps> = ({
 
   return (
     <div className="space-y-6">
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <TextContent>
         {t('exercises.dancingSmallBig.daily.day3.content' as any)}
-      </p>
+      </TextContent>
 
       <VideoGuideNotice className="mb-6" />
 
@@ -96,9 +97,9 @@ const Day3Content: React.FC<Day3ContentProps> = ({
           <h4 className="text-lg font-medium text-gray-800 mb-4">
             {t('exercises.dancingSmallBig.daily.day3.differentTimingTitle' as any)}
           </h4>
-          <p className="text-gray-600 text-sm mb-4">
+          <TextContent>
             {t('exercises.dancingSmallBig.daily.day3.differentTimingDescription' as any)}
-          </p>
+          </TextContent>
           
           {differentTimingExamples.map((example, index) => (
             <div key={index} className="space-y-3 mb-4">

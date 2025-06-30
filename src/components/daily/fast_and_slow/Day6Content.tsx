@@ -4,6 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import TipsSection from '@/components/TipsSection';
 import Assignment from '@/components/Assignment';
 import VideoGuideNotice from '@/components/ui/VideoGuideNotice';
+import TextContent from '@/components/ui/TextContent';
 
 interface Day6ContentProps {
   completedTasks: Record<string, number>;
@@ -22,9 +23,9 @@ const Day6Content: React.FC<Day6ContentProps> = ({
 
   return (
     <div className="space-y-6">
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <TextContent>
         {t('exercises.dancingFastSlow.daily.day6.content')}
-      </p>
+      </TextContent>
       
       <VideoGuideNotice className="mb-6" />
       

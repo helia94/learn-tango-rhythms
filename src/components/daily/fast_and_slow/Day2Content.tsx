@@ -3,6 +3,8 @@ import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import AudioPlayer from '@/components/AudioPlayer';
 import Assignment from '@/components/Assignment';
+import TextContent from '@/components/ui/TextContent';  
+
 
 interface Day2ContentProps {
   completedTasks: Record<string, number>;
@@ -21,13 +23,13 @@ const Day2Content: React.FC<Day2ContentProps> = ({
 
   return (
     <div className="space-y-6">
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <TextContent>
         {t('exercises.dancingFastSlow.daily.day2.content')}
-      </p>
+      </TextContent>
       
-      <p className="text-gray-600 text-lg leading-relaxed">
+      <TextContent>
         {t('exercises.dancingFastSlow.daily.day2.description')}
-      </p>
+      </TextContent>
 
       <div className="space-y-4">
         <h4 className="text-xl font-display text-gray-700 text-center mb-4">{t('exercises.dancingFastSlow.daily.day2.bandonionSolos')}</h4>

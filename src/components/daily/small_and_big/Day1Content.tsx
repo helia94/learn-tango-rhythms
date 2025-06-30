@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Assignment from '@/components/Assignment';
+import TextContent from '@/components/ui/TextContent';
 
 interface Day1ContentProps {
   completedTasks: Record<string, number>;
@@ -20,9 +21,9 @@ const Day1Content: React.FC<Day1ContentProps> = ({
 
   return (
     <div className="space-y-6">
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <TextContent>
         {t('exercises.dancingSmallBig.daily.day1.content' as any)}
-      </p>
+      </TextContent>
       
       <Assignment
         assignment={{ 
