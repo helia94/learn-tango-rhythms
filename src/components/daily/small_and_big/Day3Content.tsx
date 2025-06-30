@@ -5,6 +5,7 @@ import Assignment from '@/components/Assignment';
 import AudioPlayer from '@/components/AudioPlayer';
 import VideoGuideNotice from '@/components/ui/VideoGuideNotice';
 import TextContent from '@/components/ui/TextContent';
+import HalfTimeRhythmPlayer from '@/components/HalfTimeRhythmPlayer';
 
 interface Day3ContentProps {
   completedTasks: Record<string, number>;
@@ -71,7 +72,25 @@ const Day3Content: React.FC<Day3ContentProps> = ({
         {t('exercises.dancingSmallBig.daily.day3.content' as any)}
       </TextContent>
 
-      <VideoGuideNotice className="mb-6" />
+      
+      {/* Rhythm Player Section */}
+      <div className="space-y-6 mt-8">
+
+        <HalfTimeRhythmPlayer
+          mainPattern = {[true, false, true, false]} 
+          halfBeatPattern = {[true, false, false, false]} 
+          label = {t('exercises.dancingSmallBig.daily.day3.syncopationExamplesTitle' as any) + ' 1'}
+          speedLevel = {2}
+          />
+
+        <HalfTimeRhythmPlayer
+          mainPattern = {[true, false, true, false]} 
+          halfBeatPattern = {[false, false, true, false]} 
+          label = {t('exercises.dancingSmallBig.daily.day3.syncopationExamplesTitle' as any) + ' 2'}
+          speedLevel = {2}
+          />
+
+      </div>
 
       {/* Audio Examples Section */}
       <div className="space-y-6 mt-8">
@@ -94,6 +113,8 @@ const Day3Content: React.FC<Day3ContentProps> = ({
         ))}
 
       </div>
+
+      <VideoGuideNotice className="mb-6" />
       
       <Assignment
         assignment={{ 
