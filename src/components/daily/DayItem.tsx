@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Lock, CheckCircle, Play } from 'lucide-react';
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -47,37 +46,36 @@ const DayItem: React.FC<DayItemProps> = ({
     
     const fetchUnlockInfo = async () => {
       try {
-        // First check if day can be activated now
+        // Check if day can be activated - this is our authoritative source
         const canActivate = await canActivateDay(dayNumber);
         if (!isMounted) return;
         
-        // Then get time until next activation
+        // If canActivateDay says yes, we can activate regardless of timing
+        if (canActivate) {
+          setCanActivateNow(true);
+          setTimeUntilUnlock(null);
+          return;
+        }
+        
+        // If canActivateDay says no, then check timing for display message
+        setCanActivateNow(false);
+        
         const timeMs = await getTimeUntilNextActivation();
         if (!isMounted) return;
         
-        // Fix race condition: if there's a wait time, override canActivate to false
-        const actualCanActivate = canActivate && (timeMs === null || timeMs <= 0);
-        
-        if (actualCanActivate) {
-          setCanActivateNow(true);
-          setTimeUntilUnlock(null);
+        if (timeMs === null || timeMs <= 0) {
+          setTimeUntilUnlock('unlock time unavailable');
         } else {
-          setCanActivateNow(false);
+          // Convert milliseconds to hours and minutes
+          const hours = Math.floor(timeMs / (1000 * 60 * 60));
+          const minutes = Math.floor((timeMs % (1000 * 60 * 60)) / (1000 * 60));
           
-          if (timeMs === null || timeMs <= 0) {
-            setTimeUntilUnlock('unlock time unavailable');
+          if (hours > 0) {
+            setTimeUntilUnlock(`unlock in ${hours}h ${minutes}m`);
+          } else if (minutes > 0) {
+            setTimeUntilUnlock(`unlock in ${minutes}m`);
           } else {
-            // Convert milliseconds to hours and minutes
-            const hours = Math.floor(timeMs / (1000 * 60 * 60));
-            const minutes = Math.floor((timeMs % (1000 * 60 * 60)) / (1000 * 60));
-            
-            if (hours > 0) {
-              setTimeUntilUnlock(`unlock in ${hours}h ${minutes}m`);
-            } else if (minutes > 0) {
-              setTimeUntilUnlock(`unlock in ${minutes}m`);
-            } else {
-              setTimeUntilUnlock('unlock soon');
-            }
+            setTimeUntilUnlock('unlock soon');
           }
         }
       } catch (error) {
