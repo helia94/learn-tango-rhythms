@@ -1,3 +1,4 @@
+
 export const commonTranslations = {
   common: {
     backToHome: {
@@ -75,6 +76,28 @@ export const commonTranslations = {
     videoGuideComingSoon: {
       en: "Video guide coming soon, stay tuned!",
       de: "Video-Anleitung kommt bald, bleibt dran!"
+    }
+  },
+  report: {
+    title: {
+      en: "Report a Problem",
+      de: "Problem Melden"
+    },
+    subtitle: {
+      en: "Having issues with Tango A Diario?",
+      de: "Probleme mit Tango A Diario?"
+    },
+    description: {
+      en: "I'm sorry this happened to you. As the website is new, I sometimes don't catch problems in time. Please let me know what happened via text or email, and I'll fix it the same day. Thank you so much for taking the time to help improve the experience!",
+      de: "Es tut mir leid, dass das passiert ist. Da die Website neu ist, bemerke ich manchmal Probleme nicht rechtzeitig. Bitte teilen Sie mir per Text oder E-Mail mit, was passiert ist, und ich werde es am selben Tag beheben. Vielen Dank, dass Sie sich die Zeit nehmen, die Erfahrung zu verbessern!"
+    },
+    emailTitle: {
+      en: "Email Us",
+      de: "E-Mail senden"
+    },
+    phoneTitle: {
+      en: "Call Us",
+      de: "Anrufen"
     }
   },
   errors: {

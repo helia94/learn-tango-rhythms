@@ -90,10 +90,10 @@ const Report = () => {
               className="inline-flex items-center gap-2 text-cream bg-warm-brown/80 px-4 py-2 rounded-full hover:bg-warm-brown transition-all duration-300 shadow-lg backdrop-blur-sm"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Home
+              {t('common.backToHome')}
             </Link>
             <div className="text-2xl font-medium tracking-wide">
-              <span className="text-sage-green">REPORT</span> <span className="text-burnt-orange/80">PROBLEM</span>
+              <span className="text-sage-green">{t('report.title').split(' ')[0]}</span> <span className="text-burnt-orange/80">{t('report.title').split(' ').slice(1).join(' ')}</span>
             </div>
           </div>
           <LanguageSelector />
@@ -109,14 +109,14 @@ const Report = () => {
               <div className="flex items-center gap-4 mb-4">
                 <AlertTriangle className="w-12 h-12" />
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                  Report a Problem
+                  {t('report.title')}
                 </h1>
               </div>
               <h2 className="text-xl md:text-2xl mb-6 font-light opacity-90">
-                Having issues with Tango A Diario?
+                {t('report.subtitle')}
               </h2>
               <p className="text-lg md:text-xl mb-6 opacity-95">
-                We're here to help! Let us know what's not working and we'll get it fixed.
+                {t('report.description')}
               </p>
               <div className="flex items-center gap-4">
                 <MessageCircle className="w-8 h-8 text-cream/90" />
@@ -132,7 +132,7 @@ const Report = () => {
               <div className="bg-gradient-to-br from-warm-brown/70 to-caramel/60 rounded-[30px] p-6 text-cream shadow-md">
                 <h3 className="text-xl font-medium mb-4 flex items-center gap-2">
                   <Mail className="w-5 h-5" />
-                  Email Us
+                  {t('report.emailTitle')}
                 </h3>
                 <p className="opacity-95 text-lg">
                   hello@tango-diario.com
@@ -142,7 +142,7 @@ const Report = () => {
               <div className="bg-gradient-to-br from-sage-green/70 to-deep-teal/60 rounded-[30px] p-6 text-cream shadow-md">
                 <h3 className="text-xl font-medium mb-4 flex items-center gap-2">
                   <Phone className="w-5 h-5" />
-                  Call Us
+                  {t('report.phoneTitle')}
                 </h3>
                 <p className="opacity-95 text-lg">
                   +49 174 5764613
