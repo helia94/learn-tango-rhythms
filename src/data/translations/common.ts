@@ -75,6 +75,10 @@ export const commonTranslations = {
     videoGuideComingSoon: {
       en: "Video guide coming soon, stay tuned!",
       de: "Video-Anleitung kommt bald, bleibt dran!"
+    },
+    problemButton: {
+      en: "I have a problem",
+      de: "Ich habe ein Problem"
     }
   },
   report: {

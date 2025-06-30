@@ -4,6 +4,7 @@ import { useTopicVisibility } from '@/contexts/TopicVisibilityContext';
 import RoadMapBackground from '@/components/roadmap/RoadMapBackground';
 import RoadMapHeader from '@/components/roadmap/RoadMapHeader';
 import RoadMapContainer from '@/components/roadmap/RoadMapContainer';
+import ProblemButton from '@/components/ui/ProblemButton';
 import { allConcepts } from '@/components/roadmap/conceptsData';
 
 const RoadMap = () => {
@@ -37,6 +38,11 @@ const RoadMap = () => {
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige relative overflow-hidden">
       {/* Animated background elements */}
       <RoadMapBackground />
+
+      {/* Problem Button - positioned at top */}
+      <div className="absolute top-4 right-4 z-20">
+        <ProblemButton />
+      </div>
 
       <RoadMapHeader />
 

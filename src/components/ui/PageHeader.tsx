@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import LanguageSelector from '@/components/LanguageSelector';
+import ProblemButton from '@/components/ui/ProblemButton';
 
 interface PageHeaderProps {
   title: string;
@@ -22,7 +23,10 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, backRoute = "/roadmap" }
           {t('common.backToRoadmap')}
         </Link>
         
-        <LanguageSelector />
+        <div className="flex items-center gap-4">
+          <ProblemButton />
+          <LanguageSelector />
+        </div>
       </div>
 
       {/* Title Section */}

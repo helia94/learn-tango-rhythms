@@ -36,6 +36,7 @@ export type TranslationKey =
   | 'common.spotifyConnect'
   | 'common.connectSpotifyPremium'
   | 'common.videoGuideComingSoon'
+  | 'common.problemButton'
   // Report translations
   | 'report.title'
   | 'report.subtitle'
