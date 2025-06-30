@@ -93,8 +93,9 @@ export const smallAndBigTranslations = {
       daily: {
         day1: {
           content: {
-            en: "Now try different variations of small and large within the same phrase, always taking equal time.",
-            de: "Versuche nun verschiedene Variationen von klein und groß innerhalb derselben Phrase, immer mit gleicher Zeit."
+            en: "Now try different variations of small and large steps within the same phrase. Both long and short steps take equal time, which means you have to be faster on the longer steps. \n\nGoing from small to large requires a boost of energy. If you’re both beginners, this can be challenging: be careful not to surprise your partner or step on their toes.\n\nTry it first alone, without a partner. You need to signal in advance that the next step will be bigger and more energetic. For beginners, it helps to practice side by side so you can’t step on each other’s toes.",
+            de: "Versuche nun verschiedene Variationen von kleinen und großen Schritten innerhalb derselben Phrase. Sowohl lange als auch kurze Schritte dauern gleich lang, das heißt, bei den größeren Schritten musst du schneller sein. \n\nVon klein zu groß zu wechseln braucht einen Energieschub. Wenn ihr beide Anfänger seid, kann das herausfordernd sein: Pass auf, dass du deinen Partner nicht überraschst oder ihm auf die Füße trittst.\n\nProbiere es zuerst alleine, ohne Partner. Du musst frühzeitig signalisieren, dass der nächste Schritt größer und energiereicher wird. Für Anfänger hilft es auch, nebeneinander zu üben, damit ihr euch nicht auf die Füße tretet."
+
           },
           task: {
             en: "Try these four variations each multiple times: \n\n[big small small small]  \n[small big small small]  \n[small small big small]  \n[small small small big].  \n\nHow does each of them feel?",
@@ -157,9 +158,10 @@ export const smallAndBigTranslations = {
         },
         day3: {
           content: {
-            en: "Syncopations are little rhythmic surprises, perfect for playing with step size. Try highlighting them with: a big step then a tight close, or a bold step into a cross. If that's familiar, experiment: what about a strong forward step followed by a subtle side step? Or reverse the energy—small preparation, then big statement. See what feels right in your body.",
-            de: "Synkopen sind rhythmische Überraschungen, ideal um mit Schrittgrößen zu spielen. Betone sie mit: großem Schritt gefolgt von engem Close, oder kräftigem Schritt in einen Cross. Wenn das bekannt ist: Probier mal einen kräftigen Vorwärtsschritt mit kleinem Seitschritt. Oder umgekehrt—klein anfangen, dann groß rauskommen. Spür was sich natürlich anfühlt."
+            en: "Syncopations are little rhythmic surprises, perfect for playing with step size. Try highlighting them with: a big step then a tight close, or a bold step into a cross. \n\nIf that's familiar, and you are ready for a mind twist, try this: instead of step + close to show the syncopation, do close + step with a direction change. For example, close a forward step and then do a small side step, or close a side step and then do a small forward step.",
+            de: "Synkopen sind rhythmische Überraschungen, ideal um mit Schrittgrößen zu spielen. Betone sie mit: großem Schritt gefolgt von engem Close oder kräftigem Schritt in einen Cross. \n\nWenn dir das bekannt ist und du Lust auf eine Denksportaufgabe hast, probier Folgendes: Statt Schritt + Close zur Synkopen-Betonung, mach Close + Schritt mit Richtungswechsel. Zum Beispiel: Schließe einen Vorwärtsschritt und geh dann einen kleinen Seitenschritt, oder schließe einen Seitschritt und geh dann einen kleinen Vorwärtsschritt."
           },
+
           task: {
             en: "Practice highlighting syncopations with contrasting step sizes, try large step with small one, then reverse. How does each feel?",
             de: "Übe das Hervorheben von Synkopen mit kontrastierenden Schrittgrößen, versuche großer Schritt mit kleinem, dann umgekehrt. Wie fühlt sich jedes an?"
@@ -167,14 +169,6 @@ export const smallAndBigTranslations = {
           syncopationExamplesTitle: {
             en: "Syncopation Examples",
             de: "Synkopen-Beispiele"
-          },
-          differentTimingTitle: {
-            en: "Different Timing Syncopations",
-            de: "Synkopen mit unterschiedlichem Timing"
-          },
-          differentTimingDescription: {
-            en: "Syncopation, but it has another timing, do you feel any different in your impulse to dance them?",
-            de: "Synkopen, aber mit anderem Timing – spürst Du einen Unterschied in Deinem Impuls, sie zu tanzen?"
           },
           exampleDescriptions: {
             donJuan: {
@@ -192,14 +186,6 @@ export const smallAndBigTranslations = {
             tresAmigos: {
               en: "Three syncopations, typical in Troilo Orquesta.",
               de: "Drei Synkopen, typisch im Troilo Orchester."
-            },
-            elChoclo: {
-              en: "Different timing syncopation example.",
-              de: "Synkopen-Beispiel mit anderem Timing."
-            },
-            laCachila: {
-              en: "Another example with different timing.",
-              de: "Ein weiteres Beispiel mit anderem Timing."
             }
           }
         },

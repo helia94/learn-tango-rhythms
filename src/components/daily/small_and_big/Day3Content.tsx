@@ -93,28 +93,6 @@ const Day3Content: React.FC<Day3ContentProps> = ({
           </div>
         ))}
 
-        <div className="border-t border-gray-200 pt-6 mt-8">
-          <h4 className="text-lg font-medium text-gray-800 mb-4">
-            {t('exercises.dancingSmallBig.daily.day3.differentTimingTitle' as any)}
-          </h4>
-          <TextContent>
-            {t('exercises.dancingSmallBig.daily.day3.differentTimingDescription' as any)}
-          </TextContent>
-          
-          {differentTimingExamples.map((example, index) => (
-            <div key={index} className="space-y-3 mb-4">
-              <div className="bg-sage/10 rounded-lg p-4">
-                <p className="text-gray-600 text-sm mb-3">{example.description}</p>
-                <AudioPlayer
-                  title={example.title}
-                  audioUrl={example.audioUrl}
-                  colorEvents={example.colorEvents}
-                  className="w-full"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
       
       <Assignment

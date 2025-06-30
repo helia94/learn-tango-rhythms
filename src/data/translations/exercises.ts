@@ -335,8 +335,8 @@ export const exercisesTranslations = {
           de: "Halte die Verbindung zu Deinem/Deiner Partner*in konstant"
         },
         extremeSlownessTip3: {
-          en: "Breathe deeply to help maintain control",
-          de: "Atme tief, um die Kontrolle zu behalten"
+          en: "For beginners, slow side steps are easier than forward steps",
+          de: "Für Anfänger sind langsame Seitwärtsschritte einfacher als Schritte nach vorne"
         },
         extremeSlownessTip4: {
           en: "Challenge yourself: can you go even slower?",
@@ -351,8 +351,8 @@ export const exercisesTranslations = {
           de: "Beginne mit kleinen, schnellen Bewegungen, bevor Du größere versuchst"
         },
         extremeSpeedTip2: {
-          en: "Practice separation - one partner stays while the other moves fast",
-          de: "Übe Trennung – eine*r bleibt, während der/die andere schnell bewegt"
+          en: "Practice separation, one partner stays while the other moves fast. For example, in a giro, the follower walks around the leader, who pivots in place without advancing",
+          de: "Übe Trennung, eine*r bleibt, während der/die andere sich schnell bewegt. Beispiel im Giro: Der Follower geht um den Leader herum, der sich auf der Stelle dreht, ohne vorwärts zu schreiten"
         },
         backOchoChallenge: {
           en: "Back Ocho Speed Challenge Tips:",
