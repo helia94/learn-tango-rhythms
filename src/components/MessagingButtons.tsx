@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, Phone, Signal, Telegram, WhatsApp } from 'lucide-react';
+import { MessageSquare, Phone, Signal, Send, Hash } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 
 interface MessagingButtonsProps {
@@ -23,13 +23,13 @@ const MessagingButtons: React.FC<MessagingButtonsProps> = ({ phoneNumber }) => {
     },
     {
       name: 'WhatsApp',
-      icon: WhatsApp,
+      icon: MessageSquare,
       url: `https://wa.me/${cleanPhoneNumber}?text=${message}`,
       color: 'bg-green-500 hover:bg-green-600'
     },
     {
       name: 'Telegram',
-      icon: Telegram,
+      icon: Send,
       url: `https://t.me/share/url?url=&text=${message}`,
       color: 'bg-blue-400 hover:bg-blue-500'
     },
@@ -41,7 +41,7 @@ const MessagingButtons: React.FC<MessagingButtonsProps> = ({ phoneNumber }) => {
     },
     {
       name: 'Threema',
-      icon: MessageSquare,
+      icon: Hash,
       url: `threema://compose?text=${message}`,
       color: 'bg-red-500 hover:bg-red-600'
     }
@@ -84,4 +84,3 @@ const MessagingButtons: React.FC<MessagingButtonsProps> = ({ phoneNumber }) => {
 };
 
 export default MessagingButtons;
-
