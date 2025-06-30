@@ -17,7 +17,7 @@ const FeatureFlagsContext = createContext<FeatureFlagsContextValue | undefined>(
 const getDefaultFlags = (): FeatureFlags => {
   return {
     unlockAll: import.meta.env.VITE_UNLOCK_ALL === 'true' || false,
-    forceExerciseReload: true, // Set to true for now
+    forceExerciseReload: false, // Set to true for now
   };
 };
 
