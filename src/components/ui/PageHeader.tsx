@@ -17,15 +17,29 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, backRoute = "/roadmap" }
   return (
     <>
       {/* Navigation */}
-      <div className="relative z-10 p-4 flex justify-between items-center">
-        <Link to={backRoute} className="inline-flex items-center gap-2 text-cream bg-warm-brown/80 px-4 py-2 rounded-full hover:bg-warm-brown transition-all duration-300 shadow-lg backdrop-blur-sm">
-          <ArrowLeft className="w-4 h-4" />
-          {t('common.backToRoadmap')}
-        </Link>
+      <div className="relative z-10 p-4">
+        {/* Main navigation row */}
+        <div className="flex justify-between items-center mb-4 md:mb-0">
+          <Link to={backRoute} className="inline-flex items-center gap-2 text-cream bg-warm-brown/80 px-4 py-2 rounded-full hover:bg-warm-brown transition-all duration-300 shadow-lg backdrop-blur-sm">
+            <ArrowLeft className="w-4 h-4" />
+            {t('common.backToRoadmap')}
+          </Link>
+          
+          {/* Desktop: Show both buttons on the right */}
+          <div className="hidden md:flex items-center gap-4">
+            <ProblemButton />
+            <LanguageSelector />
+          </div>
+          
+          {/* Mobile: Only show language selector */}
+          <div className="md:hidden">
+            <LanguageSelector />
+          </div>
+        </div>
         
-        <div className="flex items-center gap-4">
+        {/* Mobile: Problem button on separate row */}
+        <div className="md:hidden flex justify-center">
           <ProblemButton />
-          <LanguageSelector />
         </div>
       </div>
 
