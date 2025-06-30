@@ -1,4 +1,3 @@
-
 export const commonTranslations = {
   common: {
     backToHome: {
@@ -98,6 +97,14 @@ export const commonTranslations = {
     phoneTitle: {
       en: "Call Us",
       de: "Anrufen"
+    },
+    messageTemplate: {
+      en: "Hi! I'm having an issue with Tango A Diario: ",
+      de: "Hallo! Ich habe ein Problem mit Tango A Diario: "
+    },
+    messagingApps: {
+      en: "Message via:",
+      de: "Nachricht über:"
     }
   },
   errors: {

@@ -1,4 +1,3 @@
-
 import { commonTranslations } from './common';
 import { navigationTranslations } from './navigation';
 import { interactiveTranslations } from './interactive';
@@ -43,6 +42,8 @@ export type TranslationKey =
   | 'report.description'
   | 'report.emailTitle'
   | 'report.phoneTitle'
+  | 'report.messageTemplate'
+  | 'report.messagingApps'
   // Navigation translations
   | 'roadmap.title'
   | 'leaderboard.viewLeaderboard'

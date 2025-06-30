@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { AlertTriangle, Mail, Phone, ArrowLeft, MessageCircle } from 'lucide-react';
 import LanguageSelector from '@/components/LanguageSelector';
+import MessagingButtons from '@/components/MessagingButtons';
 
 const Report = () => {
   const { t } = useTranslation();
@@ -144,9 +144,10 @@ const Report = () => {
                   <Phone className="w-5 h-5" />
                   {t('report.phoneTitle')}
                 </h3>
-                <p className="opacity-95 text-lg">
+                <p className="opacity-95 text-lg mb-4">
                   +49 174 5764613
                 </p>
+                <MessagingButtons phoneNumber="+49 174 5764613" />
               </div>
             </div>
           </div>
