@@ -1,13 +1,18 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { AlertTriangle, Mail, Phone, ArrowLeft, MessageCircle } from 'lucide-react';
 import LanguageSelector from '@/components/LanguageSelector';
 import MessagingButtons from '@/components/MessagingButtons';
+import CopyButton from '@/components/ui/CopyButton';
 
 const Report = () => {
   const { t } = useTranslation();
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const emailAddress = "hello@tango-diario.com";
+  const phoneNumber = "+49 174 5764613";
 
   // Set loaded state after a short delay for entrance animations
   useEffect(() => {
@@ -134,9 +139,15 @@ const Report = () => {
                   <Mail className="w-5 h-5" />
                   {t('report.emailTitle')}
                 </h3>
-                <p className="opacity-95 text-lg">
-                  hello@tango-diario.com
-                </p>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <a 
+                    href={`mailto:${emailAddress}?subject=${encodeURIComponent('Problem with Tango A Diario')}&body=${encodeURIComponent(t('report.messageTemplate'))}`}
+                    className="opacity-95 text-lg hover:underline"
+                  >
+                    {emailAddress}
+                  </a>
+                  <CopyButton text={emailAddress} />
+                </div>
               </div>
               
               <div className="bg-gradient-to-br from-sage-green/70 to-deep-teal/60 rounded-[30px] p-6 text-cream shadow-md">
@@ -144,10 +155,13 @@ const Report = () => {
                   <Phone className="w-5 h-5" />
                   {t('report.phoneTitle')}
                 </h3>
-                <p className="opacity-95 text-lg mb-4">
-                  +49 174 5764613
-                </p>
-                <MessagingButtons phoneNumber="+49 174 5764613" />
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <p className="opacity-95 text-lg">
+                    {phoneNumber}
+                  </p>
+                  <CopyButton text={phoneNumber} />
+                </div>
+                <MessagingButtons phoneNumber={phoneNumber} />
               </div>
             </div>
           </div>
