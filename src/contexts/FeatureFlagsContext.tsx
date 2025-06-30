@@ -1,8 +1,8 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface FeatureFlags {
   unlockAll: boolean;
+  forceExerciseReload: boolean;
 }
 
 interface FeatureFlagsContextValue {
@@ -16,7 +16,8 @@ const FeatureFlagsContext = createContext<FeatureFlagsContextValue | undefined>(
 // Default configuration from environment variables
 const getDefaultFlags = (): FeatureFlags => {
   return {
-    unlockAll: import.meta.env.VITE_UNLOCK_ALL === 'true' || false, // Changed from true to false
+    unlockAll: import.meta.env.VITE_UNLOCK_ALL === 'true' || false,
+    forceExerciseReload: true, // Set to true for now
   };
 };
 

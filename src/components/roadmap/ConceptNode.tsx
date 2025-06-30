@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Lock, Circle, Calendar } from 'lucide-react';
@@ -87,7 +86,7 @@ const ConceptNode: React.FC<ConceptNodeProps> = ({
   const ConceptCard = ({ children }: { children: React.ReactNode }) => {
     if (canRoute) {
       return (
-        <Link to={concept.link!} className="block">
+        <Link to={concept.link!} state={{ fromRoadMap: true }} className="block">
           {children}
         </Link>
       );
