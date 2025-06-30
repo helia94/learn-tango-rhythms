@@ -3,6 +3,7 @@ import React from 'react';
 import { Accordion } from '@/components/ui/accordion';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUnlockAll } from '@/hooks/useFeatureFlag';
+import { trackDailyActivation } from '@/utils/googleAnalytics';
 import DayItem from '@/components/daily/DayItem';
 
 interface DailyAccordionProps {
@@ -31,6 +32,19 @@ const DailyAccordion: React.FC<DailyAccordionProps> = ({
 
   const dayNumbers = Array.from({ length: totalDays }, (_, i) => i + 1);
 
+  // Enhanced day activation handler with analytics tracking
+  const handleDayActivation = async (dayNumber: number) => {
+    if (onDayActivation) {
+      try {
+        await onDayActivation(dayNumber);
+        // Track daily activation
+        trackDailyActivation(topicName, dayNumber);
+      } catch (error) {
+        console.error('Failed to activate day:', error);
+      }
+    }
+  };
+
   return (
     <Accordion type="single" collapsible className="space-y-4">
       {dayNumbers.map(dayNumber => {
@@ -55,7 +69,7 @@ const DailyAccordion: React.FC<DailyAccordionProps> = ({
             isCompleted={isCompleted}
             completedTasks={completedTasks}
             onTaskLevelChange={onTaskLevelChange}
-            onDayActivation={user && (isNextToActivate || unlockAllEnabled) && onDayActivation ? () => onDayActivation(dayNumber) : undefined}
+            onDayActivation={user && (isNextToActivate || unlockAllEnabled) && onDayActivation ? () => handleDayActivation(dayNumber) : undefined}
             topicName={topicName}
             topicIndex={topicIndex}
           />

@@ -3,6 +3,7 @@ import React from 'react';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 import { initializeAudioContext } from '@/utils/audioUtils';
 import { useTranslation } from '@/hooks/useTranslation';
+import { trackAudioPlay, trackAudioPause } from '@/utils/googleAnalytics';
 
 interface PlaybackControlsProps {
   isPlaying: boolean;
@@ -18,9 +19,12 @@ const PlaybackControls = ({ isPlaying, onTogglePlayback, onClearAll }: PlaybackC
     if (!isPlaying) {
       try {
         await initializeAudioContext();
+        trackAudioPlay('rhythm_grid', 'main_playback');
       } catch (error) {
         console.error('Failed to initialize audio context:', error);
       }
+    } else {
+      trackAudioPause('rhythm_grid', 'main_playback');
     }
     onTogglePlayback();
   };

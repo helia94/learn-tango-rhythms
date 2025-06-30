@@ -2,6 +2,7 @@
 import React from 'react';
 import { useDailyExerciseLogic, DailyExerciseLogicProps } from '@/hooks/useDailyExerciseLogic';
 import { useTranslation } from '@/hooks/useTranslation';
+import { trackAssignmentLevel } from '@/utils/googleAnalytics';
 import DailyAssignmentsHeader from './DailyAssignmentsHeader';
 import DailyAccordion from './DailyAccordion';
 
@@ -27,6 +28,15 @@ const DailyExerciseWrapper: React.FC<DailyExerciseWrapperProps> = ({
     getHeaderProps,
     getAccordionProps
   } = useDailyExerciseLogic({ topicKey, topicIndex, totalDays });
+
+  // Enhanced task level change handler with analytics tracking
+  const handleTaskLevelChange = (taskId: string, level: number) => {
+    // Track assignment level change
+    trackAssignmentLevel(taskId, level, topicKey);
+    
+    // Call the original handler
+    onTaskLevelChange(taskId, level);
+  };
 
   if (isLoading) {
     return (
@@ -56,7 +66,7 @@ const DailyExerciseWrapper: React.FC<DailyExerciseWrapperProps> = ({
       <DailyAccordion
         {...accordionProps}
         completedTasks={completedTasks}
-        onTaskLevelChange={onTaskLevelChange}
+        onTaskLevelChange={handleTaskLevelChange}
       />
     </div>
   );

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Play, Pause } from 'lucide-react';
 import { useRhythmPlayback } from '@/hooks/useRhythmPlayback';
 import { speedLevels } from '@/data/presets';
+import { trackAudioPlay, trackAudioPause } from '@/utils/googleAnalytics';
 import { Track, ColorChange, ColorEvent } from '@/types/rhythm';
 
 interface SimpleRhythmPlayerProps {
@@ -68,6 +69,16 @@ const SimpleRhythmPlayer = ({
     }
   }, [playbackTime, isPlaying, colorChanges, colorEvents, currentColor]);
 
+  // Enhanced toggle playback with analytics tracking
+  const handleTogglePlayback = () => {
+    if (isPlaying) {
+      trackAudioPause('rhythm_player', label);
+    } else {
+      trackAudioPlay('rhythm_player', label);
+    }
+    togglePlayback();
+  };
+
   const displayColor = eventColor || currentColor;
 
   return (
@@ -75,7 +86,7 @@ const SimpleRhythmPlayer = ({
       <div className="flex items-center justify-between mb-4">
         {label && <span className="font-semibold text-gray-700 text-lg">{label}</span>}
         <Button
-          onClick={togglePlayback}
+          onClick={handleTogglePlayback}
           className={`bg-golden-yellow/80 hover:bg-golden-yellow text-warm-brown border-none ${!label ? 'mx-auto' : ''}`}
           size="sm"
         >

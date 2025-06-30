@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
+import { trackSignUp, trackLogin } from '@/utils/googleAnalytics';
 
 const Auth: React.FC = () => {
   const { user, signIn, signUp, loading } = useAuth();
@@ -51,6 +52,8 @@ const Auth: React.FC = () => {
             toast.error(error.message || 'Failed to create account');
           }
         } else {
+          // Track successful sign up
+          trackSignUp('email');
           toast.success('Account created successfully! Please check your email to verify your account.');
           // Clear form
           setEmail('');
@@ -68,6 +71,8 @@ const Auth: React.FC = () => {
             toast.error(error.message || 'Failed to sign in');
           }
         } else {
+          // Track successful login
+          trackLogin('email');
           toast.success('Welcome back!');
           // Redirect to roadmap after successful sign in
           navigate('/roadmap');

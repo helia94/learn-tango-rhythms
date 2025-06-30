@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
+import { trackTopicActivation } from '@/utils/googleAnalytics';
 
 interface TopicStartButtonProps {
   className?: string;
@@ -87,6 +88,9 @@ const TopicStartButton: React.FC<TopicStartButtonProps> = ({
     } else {
       try {
         await activateTopic(topicKey, topicIndex);
+        
+        // Track topic activation
+        trackTopicActivation(topicKey, topicIndex);
         
         // Reset and refresh status
         hasInitialized.current = false;
