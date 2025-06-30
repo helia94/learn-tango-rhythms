@@ -1,3 +1,4 @@
+// DayItem.tsx  – fixed version
 import React, { useState, useEffect } from 'react';
 import { Lock, CheckCircle, Play } from 'lucide-react';
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -31,70 +32,52 @@ const DayItem: React.FC<DayItemProps> = ({
   const { t } = useTranslation();
   const [timeUntilUnlock, setTimeUntilUnlock] = useState<string | null>(null);
   const [canActivateNow, setCanActivateNow] = useState(false);
-  
-  const { getTimeUntilNextActivation, canActivateDay } = useDailyTopicActivation(
-    topicName, 
-    topicIndex, 
-    7 // totalDays - this could be made dynamic if needed
+
+  // ← added isLoading
+  const { getTimeUntilNextActivation, canActivateDay, isLoading } = useDailyTopicActivation(
+    topicName,
+    topicIndex,
+    7 // totalDays
   );
 
-  // Fetch unlock time only once when component mounts and status is 'tomorrow'
   useEffect(() => {
-    if (status !== 'tomorrow') return;
+    // wait until hook finishes loading
+    if (status !== 'tomorrow' || isLoading) return;
 
     let isMounted = true;
-    
-    const fetchUnlockInfo = async () => {
-      try {
-        // Check if day can be activated - this is our authoritative source
-        const canActivate = await canActivateDay(dayNumber);
-        if (!isMounted) return;
-        
-        // If canActivateDay says yes, we can activate regardless of timing
-        if (canActivate) {
-          setCanActivateNow(true);
-          setTimeUntilUnlock(null);
-          return;
-        }
-        
-        // If canActivateDay says no, then check timing for display message
-        setCanActivateNow(false);
-        
-        const timeMs = await getTimeUntilNextActivation();
-        if (!isMounted) return;
-        
-        if (timeMs === null || timeMs <= 0) {
-          setTimeUntilUnlock('unlock time unavailable');
-        } else {
-          // Convert milliseconds to hours and minutes
-          const hours = Math.floor(timeMs / (1000 * 60 * 60));
-          const minutes = Math.floor((timeMs % (1000 * 60 * 60)) / (1000 * 60));
-          
-          if (hours > 0) {
-            setTimeUntilUnlock(`unlock in ${hours}h ${minutes}m`);
-          } else if (minutes > 0) {
-            setTimeUntilUnlock(`unlock in ${minutes}m`);
-          } else {
-            setTimeUntilUnlock('unlock soon');
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching unlock info:', error);
-        if (isMounted) {
-          setTimeUntilUnlock('unlock time unavailable');
-          setCanActivateNow(false);
-        }
-      }
-    };
 
-    fetchUnlockInfo();
-    
+    (async () => {
+      const canActivate = await canActivateDay(dayNumber);
+      if (!isMounted) return;
+
+      if (canActivate) {
+        setCanActivateNow(true);
+        setTimeUntilUnlock(null);
+        return;
+      }
+
+      setCanActivateNow(false);
+
+      const timeMs = await getTimeUntilNextActivation();
+      if (!isMounted) return;
+
+      if (timeMs == null || timeMs < 0) {
+        setTimeUntilUnlock('unlock time unavailable');
+      } else {
+        const hours = Math.floor(timeMs / 3_600_000);
+        const minutes = Math.floor((timeMs % 3_600_000) / 60_000);
+        setTimeUntilUnlock(
+          hours ? `unlock in ${hours}h ${minutes}m` : `unlock in ${minutes}m`
+        );
+      }
+    })();
+
     return () => {
       isMounted = false;
     };
-  }, [status, dayNumber, topicName, topicIndex]);
+  }, [status, dayNumber, topicName, topicIndex, isLoading]); // ← include isLoading
 
-  // For locked days, don't make them expandable
+  // For locked days, not expandable
   if (status === 'locked') {
     return (
       <div className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden">
@@ -102,9 +85,7 @@ const DayItem: React.FC<DayItemProps> = ({
           <div className="flex items-center gap-4 w-full">
             <div className="flex items-center gap-3">
               <Lock className="w-5 h-5 text-gray-400" />
-              <span className="text-xl font-display text-gray-700">
-                Day {dayNumber}
-              </span>
+              <span className="text-xl font-display text-gray-700">Day {dayNumber}</span>
             </div>
             <span className="text-sm text-gray-400 font-medium ml-auto">
               {t('daily.locked')}
@@ -115,7 +96,7 @@ const DayItem: React.FC<DayItemProps> = ({
     );
   }
 
-  // For 'tomorrow' days (ready to activate), don't make them expandable either
+  // For tomorrow days, not expandable
   if (status === 'tomorrow') {
     return (
       <div className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden">
@@ -123,11 +104,9 @@ const DayItem: React.FC<DayItemProps> = ({
           <div className="flex items-center gap-4 w-full">
             <div className="flex items-center gap-3">
               <Lock className="w-5 h-5 text-golden-yellow" />
-              <span className="text-xl font-display text-gray-700">
-                Day {dayNumber}
-              </span>
+              <span className="text-xl font-display text-gray-700">Day {dayNumber}</span>
             </div>
-            
+
             {canActivateNow && onDayActivation && (
               <Button
                 onClick={onDayActivation}
@@ -139,13 +118,13 @@ const DayItem: React.FC<DayItemProps> = ({
                 {t('daily.unlockDay')}
               </Button>
             )}
-            
+
             {!canActivateNow && timeUntilUnlock && (
               <span className="text-sm text-golden-yellow font-medium ml-auto">
                 {timeUntilUnlock}
               </span>
             )}
-            
+
             {!canActivateNow && !timeUntilUnlock && (
               <span className="text-sm text-golden-yellow font-medium ml-auto">
                 {t('daily.availableTomorrow')}
@@ -157,10 +136,10 @@ const DayItem: React.FC<DayItemProps> = ({
     );
   }
 
-  // Only unlocked days are expandable
+  // Unlocked days are expandable
   return (
-    <AccordionItem 
-      value={`day-${dayNumber}`} 
+    <AccordionItem
+      value={`day-${dayNumber}`}
       className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden"
     >
       <AccordionTrigger className="px-6 py-4 hover:no-underline">
@@ -171,13 +150,11 @@ const DayItem: React.FC<DayItemProps> = ({
             ) : (
               <div className="w-5 h-5 rounded-full border-2 border-gray-400" />
             )}
-            <span className="text-xl font-display text-gray-700">
-              Day {dayNumber}
-            </span>
+            <span className="text-xl font-display text-gray-700">Day {dayNumber}</span>
           </div>
         </div>
       </AccordionTrigger>
-      
+
       <AccordionContent className="px-6 pb-6">
         <DayContent
           dayNumber={dayNumber}
