@@ -1,4 +1,5 @@
-// DayItem.tsx  – fixed version
+
+// DayItem.tsx  – fixed version with detailed logging
 import React, { useState, useEffect } from 'react';
 import { Lock, CheckCircle, Play } from 'lucide-react';
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -33,6 +34,8 @@ const DayItem: React.FC<DayItemProps> = ({
   const [timeUntilUnlock, setTimeUntilUnlock] = useState<string | null>(null);
   const [canActivateNow, setCanActivateNow] = useState(false);
 
+  console.log(`[DayItem] Component rendered - Day ${dayNumber}, Status: ${status}, Topic: ${topicName}/${topicIndex}`);
+
   // ← added isLoading
   const { getTimeUntilNextActivation, canActivateDay, isLoading } = useDailyTopicActivation(
     topicName,
@@ -40,45 +43,77 @@ const DayItem: React.FC<DayItemProps> = ({
     7 // totalDays
   );
 
+  console.log(`[DayItem] Hook data - Day ${dayNumber}, isLoading: ${isLoading}`);
+
   useEffect(() => {
+    console.log(`[DayItem] useEffect triggered - Day ${dayNumber}, Status: ${status}, isLoading: ${isLoading}`);
+    
     // wait until hook finishes loading
-    if (status !== 'tomorrow' || isLoading) return;
+    if (status !== 'tomorrow' || isLoading) {
+      console.log(`[DayItem] Skipping effect - Day ${dayNumber}, Status: ${status}, isLoading: ${isLoading}`);
+      return;
+    }
 
     let isMounted = true;
+    console.log(`[DayItem] Starting async activation check for Day ${dayNumber}`);
 
     (async () => {
-      const canActivate = await canActivateDay(dayNumber);
-      if (!isMounted) return;
+      try {
+        console.log(`[DayItem] Checking if Day ${dayNumber} can be activated`);
+        const canActivate = await canActivateDay(dayNumber);
+        if (!isMounted) {
+          console.log(`[DayItem] Component unmounted during canActivateDay check for Day ${dayNumber}`);
+          return;
+        }
 
-      if (canActivate) {
-        setCanActivateNow(true);
-        setTimeUntilUnlock(null);
-        return;
-      }
+        console.log(`[DayItem] Day ${dayNumber} can activate: ${canActivate}`);
 
-      setCanActivateNow(false);
+        if (canActivate) {
+          console.log(`[DayItem] Day ${dayNumber} can be activated now, showing activate button`);
+          setCanActivateNow(true);
+          setTimeUntilUnlock(null);
+          return;
+        }
 
-      const timeMs = await getTimeUntilNextActivation();
-      if (!isMounted) return;
+        console.log(`[DayItem] Day ${dayNumber} cannot be activated, checking wait time`);
+        setCanActivateNow(false);
 
-      if (timeMs == null || timeMs < 0) {
-        setTimeUntilUnlock('unlock time unavailable');
-      } else {
-        const hours = Math.floor(timeMs / 3_600_000);
-        const minutes = Math.floor((timeMs % 3_600_000) / 60_000);
-        setTimeUntilUnlock(
-          hours ? `unlock in ${hours}h ${minutes}m` : `unlock in ${minutes}m`
-        );
+        const timeMs = await getTimeUntilNextActivation();
+        if (!isMounted) {
+          console.log(`[DayItem] Component unmounted during time check for Day ${dayNumber}`);
+          return;
+        }
+
+        console.log(`[DayItem] Time until next activation for Day ${dayNumber}: ${timeMs}ms`);
+
+        if (timeMs == null || timeMs < 0) {
+          console.log(`[DayItem] Invalid wait time for Day ${dayNumber}, showing unavailable message`);
+          setTimeUntilUnlock('unlock time unavailable');
+        } else {
+          const hours = Math.floor(timeMs / 3_600_000);
+          const minutes = Math.floor((timeMs % 3_600_000) / 60_000);
+          const timeString = hours ? `unlock in ${hours}h ${minutes}m` : `unlock in ${minutes}m`;
+          console.log(`[DayItem] Setting unlock time for Day ${dayNumber}: ${timeString}`);
+          setTimeUntilUnlock(timeString);
+        }
+      } catch (error) {
+        console.error(`[DayItem] Error in activation check for Day ${dayNumber}:`, error);
+        if (isMounted) {
+          setCanActivateNow(false);
+          setTimeUntilUnlock('unlock time unavailable');
+        }
       }
     })();
 
     return () => {
+      console.log(`[DayItem] Cleanup for Day ${dayNumber}`);
       isMounted = false;
     };
   }, [status, dayNumber, topicName, topicIndex, isLoading]); // ← include isLoading
 
   // For locked days, not expandable
   if (status === 'locked') {
+    console.log(`[DayItem] Rendering locked day ${dayNumber}`);
     return (
       <div className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden">
         <div className="px-6 py-4">
@@ -98,6 +133,7 @@ const DayItem: React.FC<DayItemProps> = ({
 
   // For tomorrow days, not expandable
   if (status === 'tomorrow') {
+    console.log(`[DayItem] Rendering tomorrow day ${dayNumber} - canActivateNow: ${canActivateNow}, timeUntilUnlock: ${timeUntilUnlock}`);
     return (
       <div className="bg-warm-brown/10 backdrop-blur-sm rounded-2xl border border-cream/20 overflow-hidden">
         <div className="px-6 py-4">
@@ -109,7 +145,10 @@ const DayItem: React.FC<DayItemProps> = ({
 
             {canActivateNow && onDayActivation && (
               <Button
-                onClick={onDayActivation}
+                onClick={() => {
+                  console.log(`[DayItem] Activate button clicked for Day ${dayNumber}`);
+                  onDayActivation();
+                }}
                 size="sm"
                 variant="outline"
                 className="ml-auto bg-golden-yellow/20 hover:bg-golden-yellow/30 border-golden-yellow/30 text-golden-yellow"
@@ -137,6 +176,7 @@ const DayItem: React.FC<DayItemProps> = ({
   }
 
   // Unlocked days are expandable
+  console.log(`[DayItem] Rendering unlocked day ${dayNumber} - isCompleted: ${isCompleted}`);
   return (
     <AccordionItem
       value={`day-${dayNumber}`}
