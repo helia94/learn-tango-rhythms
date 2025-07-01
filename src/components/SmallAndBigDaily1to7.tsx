@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
@@ -6,6 +5,7 @@ import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 import { useUnlockAll } from '@/hooks/useFeatureFlag';
 import DailyAssignmentsHeader from '@/components/ui/DailyAssignmentsHeader';
 import DailyAccordion from '@/components/ui/DailyAccordion';
+import { TOPIC_CONFIG } from '@/config/topics';
 
 interface SmallAndBigDaily1to7Props {
   completedTasks: Record<string, number>;
@@ -18,8 +18,9 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
 }) => {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const topic = TOPIC_CONFIG.DANCING_SMALL_BIG;
   const unlockAllEnabled = useUnlockAll();
-  const totalDays = 7;
+  const totalDays = topic.totalDays;
     
   const { 
     activatedDays, 
@@ -28,11 +29,11 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
     whichDailiesWereActivated,
     whichDailyIsNextOnActivationOrder,
     canActivateDay
-  } = useDailyTopicActivation('dancing-small-big', 1, totalDays);
+  } = useDailyTopicActivation(topic.key, topic.index, topic.totalDays);
 
   // Calculate days unlocked based on activated days or feature flag
   const activatedDaysArray = whichDailiesWereActivated();
-  const daysUnlocked = unlockAllEnabled ? 7 : Math.max(...activatedDaysArray, 0);
+  const daysUnlocked = unlockAllEnabled ? topic.totalDays : Math.max(...activatedDaysArray, 0);
   const nextDayToActivate = whichDailyIsNextOnActivationOrder();
 
 
@@ -72,20 +73,20 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
     <div className="mb-16">
       <DailyAssignmentsHeader
         daysUnlocked={daysUnlocked}
-        totalDays={totalDays}
+        totalDays={topic.totalDays}
         nextDayToActivate={nextDayToActivate}
         unlockAllEnabled={unlockAllEnabled}
       />
 
       <DailyAccordion
-        totalDays={totalDays}
+        totalDays={topic.totalDays}
         activatedDays={activatedDaysArray}
         nextDayToActivate={nextDayToActivate}
         completedTasks={completedTasks}
         onTaskLevelChange={onTaskLevelChange}
         onDayActivation={handleDayActivation}
-        topicName="dancing-small-big"
-        topicIndex={1}
+        topicName={topic.key}
+        topicIndex={topic.index}
       />
     </div>
   );

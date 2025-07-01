@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useAuth } from '@/contexts/AuthContext';
@@ -6,6 +5,7 @@ import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 import { useUnlockAll } from '@/hooks/useFeatureFlag';
 import DailyAssignmentsHeader from '@/components/ui/DailyAssignmentsHeader';
 import DailyAccordion from '@/components/ui/DailyAccordion';
+import { TOPIC_CONFIG } from '@/config/topics';
 
 interface FastAndSlowDaily1to7Props {
   completedTasks: Record<string, number>;
@@ -18,8 +18,8 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
 }) => {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const topic = TOPIC_CONFIG.DANCING_FAST_SLOW;
   const unlockAllEnabled = useUnlockAll();
-  const totalDays = 7;
   
   const { 
     activatedDays, 
@@ -28,7 +28,7 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
     whichDailiesWereActivated,
     whichDailyIsNextOnActivationOrder,
     canActivateDay
-  } = useDailyTopicActivation('dancing-fast-slow', 0, totalDays);
+  } = useDailyTopicActivation(topic.key, topic.index, topic.totalDays);
 
   // Calculate days unlocked based on activated days
   const daysUnlocked = Math.max(...whichDailiesWereActivated(), 0);
@@ -55,7 +55,7 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
       <div className="mb-16">
         <DailyAssignmentsHeader
           daysUnlocked={0}
-          totalDays={totalDays}
+          totalDays={topic.totalDays}
         />
         <div className="text-center">
           <p className="text-gray-600 mt-2">{t('common.loading')}...</p>
@@ -68,19 +68,19 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
     <div className="mb-16">
       <DailyAssignmentsHeader
         daysUnlocked={daysUnlocked}
-        totalDays={totalDays}
+        totalDays={topic.totalDays}
         nextDayToActivate={nextDayToActivate}
       />
 
       <DailyAccordion
-        totalDays={totalDays}
+        totalDays={topic.totalDays}
         activatedDays={whichDailiesWereActivated()}
         nextDayToActivate={nextDayToActivate}
         completedTasks={completedTasks}
         onTaskLevelChange={onTaskLevelChange}
         onDayActivation={handleDayActivation}
-        topicName="dancing-fast-slow"
-        topicIndex={0}
+        topicName={topic.key}
+        topicIndex={topic.index}
       />
     </div>
   );

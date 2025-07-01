@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
 import DailyAssignmentsHeader from '@/components/ui/DailyAssignmentsHeader';
 import DailyAccordion from '@/components/ui/DailyAccordion';
+import { TOPIC_CONFIG } from '@/config/topics';
 
 interface DancingCircularLinearDaily1to3Props {
   completedTasks: Record<string, number>;
@@ -15,37 +15,35 @@ const DancingCircularLinearDaily1to3: React.FC<DancingCircularLinearDaily1to3Pro
   onTaskLevelChange
 }) => {
   const { user } = useAuth();
-  const totalDays = 3;
-  const topicName = 'dancing-circular-linear';
-  const topicIndex = 3;
+  const topic = TOPIC_CONFIG.DANCING_CIRCULAR_LINEAR;
 
   const {
     activatedDays,
     nextDayToActivate,
     activateDay,
     unlockAllEnabled
-  } = useDailyTopicActivation(topicName, topicIndex, totalDays);
+  } = useDailyTopicActivation(topic.key, topic.index, topic.totalDays);
 
-  const daysUnlocked = unlockAllEnabled ? totalDays : activatedDays.length;
+  const daysUnlocked = unlockAllEnabled ? topic.totalDays : activatedDays.length;
 
   return (
     <div>
       <DailyAssignmentsHeader
         daysUnlocked={daysUnlocked}
-        totalDays={totalDays}
+        totalDays={topic.totalDays}
         nextDayToActivate={nextDayToActivate}
         unlockAllEnabled={unlockAllEnabled}
       />
       
       <DailyAccordion
-        totalDays={totalDays}
+        totalDays={topic.totalDays}
         activatedDays={activatedDays}
         nextDayToActivate={nextDayToActivate}
         completedTasks={completedTasks}
         onTaskLevelChange={onTaskLevelChange}
         onDayActivation={user ? activateDay : undefined}
-        topicName={topicName}
-        topicIndex={topicIndex}
+        topicName={topic.key}
+        topicIndex={topic.index}
       />
     </div>
   );

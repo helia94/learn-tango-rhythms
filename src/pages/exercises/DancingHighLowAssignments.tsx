@@ -1,10 +1,11 @@
-
 import React from 'react';
 import AllAssignmentsPage from '@/components/AllAssignmentsPage';
 import { getWeeklyAssignments, getAssignment } from '@/data/assignments/dancing_high_low';
+import { TOPIC_CONFIG } from '@/config/topics';
 
 const DancingHighLowAssignments = () => {
   const weeklyAssignments = getWeeklyAssignments().map(item => item.assignment);
+  const topic = TOPIC_CONFIG.DANCING_HIGH_LOW;
 
   return (
     <AllAssignmentsPage
@@ -13,9 +14,9 @@ const DancingHighLowAssignments = () => {
       backRoute="/exercises/dancing-high-low"
       weeklyAssignments={weeklyAssignments}
       getAssignment={getAssignment}
-      topicName="dancing-high-low"
-      topicIndex={2}
-      totalDays={5}
+      topicName={topic.key}
+      topicIndex={topic.index}
+      totalDays={topic.totalDays}
     />
   );
 };

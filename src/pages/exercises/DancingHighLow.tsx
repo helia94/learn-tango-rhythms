@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -12,6 +11,7 @@ import AssignmentList from '@/components/AssignmentList';
 import DancingHighLowDaily1to7 from '@/components/DancingHighLowDaily1to7';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_high_low';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
+import { TOPIC_CONFIG } from '@/config/topics';
 
 const DancingHighLow = () => {
   const { t } = useTranslation();
@@ -27,6 +27,7 @@ const DancingHighLow = () => {
   const weeklyAssignmentsData = getWeeklyAssignments();
   const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
 
+  const topic = TOPIC_CONFIG.DANCING_HIGH_LOW;
 
   const tips = [
     t('exercises.dancingHighLow.tip1' as any),
@@ -49,8 +50,8 @@ const DancingHighLow = () => {
       <div className="max-w-4xl mx-auto px-4 mb-8">
         <div className="text-center">
           <TopicStartButton 
-            topicKey="dancing-high-low"
-            topicIndex={1}
+            topicKey={topic.key}
+            topicIndex={topic.index}
           />
         </div>
       </div>
@@ -125,8 +126,8 @@ const DancingHighLow = () => {
             completedTasks={completedTasks}
             onTaskLevelChange={handleTaskLevelChange}
             keyPrefix="assignment"
-            topicName="dancing-high-low"
-            topicIndex={1}
+            topicName={topic.key}
+            topicIndex={topic.index}
           />
         </StorySection>
 

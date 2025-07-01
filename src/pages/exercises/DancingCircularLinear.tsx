@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -13,6 +12,7 @@ import { getWeeklyAssignments } from '@/data/assignments/dancing_circular_linear
 import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
 import AudioPlayer from '@/components/AudioPlayer';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
+import { TOPIC_CONFIG } from '@/config/topics';
 
 const DancingCircularLinear = () => {
   const { t } = useTranslation();
@@ -27,6 +27,8 @@ const DancingCircularLinear = () => {
 
   const weeklyAssignmentsData = getWeeklyAssignments();
   const weeklyAssignments = weeklyAssignmentsData.map(item => item.assignment);
+
+  const topic = TOPIC_CONFIG.DANCING_CIRCULAR_LINEAR;
 
   // Practice playlist data for circular/linear movements - Updated with correct Spotify URL
   const practicePlaylistData = {
@@ -43,8 +45,8 @@ const DancingCircularLinear = () => {
       <div className="max-w-4xl mx-auto px-4 mb-8">
         <div className="text-center">
           <TopicStartButton 
-            topicKey="dancing-circular-linear"
-            topicIndex={3}
+            topicKey={topic.key}
+            topicIndex={topic.index}
           />
         </div>
       </div>
@@ -107,8 +109,8 @@ const DancingCircularLinear = () => {
             completedTasks={completedTasks}
             onTaskLevelChange={handleTaskLevelChange}
             keyPrefix="assignment"
-            topicName="dancing-circular-linear"
-            topicIndex={3}
+            topicName={topic.key}
+            topicIndex={topic.index}
           />
         </StorySection>
 
@@ -125,6 +127,9 @@ const DancingCircularLinear = () => {
         <DancingCircularLinearDaily1to3 
           completedTasks={completedTasks}
           onTaskLevelChange={handleTaskLevelChange}
+          topicName={topic.key}
+          topicIndex={topic.index}
+          totalDays={topic.totalDays}
         />
       </div>
     </div>
