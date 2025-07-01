@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { TOPIC_CONFIG } from '@/config/topics';
 import DailyExerciseWrapper from '@/components/ui/DailyExerciseWrapper';
 
 interface DancingWithWithoutControlDaily1to4Props {
@@ -13,9 +14,7 @@ const DancingWithWithoutControlDaily1to4: React.FC<DancingWithWithoutControlDail
 }) => {
   return (
     <DailyExerciseWrapper
-      topicKey="dancing-with-without-control"
-      topicIndex={4}
-      totalDays={4}
+      topicKey={TOPIC_CONFIG.DANCING_WITH_WITHOUT_CONTROL.key}
       completedTasks={completedTasks}
       onTaskLevelChange={onTaskLevelChange}
     />

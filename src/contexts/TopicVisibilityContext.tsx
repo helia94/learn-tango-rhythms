@@ -1,9 +1,9 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTopicActivation } from '@/hooks/useTopicActivation';
 import { useFeatureFlags } from '@/contexts/FeatureFlagsContext';
 import { supabase } from '@/integrations/supabase/client';
+import { TOPIC_CONFIG } from '@/config/topics';
 
 interface TopicVisibility {
   topicIndex: number;
@@ -36,14 +36,12 @@ interface TopicVisibilityContextValue {
 
 const TopicVisibilityContext = createContext<TopicVisibilityContextValue | undefined>(undefined);
 
-// Define all available topics with their configurations
-const AVAILABLE_TOPICS = [
-  { topicIndex: 0, topicKey: 'dancing-fast-slow', totalDays: 7 },
-  { topicIndex: 1, topicKey: 'dancing-small-big', totalDays: 7 },
-  { topicIndex: 2, topicKey: 'dancing-high-low', totalDays: 7 },
-  { topicIndex: 3, topicKey: 'dancing-circular-linear', totalDays: 3 },
-  { topicIndex: 4, topicKey: 'dancing-with-without-control', totalDays: 4 },
-];
+// Replace AVAILABLE_TOPICS with centralized configuration
+const AVAILABLE_TOPICS = Object.values(TOPIC_CONFIG).map(config => ({
+  topicIndex: config.index,
+  topicKey: config.key,
+  totalDays: config.totalDays,
+}));
 
 interface TopicVisibilityProviderProps {
   children: ReactNode;

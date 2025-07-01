@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { TOPIC_CONFIG } from '@/config/topics';
 import DailyExerciseWrapper from '@/components/ui/DailyExerciseWrapper';
 
 interface FastAndSlowDaily1to7Props {
@@ -13,9 +14,7 @@ const FastAndSlowDaily1to7: React.FC<FastAndSlowDaily1to7Props> = ({
 }) => {
   return (
     <DailyExerciseWrapper
-      topicKey="dancing-fast-slow"
-      topicIndex={0}
-      totalDays={7}
+      topicKey={TOPIC_CONFIG.DANCING_FAST_SLOW.key}
       completedTasks={completedTasks}
       onTaskLevelChange={onTaskLevelChange}
     />

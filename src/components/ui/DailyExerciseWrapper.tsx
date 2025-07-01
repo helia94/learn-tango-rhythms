@@ -1,12 +1,13 @@
-
 import React from 'react';
 import { useDailyExerciseLogic, DailyExerciseLogicProps } from '@/hooks/useDailyExerciseLogic';
 import { useTranslation } from '@/hooks/useTranslation';
 import { trackAssignmentLevel } from '@/utils/googleAnalytics';
+import { TOPIC_CONFIG, TopicKey } from '@/config/topics';
 import DailyAssignmentsHeader from './DailyAssignmentsHeader';
 import DailyAccordion from './DailyAccordion';
 
-interface DailyExerciseWrapperProps extends DailyExerciseLogicProps {
+interface DailyExerciseWrapperProps {
+  topicKey: TopicKey;
   completedTasks: Record<string, number>;
   onTaskLevelChange: (taskId: string, level: number) => void;
   showHeader?: boolean;
@@ -15,19 +16,27 @@ interface DailyExerciseWrapperProps extends DailyExerciseLogicProps {
 
 const DailyExerciseWrapper: React.FC<DailyExerciseWrapperProps> = ({
   topicKey,
-  topicIndex,
-  totalDays,
   completedTasks,
   onTaskLevelChange,
   showHeader = true,
   className = "mb-16"
 }) => {
   const { t } = useTranslation();
+  const topicConfig = Object.values(TOPIC_CONFIG).find(config => config.key === topicKey);
+  
+  if (!topicConfig) {
+    throw new Error(`Topic configuration not found for key: ${topicKey}`);
+  }
+
   const {
     isLoading,
     getHeaderProps,
     getAccordionProps
-  } = useDailyExerciseLogic({ topicKey, topicIndex, totalDays });
+  } = useDailyExerciseLogic({ 
+    topicKey: topicConfig.key, 
+    topicIndex: topicConfig.index, 
+    totalDays: topicConfig.totalDays 
+  });
 
   // Enhanced task level change handler with analytics tracking
   const handleTaskLevelChange = (taskId: string, level: number) => {
@@ -44,7 +53,7 @@ const DailyExerciseWrapper: React.FC<DailyExerciseWrapperProps> = ({
         {showHeader && (
           <DailyAssignmentsHeader
             daysUnlocked={0}
-            totalDays={totalDays}
+            totalDays={topicConfig.totalDays}
           />
         )}
         <div className="text-center">

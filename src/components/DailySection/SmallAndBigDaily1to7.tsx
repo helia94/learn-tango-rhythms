@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { TOPIC_CONFIG } from '@/config/topics';
 import DailyExerciseWrapper from '@/components/ui/DailyExerciseWrapper';
 
 interface SmallAndBigDaily1to7Props {
@@ -13,9 +14,7 @@ const SmallAndBigDaily1to7: React.FC<SmallAndBigDaily1to7Props> = ({
 }) => {
   return (
     <DailyExerciseWrapper
-      topicKey="dancing-small-big"
-      topicIndex={1}
-      totalDays={7}
+      topicKey={TOPIC_CONFIG.DANCING_SMALL_BIG.key}
       completedTasks={completedTasks}
       onTaskLevelChange={onTaskLevelChange}
     />

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { TOPIC_CONFIG } from '@/config/topics';
 import DailyExerciseWrapper from '@/components/ui/DailyExerciseWrapper';
 
 interface DancingCircularLinearDaily1to3Props {
@@ -13,9 +14,7 @@ const DancingCircularLinearDaily1to3: React.FC<DancingCircularLinearDaily1to3Pro
 }) => {
   return (
     <DailyExerciseWrapper
-      topicKey="dancing-circular-linear"
-      topicIndex={3}
-      totalDays={3}
+      topicKey={TOPIC_CONFIG.DANCING_CIRCULAR_LINEAR.key}
       completedTasks={completedTasks}
       onTaskLevelChange={onTaskLevelChange}
     />
