@@ -94,7 +94,7 @@ const DancingHighLow = () => {
             <div className="w-full max-w-2xl">
               <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-2xl shadow-2xl">
                 <iframe
-                  src="https://www.youtube.com/embed/UiAic0aBKdk?si=0TlLs7TSAb4eYGoc"
+                  src="https://youtu.be/UiAic0aBKdk?si=w4uN7CYq-UJSgvmJ"
                   title="Majo Martirena and Rodrigo Fonti - Height Variation Example"
                   className="absolute top-0 left-0 w-full h-full"
                   frameBorder="0"
