@@ -1,5 +1,5 @@
 
-// DayItem.tsx  – updated version with manual unlock time check button
+// DayItem.tsx  – updated version with fixed manual unlock time check button
 import React, { useState, useEffect } from 'react';
 import { Lock, CheckCircle, Play, RefreshCw } from 'lucide-react';
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -60,26 +60,25 @@ const DayItem: React.FC<DayItemProps> = ({
         setCanActivateNow(true);
         setTimeUntilUnlock(null);
         setShowCheckButton(false);
-        return;
-      }
-
-      console.log(`[DayItem] Day ${dayNumber} cannot be activated, checking wait time`);
-      setCanActivateNow(false);
-
-      const timeMs = await getTimeUntilNextActivation();
-      console.log(`[DayItem] Time until next activation for Day ${dayNumber}: ${timeMs}ms`);
-
-      if (timeMs == null || timeMs < 0) {
-        console.log(`[DayItem] Invalid wait time for Day ${dayNumber}, keeping check button`);
-        setTimeUntilUnlock(null);
-        setShowCheckButton(true);
       } else {
-        const hours = Math.floor(timeMs / 3_600_000);
-        const minutes = Math.floor((timeMs % 3_600_000) / 60_000);
-        const timeString = hours ? `unlock in ${hours}h ${minutes}m` : `unlock in ${minutes}m`;
-        console.log(`[DayItem] Setting unlock time for Day ${dayNumber}: ${timeString}`);
-        setTimeUntilUnlock(timeString);
-        setShowCheckButton(false);
+        console.log(`[DayItem] Day ${dayNumber} cannot be activated, checking wait time`);
+        setCanActivateNow(false);
+
+        const timeMs = await getTimeUntilNextActivation();
+        console.log(`[DayItem] Time until next activation for Day ${dayNumber}: ${timeMs}ms`);
+
+        if (timeMs != null && timeMs > 0) {
+          const hours = Math.floor(timeMs / 3_600_000);
+          const minutes = Math.floor((timeMs % 3_600_000) / 60_000);
+          const timeString = hours > 0 ? `unlock in ${hours}h ${minutes}m` : `unlock in ${minutes}m`;
+          console.log(`[DayItem] Setting unlock time for Day ${dayNumber}: ${timeString}`);
+          setTimeUntilUnlock(timeString);
+          setShowCheckButton(false);
+        } else {
+          console.log(`[DayItem] No valid wait time for Day ${dayNumber}, keeping check button`);
+          setTimeUntilUnlock(null);
+          setShowCheckButton(true);
+        }
       }
     } catch (error) {
       console.error(`[DayItem] Error in manual activation check for Day ${dayNumber}:`, error);
@@ -133,17 +132,17 @@ const DayItem: React.FC<DayItemProps> = ({
 
         console.log(`[DayItem] Time until next activation for Day ${dayNumber}: ${timeMs}ms`);
 
-        if (timeMs == null || timeMs < 0) {
-          console.log(`[DayItem] Invalid wait time for Day ${dayNumber}, showing check button`);
-          setTimeUntilUnlock(null);
-          setShowCheckButton(true);
-        } else {
+        if (timeMs != null && timeMs > 0) {
           const hours = Math.floor(timeMs / 3_600_000);
           const minutes = Math.floor((timeMs % 3_600_000) / 60_000);
-          const timeString = hours ? `unlock in ${hours}h ${minutes}m` : `unlock in ${minutes}m`;
+          const timeString = hours > 0 ? `unlock in ${hours}h ${minutes}m` : `unlock in ${minutes}m`;
           console.log(`[DayItem] Setting unlock time for Day ${dayNumber}: ${timeString}`);
           setTimeUntilUnlock(timeString);
           setShowCheckButton(false);
+        } else {
+          console.log(`[DayItem] No valid wait time for Day ${dayNumber}, showing check button`);
+          setTimeUntilUnlock(null);
+          setShowCheckButton(true);
         }
       } catch (error) {
         console.error(`[DayItem] Error in activation check for Day ${dayNumber}:`, error);
