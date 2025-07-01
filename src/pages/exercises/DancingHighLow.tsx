@@ -31,7 +31,7 @@ const DancingHighLow = () => {
 
   const tips = [
     t('exercises.dancingHighLow.tip1' as any),
-    t('exercises.dancingHighLow.tip2' as any), 
+    t('exercises.dancingHighLow.tip2' as any),
     t('exercises.dancingHighLow.tip3' as any)
   ];
 
@@ -45,11 +45,11 @@ const DancingHighLow = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
       <PageHeader title={t('exercises.dancingHighLow.title' as any)} />
-      
+
       {/* Topic Action Button */}
       <div className="max-w-4xl mx-auto px-4 mb-8">
         <div className="text-center">
-          <TopicStartButton 
+          <TopicStartButton
             topicKey={topic.key}
             topicIndex={topic.index}
           />
@@ -88,25 +88,8 @@ const DancingHighLow = () => {
           <TextContent variant="body" align="center" className="mb-6">
             {t('exercises.dancingHighLow.heightDramaText' as any)}
           </TextContent>
-          
-          {/* Professional Example Video */}
-          <div className="flex justify-center">
-            <div className="w-full max-w-2xl">
-              <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-2xl shadow-2xl">
-                <iframe
-                  src="https://youtu.be/UiAic0aBKdk?si=w4uN7CYq-UJSgvmJ"
-                  title="Majo Martirena and Rodrigo Fonti - Height Variation Example"
-                  className="absolute top-0 left-0 w-full h-full"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              <p className="text-center text-sm text-gray-600 mt-2">
-                Majo Martirena and Rodrigo Fonti demonstrating height variations
-              </p>
-            </div>
-          </div>
+
+
         </StorySection>
 
         {/* Weekly Assignment Section */}
@@ -114,13 +97,13 @@ const DancingHighLow = () => {
           <div className="text-center mb-8">
             <CheckCircle className="w-12 h-12 text-golden-yellow mx-auto mb-4" />
             <h2 className="text-3xl font-display text-gray-800 mb-6">{t('exercises.dancingHighLow.allAssignments' as any)}</h2>
-            
+
             {/* Prominent "See All Assignments" Button */}
             <div className="mb-6">
               <SeeAllAssignmentsButton to="/exercises/dancing-high-low/assignments" />
             </div>
           </div>
-          
+
           <AssignmentList
             assignments={weeklyAssignments}
             completedTasks={completedTasks}
@@ -132,18 +115,18 @@ const DancingHighLow = () => {
         </StorySection>
 
         {/* Practice Playlist Section */}
-        <PracticePlaylistSection 
+        <PracticePlaylistSection
           title={practicePlaylistData.title}
           description={practicePlaylistData.description}
           spotifySrc={practicePlaylistData.spotifySrc}
         />
       </div>
 
-        <DailyExerciseWrapper
-          topicKey={topic.key}
-          completedTasks={completedTasks}
-          onTaskLevelChange={handleTaskLevelChange}
-        />
+      <DailyExerciseWrapper
+        topicKey={topic.key}
+        completedTasks={completedTasks}
+        onTaskLevelChange={handleTaskLevelChange}
+      />
     </div>
   );
 };
