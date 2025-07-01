@@ -7,12 +7,12 @@ import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import AssignmentList from '@/components/AssignmentList';
-import DancingCircularLinearDaily1to3 from '@/components/DancingCircularLinearDaily1to3';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_circular_linear';
 import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
 import AudioPlayer from '@/components/AudioPlayer';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 import { TOPIC_CONFIG } from '@/config/topics';
+import DailyExerciseWrapper from '@/components/ui/DailyExerciseWrapper';
 
 const DancingCircularLinear = () => {
   const { t } = useTranslation();
@@ -121,17 +121,13 @@ const DancingCircularLinear = () => {
           spotifySrc={practicePlaylistData.spotifySrc}
         />
       </div>
+      
 
-      {/* Daily System */}
-      <div className="max-w-4xl mx-auto px-4 mb-16">
-        <DancingCircularLinearDaily1to3 
+        <DailyExerciseWrapper
+          topicKey={topic.key}
           completedTasks={completedTasks}
           onTaskLevelChange={handleTaskLevelChange}
-          topicName={topic.key}
-          topicIndex={topic.index}
-          totalDays={topic.totalDays}
         />
-      </div>
     </div>
   );
 };

@@ -9,11 +9,12 @@ import AudioSection from '@/components/ui/AudioSection';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
-import SmallAndBigDaily1to7 from '@/components/SmallAndBigDaily1to7';
 import AssignmentList from '@/components/AssignmentList';
 import { getWeeklyAssignments } from '@/data/assignments/smallAndBig';
 import LegatoStaccatoSamples from '@/components/music_samples/legatoStaccato';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
+import DailyExerciseWrapper from '@/components/ui/DailyExerciseWrapper';
+import { TOPIC_CONFIG } from '@/config/topics';
 
 const DancingSmallBig = () => {
   const { t } = useTranslation();
@@ -138,12 +139,12 @@ const DancingSmallBig = () => {
         />      </div>
 
       {/* Daily System */}
-      <div className="max-w-4xl mx-auto px-4 mb-16">
-        <SmallAndBigDaily1to7 
+
+        <DailyExerciseWrapper
+          topicKey={TOPIC_CONFIG.DANCING_SMALL_BIG.key}
           completedTasks={completedTasks}
           onTaskLevelChange={handleTaskLevelChange}
         />
-      </div>
     </div>
   );
 };

@@ -8,9 +8,10 @@ import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
 import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import AssignmentList from '@/components/AssignmentList';
-import DancingWithWithoutControlDaily1to4 from '@/components/DancingWithWithoutControlDaily1to4';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_with_without_control';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
+import DailyExerciseWrapper from '@/components/ui/DailyExerciseWrapper';
+import { TOPIC_CONFIG } from '@/config/topics';
 
 const DancingWithWithoutControl = () => {
   const { t } = useTranslation();
@@ -91,13 +92,13 @@ const DancingWithWithoutControl = () => {
         />
       </div>
 
-      {/* Daily System */}
-      <div className="max-w-4xl mx-auto px-4 mb-16">
-        <DancingWithWithoutControlDaily1to4 
+
+
+        <DailyExerciseWrapper
+          topicKey={TOPIC_CONFIG.DANCING_WITH_WITHOUT_CONTROL.key}
           completedTasks={completedTasks}
           onTaskLevelChange={handleTaskLevelChange}
         />
-      </div>
     </div>
   );
 };

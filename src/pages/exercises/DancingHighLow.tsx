@@ -8,10 +8,10 @@ import SeeAllAssignmentsButton from '@/components/ui/SeeAllAssignmentsButton';
 import TextContent from '@/components/ui/TextContent';
 import TopicStartButton from '@/components/ui/TopicStartButton';
 import AssignmentList from '@/components/AssignmentList';
-import DancingHighLowDaily1to7 from '@/components/DancingHighLowDaily1to7';
 import { getWeeklyAssignments } from '@/data/assignments/dancing_high_low';
 import PracticePlaylistSection from '@/components/ui/PracticePlaylistSection';
 import { TOPIC_CONFIG } from '@/config/topics';
+import DailyExerciseWrapper from '@/components/ui/DailyExerciseWrapper';
 
 const DancingHighLow = () => {
   const { t } = useTranslation();
@@ -139,13 +139,11 @@ const DancingHighLow = () => {
         />
       </div>
 
-      {/* Daily System */}
-      <div className="max-w-4xl mx-auto px-4 mb-16">
-        <DancingHighLowDaily1to7 
+        <DailyExerciseWrapper
+          topicKey={topic.key}
           completedTasks={completedTasks}
           onTaskLevelChange={handleTaskLevelChange}
         />
-      </div>
     </div>
   );
 };
