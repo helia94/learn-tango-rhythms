@@ -7,6 +7,7 @@ import ProfileSection from '@/components/ProfileSection';
 import GameProfileDashboard from '@/components/profile/GameProfileDashboard';
 import UnlockAllButton from '@/components/profile/UnlockAllButton';
 import SpotifyConnection from '@/components/SpotifyConnection';
+import EmailPreferences from '@/components/EmailPreferences';
 import LanguageSelector from '@/components/LanguageSelector';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
@@ -59,6 +60,11 @@ const Profile = () => {
           {/* Admin Controls - Unlock All Button */}
           <div className="mb-8">
             <UnlockAllButton />
+          </div>
+
+          {/* Email Preferences */}
+          <div className="mb-8">
+            <EmailPreferences />
           </div>
 
           {/* Spotify Integration */}

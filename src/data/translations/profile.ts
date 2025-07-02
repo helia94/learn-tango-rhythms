@@ -126,6 +126,24 @@ export const profileTranslations = {
         en: "Member Since",
         de: "Mitglied seit"
       },
+      emailPreferences: {
+        en: "Email Preferences",
+        de: "E-Mail-Einstellungen"
+      },
+      emailPreferencesOptions: {
+        none: {
+          en: "No emails",
+          de: "Keine E-Mails"
+        },
+        important_only: {
+          en: "Only important updates",
+          de: "Nur wichtige Updates"
+        },
+        weekly_reminder: {
+          en: "Weekly reminders to practice",
+          de: "Wöchentliche Übungserinnerungen"
+        }
+      },
       edit: {
         en: "Edit",
         de: "Bearbeiten"

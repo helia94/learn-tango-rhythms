@@ -21,6 +21,7 @@ const ProfileSection: React.FC = () => {
     full_name: profile?.full_name || '',
     bio: profile?.bio || '',
     preferred_language: profile?.preferred_language || currentLanguage,
+    email_preferences: profile?.email_preferences || 'weekly_reminder',
   });
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -56,6 +57,7 @@ const ProfileSection: React.FC = () => {
       full_name: profile?.full_name || '',
       bio: profile?.bio || '',
       preferred_language: profile?.preferred_language || currentLanguage,
+      email_preferences: profile?.email_preferences || 'weekly_reminder',
     });
     setIsEditing(false);
   };

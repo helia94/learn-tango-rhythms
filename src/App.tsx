@@ -36,6 +36,8 @@ import Report from "./pages/Report";
 import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
 import Contact from '@/pages/Contact';
+import Unsubscribe from '@/pages/Unsubscribe';
+import AdminCRM from '@/pages/AdminCRM';
 import ExercisePageWrapper from "@/components/ui/ExercisePageWrapper";
 
 // Component to handle Google Analytics initialization
@@ -82,10 +84,12 @@ const AppRoutes = () => {
         <Route path="leaderboard" element={<Leaderboard />} />
       </Route>
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-      <Route path="/terms" element={<Terms />} />
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="*" element={<NotFound />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/unsubscribe/:type/:token" element={<Unsubscribe />} />
+            <Route path="/admin/crm" element={<AdminCRM />} />
+            <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

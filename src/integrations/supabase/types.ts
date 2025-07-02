@@ -122,6 +122,7 @@ export type Database = {
           avatar_url: string | null
           bio: string | null
           created_at: string
+          email_preferences: string | null
           full_name: string | null
           id: string
           preferred_language: string | null
@@ -132,6 +133,7 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
+          email_preferences?: string | null
           full_name?: string | null
           id: string
           preferred_language?: string | null
@@ -142,6 +144,7 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
+          email_preferences?: string | null
           full_name?: string | null
           id?: string
           preferred_language?: string | null
@@ -237,6 +240,36 @@ export type Database = {
         }
         Relationships: []
       }
+      unsubscribe_tokens: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          token: string
+          token_type: string
+          used_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          token: string
+          token_type: string
+          used_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          token?: string
+          token_type?: string
+          used_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_achievements: {
         Row: {
           achievement_description: string | null
@@ -260,6 +293,39 @@ export type Database = {
           achievement_name?: string
           earned_at?: string
           id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_email_tracking: {
+        Row: {
+          clicks: number | null
+          created_at: string
+          email_type: string
+          id: string
+          opens: number | null
+          sent_at: string
+          subject: string | null
+          user_id: string
+        }
+        Insert: {
+          clicks?: number | null
+          created_at?: string
+          email_type: string
+          id?: string
+          opens?: number | null
+          sent_at?: string
+          subject?: string | null
+          user_id: string
+        }
+        Update: {
+          clicks?: number | null
+          created_at?: string
+          email_type?: string
+          id?: string
+          opens?: number | null
+          sent_at?: string
+          subject?: string | null
           user_id?: string
         }
         Relationships: []
@@ -365,6 +431,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_unsubscribe_token: {
+        Args: { _user_id: string; _token_type: string }
+        Returns: string
+      }
       get_assignment_progress_timeline: {
         Args: { _user_id: string; _start_date?: string }
         Returns: {
@@ -386,6 +456,10 @@ export type Database = {
       update_user_streaks: {
         Args: { _user_id: string }
         Returns: undefined
+      }
+      use_unsubscribe_token: {
+        Args: { _token: string }
+        Returns: Json
       }
     }
     Enums: {
