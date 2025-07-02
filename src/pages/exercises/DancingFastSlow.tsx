@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import SEOHead from '@/components/SEOHead';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useAssignmentReporting } from '@/hooks/useAssignmentReporting';
@@ -154,6 +155,11 @@ const DancingFastSlow = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-deep-teal via-sage-green to-sandy-beige">
+      <SEOHead 
+        title="Dancing Fast and Slow - Tango Musicality Exercise | TANGO DIARIO"
+        description="Learn to dance fast and slow in Argentine tango. Master tempo changes and rhythm variations. Perfect for tango dancers in Karlsruhe, Mannheim, Heidelberg, Frankfurt, Wiesbaden, Stuttgart."
+        keywords="tango fast slow, tango tempo, tango rhythm, argentine tango speed, tango musicality, Karlsruhe tango lessons, Mannheim tango, Heidelberg tango, Frankfurt tango, Wiesbaden tango, Stuttgart tango"
+      />
       <PageHeader title={t('exercises.dancingFastSlow.title')} />
 
       {/* Topic Action Button */}

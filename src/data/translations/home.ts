@@ -14,6 +14,20 @@ export const homeTranslations = {
       de: "Tango Musikalität üben. Wie Zähneputzen."
     }
   },
+  seo: {
+    title: {
+      en: "TANGO DIARIO - Daily Tango Musicality Practice | Learn Argentine Tango Online",
+      de: "TANGO DIARIO - Tägliche Tango Musikalität | Argentinischer Tango Online Lernen"
+    },
+    description: {
+      en: "Master Argentine tango musicality with 5 minutes daily practice. Learn tango dancing techniques for Karlsruhe, Mannheim, Heidelberg, Frankfurt, Wiesbaden, Stuttgart. Free online tango lessons and exercises.",
+      de: "Meistern Sie argentinische Tango Musikalität mit 5 Minuten täglicher Übung. Tango tanzen lernen für Karlsruhe, Mannheim, Heidelberg, Frankfurt, Wiesbaden, Stuttgart. Kostenlose Online Tango Lektionen."
+    },
+    keywords: {
+      en: "tango, argentine tango, tango musicality, tango lessons, tango dancing, daily practice, online tango, tango training, Karlsruhe tango, Mannheim tango, Heidelberg tango, Frankfurt tango, Wiesbaden tango, Stuttgart tango, tango classes, learn tango",
+      de: "Tango, Argentinischer Tango, Tango Musikalität, Tango Stunden, Tango tanzen, tägliche Übung, Online Tango, Tango Training, Karlsruhe Tango, Mannheim Tango, Heidelberg Tango, Frankfurt Tango, Wiesbaden Tango, Stuttgart Tango, Tango Kurse, Tango lernen"
+    }
+  },
   about: {
     title: {
       en: "About Us",
@@ -62,6 +76,10 @@ export const homeTranslations = {
     exampleTopics: {
       en: "Example Topics: Dancing Fast And Slow, Dancing Small And Big, Dancing High And Low...",
       de: "Beispielthemen: Schnell und langsam tanzen, klein und groß tanzen, hoch und tief tanzen..."
+    },
+    localContent: {
+      en: "Perfect for tango dancers in Karlsruhe, Mannheim, Heidelberg, Frankfurt, Wiesbaden, and Stuttgart. Join tango enthusiasts across Baden-Württemberg and Hesse who practice daily with our structured approach to Argentine tango musicality.",
+      de: "Perfekt für Tango-Tänzer in Karlsruhe, Mannheim, Heidelberg, Frankfurt, Wiesbaden und Stuttgart. Schließen Sie sich Tango-Enthusiasten in Baden-Württemberg und Hessen an, die täglich mit unserem strukturierten Ansatz zur argentinischen Tango-Musikalität üben."
     }
   },
   accordion: {

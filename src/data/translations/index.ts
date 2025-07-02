@@ -226,7 +226,8 @@ export type TranslationKey =
   | `home.about.title` | `home.about.description`
   | `home.buttons.roadMap` | `home.buttons.profile` | `home.buttons.login` | `home.buttons.rhythmLab`
   | `home.description.title` | `home.description.getTopicWeek` | `home.description.trackProgress` 
-  | `home.description.buildingContrast` | `home.description.exampleTopics`
+  | `home.description.buildingContrast` | `home.description.exampleTopics` | `home.description.localContent`
+  | `home.seo.title` | `home.seo.description` | `home.seo.keywords`
   | `home.accordion.why.title` | `home.accordion.why.reason1` | `home.accordion.why.reason2` | `home.accordion.why.reason3`
   | `home.accordion.pricing.title` | `home.accordion.pricing.content`
   | `home.accordion.forLeaders.title` | `home.accordion.forLeaders.content`
