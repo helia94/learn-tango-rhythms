@@ -54,8 +54,14 @@ const DayItem: React.FC<DayItemProps> = ({
     
     if (!isLoading) {
       checkTopicStatus();
+      
+      // If topic is not active, poll every 2 seconds to catch activation
+      if (topicActiveState === false) {
+        const interval = setInterval(checkTopicStatus, 2000);
+        return () => clearInterval(interval);
+      }
     }
-  }, [isTopicActive, topicName, topicIndex, isLoading]);
+  }, [isTopicActive, topicName, topicIndex, isLoading, topicActiveState]);
 
   useEffect(() => {
     // wait until hook finishes loading
