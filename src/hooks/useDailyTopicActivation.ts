@@ -8,8 +8,6 @@ import { useUnlockAll } from './useFeatureFlag';
 export const useDailyTopicActivation = (topicKey: string, topicIndex: number, totalDays: number) => {
   const [activatedDays, setActivatedDays] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  // Cache recent activations to avoid race conditions with database
-  const [recentActivations, setRecentActivations] = useState<Map<number, Date>>(new Map());
   const { user } = useAuth();
   const { getActiveTopic } = useTopicActivation();
   const unlockAllEnabled = useUnlockAll();
@@ -73,10 +71,8 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
         throw error;
       }
 
-      // Update local state and cache the activation time
-      const activationTime = new Date();
+      // Update local state
       setActivatedDays(prev => [...prev, dayIndex].sort((a, b) => a - b));
-      setRecentActivations(prev => new Map(prev).set(dayIndex, activationTime));
       console.log(`Day ${dayIndex} activated for topic ${topicKey}`);
     } catch (error) {
       console.error('Error activating day:', error);
@@ -121,25 +117,9 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
   };
 
   const getLastDailyActivationDate = async (): Promise<Date | null> => {
-    if (!user) {
+    if (!user || activatedDays.length === 0) {
       return null;
     }
-
-    // Check recent activations cache first (even if activatedDays is empty due to async state)
-    if (recentActivations.size > 0) {
-      const lastCachedDay = Math.max(...Array.from(recentActivations.keys()));
-      const cachedActivation = recentActivations.get(lastCachedDay);
-      if (cachedActivation) {
-        return cachedActivation;
-      }
-    }
-
-    // If no activated days and no cache, return null
-    if (activatedDays.length === 0) {
-      return null;
-    }
-
-    // Fallback to database query
 
     try {
       const { data, error } = await supabase
