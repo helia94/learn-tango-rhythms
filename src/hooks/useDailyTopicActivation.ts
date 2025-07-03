@@ -121,16 +121,25 @@ export const useDailyTopicActivation = (topicKey: string, topicIndex: number, to
   };
 
   const getLastDailyActivationDate = async (): Promise<Date | null> => {
-    if (!user || activatedDays.length === 0) {
+    if (!user) {
       return null;
     }
 
-    // Check recent activations cache first to avoid race conditions
-    const lastActivatedDay = Math.max(...activatedDays);
-    const cachedActivation = recentActivations.get(lastActivatedDay);
-    if (cachedActivation) {
-      return cachedActivation;
+    // Check recent activations cache first (even if activatedDays is empty due to async state)
+    if (recentActivations.size > 0) {
+      const lastCachedDay = Math.max(...Array.from(recentActivations.keys()));
+      const cachedActivation = recentActivations.get(lastCachedDay);
+      if (cachedActivation) {
+        return cachedActivation;
+      }
     }
+
+    // If no activated days and no cache, return null
+    if (activatedDays.length === 0) {
+      return null;
+    }
+
+    // Fallback to database query
 
     try {
       const { data, error } = await supabase
