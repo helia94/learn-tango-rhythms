@@ -89,9 +89,15 @@ const DayItem: React.FC<DayItemProps> = ({
       } else {
         const hours = Math.floor(timeMs / 3_600_000);
         const minutes = Math.floor((timeMs % 3_600_000) / 60_000);
-        setTimeUntilUnlock(
-          hours ? `unlock in ${hours}h ${minutes}m` : `unlock in ${minutes}m`
-        );
+        
+        // If less than 1 hour remaining, show "available tomorrow" instead
+        if (hours === 0 && minutes < 60) {
+          setTimeUntilUnlock(null);
+        } else {
+          setTimeUntilUnlock(
+            hours ? `unlock in ${hours}h ${minutes}m` : `unlock in ${minutes}m`
+          );
+        }
       }
     })();
 
