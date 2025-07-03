@@ -28,6 +28,10 @@ export const learningTranslations = {
       en: "Available Tomorrow",
       de: "Morgen verfügbar"
     },
+    activateTopicFirst: {
+      en: "Activate topic first",
+      de: "Thema zuerst aktivieren"
+    },
     placeholder: {
       en: "assignment content will be added here...",
       de: "Aufgabeninhalt kommt hier hin..."

@@ -136,15 +136,21 @@ const DayItem: React.FC<DayItemProps> = ({
               </Button>
             )}
 
-            {!canActivateNow && timeUntilUnlock && (
+            {!canActivateNow && timeUntilUnlock && topicActiveState && (
               <span className="text-sm text-golden-yellow font-medium ml-auto">
                 {timeUntilUnlock}
               </span>
             )}
 
-            {!canActivateNow && !timeUntilUnlock && (
+            {!canActivateNow && !timeUntilUnlock && topicActiveState && (
               <span className="text-sm text-golden-yellow font-medium ml-auto">
                 {t('daily.availableTomorrow')}
+              </span>
+            )}
+
+            {topicActiveState === false && (
+              <span className="text-sm text-gray-500 font-medium ml-auto">
+                {t('daily.activateTopicFirst')}
               </span>
             )}
           </div>

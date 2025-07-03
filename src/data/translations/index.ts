@@ -205,6 +205,7 @@ export type TranslationKey =
   | 'daily.unlockTomorrow'
   | 'daily.locked'
   | 'daily.availableTomorrow'
+  | 'daily.activateTopicFirst'
   | 'daily.placeholder'
   | 'daily.placeholderTask'
   | 'daily.dayNotFound'
