@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import DayContent from './DayContent';
 import { DayStatus } from './DayStatus';
 import { useDailyTopicActivation } from '@/hooks/useDailyTopicActivation';
+import { useTopicActivation } from '@/hooks/useTopicActivation';
 
 interface DayItemProps {
   dayNumber: number;
@@ -33,12 +34,28 @@ const DayItem: React.FC<DayItemProps> = ({
   const [timeUntilUnlock, setTimeUntilUnlock] = useState<string | null>(null);
   const [canActivateNow, setCanActivateNow] = useState(false);
 
+  // Get topic activation status to trigger refresh when topic is activated
+  const { isTopicActive } = useTopicActivation();
+  const [topicActiveState, setTopicActiveState] = useState<boolean | null>(null);
+
   // ← added isLoading
   const { getTimeUntilNextActivation, canActivateDay, isLoading } = useDailyTopicActivation(
     topicName,
     topicIndex,
     7 // totalDays
   );
+
+  // Check topic activation status and update local state
+  useEffect(() => {
+    const checkTopicStatus = async () => {
+      const isActive = await isTopicActive(topicName, topicIndex);
+      setTopicActiveState(isActive);
+    };
+    
+    if (!isLoading) {
+      checkTopicStatus();
+    }
+  }, [isTopicActive, topicName, topicIndex, isLoading]);
 
   useEffect(() => {
     // wait until hook finishes loading
@@ -75,7 +92,7 @@ const DayItem: React.FC<DayItemProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [status, dayNumber, topicName, topicIndex, isLoading]); // ← include isLoading
+  }, [status, dayNumber, topicName, topicIndex, isLoading, topicActiveState]); // ← include topicActiveState to refresh when topic is activated
 
   // For locked days, not expandable
   if (status === 'locked') {
