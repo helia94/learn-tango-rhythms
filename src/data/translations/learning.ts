@@ -12,6 +12,10 @@ export const learningTranslations = {
       en: "Unlock Day",
       de: "Tag freischalten"
     },
+    unlockError: {
+      en: 'Is Topic activated? If yes, refresh. Still not working? Contact support. 🛠️😊',
+      de: "Thema aktiviert? Falls ja, neu laden. Immer noch Probleme? Support kontaktieren. 🛠️😊"
+    },
     unlockTomorrow: {
       en: "You can unlock this tomorrow",
       de: "Das kannst Du morgen freischalten"

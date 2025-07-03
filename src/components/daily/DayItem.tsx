@@ -62,7 +62,7 @@ const DayItem: React.FC<DayItemProps> = ({
       if (!isMounted) return;
 
       if (timeMs == null || timeMs < 0) {
-        setTimeUntilUnlock('unlock time unavailable');
+        setTimeUntilUnlock(t('daily.unlockError'));
       } else {
         const hours = Math.floor(timeMs / 3_600_000);
         const minutes = Math.floor((timeMs % 3_600_000) / 60_000);
